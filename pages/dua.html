@@ -1,0 +1,537 @@
+<div id="dua-page" class="app-page" style="display:none">
+<style>
+  #dua-page .dcat{padding:7px 13px;border-radius:50px;border:2px solid var(--border,#e5e7eb);background:var(--card,#fff);color:var(--text2,#666);font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;gap:5px;white-space:nowrap;transition:.18s}
+  #dua-page .dcat.on{background:linear-gradient(135deg,#FF8A00,#FFB800);color:#090B12;border-color:#FF8A00}
+  #dua-page .dua-row{background:var(--card,#fff);border-radius:14px;padding:13px 14px;border:1.5px solid var(--border,#f0f0f0);cursor:pointer;display:flex;align-items:center;gap:12px;transition:.18s}
+  #dua-page .dua-row.rd{border-left:4px solid #FF8A00;border-color:rgba(255,138,0,.3)}
+  #dua-page .dchk{width:30px;height:30px;border-radius:50%;border:2px solid var(--border,#ddd);background:var(--card,#fff);cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:.25s}
+  #dua-page .dchk.on{background:linear-gradient(135deg,#FF8A00,#FFB800);border-color:#FF8A00}
+  #dua-sheet{position:absolute;bottom:0;left:0;right:0;height:96vh;background:var(--card,#fff);border-radius:22px 22px 0 0;overflow:hidden;display:flex;flex-direction:column;transform:translateY(100%);transition:transform .38s cubic-bezier(.32,.72,0,1);pointer-events:auto}
+  #dua-quiz-sheet{position:absolute;bottom:0;left:0;right:0;height:94vh;background:var(--card,#fff);border-radius:22px 22px 0 0;overflow:hidden;display:flex;flex-direction:column;transform:translateY(100%);transition:transform .38s cubic-bezier(.32,.72,0,1);pointer-events:auto}
+  .dua-cover{display:none;position:absolute;inset:0;background:rgba(124,58,237,.1);border-radius:inherit;cursor:pointer;align-items:center;justify-content:center;flex-direction:column;gap:6px;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border:2px dashed rgba(124,58,237,.4)}
+  #dua-memo-thumb{position:absolute;width:18px;height:18px;border-radius:50%;background:#fff;top:3px;left:3px;transition:.3s;box-shadow:0 1px 4px rgba(0,0,0,.2)}
+  .sit-chip{padding:7px 14px;border-radius:50px;border:1.5px solid var(--border,#e5e7eb);background:var(--card,#fff);color:var(--text,#333);font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;white-space:nowrap;flex-shrink:0;transition:.18s}
+  .sit-chip:active{opacity:.7}
+  .dq-opt{padding:12px 16px;border-radius:12px;border:1.5px solid var(--border,#e5e7eb);background:var(--card,#fff);color:var(--text,#1f2937);font-size:13px;font-weight:500;cursor:pointer;text-align:right;font-family:inherit;width:100%;transition:.2s;line-height:1.5}
+  .dq-opt:active{opacity:.8}
+  .dq-opt.correct{background:rgba(255,138,0,.15);border-color:#FF8A00;color:#e07000}
+  .dq-opt.wrong{background:rgba(239,68,68,.12);border-color:#ef4444;color:#dc2626}
+  .ada-col-card{flex-shrink:0;width:160px;border-radius:18px;padding:16px;cursor:pointer;position:relative;overflow:hidden;transition:.18s}
+  .ada-col-card:active{opacity:.85;transform:scale(.97)}
+  .ada-sit-cell{display:flex;flex-direction:column;align-items:center;gap:6px;padding:12px 8px;background:var(--card,#fff);border-radius:16px;border:1.5px solid var(--border,#f0f0f0);cursor:pointer;transition:.18s;text-align:center}
+  .ada-sit-cell:active{opacity:.8;transform:scale(.96)}
+</style>
+
+<!-- ── Kids Wrap ────────────────────────────────────────────────────────── -->
+<div id="dua-kids-wrap">
+<div class="content">
+
+  <!-- Stats row -->
+  <div class="stats-row" style="margin-top:4px">
+    <div class="stat-card">
+      <div class="stat-icon" style="background:linear-gradient(135deg,rgba(255,138,0,.15),rgba(255,184,0,.1))">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#FF8A00" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <div class="stat-value" id="dua-mem-val">0</div>
+      <div class="stat-label">মুখস্থ</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon" style="background:linear-gradient(135deg,rgba(239,68,68,.15),rgba(220,38,38,.1))">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#EF4444" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A6.5 6.5 0 0 0 12 21a6.5 6.5 0 0 0 6.5-6.5c0-3.5-2.5-6-3.5-8.5-1 2.5-3.5 5-3.5 8.5z"/></svg>
+      </div>
+      <div class="stat-value" id="dua-streak-val">0</div>
+      <div class="stat-label">Streak</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon" style="background:linear-gradient(135deg,rgba(124,58,237,.15),rgba(139,92,246,.1))">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#7c3aed" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      </div>
+      <div class="stat-value" id="dua-lv-val" style="font-size:13px">মুবতাদি</div>
+      <div class="stat-label" id="dua-xp-stat">0 XP</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon" style="background:linear-gradient(135deg,rgba(255,138,0,.12),rgba(255,184,0,.08));display:flex;align-items:center;justify-content:center">
+        <svg viewBox="0 0 36 36" width="34" height="34">
+          <circle cx="18" cy="18" r="15.9" fill="none" stroke="rgba(255,138,0,.2)" stroke-width="3.8"/>
+          <circle id="dua-ring" cx="18" cy="18" r="15.9" fill="none" stroke="#FF8A00" stroke-width="3.8" stroke-dasharray="0 100" stroke-linecap="round" transform="rotate(-90 18 18)" style="transition:.5s"/>
+        </svg>
+      </div>
+      <div class="stat-value" id="dua-pct-val">0%</div>
+      <div class="stat-label">Progress</div>
+    </div>
+  </div>
+
+  <!-- XP level bar -->
+  <div style="margin-bottom:14px;padding:0 2px">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px">
+      <span id="dua-lv-name" style="font-size:11px;font-weight:700;color:#7c3aed">মুবতাদি</span>
+      <span id="dua-xp-txt" style="font-size:11px;color:var(--text2,#999)">0 / 50 XP</span>
+    </div>
+    <div style="height:7px;background:var(--border,#e5e7eb);border-radius:4px">
+      <div id="dua-xp-bar" style="height:100%;background:linear-gradient(90deg,#7c3aed,#8B5CF6);border-radius:4px;width:0%;transition:.6s ease"></div>
+    </div>
+  </div>
+
+  <!-- Daily challenge -->
+  <div id="dua-challenge" style="background:linear-gradient(135deg,rgba(255,138,0,.1),rgba(255,184,0,.05));border:1.5px solid rgba(255,138,0,.22);border-radius:16px;padding:14px 16px;margin-bottom:16px;cursor:pointer;display:none">
+    <div style="display:flex;align-items:center;gap:7px;margin-bottom:8px">
+      <svg viewBox="0 0 24 24" width="14" height="14" fill="#FF8A00" stroke="#FF8A00" stroke-width="1"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      <span style="font-size:11px;font-weight:700;color:#FF8A00;letter-spacing:.5px;text-transform:uppercase">আজকের চ্যালেঞ্জ</span>
+      <span style="margin-left:auto;font-size:10px;background:rgba(255,138,0,.15);color:#FF8A00;padding:2px 8px;border-radius:50px;font-weight:700">+10 XP</span>
+    </div>
+    <div id="dua-ch-title" style="font-size:14px;font-weight:700;color:var(--text,#1f2937);margin-bottom:5px"></div>
+    <div id="dua-ch-arabic" class="rz-quran-font" style="font-size:13px;direction:rtl;text-align:right;color:var(--text2,#555);line-height:1.6"></div>
+  </div>
+
+  <!-- Featured dua -->
+  <div style="background:linear-gradient(135deg,#FF8A00,#FFB800);border-radius:18px;padding:18px 20px;color:#fff;margin-bottom:16px;position:relative;overflow:hidden">
+    <div style="position:absolute;right:-20px;top:-20px;width:100px;height:100px;background:rgba(255,255,255,.06);border-radius:50%"></div>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+      <div style="display:flex;align-items:center;gap:6px">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="#FFB800" stroke="#FFB800" stroke-width="1"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        <span style="font-size:11px;font-weight:700;letter-spacing:.5px;opacity:.9">আজকের বিশেষ দোয়া</span>
+      </div>
+      <span id="dua-feat-date" style="font-size:10px;background:rgba(255,255,255,.18);padding:3px 9px;border-radius:50px"></span>
+    </div>
+    <div id="dua-feat-arabic" class="rz-quran-font" style="font-size:19px;direction:rtl;text-align:right;line-height:1.9;margin-bottom:8px"></div>
+    <div id="dua-feat-pron" style="font-size:12px;font-style:italic;opacity:.88;margin-bottom:5px"></div>
+    <div id="dua-feat-title" style="font-size:13px;font-weight:700;margin-bottom:3px"></div>
+    <div id="dua-feat-meaning" style="font-size:12px;opacity:.78;line-height:1.55"></div>
+  </div>
+
+  <!-- Streak calendar -->
+  <div style="background:var(--card,#fff);border-radius:14px;padding:14px;border:1px solid var(--border,#f0f0f0);margin-bottom:16px">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+      <span style="font-size:12px;font-weight:700;color:var(--text,#1f2937)">৩০ দিনের Streak</span>
+      <span id="dua-streak-lbl" style="font-size:11px;color:#FF8A00;font-weight:700">0 দিন</span>
+    </div>
+    <div id="dua-streak-cal" style="display:grid;grid-template-columns:repeat(10,1fr);gap:3px"></div>
+  </div>
+
+  <!-- Situational finder -->
+  <div style="margin-bottom:14px">
+    <div style="font-size:11px;font-weight:700;color:var(--text2,#888);letter-spacing:.4px;text-transform:uppercase;margin-bottom:8px">এখন কী করছ?</div>
+    <div style="display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;-webkit-overflow-scrolling:touch;scrollbar-width:none">
+      <button class="sit-chip" onclick="duaOpenSit(0)">ঘুম থেকে উঠলাম</button>
+      <button class="sit-chip" onclick="duaOpenSit(1)">ঘুমাবো</button>
+      <button class="sit-chip" onclick="duaOpenSit(2)">খাচ্ছি</button>
+      <button class="sit-chip" onclick="duaOpenSit(4)">বের হচ্ছি</button>
+      <button class="sit-chip" onclick="duaOpenSit(6)">টয়লেট</button>
+      <button class="sit-chip" onclick="duaOpenSit(13)">পড়াশোনা</button>
+      <button class="sit-chip" onclick="duaOpenSit(17)">পরীক্ষায়</button>
+      <button class="sit-chip" onclick="duaOpenSit(16)">অসুস্থ</button>
+      <button class="sit-chip" onclick="duaOpenSit(14)">বিপদে</button>
+      <button class="sit-chip" onclick="duaOpenSit(18)">দুশ্চিন্তায়</button>
+    </div>
+  </div>
+
+  <!-- Search + Quiz -->
+  <div style="display:flex;gap:10px;margin-bottom:14px;align-items:center">
+    <div style="position:relative;flex:1">
+      <input id="dua-search" oninput="duaRender()" type="text" placeholder="দোয়া খুঁজুন..."
+        style="width:100%;border:1.5px solid var(--border,#e5e7eb);border-radius:12px;padding:11px 42px 11px 14px;font-size:13px;font-family:inherit;outline:none;background:var(--card,#fff);color:var(--text,#1f2937);box-sizing:border-box"/>
+      <span style="position:absolute;right:14px;top:50%;transform:translateY(-50%);color:var(--text2,#aaa)">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </span>
+    </div>
+    <button onclick="duaStartQuiz()" style="background:linear-gradient(135deg,#7c3aed,#8B5CF6);color:#fff;border:none;border-radius:12px;padding:11px 14px;cursor:pointer;display:flex;align-items:center;gap:5px;font-size:12px;font-weight:700;font-family:inherit;white-space:nowrap;box-shadow:0 3px 10px rgba(124,58,237,.3)">
+      <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      Quiz
+    </button>
+  </div>
+
+  <!-- Category filter -->
+  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px">
+    <button class="dcat on" onclick="duaFilterCat('all',this)">সব</button>
+    <button class="dcat" onclick="duaFilterCat('daily',this)">
+      <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      দৈনিক
+    </button>
+    <button class="dcat" onclick="duaFilterCat('emergency',this)">
+      <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+      Emergency
+    </button>
+    <button class="dcat" onclick="duaFilterCat('occasion',this)">
+      <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      বিশেষ
+    </button>
+    <button class="dcat" onclick="duaFilterCat('learned',this)">
+      <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+      মুখস্থ
+    </button>
+  </div>
+
+  <div style="font-size:12px;color:var(--text2,#888);font-weight:600;margin-bottom:12px" id="dua-count-lbl">৪০টি দোয়া</div>
+  <div id="dua-list" style="display:flex;flex-direction:column;gap:10px;margin-bottom:24px"></div>
+
+</div>
+</div><!-- end dua-kids-wrap -->
+
+<!-- ── Adult Wrap ────────────────────────────────────────────────────────── -->
+<div id="dua-adult-wrap" style="display:none">
+<div class="rz-page-with-banner">
+
+  <div class="rz-page-content" style="padding:16px 16px 100px">
+
+    <!-- ══ 1. STATS ROW ════════════════════════════════════════════ -->
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:16px">
+      <div style="background:var(--card,#fff);border-radius:14px;padding:12px 10px;border:1.5px solid var(--border,#f0f0f0);text-align:center">
+        <div style="font-size:20px;font-weight:800;color:#FF8A00" id="ada-mem-val">0</div>
+        <div style="font-size:10px;color:var(--text2,#888);font-weight:600;margin-top:2px">Memorized</div>
+      </div>
+      <div style="background:var(--card,#fff);border-radius:14px;padding:12px 10px;border:1.5px solid var(--border,#f0f0f0);text-align:center">
+        <div style="font-size:20px;font-weight:800;color:#EF4444" id="ada-streak-val">0</div>
+        <div style="font-size:10px;color:var(--text2,#888);font-weight:600;margin-top:2px">Day Streak</div>
+      </div>
+      <div style="background:var(--card,#fff);border-radius:14px;padding:12px 10px;border:1.5px solid var(--border,#f0f0f0);text-align:center">
+        <div style="font-size:20px;font-weight:800;color:#8B5CF6" id="ada-pct-val">0%</div>
+        <div style="font-size:10px;color:var(--text2,#888);font-weight:600;margin-top:2px">Progress</div>
+      </div>
+      <div style="background:var(--card,#fff);border-radius:14px;padding:12px 10px;border:1.5px solid var(--border,#f0f0f0);text-align:center">
+        <div style="font-size:17px;font-weight:800;color:#FF8A00" id="ada-xp-val">0 XP</div>
+        <div style="font-size:10px;color:var(--text2,#888);font-weight:600;margin-top:2px">Earned</div>
+      </div>
+    </div>
+
+    <!-- ══ 2. DUA OF THE DAY — IMMERSIVE HERO ═════════════════════ -->
+    <div id="ada-hero" style="background:linear-gradient(160deg,#0d1b2a,#1a2e44,#0f2017);border-radius:24px;padding:22px;margin-bottom:14px;position:relative;overflow:hidden;cursor:pointer" onclick="adaOpenFeatured()">
+      <!-- Decorative glows -->
+      <div style="position:absolute;right:-30px;top:-30px;width:180px;height:180px;background:radial-gradient(circle,rgba(255,138,0,0.12),transparent 70%);pointer-events:none"></div>
+      <div style="position:absolute;left:-20px;bottom:-30px;width:140px;height:140px;background:radial-gradient(circle,rgba(34,197,94,0.08),transparent 70%);pointer-events:none"></div>
+      <!-- Header -->
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+        <div style="display:flex;align-items:center;gap:7px">
+          <div style="width:6px;height:6px;border-radius:50%;background:#FF8A00;box-shadow:0 0 8px #FF8A00"></div>
+          <span style="font-size:10px;font-weight:700;letter-spacing:1.5px;color:rgba(255,255,255,0.5)">DUA OF THE DAY</span>
+        </div>
+        <span id="ada-feat-date" style="font-size:10px;color:rgba(255,255,255,0.35);background:rgba(255,255,255,0.06);padding:3px 9px;border-radius:50px"></span>
+      </div>
+      <!-- Arabic text — the centerpiece -->
+      <div id="ada-feat-arabic" class="rz-quran-font" style="font-size:22px;direction:rtl;text-align:right;line-height:2.1;color:#f0f4e8;margin-bottom:14px;text-shadow:0 0 30px rgba(255,184,0,0.2)"></div>
+      <!-- Divider -->
+      <div style="height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.12),transparent);margin-bottom:12px"></div>
+      <!-- Pronunciation + meaning -->
+      <div id="ada-feat-pron" style="font-size:12px;font-style:italic;color:rgba(255,184,0,0.85);line-height:1.65;margin-bottom:8px"></div>
+      <div id="ada-feat-title" style="font-size:13px;font-weight:700;color:rgba(255,255,255,0.9);margin-bottom:5px"></div>
+      <div id="ada-feat-meaning" style="font-size:12.5px;color:rgba(255,255,255,0.55);line-height:1.65"></div>
+      <!-- Tap hint -->
+      <div style="display:flex;align-items:center;gap:5px;margin-top:14px">
+        <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="rgba(255,138,0,0.7)" stroke-width="2" stroke-linecap="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        <span style="font-size:10px;color:rgba(255,138,0,0.7);font-weight:600">Tap to open full dua</span>
+      </div>
+    </div>
+
+    <!-- ══ 3. COLLECTIONS — Spiritual Playlists ════════════════════ -->
+    <div style="margin-bottom:16px">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+        <div style="font-size:13px;font-weight:800;color:var(--text,#1f2937)">Collections</div>
+        <div style="font-size:11px;color:var(--text2,#888)">Curated for you</div>
+      </div>
+      <div style="display:flex;gap:10px;overflow-x:auto;padding-bottom:6px;-webkit-overflow-scrolling:touch;scrollbar-width:none">
+
+        <div class="ada-col-card" onclick="duaOpenSit(0)" style="background:linear-gradient(145deg,#0d2b1e,#1a4d33);border:1px solid rgba(34,197,94,0.2)">
+          <div style="position:absolute;right:-10px;top:-10px;width:70px;height:70px;background:rgba(34,197,94,0.1);border-radius:50%"></div>
+          <div style="font-size:24px;margin-bottom:8px">☀️</div>
+          <div style="font-size:12px;font-weight:800;color:#fff;margin-bottom:3px">Morning Adhkar</div>
+          <div style="font-size:10px;color:rgba(34,197,94,0.8)">أَذْكَار الصَّبَاح</div>
+          <div style="margin-top:10px;font-size:9px;color:rgba(255,255,255,0.4);font-weight:600">DAILY ROUTINE</div>
+        </div>
+
+        <div class="ada-col-card" onclick="duaOpenSit(1)" style="background:linear-gradient(145deg,#1a1635,#2d2660);border:1px solid rgba(99,102,241,0.2)">
+          <div style="position:absolute;right:-10px;top:-10px;width:70px;height:70px;background:rgba(99,102,241,0.1);border-radius:50%"></div>
+          <div style="font-size:24px;margin-bottom:8px">🌙</div>
+          <div style="font-size:12px;font-weight:800;color:#fff;margin-bottom:3px">Before Sleep</div>
+          <div style="font-size:10px;color:rgba(139,92,246,0.85)">أَذْكَار الْمَسَاء</div>
+          <div style="margin-top:10px;font-size:9px;color:rgba(255,255,255,0.4);font-weight:600">EVENING</div>
+        </div>
+
+        <div class="ada-col-card" onclick="duaFilterCat('daily',null)" style="background:linear-gradient(145deg,#2a0d0d,#4d1a1a);border:1px solid rgba(239,68,68,0.2)">
+          <div style="position:absolute;right:-10px;top:-10px;width:70px;height:70px;background:rgba(239,68,68,0.1);border-radius:50%"></div>
+          <div style="font-size:24px;margin-bottom:8px">🤲</div>
+          <div style="font-size:12px;font-weight:800;color:#fff;margin-bottom:3px">Istighfar</div>
+          <div style="font-size:10px;color:rgba(239,68,68,0.8)">الاسْتِغْفَار</div>
+          <div style="margin-top:10px;font-size:9px;color:rgba(255,255,255,0.4);font-weight:600">FORGIVENESS</div>
+        </div>
+
+        <div class="ada-col-card" onclick="duaOpenSit(4)" style="background:linear-gradient(145deg,#2a1c00,#4d3500);border:1px solid rgba(255,138,0,0.2)">
+          <div style="position:absolute;right:-10px;top:-10px;width:70px;height:70px;background:rgba(255,138,0,0.1);border-radius:50%"></div>
+          <div style="font-size:24px;margin-bottom:8px">💼</div>
+          <div style="font-size:12px;font-weight:800;color:#fff;margin-bottom:3px">Rizq & Work</div>
+          <div style="font-size:10px;color:rgba(255,184,0,0.85)">الرِّزْق وَالْعَمَل</div>
+          <div style="margin-top:10px;font-size:9px;color:rgba(255,255,255,0.4);font-weight:600">BARAKAH</div>
+        </div>
+
+        <div class="ada-col-card" onclick="duaOpenSit(16)" style="background:linear-gradient(145deg,#0d1f2a,#1a3d4d);border:1px solid rgba(59,130,246,0.2)">
+          <div style="position:absolute;right:-10px;top:-10px;width:70px;height:70px;background:rgba(59,130,246,0.1);border-radius:50%"></div>
+          <div style="font-size:24px;margin-bottom:8px">❤️</div>
+          <div style="font-size:12px;font-weight:800;color:#fff;margin-bottom:3px">Health & Shifa</div>
+          <div style="font-size:10px;color:rgba(59,130,246,0.85)">الشِّفَاء</div>
+          <div style="margin-top:10px;font-size:9px;color:rgba(255,255,255,0.4);font-weight:600">HEALING</div>
+        </div>
+
+        <div class="ada-col-card" onclick="duaFilterCat('emergency',null)" style="background:linear-gradient(145deg,#1a0d2a,#2d1a47);border:1px solid rgba(139,92,246,0.2)">
+          <div style="position:absolute;right:-10px;top:-10px;width:70px;height:70px;background:rgba(139,92,246,0.1);border-radius:50%"></div>
+          <div style="font-size:24px;margin-bottom:8px">🛡️</div>
+          <div style="font-size:12px;font-weight:800;color:#fff;margin-bottom:3px">Protection</div>
+          <div style="font-size:10px;color:rgba(139,92,246,0.85)">الْحِفْظ وَالْأَمَان</div>
+          <div style="margin-top:10px;font-size:9px;color:rgba(255,255,255,0.4);font-weight:600">EMERGENCY</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ══ 4. SITUATION FINDER — Adult Grid ════════════════════════ -->
+    <div style="background:var(--card,#fff);border-radius:20px;padding:16px;border:1.5px solid var(--border,#e5e7eb);margin-bottom:14px">
+      <div style="font-size:13px;font-weight:800;color:var(--text,#1f2937);margin-bottom:4px">I Need a Dua For…</div>
+      <div style="font-size:11px;color:var(--text2,#888);margin-bottom:14px">What's on your mind right now?</div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px">
+
+        <div class="ada-sit-cell" onclick="duaOpenSit(0)">
+          <div style="font-size:22px">🌅</div>
+          <div style="font-size:11px;font-weight:700;color:var(--text,#1f2937)">Morning</div>
+          <div class="rz-quran-font" style="font-size:10px;color:var(--text2,#888);direction:rtl">الصَّبَاح</div>
+        </div>
+
+        <div class="ada-sit-cell" onclick="duaOpenSit(18)">
+          <div style="font-size:22px">😰</div>
+          <div style="font-size:11px;font-weight:700;color:var(--text,#1f2937)">Anxiety</div>
+          <div class="rz-quran-font" style="font-size:10px;color:var(--text2,#888);direction:rtl">الْقَلَق</div>
+        </div>
+
+        <div class="ada-sit-cell" onclick="duaOpenSit(4)">
+          <div style="font-size:22px">💼</div>
+          <div style="font-size:11px;font-weight:700;color:var(--text,#1f2937)">Work</div>
+          <div class="rz-quran-font" style="font-size:10px;color:var(--text2,#888);direction:rtl">الرِّزْق</div>
+        </div>
+
+        <div class="ada-sit-cell" onclick="duaOpenSit(16)">
+          <div style="font-size:22px">🏥</div>
+          <div style="font-size:11px;font-weight:700;color:var(--text,#1f2937)">Health</div>
+          <div class="rz-quran-font" style="font-size:10px;color:var(--text2,#888);direction:rtl">الشِّفَاء</div>
+        </div>
+
+        <div class="ada-sit-cell" onclick="duaFilterCat('daily',null)">
+          <div style="font-size:22px">🤲</div>
+          <div style="font-size:11px;font-weight:700;color:var(--text,#1f2937)">Forgiveness</div>
+          <div class="rz-quran-font" style="font-size:10px;color:var(--text2,#888);direction:rtl">التَّوْبَة</div>
+        </div>
+
+        <div class="ada-sit-cell" onclick="duaOpenSit(14)">
+          <div style="font-size:22px">⛅</div>
+          <div style="font-size:11px;font-weight:700;color:var(--text,#1f2937)">Difficulty</div>
+          <div class="rz-quran-font" style="font-size:10px;color:var(--text2,#888);direction:rtl">الْكُرْبَة</div>
+        </div>
+
+        <div class="ada-sit-cell" onclick="duaOpenSit(2)">
+          <div style="font-size:22px">🍽️</div>
+          <div style="font-size:11px;font-weight:700;color:var(--text,#1f2937)">Eating</div>
+          <div class="rz-quran-font" style="font-size:10px;color:var(--text2,#888);direction:rtl">الطَّعَام</div>
+        </div>
+
+        <div class="ada-sit-cell" onclick="duaOpenSit(1)">
+          <div style="font-size:22px">🌙</div>
+          <div style="font-size:11px;font-weight:700;color:var(--text,#1f2937)">Sleep</div>
+          <div class="rz-quran-font" style="font-size:10px;color:var(--text2,#888);direction:rtl">النَّوْم</div>
+        </div>
+
+        <div class="ada-sit-cell" onclick="duaFilterCat('occasion',null)">
+          <div style="font-size:22px">⭐</div>
+          <div style="font-size:11px;font-weight:700;color:var(--text,#1f2937)">Special</div>
+          <div class="rz-quran-font" style="font-size:10px;color:var(--text2,#888);direction:rtl">الْمُنَاسَبَات</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ══ 5. 30-DAY STREAK ════════════════════════════════════════ -->
+    <div style="background:var(--card,#fff);border-radius:20px;padding:16px;border:1.5px solid var(--border,#e5e7eb);margin-bottom:14px">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+        <div style="display:flex;align-items:center;gap:7px">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#EF4444" stroke-width="2" stroke-linecap="round"><path d="M8.5 14.5A6.5 6.5 0 0 0 12 21a6.5 6.5 0 0 0 6.5-6.5c0-3.5-2.5-6-3.5-8.5-1 2.5-3.5 5-3.5 8.5z"/></svg>
+          <span style="font-size:13px;font-weight:800;color:var(--text,#1f2937)">30-Day Streak</span>
+        </div>
+        <span id="ada-streak-lbl" style="font-size:12px;font-weight:700;color:#FF8A00;background:rgba(255,138,0,0.1);padding:3px 10px;border-radius:50px">0 days</span>
+      </div>
+      <div id="ada-streak-cal" style="display:grid;grid-template-columns:repeat(10,1fr);gap:4px"></div>
+      <div style="display:flex;align-items:center;gap:10px;margin-top:10px;flex-wrap:wrap">
+        <span style="display:flex;align-items:center;gap:4px;font-size:10px;color:var(--text2,#888)"><span style="width:10px;height:10px;border-radius:3px;background:#FF8A00;display:inline-block"></span>Completed</span>
+        <span style="display:flex;align-items:center;gap:4px;font-size:10px;color:var(--text2,#888)"><span style="width:10px;height:10px;border-radius:3px;background:rgba(255,138,0,0.2);border:1.5px solid rgba(255,138,0,0.4);display:inline-block"></span>Today</span>
+        <span style="display:flex;align-items:center;gap:4px;font-size:10px;color:var(--text2,#888)"><span style="width:10px;height:10px;border-radius:3px;background:var(--border,#f0f0f0);display:inline-block"></span>Missed</span>
+      </div>
+    </div>
+
+    <!-- ══ 6. ALL DUAS — Search & Browse ══════════════════════════ -->
+    <div style="background:var(--card,#fff);border-radius:20px;padding:16px;border:1.5px solid var(--border,#e5e7eb);margin-bottom:14px">
+      <div style="font-size:13px;font-weight:800;color:var(--text,#1f2937);margin-bottom:12px">Browse All Duas</div>
+      <!-- Search -->
+      <div style="position:relative;margin-bottom:10px">
+        <input id="ada-search" oninput="rzAdaSearchDua()" type="text" placeholder="Search duas…"
+          style="width:100%;box-sizing:border-box;border:1.5px solid var(--border,#e5e7eb);border-radius:12px;padding:10px 40px 10px 14px;font-size:13px;font-family:inherit;outline:none;background:var(--bg,#f9fafb);color:var(--text,#1f2937)"/>
+        <span style="position:absolute;right:13px;top:50%;transform:translateY(-50%);color:var(--text2,#aaa)">
+          <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </span>
+      </div>
+      <!-- Filter tabs -->
+      <div style="display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px;margin-bottom:12px">
+        <button id="ada-filt-all" onclick="rzAdaFilter('all',this)" style="padding:5px 14px;border-radius:50px;border:none;background:#FF8A00;color:#fff;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;white-space:nowrap;flex-shrink:0">All</button>
+        <button id="ada-filt-daily" onclick="rzAdaFilter('daily',this)" style="padding:5px 14px;border-radius:50px;border:1.5px solid var(--border,#e5e7eb);background:transparent;color:var(--text2,#888);font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;white-space:nowrap;flex-shrink:0">Daily</button>
+        <button id="ada-filt-emergency" onclick="rzAdaFilter('emergency',this)" style="padding:5px 14px;border-radius:50px;border:1.5px solid var(--border,#e5e7eb);background:transparent;color:var(--text2,#888);font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;white-space:nowrap;flex-shrink:0">Emergency</button>
+        <button id="ada-filt-occasion" onclick="rzAdaFilter('occasion',this)" style="padding:5px 14px;border-radius:50px;border:1.5px solid var(--border,#e5e7eb);background:transparent;color:var(--text2,#888);font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;white-space:nowrap;flex-shrink:0">Special</button>
+        <button id="ada-filt-learned" onclick="rzAdaFilter('learned',this)" style="padding:5px 14px;border-radius:50px;border:1.5px solid var(--border,#e5e7eb);background:transparent;color:var(--text2,#888);font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;white-space:nowrap;flex-shrink:0">Memorized</button>
+      </div>
+      <!-- Dua list -->
+      <div id="ada-dua-list" style="display:flex;flex-direction:column;gap:8px"></div>
+    </div>
+
+    <!-- Mobile donation card -->
+    <div class="rz-donation-mobile-card" style="margin-bottom:14px">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
+        <div style="width:42px;height:42px;border-radius:13px;background:linear-gradient(135deg,rgba(255,138,0,0.15),rgba(255,184,0,0.1));border:1px solid rgba(255,138,0,0.3);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#FF8A00" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" fill="rgba(255,138,0,0.12)"/></svg>
+        </div>
+        <div>
+          <div style="font-size:13px;font-weight:800;color:var(--text,#1f2937)">Rizers কে Support করুন</div>
+          <div style="font-size:11px;color:var(--text2,#888);margin-top:2px">মাত্র ৳৯৯/মাসে • সম্পূর্ণ স্বেচ্ছায়</div>
+        </div>
+      </div>
+      <a href="#" onclick="rzGoToPayment();return false;" style="display:block;width:100%;background:linear-gradient(135deg,#FF8A00,#FFB800);color:#090B12;font-size:13px;font-weight:800;text-align:center;padding:13px;border-radius:12px;text-decoration:none;box-shadow:0 4px 14px rgba(255,138,0,0.35);box-sizing:border-box">🤲 ৳৯৯/মাসে Support করুন</a>
+    </div>
+
+  </div><!-- end rz-page-content -->
+
+  <!-- Desktop Sidebar -->
+  <div class="rz-donation-sidebar">
+    <div class="rz-dsb-inner">
+      <div style="text-align:center;margin-bottom:20px">
+        <div style="width:58px;height:58px;border-radius:18px;background:linear-gradient(135deg,rgba(255,138,0,0.15),rgba(255,184,0,0.1));border:1px solid rgba(255,138,0,0.3);display:flex;align-items:center;justify-content:center;margin:0 auto 12px">
+          <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="#FF8A00" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" fill="rgba(255,138,0,0.12)"/></svg>
+        </div>
+        <div style="font-size:12px;font-weight:800;color:#FF8A00;letter-spacing:1px;text-transform:uppercase">Rizers কে Support করুন</div>
+      </div>
+      <div style="background:rgba(255,138,0,0.06);border:1px solid rgba(255,138,0,0.15);border-radius:14px;padding:16px;margin-bottom:16px">
+        <div style="font-size:15px;font-weight:700;color:var(--text,#1f2937);line-height:1.6;margin-bottom:10px">"তোমার ছোট সাহায্য হাজারজনের দোয়া ও ইবাদতের অভ্যাস ঠিক রাখতে সাহায্য করতে পারে।"</div>
+        <div style="font-size:12.5px;color:var(--text2,#888);line-height:1.7">Rizers ব্যবহার করে প্রতিদিন হাজারো মানুষ দোয়া মুখস্থ করছে। তুমি চাইলে এই যাত্রার অংশ হতে পারো।</div>
+      </div>
+      <div style="margin-bottom:16px">
+        <div style="font-size:12px;font-weight:700;color:var(--text2,#888);margin-bottom:10px;text-transform:uppercase;letter-spacing:.8px">মাত্র ৳৯৯/মাসে</div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div style="display:flex;align-items:center;gap:10px"><div style="width:7px;height:7px;border-radius:50%;background:#FF8A00;flex-shrink:0"></div><span style="font-size:13.5px;color:var(--text,#1f2937)">১ কাপ চায়ের দাম</span></div>
+          <div style="display:flex;align-items:center;gap:10px"><div style="width:7px;height:7px;border-radius:50%;background:#22C55E;flex-shrink:0"></div><span style="font-size:13.5px;color:var(--text,#1f2937)">হাজারজনের AI partner চালু থাকে</span></div>
+          <div style="display:flex;align-items:center;gap:10px"><div style="width:7px;height:7px;border-radius:50%;background:#3B82F6;flex-shrink:0"></div><span style="font-size:13.5px;color:var(--text,#1f2937)">সব feature সম্পূর্ণ free থাকে</span></div>
+        </div>
+      </div>
+      <div style="height:1px;background:var(--border,#e5e7eb);margin-bottom:16px"></div>
+      <div style="margin-bottom:20px;flex:1">
+        <div style="font-size:13px;color:var(--text2,#888);line-height:1.8;font-style:italic">"যে ব্যক্তি কোনো ভালো কাজে সহায়তা করে, সে যেন সেই কাজ নিজেই করলো।"</div>
+        <div style="font-size:11.5px;color:#FF8A00;font-weight:700;margin-top:6px">— বুখারী ও মুসলিম</div>
+      </div>
+      <a href="#" onclick="rzGoToPayment();return false;" style="display:block;width:100%;background:linear-gradient(135deg,#FF8A00,#FFB800);color:#090B12;font-size:14px;font-weight:800;text-align:center;padding:15px;border-radius:13px;text-decoration:none;box-shadow:0 4px 16px rgba(255,138,0,0.4);box-sizing:border-box">🤲 ৳৯৯/মাসে Support করুন</a>
+      <div style="text-align:center;margin-top:12px;font-size:11px;color:var(--text2,#888)">সম্পূর্ণ স্বেচ্ছায় • যেকোনো সময় বাতিল করুন</div>
+    </div>
+  </div>
+
+</div><!-- end rz-page-with-banner -->
+</div><!-- end dua-adult-wrap -->
+
+<!-- ── Shared Modals (fixed-position, work for both kids & adult) ───────── -->
+
+<!-- Dua detail sheet -->
+<div id="dua-modal" style="display:none;position:fixed;inset:0;z-index:9999;pointer-events:none">
+  <div id="dua-modal-bg" onclick="closeDuaModal()" style="position:absolute;inset:0;background:rgba(0,0,0,.55);opacity:0;transition:opacity .32s ease;pointer-events:none"></div>
+  <div id="dua-sheet">
+    <div id="dua-sheet-hdr" style="background:linear-gradient(135deg,#FF8A00,#FFB800);color:#fff;flex-shrink:0">
+      <div style="display:flex;justify-content:center;padding:10px 0 0">
+        <div style="width:38px;height:4px;background:rgba(255,255,255,.35);border-radius:2px"></div>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;padding:10px 18px 20px">
+        <button onclick="closeDuaModal()" style="background:rgba(255,255,255,.22);border:none;color:#fff;width:36px;height:36px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <div>
+          <div id="ds-cat" style="font-size:10px;opacity:.82;font-weight:700;letter-spacing:.6px;text-transform:uppercase;margin-bottom:3px"></div>
+          <div id="ds-title" style="font-size:19px;font-weight:800;line-height:1.25"></div>
+        </div>
+      </div>
+    </div>
+    <div id="dua-sheet-scroll" style="flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:20px 18px 40px">
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 14px;background:rgba(124,58,237,.07);border-radius:12px;border:1px solid rgba(124,58,237,.18);margin-bottom:18px">
+        <div>
+          <div style="font-size:13px;font-weight:700;color:#7c3aed">মুখস্থ মোড</div>
+          <div style="font-size:11px;color:var(--text2,#888);margin-top:1px">লুকিয়ে রাখো → নিজে বলো → টেপ করে দেখো</div>
+        </div>
+        <label style="position:relative;display:inline-block;width:44px;height:24px;cursor:pointer;flex-shrink:0">
+          <input type="checkbox" id="dua-memo-toggle" onchange="duaMemoMode(this.checked)" style="opacity:0;width:0;height:0;position:absolute">
+          <div id="dua-memo-track" style="position:absolute;inset:0;border-radius:12px;background:var(--border,#ddd);transition:.3s">
+            <div id="dua-memo-thumb"></div>
+          </div>
+        </label>
+      </div>
+      <div style="position:relative;margin-bottom:14px;border-radius:14px;overflow:hidden" id="ds-arabic-wrap">
+        <div id="ds-arabic" class="rz-quran-font" style="font-size:30px;direction:rtl;text-align:right;line-height:2.1;background:#1a1a2e;color:#f0f9f4;border-radius:14px;padding:20px 22px"></div>
+        <div id="ds-arabic-cover" class="dua-cover" onclick="duaReveal('arabic')">
+          <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="#7c3aed" stroke-width="2" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          <div style="font-size:13px;font-weight:700;color:#7c3aed">আরবি দেখো</div>
+        </div>
+      </div>
+      <div style="position:relative;margin-bottom:12px;border-radius:10px;overflow:hidden">
+        <div id="ds-pron" style="font-size:15px;color:#FF8A00;font-style:italic;padding:12px 15px;background:rgba(255,138,0,.07);border-radius:10px;border-left:3px solid #FF8A00;line-height:1.7"></div>
+        <div id="ds-pron-cover" class="dua-cover" style="border-radius:10px" onclick="duaReveal('pron')">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#7c3aed" stroke-width="2" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          <div style="font-size:12px;font-weight:700;color:#7c3aed">উচ্চারণ দেখো</div>
+        </div>
+      </div>
+      <div id="ds-meaning" style="font-size:14.5px;color:var(--text,#444);line-height:1.75;padding:14px 16px;background:var(--bg,#fafafa);border-radius:12px;border:1px solid var(--border,#ebebeb);margin-bottom:14px"></div>
+      <div id="ds-tip" style="font-size:12px;color:var(--text2,#777);padding:10px 14px;background:rgba(255,138,0,.05);border-radius:10px;border-left:3px solid rgba(255,138,0,.3);margin-bottom:22px;line-height:1.6;font-style:italic"></div>
+      <div style="display:flex;gap:9px">
+        <button id="dua-learn-btn" onclick="duaToggleLearn()" style="flex:1;padding:14px;background:linear-gradient(135deg,#FF8A00,#FFB800);color:#090B12;border:none;border-radius:14px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;box-shadow:0 4px 14px rgba(255,138,0,.28)">মুখস্থ করলাম</button>
+        <button onclick="duaShare()" style="padding:14px 16px;background:var(--bg,#f9fafb);color:#7c3aed;border:1.5px solid rgba(124,58,237,.3);border-radius:14px;cursor:pointer;display:flex;align-items:center;justify-content:center">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Quiz modal -->
+<div id="dua-quiz-modal" style="display:none;position:fixed;inset:0;z-index:9999;pointer-events:none">
+  <div id="dua-quiz-bg" onclick="closeDuaQuiz()" style="position:absolute;inset:0;background:rgba(0,0,0,.55);opacity:0;transition:opacity .32s ease;pointer-events:none"></div>
+  <div id="dua-quiz-sheet">
+    <div style="background:linear-gradient(135deg,#7c3aed,#8B5CF6);color:#fff;flex-shrink:0">
+      <div style="display:flex;justify-content:center;padding:10px 0 0">
+        <div style="width:38px;height:4px;background:rgba(255,255,255,.35);border-radius:2px"></div>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;padding:10px 18px 18px">
+        <button onclick="closeDuaQuiz()" style="background:rgba(255,255,255,.22);border:none;color:#fff;width:36px;height:36px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <div style="flex:1">
+          <div style="font-size:11px;opacity:.82;font-weight:700;letter-spacing:.6px;text-transform:uppercase">Dua Quiz</div>
+          <div id="dq-score-lbl" style="font-size:15px;font-weight:800">Score: 0</div>
+        </div>
+        <div id="dq-prog-pill" style="background:rgba(255,255,255,.2);padding:4px 12px;border-radius:50px;font-size:12px;font-weight:700">1/10</div>
+      </div>
+    </div>
+    <div style="flex:1;overflow-y:auto;padding:20px 18px 40px">
+      <div style="height:6px;background:var(--border,#e5e7eb);border-radius:3px;margin-bottom:20px">
+        <div id="dq-prog-bar" style="height:100%;background:linear-gradient(90deg,#7c3aed,#8B5CF6);border-radius:3px;width:10%;transition:.4s"></div>
+      </div>
+      <div id="dq-arabic" class="rz-quran-font" style="font-size:22px;direction:rtl;text-align:right;line-height:2;background:#1a1a2e;color:#f0f9f4;border-radius:14px;padding:16px 20px;margin-bottom:16px"></div>
+      <div style="font-size:12px;font-weight:700;color:var(--text2,#888);margin-bottom:12px;text-align:center">What is the meaning of this dua?</div>
+      <div id="dq-opts" style="display:flex;flex-direction:column;gap:10px;margin-bottom:16px"></div>
+      <div id="dq-result" style="display:none;padding:12px 16px;border-radius:12px;text-align:center;font-size:14px;font-weight:700;margin-bottom:14px"></div>
+      <button id="dq-next-btn" onclick="duaQuizNext()" style="display:none;width:100%;padding:14px;background:linear-gradient(135deg,#7c3aed,#8B5CF6);color:#fff;border:none;border-radius:14px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit">Next →</button>
+      <div id="dq-final" style="display:none;text-align:center;padding-top:10px">
+        <div style="font-size:48px;margin-bottom:10px">🎯</div>
+        <div id="dq-final-score" style="font-size:26px;font-weight:800;color:#7c3aed;margin-bottom:6px"></div>
+        <div id="dq-final-xp" style="font-size:14px;color:#7c3aed;font-weight:700;margin-bottom:6px"></div>
+        <div style="font-size:13px;color:var(--text2,#777);margin-bottom:24px">Keep challenging yourself!</div>
+        <div style="display:flex;gap:10px;justify-content:center">
+          <button onclick="duaStartQuiz()" style="padding:12px 22px;background:linear-gradient(135deg,#7c3aed,#8B5CF6);color:#fff;border:none;border-radius:12px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit">Play Again</button>
+          <button onclick="closeDuaQuiz()" style="padding:12px 22px;background:var(--bg,#f5f5f5);color:var(--text,#333);border:1.5px solid var(--border,#e5e7eb);border-radius:12px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- end dua-page -->

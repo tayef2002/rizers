@@ -1,0 +1,94 @@
+<div id="creatorinfo-page" class="app-page" style="display:none;background:var(--bg)">
+
+  <div id="creatorinfo-anim" style="opacity:0;transform:translateY(14px);transition:opacity .3s ease,transform .3s ease">
+
+  <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;padding:16px 16px 8px">
+    <button onclick="showPage('creatorprofile')" style="background:none;border:none;cursor:pointer;padding:4px;display:flex" aria-label="Back">
+      <svg viewBox="0 0 24 24" style="width:20px;height:20px;fill:none;stroke:var(--text);stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+    </button>
+    <!-- BN/EN toggle — a sliding pill that animates between the two, current pick highlighted -->
+    <div style="position:relative;display:flex;background:var(--border);border-radius:20px;padding:3px;width:112px">
+      <div id="ci-lang-slider" style="position:absolute;top:3px;left:3px;width:53px;height:calc(100% - 6px);background:#FF8A00;border-radius:16px;transition:transform .25s ease"></div>
+      <button onclick="_rzSetCreatorLang('bn')" style="position:relative;flex:1;border:none;background:none;padding:6px 0;font-size:12px;font-weight:700;cursor:pointer;font-family:'Hind Siliguri',sans-serif;color:var(--text);z-index:1">BN</button>
+      <button onclick="_rzSetCreatorLang('en')" style="position:relative;flex:1;border:none;background:none;padding:6px 0;font-size:12px;font-weight:700;cursor:pointer;font-family:'Hind Siliguri',sans-serif;color:var(--text);z-index:1">EN</button>
+    </div>
+  </div>
+
+  <div style="max-width:520px;margin:0 auto;padding:8px 24px 48px;font-family:'Hind Siliguri',sans-serif">
+
+    <h1 id="ci-t-heading" style="font-size:21px;font-weight:800;color:var(--text);line-height:1.4;margin:12px 0 24px"></h1>
+
+    <p id="ci-t-greeting" style="font-size:14.5px;color:var(--text);line-height:1.8;margin-bottom:20px;white-space:pre-line"></p>
+
+    <p id="ci-t-intro" style="font-size:14.5px;color:var(--text);line-height:1.8;margin-bottom:32px"></p>
+
+    <!-- What's already true -->
+    <div style="margin-bottom:32px">
+      <div id="ci-t-checklist-title" style="font-size:13px;font-weight:800;color:var(--text2);text-transform:uppercase;letter-spacing:.4px;margin-bottom:12px"></div>
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <div style="display:flex;gap:10px;align-items:flex-start">
+          <span style="color:#22c55e;font-size:15px;line-height:1.6">✓</span>
+          <span id="ci-t-check-1" style="font-size:14px;color:var(--text);line-height:1.6"></span>
+        </div>
+        <div style="display:flex;gap:10px;align-items:flex-start">
+          <span style="color:#22c55e;font-size:15px;line-height:1.6">✓</span>
+          <span id="ci-t-check-2" style="font-size:14px;color:var(--text);line-height:1.6"></span>
+        </div>
+        <div style="display:flex;gap:10px;align-items:flex-start">
+          <span style="color:#22c55e;font-size:15px;line-height:1.6">✓</span>
+          <span id="ci-t-check-3" style="font-size:14px;color:var(--text);line-height:1.6"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Vote count stat -->
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px 20px;margin-bottom:32px;text-align:center">
+      <div style="font-size:28px;font-weight:800;color:#FF8A00" id="ci-vote-count">0</div>
+      <div id="ci-t-vote-suffix" style="font-size:13px;color:var(--text2);margin-top:2px"></div>
+    </div>
+
+    <!-- What you get -->
+    <div style="margin-bottom:32px">
+      <div id="ci-t-benefits-title" style="font-size:13px;font-weight:800;color:var(--text2);text-transform:uppercase;letter-spacing:.4px;margin-bottom:12px"></div>
+      <ol style="margin:0;padding-left:20px;display:flex;flex-direction:column;gap:10px">
+        <li id="ci-t-benefit-1" style="font-size:14px;color:var(--text);line-height:1.6"></li>
+        <li id="ci-t-benefit-2" style="font-size:14px;color:var(--text);line-height:1.6"></li>
+        <li id="ci-t-benefit-3" style="font-size:14px;color:var(--text);line-height:1.6"></li>
+        <li id="ci-t-benefit-4" style="font-size:14px;color:var(--text);line-height:1.6"></li>
+        <li id="ci-t-benefit-5" style="font-size:14px;color:var(--text);line-height:1.6"></li>
+      </ol>
+    </div>
+
+    <!-- What if you don't -->
+    <div style="margin-bottom:32px">
+      <div id="ci-t-noshow-title" style="font-size:13px;font-weight:800;color:var(--text2);text-transform:uppercase;letter-spacing:.4px;margin-bottom:8px"></div>
+      <p id="ci-t-noshow-body" style="font-size:14px;color:var(--text);line-height:1.7;margin:0"></p>
+    </div>
+
+    <!-- How to connect -->
+    <div style="margin-bottom:36px">
+      <div id="ci-t-steps-title" style="font-size:13px;font-weight:800;color:var(--text2);text-transform:uppercase;letter-spacing:.4px;margin-bottom:12px"></div>
+      <ol style="margin:0;padding-left:20px;display:flex;flex-direction:column;gap:10px">
+        <li id="ci-t-step-1" style="font-size:14px;color:var(--text);line-height:1.6"></li>
+        <li id="ci-t-step-2" style="font-size:14px;color:var(--text);line-height:1.6"></li>
+        <li id="ci-t-step-3" style="font-size:14px;color:var(--text);line-height:1.6"></li>
+      </ol>
+    </div>
+
+    <p id="ci-t-closing" style="font-size:14px;color:var(--text2);line-height:1.7;margin-bottom:24px"></p>
+
+    <!-- Contact details — collected before moving to the claim/verification step -->
+    <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:14px">
+      <input id="ci-name" type="text" style="width:100%;padding:12px 14px;background:var(--card);border:1px solid var(--border);border-radius:8px;font-size:14px;color:var(--text);font-family:'Hind Siliguri',sans-serif;box-sizing:border-box">
+      <input id="ci-email" type="email" style="width:100%;padding:12px 14px;background:var(--card);border:1px solid var(--border);border-radius:8px;font-size:14px;color:var(--text);font-family:'Hind Siliguri',sans-serif;box-sizing:border-box">
+      <input id="ci-whatsapp" type="tel" style="width:100%;padding:12px 14px;background:var(--card);border:1px solid var(--border);border-radius:8px;font-size:14px;color:var(--text);font-family:'Hind Siliguri',sans-serif;box-sizing:border-box">
+    </div>
+    <div id="ci-error" style="display:none;color:#E24B4A;font-size:13px;margin-bottom:10px;font-family:'Hind Siliguri',sans-serif"></div>
+
+    <button id="ci-contact-btn" onclick="_rzContactAboutClaim()" style="width:100%;padding:14px;background:linear-gradient(90deg,#FF8A00,#FFB800);color:#fff;border:none;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;font-family:'Hind Siliguri',sans-serif"></button>
+
+  </div>
+
+  </div><!-- /creatorinfo-anim -->
+
+</div>

@@ -1,0 +1,356 @@
+<div id="business-page" class="page-div app-page" style="display:none">
+
+<!-- ══ KIDS WRAP ══ -->
+<div id="bs-kids-wrap">
+  <div style="padding:60px 24px 32px;text-align:center">
+    <div style="width:72px;height:72px;border-radius:22px;background:linear-gradient(135deg,rgba(16,185,129,.15),rgba(245,158,11,.1));border:1.5px solid rgba(16,185,129,.3);display:flex;align-items:center;justify-content:center;margin:0 auto 18px">
+      <svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="#10B981" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8m-4-4v4"/><polyline points="7 8 12 13 17 8"/></svg>
+    </div>
+    <div style="font-size:20px;font-weight:800;color:var(--text,#1a1a2e);margin-bottom:8px">Business Tracker</div>
+    <div style="font-size:14px;color:var(--text2,#888);line-height:1.7">এই section টি বড়দের জন্য।<br>উপরে <strong>Me</strong> বাটন চাপুন।</div>
+  </div>
+  <div class="rz-donation-mobile-card" style="margin:0 16px 24px">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
+      <div style="width:38px;height:38px;border-radius:12px;background:rgba(255,138,0,.1);border:1px solid rgba(255,138,0,.25);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#FF8A00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" fill="rgba(255,138,0,.12)"/></svg>
+      </div>
+      <div>
+        <div style="font-size:13px;font-weight:800;color:var(--text,#1f2937)">Rizers কে টিকিয়ে রাখুন</div>
+        <div style="font-size:11.5px;color:var(--text2,#888);margin-top:2px">মাত্র ৳৯৯/মাসে • সম্পূর্ণ স্বেচ্ছায়</div>
+      </div>
+    </div>
+    <a href="#" onclick="rzGoToPayment&&rzGoToPayment();return false;" style="display:block;width:100%;background:linear-gradient(135deg,#FF8A00,#FFB800);color:#090B12;font-size:13px;font-weight:800;text-align:center;padding:11px;border-radius:12px;text-decoration:none;box-sizing:border-box">🤲 Support করুন</a>
+  </div>
+</div>
+
+<!-- ══ ADULT WRAP ══ -->
+<div id="bs-adult-wrap" style="display:none">
+  <div class="rz-page-with-banner">
+    <div class="rz-page-content" style="padding:0 0 80px">
+
+      <!-- ═══ HERO CARD ═══ -->
+      <div id="bs-hero" style="background:linear-gradient(135deg,#022c22 0%,#064e3b 55%,#022c22 100%);padding:28px 24px 24px;position:relative;overflow:hidden;margin:16px 20px 0;border-radius:24px">
+        <div style="position:absolute;width:240px;height:240px;border-radius:50%;border:1.5px solid rgba(16,185,129,.15);top:-80px;right:-60px;pointer-events:none"></div>
+        <div style="position:absolute;width:140px;height:140px;border-radius:50%;border:1.5px solid rgba(245,158,11,.12);top:20px;right:30px;pointer-events:none"></div>
+        <div style="position:absolute;width:80px;height:80px;border-radius:50%;background:rgba(16,185,129,.06);bottom:-20px;left:30px;pointer-events:none"></div>
+
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:20px">
+          <div style="flex:1;padding-right:16px">
+            <div style="font-size:10px;color:rgba(255,255,255,.45);letter-spacing:.9px;text-transform:uppercase;margin-bottom:5px">ব্যবসা ড্যাশবোর্ড</div>
+            <div id="bs-biz-name" onclick="bsEditProfile()" style="font-size:18px;font-weight:800;color:#fff;cursor:pointer;margin-bottom:3px;display:flex;align-items:center;gap:6px">
+              আপনার ব্যবসার নাম
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.4)" stroke-width="2.5" stroke-linecap="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+            </div>
+            <div id="bs-biz-type" onclick="bsEditProfile()" style="font-size:12px;color:rgba(255,255,255,.5);cursor:pointer">ব্যবসার ধরন বেছে নিন</div>
+          </div>
+          <div style="position:relative;width:78px;height:78px;flex-shrink:0">
+            <svg width="78" height="78" viewBox="0 0 78 78">
+              <circle cx="39" cy="39" r="31" fill="none" stroke="rgba(255,255,255,.1)" stroke-width="7"/>
+              <circle id="bs-score-ring" cx="39" cy="39" r="31" fill="none" stroke="#10B981" stroke-width="7" stroke-linecap="round" stroke-dasharray="194.78" stroke-dashoffset="194.78" transform="rotate(-90 39 39)" style="transition:stroke-dashoffset 1.2s ease"/>
+            </svg>
+            <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center">
+              <div id="bs-score-num" style="font-size:20px;font-weight:900;color:#fff;line-height:1">0</div>
+              <div style="font-size:7.5px;color:rgba(255,255,255,.55);margin-top:1px;letter-spacing:.5px">HEALTH</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="text-align:center;margin-bottom:20px">
+          <div style="font-size:10px;color:rgba(255,255,255,.45);margin-bottom:4px;letter-spacing:.5px">এই মাসের নিট মুনাফা</div>
+          <div id="bs-profit-big" style="font-size:36px;font-weight:900;color:#34D399;letter-spacing:-1px">৳ 0</div>
+          <span id="bs-margin-badge" style="display:inline-block;background:rgba(16,185,129,.2);border:1px solid rgba(16,185,129,.35);border-radius:20px;padding:3px 12px;font-size:11px;color:#34D399;font-weight:700;margin-top:6px">মার্জিন: 0%</span>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px">
+          <div style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:12px;text-align:center">
+            <div id="bs-stat-rev" style="font-size:16px;font-weight:800;color:#fff">৳0</div>
+            <div style="font-size:9.5px;color:rgba(255,255,255,.45);margin-top:3px">মোট আয়</div>
+          </div>
+          <div style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:12px;text-align:center">
+            <div id="bs-stat-exp" style="font-size:16px;font-weight:800;color:#F59E0B">৳0</div>
+            <div style="font-size:9.5px;color:rgba(255,255,255,.45);margin-top:3px">মোট ব্যয়</div>
+          </div>
+          <div style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:12px;text-align:center">
+            <div id="bs-stat-clients" style="font-size:16px;font-weight:800;color:#34D399">0</div>
+            <div style="font-size:9.5px;color:rgba(255,255,255,.45);margin-top:3px">ক্লায়েন্ট</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══ CLIENT PIPELINE ═══ -->
+      <div style="margin:24px 20px 0">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+          <div>
+            <div style="font-size:16px;font-weight:800;color:var(--text,#1a1a2e)">ক্লায়েন্ট পাইপলাইন</div>
+            <div style="font-size:11px;color:var(--text2,#888);margin-top:2px">Lead থেকে Closed পর্যন্ত track করুন</div>
+          </div>
+          <button onclick="bsOpenAddClient()" style="display:flex;align-items:center;gap:5px;padding:8px 14px;background:linear-gradient(135deg,#10B981,#059669);color:#fff;border:none;border-radius:20px;font-size:12px;font-weight:700;cursor:pointer">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            ক্লায়েন্ট যোগ
+          </button>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px" id="bs-pipeline-grid"></div>
+      </div>
+
+      <!-- ═══ INVOICE TRACKER ═══ -->
+      <div style="margin:24px 20px 0">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+          <div>
+            <div style="font-size:16px;font-weight:800;color:var(--text,#1a1a2e)">ইনভয়েস ট্র্যাকার</div>
+            <div style="font-size:11px;color:var(--text2,#888);margin-top:2px">Pending / Paid / Overdue</div>
+          </div>
+          <button onclick="bsOpenAddInvoice()" style="display:flex;align-items:center;gap:5px;padding:8px 14px;background:linear-gradient(135deg,#F59E0B,#D97706);color:#fff;border:none;border-radius:20px;font-size:12px;font-weight:700;cursor:pointer">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            ইনভয়েস যোগ
+          </button>
+        </div>
+        <div style="display:flex;gap:8px;margin-bottom:14px;overflow-x:auto;padding-bottom:2px">
+          <div style="background:rgba(245,158,11,.1);border:1.5px solid rgba(245,158,11,.25);border-radius:12px;padding:8px 14px;white-space:nowrap;flex-shrink:0">
+            <div style="font-size:10px;color:#F59E0B;font-weight:700;margin-bottom:2px">PENDING</div>
+            <div id="bs-inv-pending-amt" style="font-size:16px;font-weight:800;color:var(--text,#1a1a2e)">৳0</div>
+          </div>
+          <div style="background:rgba(16,185,129,.1);border:1.5px solid rgba(16,185,129,.25);border-radius:12px;padding:8px 14px;white-space:nowrap;flex-shrink:0">
+            <div style="font-size:10px;color:#10B981;font-weight:700;margin-bottom:2px">PAID</div>
+            <div id="bs-inv-paid-amt" style="font-size:16px;font-weight:800;color:var(--text,#1a1a2e)">৳0</div>
+          </div>
+          <div style="background:rgba(239,68,68,.08);border:1.5px solid rgba(239,68,68,.2);border-radius:12px;padding:8px 14px;white-space:nowrap;flex-shrink:0">
+            <div style="font-size:10px;color:#EF4444;font-weight:700;margin-bottom:2px">OVERDUE</div>
+            <div id="bs-inv-overdue-amt" style="font-size:16px;font-weight:800;color:var(--text,#1a1a2e)">৳0</div>
+          </div>
+        </div>
+        <div id="bs-invoice-list" style="display:flex;flex-direction:column;gap:8px"></div>
+      </div>
+
+      <!-- ═══ CASH FLOW CHART ═══ -->
+      <div style="margin:24px 20px 0">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+          <div>
+            <div style="font-size:16px;font-weight:800;color:var(--text,#1a1a2e)">Cash Flow</div>
+            <div style="font-size:11px;color:var(--text2,#888);margin-top:2px">মাসে মাসে আয়-ব্যয়ের চিত্র</div>
+          </div>
+          <button onclick="bsOpenAddCashFlow()" style="display:flex;align-items:center;gap:5px;padding:8px 14px;background:var(--card,#fff);color:var(--text,#1a1a2e);border:1.5px solid var(--border,#e5e7eb);border-radius:20px;font-size:12px;font-weight:700;cursor:pointer">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            মাস যোগ
+          </button>
+        </div>
+        <div style="display:flex;gap:16px;margin-bottom:12px">
+          <div style="display:flex;align-items:center;gap:6px"><div style="width:10px;height:10px;border-radius:3px;background:#10B981"></div><span style="font-size:11px;color:var(--text2,#888)">আয়</span></div>
+          <div style="display:flex;align-items:center;gap:6px"><div style="width:10px;height:10px;border-radius:3px;background:#F59E0B"></div><span style="font-size:11px;color:var(--text2,#888)">ব্যয়</span></div>
+        </div>
+        <div id="bs-cf-chart" style="background:var(--card,#fff);border:1.5px solid var(--border,#e5e7eb);border-radius:16px;padding:16px;min-height:120px;overflow-x:auto"></div>
+      </div>
+
+      <!-- ═══ BUSINESS IDEAS VAULT ═══ -->
+      <div style="margin:24px 20px 0">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+          <div>
+            <div style="font-size:16px;font-weight:800;color:var(--text,#1a1a2e)">আইডিয়া ভল্ট 💡</div>
+            <div style="font-size:11px;color:var(--text2,#888);margin-top:2px">ব্যবসার আইডিয়া সংরক্ষণ ও রেটিং করুন</div>
+          </div>
+          <button onclick="bsOpenAddIdea()" style="display:flex;align-items:center;gap:5px;padding:8px 14px;background:linear-gradient(135deg,#8b5cf6,#6366f1);color:#fff;border:none;border-radius:20px;font-size:12px;font-weight:700;cursor:pointer">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            আইডিয়া যোগ
+          </button>
+        </div>
+        <div id="bs-ideas-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:10px"></div>
+      </div>
+
+      <!-- ═══ ISLAMIC TIPS ═══ -->
+      <div style="margin:24px 20px 0">
+        <div style="font-size:13px;font-weight:700;color:var(--text2,#888);text-transform:uppercase;letter-spacing:.8px;margin-bottom:12px">ইসলামিক ব্যবসায়িক নীতি</div>
+        <div id="bs-tips-list" style="display:flex;flex-direction:column;gap:8px"></div>
+      </div>
+
+      <!-- Mobile donation -->
+      <div class="rz-donation-mobile-card" style="margin:20px 20px 0">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
+          <div style="width:38px;height:38px;border-radius:12px;background:rgba(255,138,0,.1);border:1px solid rgba(255,138,0,.25);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#FF8A00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" fill="rgba(255,138,0,.12)"/></svg>
+          </div>
+          <div>
+            <div style="font-size:13px;font-weight:800;color:var(--text,#1f2937)">Rizers কে টিকিয়ে রাখুন</div>
+            <div style="font-size:11.5px;color:var(--text2,#888);margin-top:2px">মাত্র ৳৯৯/মাসে • সম্পূর্ণ স্বেচ্ছায়</div>
+          </div>
+        </div>
+        <a href="#" onclick="rzGoToPayment&&rzGoToPayment();return false;" style="display:block;width:100%;background:linear-gradient(135deg,#FF8A00,#FFB800);color:#090B12;font-size:13px;font-weight:800;text-align:center;padding:11px;border-radius:12px;text-decoration:none;box-sizing:border-box">🤲 Support করুন</a>
+      </div>
+
+    </div><!-- end rz-page-content -->
+
+    <!-- Desktop donation sidebar -->
+    <div class="rz-donation-sidebar">
+      <div class="rz-dsb-inner">
+        <div style="text-align:center;margin-bottom:20px">
+          <div style="width:58px;height:58px;border-radius:18px;background:linear-gradient(135deg,rgba(255,138,0,.15),rgba(255,184,0,.1));border:1px solid rgba(255,138,0,.3);display:flex;align-items:center;justify-content:center;margin:0 auto 12px">
+            <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="#FF8A00" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" fill="rgba(255,138,0,.12)"/></svg>
+          </div>
+          <div style="font-size:12px;font-weight:800;color:#FF8A00;letter-spacing:1px;text-transform:uppercase">Rizers কে Support করুন</div>
+        </div>
+        <div style="background:rgba(255,138,0,.06);border:1px solid rgba(255,138,0,.15);border-radius:14px;padding:16px;margin-bottom:16px">
+          <div style="font-size:15px;font-weight:700;color:var(--text,#1f2937);line-height:1.6;margin-bottom:10px">"তোমার ছোট সাহায্য হাজারজনের ইবাদত সহজ করে দিতে পারে।"</div>
+          <div style="font-size:12.5px;color:var(--text2,#888);line-height:1.7">Rizers ব্যবহার করে প্রতিদিন হাজারো মানুষ নামাজ, ঘুম আর কোরআন ঠিক করছে।</div>
+        </div>
+        <div style="margin-bottom:16px">
+          <div style="font-size:12px;font-weight:700;color:var(--text2,#888);margin-bottom:10px;text-transform:uppercase;letter-spacing:.8px">মাত্র ৳৯৯/মাসে</div>
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <div style="display:flex;align-items:center;gap:10px"><div style="width:7px;height:7px;border-radius:50%;background:#FF8A00;flex-shrink:0"></div><span style="font-size:13.5px;color:var(--text,#1f2937)">১ কাপ চায়ের দাম</span></div>
+            <div style="display:flex;align-items:center;gap:10px"><div style="width:7px;height:7px;border-radius:50%;background:#22C55E;flex-shrink:0"></div><span style="font-size:13.5px;color:var(--text,#1f2937)">হাজারজনের AI partner চালু থাকে</span></div>
+            <div style="display:flex;align-items:center;gap:10px"><div style="width:7px;height:7px;border-radius:50%;background:#3B82F6;flex-shrink:0"></div><span style="font-size:13.5px;color:var(--text,#1f2937)">সব feature সম্পূর্ণ free থাকে</span></div>
+          </div>
+        </div>
+        <div style="height:1px;background:var(--border,#e5e7eb);margin-bottom:16px"></div>
+        <div style="margin-bottom:20px">
+          <div style="font-size:13px;color:var(--text2,#888);line-height:1.8;font-style:italic">"যে ব্যক্তি কোনো ভালো কাজে সহায়তা করে, সে যেন সেই কাজ নিজেই করলো।"</div>
+          <div style="font-size:11.5px;color:#FF8A00;font-weight:700;margin-top:6px">— বুখারী ও মুসলিম</div>
+        </div>
+        <a href="#" onclick="rzGoToPayment&&rzGoToPayment();return false;" style="display:block;width:100%;background:linear-gradient(135deg,#FF8A00,#FFB800);color:#090B12;font-size:14px;font-weight:800;text-align:center;padding:15px;border-radius:13px;text-decoration:none;box-shadow:0 4px 16px rgba(255,138,0,.4);box-sizing:border-box">🤲 ৳৯৯/মাসে Support করুন</a>
+        <div style="text-align:center;margin-top:12px;font-size:11px;color:var(--text2,#888)">সম্পূর্ণ স্বেচ্ছায় • যেকোনো সময় বাতিল করুন</div>
+      </div>
+    </div>
+  </div><!-- end rz-page-with-banner -->
+
+</div><!-- end bs-adult-wrap -->
+
+<!-- ══ PROFILE MODAL ══ -->
+<div id="bs-profile-modal" style="display:none;position:fixed;inset:0;z-index:1200;background:rgba(0,0,0,.55);backdrop-filter:blur(6px);align-items:flex-end;justify-content:center">
+  <div style="background:var(--card,#fff);border-radius:28px 28px 0 0;padding:24px 24px 36px;width:100%;max-width:520px;box-shadow:0 -20px 60px rgba(0,0,0,.2)">
+    <div style="width:36px;height:4px;border-radius:2px;background:var(--border,#e5e7eb);margin:0 auto 20px"></div>
+    <div style="font-size:16px;font-weight:800;color:var(--text,#1a1a2e);margin-bottom:18px">ব্যবসার তথ্য</div>
+    <div style="margin-bottom:14px">
+      <label style="font-size:11px;font-weight:700;color:var(--text2,#888);display:block;margin-bottom:6px">ব্যবসার নাম</label>
+      <input id="bs-p-name" type="text" placeholder="যেমন: Sultan Traders" style="width:100%;padding:12px 14px;border:1.5px solid var(--border,#e5e7eb);border-radius:12px;font-size:14px;color:var(--text,#1a1a2e);background:var(--bg,#fff);box-sizing:border-box;outline:none"/>
+    </div>
+    <div style="margin-bottom:20px">
+      <label style="font-size:11px;font-weight:700;color:var(--text2,#888);display:block;margin-bottom:8px">ব্যবসার ধরন</label>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px" id="bs-type-picker">
+        <button onclick="bsSelType(this,'রিটেইল')" style="padding:10px;border:1.5px solid var(--border,#e5e7eb);border-radius:12px;font-size:12px;font-weight:700;cursor:pointer;background:var(--bg2,#f3f4f6);color:var(--text,#1a1a2e)">🛍️ রিটেইল</button>
+        <button onclick="bsSelType(this,'সার্ভিস')" style="padding:10px;border:1.5px solid var(--border,#e5e7eb);border-radius:12px;font-size:12px;font-weight:700;cursor:pointer;background:var(--bg2,#f3f4f6);color:var(--text,#1a1a2e)">🔧 সার্ভিস</button>
+        <button onclick="bsSelType(this,'ফ্রিল্যান্স')" style="padding:10px;border:1.5px solid var(--border,#e5e7eb);border-radius:12px;font-size:12px;font-weight:700;cursor:pointer;background:var(--bg2,#f3f4f6);color:var(--text,#1a1a2e)">💻 ফ্রিল্যান্স</button>
+        <button onclick="bsSelType(this,'ই-কমার্স')" style="padding:10px;border:1.5px solid var(--border,#e5e7eb);border-radius:12px;font-size:12px;font-weight:700;cursor:pointer;background:var(--bg2,#f3f4f6);color:var(--text,#1a1a2e)">📦 ই-কমার্স</button>
+        <button onclick="bsSelType(this,'উৎপাদন')" style="padding:10px;border:1.5px solid var(--border,#e5e7eb);border-radius:12px;font-size:12px;font-weight:700;cursor:pointer;background:var(--bg2,#f3f4f6);color:var(--text,#1a1a2e)">🏭 উৎপাদন</button>
+        <button onclick="bsSelType(this,'অন্যান্য')" style="padding:10px;border:1.5px solid var(--border,#e5e7eb);border-radius:12px;font-size:12px;font-weight:700;cursor:pointer;background:var(--bg2,#f3f4f6);color:var(--text,#1a1a2e)">✨ অন্যান্য</button>
+      </div>
+    </div>
+    <button onclick="bsSaveProfile()" style="width:100%;padding:15px;background:linear-gradient(135deg,#10B981,#059669);color:#fff;border:none;border-radius:16px;font-size:15px;font-weight:800;cursor:pointer">সংরক্ষণ করুন ✓</button>
+    <button onclick="bsCloseModal('bs-profile-modal')" style="width:100%;padding:12px;background:none;color:var(--text2,#888);border:none;font-size:13px;cursor:pointer;margin-top:8px">বাতিল</button>
+  </div>
+</div>
+
+<!-- ══ CLIENT MODAL ══ -->
+<div id="bs-client-modal" style="display:none;position:fixed;inset:0;z-index:1200;background:rgba(0,0,0,.55);backdrop-filter:blur(6px);align-items:flex-end;justify-content:center">
+  <div style="background:var(--card,#fff);border-radius:28px 28px 0 0;padding:24px 24px 36px;width:100%;max-width:520px;max-height:90vh;overflow-y:auto;box-shadow:0 -20px 60px rgba(0,0,0,.2)">
+    <div style="width:36px;height:4px;border-radius:2px;background:var(--border,#e5e7eb);margin:0 auto 20px"></div>
+    <div style="font-size:16px;font-weight:800;color:var(--text,#1a1a2e);margin-bottom:18px">ক্লায়েন্ট যোগ করুন</div>
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <div>
+        <label style="font-size:11px;font-weight:700;color:var(--text2,#888);display:block;margin-bottom:6px">ক্লায়েন্টের নাম *</label>
+        <input id="bs-cl-name" type="text" placeholder="যেমন: Rahim Stores" style="width:100%;padding:12px 14px;border:1.5px solid var(--border,#e5e7eb);border-radius:12px;font-size:13px;color:var(--text,#1a1a2e);background:var(--bg,#fff);box-sizing:border-box;outline:none"/>
+      </div>
+      <div>
+        <label style="font-size:11px;font-weight:700;color:var(--text2,#888);display:block;margin-bottom:6px">কোম্পানি / ঠিকানা</label>
+        <input id="bs-cl-company" type="text" placeholder="কোম্পানির নাম বা এলাকা" style="width:100%;padding:12px 14px;border:1.5px solid var(--border,#e5e7eb);border-radius:12px;font-size:13px;color:var(--text,#1a1a2e);background:var(--bg,#fff);box-sizing:border-box;outline:none"/>
+      </div>
+      <div>
+        <label style="font-size:11px;font-weight:700;color:var(--text2,#888);display:block;margin-bottom:8px">ধাপ</label>
+        <div style="display:flex;gap:6px;flex-wrap:wrap" id="bs-cl-stage-picker">
+          <button onclick="bsSelStage(this,'lead')" style="padding:8px 14px;border:1.5px solid var(--border,#e5e7eb);border-radius:20px;font-size:12px;font-weight:700;cursor:pointer;background:var(--bg2,#f3f4f6);color:var(--text,#1a1a2e)">🎯 Lead</button>
+          <button onclick="bsSelStage(this,'prospect')" style="padding:8px 14px;border:1.5px solid var(--border,#e5e7eb);border-radius:20px;font-size:12px;font-weight:700;cursor:pointer;background:var(--bg2,#f3f4f6);color:var(--text,#1a1a2e)">💬 Prospect</button>
+          <button onclick="bsSelStage(this,'negotiation')" style="padding:8px 14px;border:1.5px solid var(--border,#e5e7eb);border-radius:20px;font-size:12px;font-weight:700;cursor:pointer;background:var(--bg2,#f3f4f6);color:var(--text,#1a1a2e)">🤝 Negotiation</button>
+          <button onclick="bsSelStage(this,'closed')" style="padding:8px 14px;border:1.5px solid var(--border,#e5e7eb);border-radius:20px;font-size:12px;font-weight:700;cursor:pointer;background:var(--bg2,#f3f4f6);color:var(--text,#1a1a2e)">✅ Closed</button>
+        </div>
+      </div>
+      <div>
+        <label style="font-size:11px;font-weight:700;color:var(--text2,#888);display:block;margin-bottom:6px">Deal মূল্য (৳)</label>
+        <input id="bs-cl-value" type="number" placeholder="0" min="0" style="width:100%;padding:12px 14px;border:1.5px solid var(--border,#e5e7eb);border-radius:12px;font-size:13px;color:var(--text,#1a1a2e);background:var(--bg,#fff);box-sizing:border-box;outline:none"/>
+      </div>
+      <div>
+        <label style="font-size:11px;font-weight:700;color:var(--text2,#888);display:block;margin-bottom:6px">নোট</label>
+        <textarea id="bs-cl-note" placeholder="যোগাযোগের তথ্য বা বিশেষ বিষয়..." rows="2" style="width:100%;padding:12px 14px;border:1.5px solid var(--border,#e5e7eb);border-radius:12px;font-size:13px;color:var(--text,#1a1a2e);background:var(--bg,#fff);box-sizing:border-box;outline:none;resize:none"></textarea>
+      </div>
+    </div>
+    <button onclick="bsSaveClient()" style="width:100%;padding:15px;background:linear-gradient(135deg,#10B981,#059669);color:#fff;border:none;border-radius:16px;font-size:15px;font-weight:800;cursor:pointer;margin-top:20px">সংরক্ষণ করুন ✓</button>
+    <button onclick="bsCloseModal('bs-client-modal')" style="width:100%;padding:12px;background:none;color:var(--text2,#888);border:none;font-size:13px;cursor:pointer;margin-top:8px">বাতিল</button>
+  </div>
+</div>
+
+<!-- ══ INVOICE MODAL ══ -->
+<div id="bs-invoice-modal" style="display:none;position:fixed;inset:0;z-index:1200;background:rgba(0,0,0,.55);backdrop-filter:blur(6px);align-items:flex-end;justify-content:center">
+  <div style="background:var(--card,#fff);border-radius:28px 28px 0 0;padding:24px 24px 36px;width:100%;max-width:520px;max-height:90vh;overflow-y:auto;box-shadow:0 -20px 60px rgba(0,0,0,.2)">
+    <div style="width:36px;height:4px;border-radius:2px;background:var(--border,#e5e7eb);margin:0 auto 20px"></div>
+    <div style="font-size:16px;font-weight:800;color:var(--text,#1a1a2e);margin-bottom:18px">ইনভয়েস যোগ করুন</div>
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <div>
+        <label style="font-size:11px;font-weight:700;color:var(--text2,#888);display:block;margin-bottom:6px">ক্লায়েন্টের নাম *</label>
+        <input id="bs-inv-client" type="text" placeholder="ক্লায়েন্টের নাম" style="width:100%;padding:12px 14px;border:1.5px solid var(--border,#e5e7eb);border-radius:12px;font-size:13px;color:var(--text,#1a1a2e);background:var(--bg,#fff);box-sizing:border-box;outline:none"/>
+      </div>
+      <div>
+        <label style="font-size:11px;font-weight:700;color:var(--text2,#888);display:block;margin-bottom:6px">পরিমাণ (৳) *</label>
+        <input id="bs-inv-amount" type="number" placeholder="0" min="1" style="width:100%;padding:12px 14px;border:1.5px solid var(--border,#e5e7eb);border-radius:12px;font-size:18px;font-weight:800;color:var(--text,#1a1a2e);background:var(--bg,#fff);box-sizing:border-box;outline:none;text-align:center"/>
+      </div>
+      <div>
+        <label style="font-size:11px;font-weight:700;color:var(--text2,#888);display:block;margin-bottom:6px">Due তারিখ</label>
+        <input id="bs-inv-due" type="date" style="width:100%;padding:12px 14px;border:1.5px solid var(--border,#e5e7eb);border-radius:12px;font-size:13px;color:var(--text,#1a1a2e);background:var(--bg,#fff);box-sizing:border-box;outline:none"/>
+      </div>
+      <div>
+        <label style="font-size:11px;font-weight:700;color:var(--text2,#888);display:block;margin-bottom:6px">নোট</label>
+        <input id="bs-inv-note" type="text" placeholder="পণ্য/সেবার বিবরণ" style="width:100%;padding:12px 14px;border:1.5px solid var(--border,#e5e7eb);border-radius:12px;font-size:13px;color:var(--text,#1a1a2e);background:var(--bg,#fff);box-sizing:border-box;outline:none"/>
+      </div>
+    </div>
+    <button onclick="bsSaveInvoice()" style="width:100%;padding:15px;background:linear-gradient(135deg,#F59E0B,#D97706);color:#fff;border:none;border-radius:16px;font-size:15px;font-weight:800;cursor:pointer;margin-top:20px">সংরক্ষণ করুন ✓</button>
+    <button onclick="bsCloseModal('bs-invoice-modal')" style="width:100%;padding:12px;background:none;color:var(--text2,#888);border:none;font-size:13px;cursor:pointer;margin-top:8px">বাতিল</button>
+  </div>
+</div>
+
+<!-- ══ IDEA MODAL ══ -->
+<div id="bs-idea-modal" style="display:none;position:fixed;inset:0;z-index:1200;background:rgba(0,0,0,.55);backdrop-filter:blur(6px);align-items:flex-end;justify-content:center">
+  <div style="background:var(--card,#fff);border-radius:28px 28px 0 0;padding:24px 24px 36px;width:100%;max-width:520px;max-height:90vh;overflow-y:auto;box-shadow:0 -20px 60px rgba(0,0,0,.2)">
+    <div style="width:36px;height:4px;border-radius:2px;background:var(--border,#e5e7eb);margin:0 auto 20px"></div>
+    <div style="font-size:16px;font-weight:800;color:var(--text,#1a1a2e);margin-bottom:18px">নতুন আইডিয়া</div>
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <div>
+        <label style="font-size:11px;font-weight:700;color:var(--text2,#888);display:block;margin-bottom:6px">আইডিয়ার শিরোনাম *</label>
+        <input id="bs-id-title" type="text" placeholder="সংক্ষিপ্ত শিরোনাম" style="width:100%;padding:12px 14px;border:1.5px solid var(--border,#e5e7eb);border-radius:12px;font-size:13px;color:var(--text,#1a1a2e);background:var(--bg,#fff);box-sizing:border-box;outline:none"/>
+      </div>
+      <div>
+        <label style="font-size:11px;font-weight:700;color:var(--text2,#888);display:block;margin-bottom:6px">বিবরণ</label>
+        <textarea id="bs-id-desc" placeholder="আইডিয়াটি কীভাবে কাজ করবে?" rows="3" style="width:100%;padding:12px 14px;border:1.5px solid var(--border,#e5e7eb);border-radius:12px;font-size:13px;color:var(--text,#1a1a2e);background:var(--bg,#fff);box-sizing:border-box;outline:none;resize:none"></textarea>
+      </div>
+      <div>
+        <label style="font-size:11px;font-weight:700;color:var(--text2,#888);display:block;margin-bottom:8px">সম্ভাবনা রেটিং</label>
+        <div style="display:flex;gap:6px" id="bs-id-star-picker">
+          <button onclick="bsPickStar(1)" data-star="1" style="font-size:24px;background:none;border:none;cursor:pointer;opacity:.3;padding:0">⭐</button>
+          <button onclick="bsPickStar(2)" data-star="2" style="font-size:24px;background:none;border:none;cursor:pointer;opacity:.3;padding:0">⭐</button>
+          <button onclick="bsPickStar(3)" data-star="3" style="font-size:24px;background:none;border:none;cursor:pointer;opacity:.3;padding:0">⭐</button>
+          <button onclick="bsPickStar(4)" data-star="4" style="font-size:24px;background:none;border:none;cursor:pointer;opacity:.3;padding:0">⭐</button>
+          <button onclick="bsPickStar(5)" data-star="5" style="font-size:24px;background:none;border:none;cursor:pointer;opacity:.3;padding:0">⭐</button>
+        </div>
+      </div>
+    </div>
+    <button onclick="bsSaveIdea()" style="width:100%;padding:15px;background:linear-gradient(135deg,#8b5cf6,#6366f1);color:#fff;border:none;border-radius:16px;font-size:15px;font-weight:800;cursor:pointer;margin-top:20px">সংরক্ষণ করুন ✓</button>
+    <button onclick="bsCloseModal('bs-idea-modal')" style="width:100%;padding:12px;background:none;color:var(--text2,#888);border:none;font-size:13px;cursor:pointer;margin-top:8px">বাতিল</button>
+  </div>
+</div>
+
+<!-- ══ CASH FLOW MODAL ══ -->
+<div id="bs-cf-modal" style="display:none;position:fixed;inset:0;z-index:1200;background:rgba(0,0,0,.55);backdrop-filter:blur(6px);align-items:flex-end;justify-content:center">
+  <div style="background:var(--card,#fff);border-radius:28px 28px 0 0;padding:24px 24px 36px;width:100%;max-width:520px;box-shadow:0 -20px 60px rgba(0,0,0,.2)">
+    <div style="width:36px;height:4px;border-radius:2px;background:var(--border,#e5e7eb);margin:0 auto 20px"></div>
+    <div style="font-size:16px;font-weight:800;color:var(--text,#1a1a2e);margin-bottom:18px">মাসের তথ্য যোগ করুন</div>
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <div>
+        <label style="font-size:11px;font-weight:700;color:var(--text2,#888);display:block;margin-bottom:6px">মাস</label>
+        <input id="bs-cf-month" type="month" style="width:100%;padding:12px 14px;border:1.5px solid var(--border,#e5e7eb);border-radius:12px;font-size:13px;color:var(--text,#1a1a2e);background:var(--bg,#fff);box-sizing:border-box;outline:none"/>
+      </div>
+      <div>
+        <label style="font-size:11px;font-weight:700;color:var(--text2,#888);display:block;margin-bottom:6px">মোট আয় (৳)</label>
+        <input id="bs-cf-income" type="number" placeholder="0" min="0" style="width:100%;padding:12px 14px;border:1.5px solid var(--border,#e5e7eb);border-radius:12px;font-size:13px;color:var(--text,#1a1a2e);background:var(--bg,#fff);box-sizing:border-box;outline:none"/>
+      </div>
+      <div>
+        <label style="font-size:11px;font-weight:700;color:var(--text2,#888);display:block;margin-bottom:6px">মোট ব্যয় (৳)</label>
+        <input id="bs-cf-expense" type="number" placeholder="0" min="0" style="width:100%;padding:12px 14px;border:1.5px solid var(--border,#e5e7eb);border-radius:12px;font-size:13px;color:var(--text,#1a1a2e);background:var(--bg,#fff);box-sizing:border-box;outline:none"/>
+      </div>
+    </div>
+    <button onclick="bsSaveCashFlow()" style="width:100%;padding:15px;background:linear-gradient(135deg,#10B981,#059669);color:#fff;border:none;border-radius:16px;font-size:15px;font-weight:800;cursor:pointer;margin-top:20px">সংরক্ষণ করুন ✓</button>
+    <button onclick="bsCloseModal('bs-cf-modal')" style="width:100%;padding:12px;background:none;color:var(--text2,#888);border:none;font-size:13px;cursor:pointer;margin-top:8px">বাতিল</button>
+  </div>
+</div>

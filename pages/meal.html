@@ -1,0 +1,252 @@
+<div id="meal-page" class="page-div app-page" style="display:none">
+
+<!-- ══ KIDS WRAP ══ -->
+<div id="mp-kids-wrap">
+  <div style="padding:60px 24px 32px;text-align:center">
+    <div style="width:72px;height:72px;border-radius:22px;background:linear-gradient(135deg,rgba(255,140,66,.15),rgba(255,140,66,.05));border:1.5px solid rgba(255,140,66,.3);display:flex;align-items:center;justify-content:center;margin:0 auto 18px">
+      <svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="#FF8C42" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l19-9-9 19-2-8-8-2z"/></svg>
+    </div>
+    <div style="font-size:20px;font-weight:800;color:var(--text,#1a1a2e);margin-bottom:8px">Meal Planner</div>
+    <div style="font-size:14px;color:var(--text2,#888);line-height:1.7">এই section টি বড়দের জন্য।<br>উপরে <strong>Me</strong> বাটন চাপুন।</div>
+  </div>
+  <div class="rz-donation-mobile-card" style="margin:0 16px 24px">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
+      <div style="width:38px;height:38px;border-radius:12px;background:rgba(255,138,0,.1);border:1px solid rgba(255,138,0,.25);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#FF8A00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" fill="rgba(255,138,0,.12)"/></svg>
+      </div>
+      <div>
+        <div style="font-size:13px;font-weight:800;color:var(--text,#1f2937)">Rizers কে টিকিয়ে রাখুন</div>
+        <div style="font-size:11.5px;color:var(--text2,#888);margin-top:2px">মাত্র ৳৯৯/মাসে • সম্পূর্ণ স্বেচ্ছায়</div>
+      </div>
+    </div>
+    <a href="#" onclick="rzGoToPayment&&rzGoToPayment();return false;" style="display:block;width:100%;background:linear-gradient(135deg,#FF8A00,#FFB800);color:#090B12;font-size:13px;font-weight:800;text-align:center;padding:11px;border-radius:12px;text-decoration:none;box-sizing:border-box">🤲 Support করুন</a>
+  </div>
+</div>
+
+<!-- ══ ADULT WRAP ══ -->
+<div id="mp-adult-wrap" style="display:none">
+  <div class="rz-page-with-banner">
+    <div class="rz-page-content" style="padding:0 0 80px">
+
+      <!-- ═══ HERO ═══ -->
+      <div style="background:linear-gradient(135deg,#1a0a00 0%,#2d1200 50%,#1a1a00 100%);padding:22px 20px;margin:16px 20px 0;border-radius:24px;position:relative;overflow:hidden">
+        <div style="position:absolute;font-size:100px;opacity:.04;top:5px;right:5px;pointer-events:none;line-height:1">🍽️</div>
+        <div style="position:absolute;width:200px;height:200px;border-radius:50%;border:1.5px solid rgba(255,140,66,.08);top:-80px;right:-50px;pointer-events:none"></div>
+        <div style="font-size:10px;color:rgba(255,255,255,.4);letter-spacing:1px;text-transform:uppercase;margin-bottom:14px">🍽️ Meal Planner</div>
+        <div style="display:flex;align-items:flex-start;gap:16px;margin-bottom:18px">
+          <div style="flex:1">
+            <div id="mp-hero-date" style="font-size:11px;color:rgba(255,255,255,.45);margin-bottom:4px">লোড হচ্ছে...</div>
+            <div id="mp-hero-status" style="display:inline-block;padding:4px 12px;border-radius:20px;font-size:11px;font-weight:700;background:rgba(255,140,66,.15);border:1px solid rgba(255,140,66,.3);color:#FF8C42">লোড হচ্ছে...</div>
+          </div>
+          <button onclick="mpToggleRamadan()" style="flex-shrink:0;padding:8px 12px;border:1.5px solid rgba(255,215,0,.3);border-radius:14px;font-size:10px;font-weight:700;color:#FFD700;background:rgba(255,215,0,.08);cursor:pointer;line-height:1.5;text-align:center">🌙 রমজান<br>মোড</button>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px">
+          <div style="background:rgba(255,255,255,.06);border-radius:12px;padding:10px;text-align:center">
+            <div id="mp-today-cal" style="font-size:15px;font-weight:900;color:#FF8C42">0</div>
+            <div style="font-size:8px;color:rgba(255,255,255,.4);margin-top:2px">kcal</div>
+          </div>
+          <div style="background:rgba(255,255,255,.06);border-radius:12px;padding:10px;text-align:center">
+            <div id="mp-today-protein" style="font-size:15px;font-weight:900;color:#7C3AED">0g</div>
+            <div style="font-size:8px;color:rgba(255,255,255,.4);margin-top:2px">প্রোটিন</div>
+          </div>
+          <div style="background:rgba(255,255,255,.06);border-radius:12px;padding:10px;text-align:center">
+            <div id="mp-today-budget-spent" style="font-size:15px;font-weight:900;color:#10B981">৳0</div>
+            <div style="font-size:8px;color:rgba(255,255,255,.4);margin-top:2px">আজ খরচ</div>
+          </div>
+          <div style="background:rgba(255,255,255,.06);border-radius:12px;padding:10px;text-align:center">
+            <div id="mp-today-count" style="font-size:15px;font-weight:900;color:#3B82F6">0/3</div>
+            <div style="font-size:8px;color:rgba(255,255,255,.4);margin-top:2px">বেলা</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══ WEEKLY BUDGET ═══ -->
+      <div style="margin:14px 20px 0">
+        <div style="background:var(--card,#fff);border:1.5px solid var(--border,#e5e7eb);border-radius:16px;padding:14px 16px">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+            <div style="font-size:13px;font-weight:800;color:var(--text,#1a1a2e)">💰 সাপ্তাহিক বাজেট</div>
+            <button onclick="mpOpenBudgetModal()" style="font-size:10px;font-weight:700;color:#FF8C42;background:rgba(255,140,66,.08);border:1px solid rgba(255,140,66,.3);border-radius:10px;padding:4px 10px;cursor:pointer">সেট করুন</button>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+            <div style="font-size:11px;color:var(--text2,#888)">খরচ: <strong id="mp-week-spent" style="color:#FF8C42">৳০</strong></div>
+            <div style="font-size:11px;color:var(--text2,#888)">বাজেট: <strong id="mp-week-budget-disp" style="color:var(--text,#1a1a2e)">৳০</strong></div>
+          </div>
+          <div style="background:var(--bg2,#f3f4f6);height:8px;border-radius:6px;overflow:hidden">
+            <div id="mp-budget-bar" style="height:100%;background:linear-gradient(90deg,#FF8C42,#FFB800);width:0%;border-radius:6px;transition:width .8s ease"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══ WEEKLY MEAL CALENDAR ═══ -->
+      <div style="margin:16px 20px 0">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+          <div style="font-size:14px;font-weight:800;color:var(--text,#1a1a2e)">📅 সাপ্তাহিক খাবার পরিকল্পনা</div>
+          <button onclick="mpClearDay()" style="font-size:10px;font-weight:700;color:var(--text2,#888);background:none;border:1.5px solid var(--border,#e5e7eb);border-radius:10px;padding:4px 10px;cursor:pointer">সাফ করুন</button>
+        </div>
+        <div id="mp-day-tabs" style="display:flex;gap:5px;overflow-x:auto;padding-bottom:4px;margin-bottom:12px;scrollbar-width:none"></div>
+        <div id="mp-day-meals" style="display:flex;flex-direction:column;gap:8px"></div>
+      </div>
+
+      <!-- ═══ RAMADAN SECTION ═══ -->
+      <div id="mp-ramadan-section" style="display:none;margin:16px 20px 0">
+        <div style="background:linear-gradient(135deg,#0f0a00,#1a1200);border:1px solid rgba(255,215,0,.2);border-radius:18px;padding:18px">
+          <div style="font-size:13px;font-weight:800;color:#FFD700;margin-bottom:14px">🌙 রমজান মোড — সেহরি ও ইফতার</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px">
+            <div>
+              <div style="font-size:10px;color:rgba(255,215,0,.6);letter-spacing:.5px;text-transform:uppercase;margin-bottom:8px">🌅 সেহরি</div>
+              <div id="mp-sehri-list" style="display:flex;flex-direction:column;gap:6px"></div>
+              <button onclick="mpOpenAddRamadan('sehri')" style="width:100%;margin-top:8px;padding:9px;border:1.5px dashed rgba(255,215,0,.3);border-radius:10px;font-size:12px;font-weight:700;color:#FFD700;background:rgba(255,215,0,.05);cursor:pointer">+ যোগ করুন</button>
+            </div>
+            <div>
+              <div style="font-size:10px;color:rgba(255,140,66,.7);letter-spacing:.5px;text-transform:uppercase;margin-bottom:8px">🌇 ইফতার</div>
+              <div id="mp-iftar-list" style="display:flex;flex-direction:column;gap:6px"></div>
+              <button onclick="mpOpenAddRamadan('iftar')" style="width:100%;margin-top:8px;padding:9px;border:1.5px dashed rgba(255,140,66,.3);border-radius:10px;font-size:12px;font-weight:700;color:#FF8C42;background:rgba(255,140,66,.05);cursor:pointer">+ যোগ করুন</button>
+            </div>
+          </div>
+          <div style="background:rgba(255,255,255,.04);border-radius:12px;padding:12px;text-align:center">
+            <div style="font-size:10px;color:rgba(255,215,0,.5);margin-bottom:4px">রোজার সময়</div>
+            <div id="mp-fasting-timer" style="font-size:22px;font-weight:900;color:#FFD700">--:--:--</div>
+            <div id="mp-fasting-label" style="font-size:10px;color:rgba(255,255,255,.35);margin-top:2px">ইফতার পর্যন্ত</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══ AUTO SHOPPING LIST ═══ -->
+      <div style="margin:16px 20px 0">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+          <div style="font-size:14px;font-weight:800;color:var(--text,#1a1a2e)">🛒 বাজারের তালিকা</div>
+          <button onclick="mpGenerateShoppingList()" style="display:flex;align-items:center;gap:5px;padding:7px 12px;background:linear-gradient(135deg,#FF8C42,#FF6B00);color:#fff;border:none;border-radius:14px;font-size:11px;font-weight:800;cursor:pointer">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+            অটো তৈরি
+          </button>
+        </div>
+        <div style="background:var(--card,#fff);border:1.5px solid var(--border,#e5e7eb);border-radius:16px;padding:16px">
+          <div id="mp-shopping-list"><div style="text-align:center;padding:20px;font-size:13px;color:var(--text2,#888)">উপরে <strong>অটো তৈরি</strong> চাপলে এই সপ্তাহের সব খাবারের উপাদান দেখাবে।</div></div>
+        </div>
+      </div>
+
+      <!-- ═══ WEEKLY NUTRITION SUMMARY ═══ -->
+      <div style="margin:16px 20px 0">
+        <div style="font-size:14px;font-weight:800;color:var(--text,#1a1a2e);margin-bottom:12px">📊 সাপ্তাহিক পুষ্টির হিসাব</div>
+        <div style="background:var(--card,#fff);border:1.5px solid var(--border,#e5e7eb);border-radius:16px;padding:16px">
+          <div id="mp-nutrition-summary"></div>
+        </div>
+      </div>
+
+      <!-- ═══ RECIPE BROWSER ═══ -->
+      <div style="margin:16px 20px 0">
+        <div style="font-size:14px;font-weight:800;color:var(--text,#1a1a2e);margin-bottom:12px">👨‍🍳 রেসিপি খুঁজুন</div>
+        <div style="display:flex;gap:6px;overflow-x:auto;padding-bottom:6px;margin-bottom:12px;scrollbar-width:none">
+          <button onclick="mpFilterRecipes('all')" id="mp-rf-all" style="flex-shrink:0;padding:6px 14px;border-radius:20px;font-size:12px;font-weight:700;cursor:pointer;background:linear-gradient(135deg,#FF8C42,#FF6B00);color:#fff;border:none">সব</button>
+          <button onclick="mpFilterRecipes('breakfast')" id="mp-rf-breakfast" style="flex-shrink:0;padding:6px 14px;border-radius:20px;font-size:12px;font-weight:700;cursor:pointer;background:var(--bg2,#f3f4f6);color:var(--text2,#888);border:1.5px solid var(--border,#e5e7eb)">🌅 সকাল</button>
+          <button onclick="mpFilterRecipes('lunch')" id="mp-rf-lunch" style="flex-shrink:0;padding:6px 14px;border-radius:20px;font-size:12px;font-weight:700;cursor:pointer;background:var(--bg2,#f3f4f6);color:var(--text2,#888);border:1.5px solid var(--border,#e5e7eb)">☀️ দুপুর</button>
+          <button onclick="mpFilterRecipes('dinner')" id="mp-rf-dinner" style="flex-shrink:0;padding:6px 14px;border-radius:20px;font-size:12px;font-weight:700;cursor:pointer;background:var(--bg2,#f3f4f6);color:var(--text2,#888);border:1.5px solid var(--border,#e5e7eb)">🌙 রাত</button>
+          <button onclick="mpFilterRecipes('snack')" id="mp-rf-snack" style="flex-shrink:0;padding:6px 14px;border-radius:20px;font-size:12px;font-weight:700;cursor:pointer;background:var(--bg2,#f3f4f6);color:var(--text2,#888);border:1.5px solid var(--border,#e5e7eb)">🍿 নাশতা</button>
+        </div>
+        <div id="mp-recipe-grid" style="display:flex;flex-direction:column;gap:10px"></div>
+      </div>
+
+      <!-- ═══ ISLAMIC TIPS ═══ -->
+      <div style="margin:16px 20px 0">
+        <div style="font-size:13px;font-weight:700;color:var(--text2,#888);text-transform:uppercase;letter-spacing:.8px;margin-bottom:12px">ইসলামে খাদ্যাভ্যাস</div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <div style="background:linear-gradient(135deg,#1a0a00,#2d1200);border-radius:14px;padding:16px">
+            <div style="font-size:12px;font-weight:700;color:#FF8C42;margin-bottom:6px">🕌 হালাল খাবার</div>
+            <div style="font-size:12px;color:rgba(255,255,255,.75);line-height:1.7">"হে মানুষ! পৃথিবীতে যা হালাল ও পবিত্র আছে তা খাও।" <span style="color:#FF8C42;font-weight:700">— সূরা বাকারা: ১৬৮</span></div>
+          </div>
+          <div style="background:var(--card,#fff);border:1.5px solid var(--border,#e5e7eb);border-radius:14px;padding:14px;display:flex;gap:12px">
+            <div style="font-size:22px;flex-shrink:0">🥗</div>
+            <div style="font-size:12px;color:var(--text,#1a1a2e);line-height:1.7">পেটের এক-তৃতীয়াংশ খাবারে, এক-তৃতীয়াংশ পানিতে, এক-তৃতীয়াংশ শ্বাসের জন্য রাখুন। <span style="color:#10B981;font-weight:700">— তিরমিযী: ২৩৮০</span></div>
+          </div>
+          <div style="background:var(--card,#fff);border:1.5px solid var(--border,#e5e7eb);border-radius:14px;padding:14px;display:flex;gap:12px">
+            <div style="font-size:22px;flex-shrink:0">🤲</div>
+            <div style="font-size:12px;color:var(--text,#1a1a2e);line-height:1.7">খাওয়ার আগে "বিসমিল্লাহ" বলুন, ডান হাতে খান এবং অপচয় থেকে বিরত থাকুন। <span style="color:#7C3AED;font-weight:700">— বুখারী: ৫৩৭৬</span></div>
+          </div>
+          <div style="background:var(--card,#fff);border:1.5px solid var(--border,#e5e7eb);border-radius:14px;padding:14px;display:flex;gap:12px">
+            <div style="font-size:22px;flex-shrink:0">🌙</div>
+            <div style="font-size:12px;color:var(--text,#1a1a2e);line-height:1.7">রোজা রাখুন — এটা শরীর ও আত্মার জন্য সবচেয়ে উপকারী। আধুনিক বিজ্ঞানও Intermittent Fasting এর উপকারিতা প্রমাণ করেছে।</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mobile donation -->
+      <div class="rz-donation-mobile-card" style="margin:16px 20px 0">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
+          <div style="width:38px;height:38px;border-radius:12px;background:rgba(255,138,0,.1);border:1px solid rgba(255,138,0,.25);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#FF8A00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" fill="rgba(255,138,0,.12)"/></svg>
+          </div>
+          <div>
+            <div style="font-size:13px;font-weight:800;color:var(--text,#1f2937)">Rizers কে টিকিয়ে রাখুন</div>
+            <div style="font-size:11.5px;color:var(--text2,#888);margin-top:2px">মাত্র ৳৯৯/মাসে • সম্পূর্ণ স্বেচ্ছায়</div>
+          </div>
+        </div>
+        <a href="#" onclick="rzGoToPayment&&rzGoToPayment();return false;" style="display:block;width:100%;background:linear-gradient(135deg,#FF8A00,#FFB800);color:#090B12;font-size:13px;font-weight:800;text-align:center;padding:11px;border-radius:12px;text-decoration:none;box-sizing:border-box">🤲 Support করুন</a>
+      </div>
+
+    </div><!-- end rz-page-content -->
+
+    <!-- Desktop donation sidebar -->
+    <div class="rz-donation-sidebar">
+      <div class="rz-dsb-inner">
+        <div style="text-align:center;margin-bottom:20px">
+          <div style="width:58px;height:58px;border-radius:18px;background:linear-gradient(135deg,rgba(255,138,0,.15),rgba(255,184,0,.1));border:1px solid rgba(255,138,0,.3);display:flex;align-items:center;justify-content:center;margin:0 auto 12px">
+            <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="#FF8A00" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" fill="rgba(255,138,0,.12)"/></svg>
+          </div>
+          <div style="font-size:12px;font-weight:800;color:#FF8A00;letter-spacing:1px;text-transform:uppercase">Rizers কে Support করুন</div>
+        </div>
+        <div style="background:rgba(255,138,0,.06);border:1px solid rgba(255,138,0,.15);border-radius:14px;padding:16px;margin-bottom:16px">
+          <div style="font-size:15px;font-weight:700;color:var(--text,#1f2937);line-height:1.6;margin-bottom:10px">"হালাল খাও, সুস্থ থাকো — এটাও ইবাদত।"</div>
+          <div style="font-size:12.5px;color:var(--text2,#888);line-height:1.7">Rizers Meal Planner প্রতিদিন সুষম খাবার পরিকল্পনায় সাহায্য করছে।</div>
+        </div>
+        <div style="margin-bottom:16px">
+          <div style="font-size:12px;font-weight:700;color:var(--text2,#888);margin-bottom:10px;text-transform:uppercase;letter-spacing:.8px">মাত্র ৳৯৯/মাসে</div>
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <div style="display:flex;align-items:center;gap:10px"><div style="width:7px;height:7px;border-radius:50%;background:#FF8C42;flex-shrink:0"></div><span style="font-size:13.5px;color:var(--text,#1f2937)">Meal + Fitness + Zakat</span></div>
+            <div style="display:flex;align-items:center;gap:10px"><div style="width:7px;height:7px;border-radius:50%;background:#22C55E;flex-shrink:0"></div><span style="font-size:13.5px;color:var(--text,#1f2937)">সব feature সম্পূর্ণ free</span></div>
+            <div style="display:flex;align-items:center;gap:10px"><div style="width:7px;height:7px;border-radius:50%;background:#3B82F6;flex-shrink:0"></div><span style="font-size:13.5px;color:var(--text,#1f2937)">হাজারজনের সাথে জার্নি</span></div>
+          </div>
+        </div>
+        <div style="height:1px;background:var(--border,#e5e7eb);margin-bottom:16px"></div>
+        <div style="margin-bottom:20px">
+          <div style="font-size:13px;color:var(--text2,#888);line-height:1.8;font-style:italic">"হে মানুষ! পৃথিবীতে যা হালাল ও পবিত্র তা খাও।"</div>
+          <div style="font-size:11.5px;color:#FF8C42;font-weight:700;margin-top:6px">— সূরা বাকারা: ১৬৮</div>
+        </div>
+        <a href="#" onclick="rzGoToPayment&&rzGoToPayment();return false;" style="display:block;width:100%;background:linear-gradient(135deg,#FF8A00,#FFB800);color:#090B12;font-size:14px;font-weight:800;text-align:center;padding:15px;border-radius:13px;text-decoration:none;box-shadow:0 4px 16px rgba(255,138,0,.4);box-sizing:border-box">🤲 ৳৯৯/মাসে Support করুন</a>
+        <div style="text-align:center;margin-top:12px;font-size:11px;color:var(--text2,#888)">সম্পূর্ণ স্বেচ্ছায় • যেকোনো সময় বাতিল করুন</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MEAL PICKER MODAL ══ -->
+<div id="mp-meal-modal" style="display:none;position:fixed;inset:0;z-index:1200;background:rgba(0,0,0,.6);backdrop-filter:blur(6px);align-items:flex-end;justify-content:center">
+  <div style="background:var(--card,#fff);border-radius:28px 28px 0 0;padding:20px 20px 36px;width:100%;max-width:560px;max-height:88vh;overflow-y:auto">
+    <div style="width:36px;height:4px;border-radius:2px;background:var(--border,#e5e7eb);margin:0 auto 16px"></div>
+    <div id="mp-modal-title" style="font-size:16px;font-weight:800;color:var(--text,#1a1a2e);margin-bottom:4px">খাবার বাছাই করুন</div>
+    <div id="mp-modal-subtitle" style="font-size:12px;color:var(--text2,#888);margin-bottom:14px">নিচের তালিকা থেকে বেছে নিন</div>
+    <div id="mp-modal-recipes" style="display:flex;flex-direction:column;gap:8px"></div>
+    <button onclick="mpCloseModal()" style="width:100%;padding:12px;background:none;color:var(--text2,#888);border:none;font-size:13px;cursor:pointer;margin-top:12px">বাতিল</button>
+  </div>
+</div>
+
+<!-- ══ BUDGET MODAL ══ -->
+<div id="mp-budget-modal" style="display:none;position:fixed;inset:0;z-index:1200;background:rgba(0,0,0,.55);backdrop-filter:blur(6px);align-items:center;justify-content:center;padding:20px">
+  <div style="background:var(--card,#fff);border-radius:24px;padding:24px;width:100%;max-width:380px">
+    <div style="font-size:16px;font-weight:800;color:var(--text,#1a1a2e);margin-bottom:18px">💰 সাপ্তাহিক বাজেট সেট করুন</div>
+    <label style="font-size:11px;font-weight:700;color:var(--text2,#888);display:block;margin-bottom:8px">সাপ্তাহিক বাজেট (টাকায়)</label>
+    <input id="mp-budget-input" type="number" placeholder="২০০০" min="0" style="width:100%;padding:14px;border:1.5px solid var(--border,#e5e7eb);border-radius:14px;font-size:24px;font-weight:900;color:#FF8C42;background:var(--bg,#fff);box-sizing:border-box;outline:none;text-align:center"/>
+    <button onclick="mpSaveBudget()" style="width:100%;padding:15px;background:linear-gradient(135deg,#FF8C42,#FF6B00);color:#fff;border:none;border-radius:16px;font-size:15px;font-weight:800;cursor:pointer;margin-top:16px">সংরক্ষণ করুন ✓</button>
+    <button onclick="mpCloseModal('mp-budget-modal')" style="width:100%;padding:12px;background:none;color:var(--text2,#888);border:none;font-size:13px;cursor:pointer;margin-top:6px">বাতিল</button>
+  </div>
+</div>
+
+<!-- ══ RECIPE DETAIL MODAL ══ -->
+<div id="mp-recipe-detail-modal" style="display:none;position:fixed;inset:0;z-index:1200;background:rgba(0,0,0,.6);backdrop-filter:blur(6px);align-items:flex-end;justify-content:center">
+  <div style="background:var(--card,#fff);border-radius:28px 28px 0 0;padding:24px 24px 40px;width:100%;max-width:560px;max-height:90vh;overflow-y:auto">
+    <div style="width:36px;height:4px;border-radius:2px;background:var(--border,#e5e7eb);margin:0 auto 20px"></div>
+    <div id="mp-recipe-detail-content"></div>
+    <button onclick="document.getElementById('mp-recipe-detail-modal').style.display='none'" style="width:100%;padding:12px;background:none;color:var(--text2,#888);border:none;font-size:13px;cursor:pointer;margin-top:8px">বন্ধ করুন</button>
+  </div>
+</div>
+
+</div><!-- end meal-page -->

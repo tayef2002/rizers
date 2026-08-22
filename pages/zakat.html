@@ -1,0 +1,378 @@
+<div id="zakat-page" class="page-div app-page" style="display:none">
+
+<!-- ══ KIDS WRAP ══ -->
+<div id="zk-kids-wrap">
+  <div style="padding:60px 24px 32px;text-align:center">
+    <div style="width:72px;height:72px;border-radius:22px;background:linear-gradient(135deg,rgba(245,158,11,.15),rgba(251,191,36,.1));border:1.5px solid rgba(245,158,11,.3);display:flex;align-items:center;justify-content:center;margin:0 auto 18px">
+      <svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="#F59E0B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M8 11l3 3 5-5"/></svg>
+    </div>
+    <div style="font-size:20px;font-weight:800;color:var(--text,#1a1a2e);margin-bottom:8px">যাকাত ক্যালকুলেটর</div>
+    <div style="font-size:14px;color:var(--text2,#888);line-height:1.7">এই section টি বড়দের জন্য।<br>উপরে <strong>Me</strong> বাটন চাপুন।</div>
+  </div>
+  <div class="rz-donation-mobile-card" style="margin:0 16px 24px">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
+      <div style="width:38px;height:38px;border-radius:12px;background:rgba(255,138,0,.1);border:1px solid rgba(255,138,0,.25);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#FF8A00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" fill="rgba(255,138,0,.12)"/></svg>
+      </div>
+      <div>
+        <div style="font-size:13px;font-weight:800;color:var(--text,#1f2937)">Rizers কে টিকিয়ে রাখুন</div>
+        <div style="font-size:11.5px;color:var(--text2,#888);margin-top:2px">মাত্র ৳৯৯/মাসে • সম্পূর্ণ স্বেচ্ছায়</div>
+      </div>
+    </div>
+    <a href="#" onclick="rzGoToPayment&&rzGoToPayment();return false;" style="display:block;width:100%;background:linear-gradient(135deg,#FF8A00,#FFB800);color:#090B12;font-size:13px;font-weight:800;text-align:center;padding:11px;border-radius:12px;text-decoration:none;box-sizing:border-box">🤲 Support করুন</a>
+  </div>
+</div>
+
+<!-- ══ ADULT WRAP ══ -->
+<div id="zk-adult-wrap" style="display:none">
+  <div class="rz-page-with-banner">
+    <div class="rz-page-content" style="padding:0 0 80px">
+
+      <!-- ═══ HERO CARD ═══ -->
+      <div style="background:linear-gradient(135deg,#0a0f2e 0%,#1a2055 55%,#0a0f2e 100%);padding:28px 24px 24px;position:relative;overflow:hidden;margin:16px 20px 0;border-radius:24px">
+        <div style="position:absolute;width:260px;height:260px;border-radius:50%;border:1.5px solid rgba(245,158,11,.12);top:-90px;right:-70px;pointer-events:none"></div>
+        <div style="position:absolute;width:150px;height:150px;border-radius:50%;border:1.5px solid rgba(245,158,11,.08);top:30px;right:20px;pointer-events:none"></div>
+        <div style="position:absolute;font-size:80px;opacity:.04;top:10px;right:20px;pointer-events:none;line-height:1">☪</div>
+
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:22px">
+          <div>
+            <div style="font-size:10px;color:rgba(255,255,255,.45);letter-spacing:1px;text-transform:uppercase;margin-bottom:5px">যাকাত ক্যালকুলেটর</div>
+            <div style="font-size:18px;font-weight:800;color:#fff;margin-bottom:3px">আপনার যাকাত হিসাব করুন</div>
+            <div style="font-size:12px;color:rgba(255,255,255,.5)">নিসাব পূর্ণ হলে ২.৫% যাকাত ফরয</div>
+          </div>
+          <div id="zk-eligibility-badge" style="background:rgba(245,158,11,.2);border:1.5px solid rgba(245,158,11,.4);border-radius:14px;padding:8px 14px;text-align:center;flex-shrink:0">
+            <div style="font-size:9px;color:rgba(245,158,11,.8);font-weight:700;letter-spacing:.5px;margin-bottom:2px">অবস্থা</div>
+            <div id="zk-status-text" style="font-size:12px;font-weight:800;color:#F59E0B">হিসাব করুন</div>
+          </div>
+        </div>
+
+        <!-- Zakat Due -->
+        <div style="text-align:center;margin-bottom:22px">
+          <div style="font-size:10px;color:rgba(255,255,255,.45);margin-bottom:4px;letter-spacing:.5px">প্রদেয় যাকাত</div>
+          <div id="zk-due-big" style="font-size:40px;font-weight:900;color:#F59E0B;letter-spacing:-1px">৳ 0</div>
+          <div style="font-size:11px;color:rgba(255,255,255,.4);margin-top:4px">মোট সম্পদের ২.৫%</div>
+        </div>
+
+        <!-- Nisab Thermometer -->
+        <div style="margin-bottom:18px">
+          <div style="display:flex;justify-content:space-between;margin-bottom:6px">
+            <span style="font-size:11px;color:rgba(255,255,255,.5)">আপনার সম্পদ</span>
+            <span id="zk-nisab-label" style="font-size:11px;color:rgba(245,158,11,.8)">নিসাব: ৳0</span>
+          </div>
+          <div style="background:rgba(255,255,255,.1);border-radius:8px;height:10px;position:relative;overflow:visible">
+            <div id="zk-thermo-fill" style="height:100%;border-radius:8px;background:linear-gradient(90deg,#10B981,#F59E0B);width:0%;transition:width 1s ease;max-width:100%"></div>
+            <div id="zk-thermo-marker" style="position:absolute;top:-4px;width:2px;height:18px;background:#F59E0B;border-radius:2px;left:100%;display:none"></div>
+          </div>
+          <div style="display:flex;justify-content:space-between;margin-top:5px">
+            <span id="zk-wealth-label" style="font-size:10px;color:rgba(255,255,255,.4)">৳0</span>
+            <span id="zk-pct-label" style="font-size:10px;color:#F59E0B">0%</span>
+          </div>
+        </div>
+
+        <!-- 3 quick stats -->
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px">
+          <div style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:10px;text-align:center">
+            <div id="zk-stat-wealth" style="font-size:14px;font-weight:800;color:#fff">৳0</div>
+            <div style="font-size:9px;color:rgba(255,255,255,.4);margin-top:2px">মোট সম্পদ</div>
+          </div>
+          <div style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:10px;text-align:center">
+            <div id="zk-stat-nisab" style="font-size:14px;font-weight:800;color:#F59E0B">৳0</div>
+            <div style="font-size:9px;color:rgba(255,255,255,.4);margin-top:2px">নিসাব</div>
+          </div>
+          <div style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:10px;text-align:center">
+            <div id="zk-stat-due" style="font-size:14px;font-weight:800;color:#10B981">৳0</div>
+            <div style="font-size:9px;color:rgba(255,255,255,.4);margin-top:2px">যাকাত</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══ NISAB SETTINGS ═══ -->
+      <div style="margin:20px 20px 0">
+        <div style="font-size:14px;font-weight:800;color:var(--text,#1a1a2e);margin-bottom:12px">⚙️ নিসাব সেটিং</div>
+        <div style="background:var(--card,#fff);border:1.5px solid var(--border,#e5e7eb);border-radius:16px;padding:16px">
+          <div style="display:flex;gap:8px;margin-bottom:14px">
+            <button id="zk-nisab-gold-btn" onclick="zkSetNisabType('gold')" style="flex:1;padding:10px;border:2px solid #F59E0B;border-radius:12px;font-size:12px;font-weight:800;cursor:pointer;background:rgba(245,158,11,.1);color:#F59E0B">🥇 সোনার নিসাব<br><span style="font-size:10px;font-weight:600;opacity:.8">৭.২৯ ভরি সোনা</span></button>
+            <button id="zk-nisab-silver-btn" onclick="zkSetNisabType('silver')" style="flex:1;padding:10px;border:2px solid var(--border,#e5e7eb);border-radius:12px;font-size:12px;font-weight:800;cursor:pointer;background:var(--bg2,#f3f4f6);color:var(--text2,#888)">🥈 রুপার নিসাব<br><span style="font-size:10px;font-weight:600;opacity:.8">৫১.০২ ভরি রুপা</span></button>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+            <div>
+              <label style="font-size:11px;font-weight:700;color:var(--text2,#888);display:block;margin-bottom:5px">সোনার দাম (৳/ভরি)</label>
+              <input id="zk-gold-price" type="number" value="110000" oninput="zkRecalc()" style="width:100%;padding:10px 12px;border:1.5px solid var(--border,#e5e7eb);border-radius:10px;font-size:13px;font-weight:700;color:var(--text,#1a1a2e);background:var(--bg,#fff);box-sizing:border-box;outline:none"/>
+            </div>
+            <div>
+              <label style="font-size:11px;font-weight:700;color:var(--text2,#888);display:block;margin-bottom:5px">রুপার দাম (৳/ভরি)</label>
+              <input id="zk-silver-price" type="number" value="1300" oninput="zkRecalc()" style="width:100%;padding:10px 12px;border:1.5px solid var(--border,#e5e7eb);border-radius:10px;font-size:13px;font-weight:700;color:var(--text,#1a1a2e);background:var(--bg,#fff);box-sizing:border-box;outline:none"/>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══ ASSET TRACKER ═══ -->
+      <div style="margin:20px 20px 0">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+          <div style="font-size:14px;font-weight:800;color:var(--text,#1a1a2e)">💰 সম্পদের হিসাব</div>
+          <div style="font-size:11px;color:var(--text2,#888)">পরিবর্তন করলে স্বয়ংক্রিয় আপডেট</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+
+          <!-- Cash -->
+          <div style="background:var(--card,#fff);border:1.5px solid var(--border,#e5e7eb);border-radius:14px;padding:14px">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+              <div style="width:36px;height:36px;border-radius:10px;background:rgba(16,185,129,.1);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:18px">💵</div>
+              <div style="flex:1">
+                <div style="font-size:13px;font-weight:700;color:var(--text,#1a1a2e)">নগদ টাকা ও ব্যাংক</div>
+                <div style="font-size:10px;color:var(--text2,#888)">হাতে থাকা + ব্যাংক ব্যালেন্স</div>
+              </div>
+            </div>
+            <input id="zk-cash" type="number" placeholder="0" min="0" oninput="zkRecalc()" style="width:100%;padding:10px 12px;border:1.5px solid var(--border,#e5e7eb);border-radius:10px;font-size:16px;font-weight:800;color:var(--text,#1a1a2e);background:var(--bg2,#f9fafb);box-sizing:border-box;outline:none"/>
+          </div>
+
+          <!-- Gold -->
+          <div style="background:var(--card,#fff);border:1.5px solid var(--border,#e5e7eb);border-radius:14px;padding:14px">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+              <div style="width:36px;height:36px;border-radius:10px;background:rgba(245,158,11,.1);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:18px">🥇</div>
+              <div style="flex:1">
+                <div style="font-size:13px;font-weight:700;color:var(--text,#1a1a2e)">সোনা</div>
+                <div style="font-size:10px;color:var(--text2,#888)">ভরি লিখুন — মূল্য স্বয়ংক্রিয় হিসাব হবে</div>
+              </div>
+              <div id="zk-gold-val" style="font-size:12px;font-weight:700;color:#F59E0B">৳0</div>
+            </div>
+            <input id="zk-gold-grams" type="number" placeholder="ভরি (যেমন: 5)" min="0" step="0.01" oninput="zkRecalc()" style="width:100%;padding:10px 12px;border:1.5px solid var(--border,#e5e7eb);border-radius:10px;font-size:16px;font-weight:800;color:var(--text,#1a1a2e);background:var(--bg2,#f9fafb);box-sizing:border-box;outline:none"/>
+          </div>
+
+          <!-- Silver -->
+          <div style="background:var(--card,#fff);border:1.5px solid var(--border,#e5e7eb);border-radius:14px;padding:14px">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+              <div style="width:36px;height:36px;border-radius:10px;background:rgba(148,163,184,.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:18px">🥈</div>
+              <div style="flex:1">
+                <div style="font-size:13px;font-weight:700;color:var(--text,#1a1a2e)">রুপা</div>
+                <div style="font-size:10px;color:var(--text2,#888)">ভরি লিখুন — মূল্য স্বয়ংক্রিয় হিসাব হবে</div>
+              </div>
+              <div id="zk-silver-val" style="font-size:12px;font-weight:700;color:#94a3b8">৳0</div>
+            </div>
+            <input id="zk-silver-grams" type="number" placeholder="ভরি (যেমন: 30)" min="0" step="0.01" oninput="zkRecalc()" style="width:100%;padding:10px 12px;border:1.5px solid var(--border,#e5e7eb);border-radius:10px;font-size:16px;font-weight:800;color:var(--text,#1a1a2e);background:var(--bg2,#f9fafb);box-sizing:border-box;outline:none"/>
+          </div>
+
+          <!-- Business assets -->
+          <div style="background:var(--card,#fff);border:1.5px solid var(--border,#e5e7eb);border-radius:14px;padding:14px">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+              <div style="width:36px;height:36px;border-radius:10px;background:rgba(99,102,241,.1);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:18px">🏪</div>
+              <div style="flex:1">
+                <div style="font-size:13px;font-weight:700;color:var(--text,#1a1a2e)">ব্যবসায়িক পণ্য ও মূলধন</div>
+                <div style="font-size:10px;color:var(--text2,#888)">stock + ব্যবসার নগদ (দেনা বাদ দিয়ে)</div>
+              </div>
+            </div>
+            <input id="zk-business" type="number" placeholder="0" min="0" oninput="zkRecalc()" style="width:100%;padding:10px 12px;border:1.5px solid var(--border,#e5e7eb);border-radius:10px;font-size:16px;font-weight:800;color:var(--text,#1a1a2e);background:var(--bg2,#f9fafb);box-sizing:border-box;outline:none"/>
+          </div>
+
+          <!-- Investments -->
+          <div style="background:var(--card,#fff);border:1.5px solid var(--border,#e5e7eb);border-radius:14px;padding:14px">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+              <div style="width:36px;height:36px;border-radius:10px;background:rgba(59,130,246,.1);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:18px">📈</div>
+              <div style="flex:1">
+                <div style="font-size:13px;font-weight:700;color:var(--text,#1a1a2e)">বিনিয়োগ ও শেয়ার</div>
+                <div style="font-size:10px;color:var(--text2,#888)">Savings, FDR, শেয়ারের বাজার মূল্য</div>
+              </div>
+            </div>
+            <input id="zk-investments" type="number" placeholder="0" min="0" oninput="zkRecalc()" style="width:100%;padding:10px 12px;border:1.5px solid var(--border,#e5e7eb);border-radius:10px;font-size:16px;font-weight:800;color:var(--text,#1a1a2e);background:var(--bg2,#f9fafb);box-sizing:border-box;outline:none"/>
+          </div>
+
+          <!-- Receivables -->
+          <div style="background:var(--card,#fff);border:1.5px solid var(--border,#e5e7eb);border-radius:14px;padding:14px">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+              <div style="width:36px;height:36px;border-radius:10px;background:rgba(239,68,68,.08);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:18px">🤝</div>
+              <div style="flex:1">
+                <div style="font-size:13px;font-weight:700;color:var(--text,#1a1a2e)">পাওনা টাকা</div>
+                <div style="font-size:10px;color:var(--text2,#888)">অন্যের কাছে ধার দেওয়া (ফেরত পাওয়ার সম্ভাবনা আছে)</div>
+              </div>
+            </div>
+            <input id="zk-receivables" type="number" placeholder="0" min="0" oninput="zkRecalc()" style="width:100%;padding:10px 12px;border:1.5px solid var(--border,#e5e7eb);border-radius:10px;font-size:16px;font-weight:800;color:var(--text,#1a1a2e);background:var(--bg2,#f9fafb);box-sizing:border-box;outline:none"/>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ═══ ঋণ TRACKER ═══ -->
+      <div style="margin:20px 20px 0">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+          <div>
+            <div style="font-size:14px;font-weight:800;color:var(--text,#1a1a2e)">💳 ঋণের হিসাব</div>
+            <div style="font-size:11px;color:var(--text2,#888);margin-top:2px">যা এখনই শোধ করতে হবে — সম্পদ থেকে বাদ যাবে</div>
+          </div>
+          <button onclick="zkOpenAddLoan()" style="display:flex;align-items:center;gap:5px;padding:7px 12px;background:linear-gradient(135deg,#EF4444,#DC2626);color:#fff;border:none;border-radius:16px;font-size:11px;font-weight:700;cursor:pointer">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            ঋণ যোগ করুন
+          </button>
+        </div>
+        <div id="zk-loan-list" style="display:flex;flex-direction:column;gap:8px"></div>
+        <div id="zk-loan-total-card" style="display:none;background:rgba(239,68,68,.06);border:1.5px solid rgba(239,68,68,.2);border-radius:14px;padding:12px 16px;margin-top:10px;display:flex;align-items:center;justify-content:space-between">
+          <span style="font-size:12px;font-weight:700;color:#EF4444">মোট ঋণ (সম্পদ থেকে বাদ)</span>
+          <span id="zk-loan-total-val" style="font-size:16px;font-weight:900;color:#EF4444">৳0</span>
+        </div>
+        <input id="zk-deductions" type="hidden" value="0"/>
+      </div>
+
+      <!-- ═══ ZAKAT BREAKDOWN ═══ -->
+      <div style="margin:20px 20px 0">
+        <div style="font-size:14px;font-weight:800;color:var(--text,#1a1a2e);margin-bottom:12px">📊 যাকাত ব্রেকডাউন</div>
+        <div id="zk-breakdown" style="background:var(--card,#fff);border:1.5px solid var(--border,#e5e7eb);border-radius:16px;overflow:hidden"></div>
+      </div>
+
+      <!-- ═══ HAWL TRACKER ═══ -->
+      <div style="margin:20px 20px 0">
+        <div style="font-size:14px;font-weight:800;color:var(--text,#1a1a2e);margin-bottom:12px">📅 হাওল ট্র্যাকার</div>
+        <div style="background:var(--card,#fff);border:1.5px solid var(--border,#e5e7eb);border-radius:16px;padding:16px">
+          <div style="font-size:12px;color:var(--text2,#888);line-height:1.6;margin-bottom:12px">হাওল = যাকাতযোগ্য সম্পদ নিসাব পরিমাণ হওয়ার তারিখ থেকে ১ চন্দ্র বছর (৩৫৪ দিন) পূর্ণ হলে যাকাত দিতে হয়।</div>
+          <div>
+            <label style="font-size:11px;font-weight:700;color:var(--text2,#888);display:block;margin-bottom:6px">নিসাব পূর্ণ হওয়ার তারিখ</label>
+            <input id="zk-hawl-date" type="date" onchange="zkRenderHawl()" style="width:100%;padding:10px 12px;border:1.5px solid var(--border,#e5e7eb);border-radius:10px;font-size:13px;color:var(--text,#1a1a2e);background:var(--bg,#fff);box-sizing:border-box;outline:none"/>
+          </div>
+          <div id="zk-hawl-result" style="margin-top:12px"></div>
+        </div>
+      </div>
+
+      <!-- ═══ ASNAF DISTRIBUTION ═══ -->
+      <div style="margin:20px 20px 0">
+        <div style="font-size:14px;font-weight:800;color:var(--text,#1a1a2e);margin-bottom:4px">🕌 ৮ আসনাফ বণ্টন পরিকল্পনা</div>
+        <div style="font-size:11px;color:var(--text2,#888);margin-bottom:12px">কোথায় কত % যাকাত দেবেন তা নির্ধারণ করুন</div>
+        <div id="zk-asnaf-list" style="display:flex;flex-direction:column;gap:8px"></div>
+        <div style="background:var(--card,#fff);border:1.5px solid var(--border,#e5e7eb);border-radius:14px;padding:12px;margin-top:10px;display:flex;align-items:center;justify-content:space-between">
+          <span style="font-size:12px;font-weight:700;color:var(--text2,#888)">মোট বণ্টন</span>
+          <span id="zk-dist-total" style="font-size:14px;font-weight:800;color:#10B981">100%</span>
+        </div>
+      </div>
+
+      <!-- ═══ PAYMENT HISTORY ═══ -->
+      <div style="margin:20px 20px 0">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+          <div style="font-size:14px;font-weight:800;color:var(--text,#1a1a2e)">📜 যাকাত পরিশোধের ইতিহাস</div>
+          <button onclick="zkOpenAddPayment()" style="display:flex;align-items:center;gap:5px;padding:7px 12px;background:linear-gradient(135deg,#F59E0B,#D97706);color:#fff;border:none;border-radius:16px;font-size:11px;font-weight:700;cursor:pointer">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            পরিশোধ লগ করুন
+          </button>
+        </div>
+        <div id="zk-history-list" style="display:flex;flex-direction:column;gap:8px"></div>
+      </div>
+
+      <!-- ═══ ISLAMIC GUIDE ═══ -->
+      <div style="margin:20px 20px 0">
+        <div style="font-size:13px;font-weight:700;color:var(--text2,#888);text-transform:uppercase;letter-spacing:.8px;margin-bottom:12px">যাকাত সম্পর্কে জানুন</div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <div style="background:linear-gradient(135deg,#0a0f2e,#1a2055);border-radius:14px;padding:16px">
+            <div style="font-size:12px;font-weight:700;color:#F59E0B;margin-bottom:6px">📖 যাকাত কী?</div>
+            <div style="font-size:12px;color:rgba(255,255,255,.75);line-height:1.7">যাকাত ইসলামের পাঁচটি স্তম্ভের একটি। সম্পদশালী মুসলিমদের জন্য বার্ষিক সম্পদের ২.৫% গরিব ও হকদারদের মধ্যে বিতরণ করা ফরয।</div>
+          </div>
+          <div style="background:var(--card,#fff);border:1.5px solid var(--border,#e5e7eb);border-radius:14px;padding:14px;display:flex;gap:12px">
+            <div style="font-size:22px;flex-shrink:0">📿</div>
+            <div style="font-size:12px;color:var(--text,#1a1a2e);line-height:1.7">"যারা নিজেদের সম্পদে রাতে ও দিনে, গোপনে ও প্রকাশ্যে ব্যয় করে তাদের পুরস্কার তাদের পালনকর্তার নিকট আছে।" <span style="color:#F59E0B;font-weight:700">— সূরা বাকারা: ২৭৪</span></div>
+          </div>
+          <div style="background:var(--card,#fff);border:1.5px solid var(--border,#e5e7eb);border-radius:14px;padding:14px;display:flex;gap:12px">
+            <div style="font-size:22px;flex-shrink:0">💡</div>
+            <div style="font-size:12px;color:var(--text,#1a1a2e);line-height:1.7">যাকাত না দিলে কিয়ামতের দিন সেই সম্পদ আগুন হয়ে সারাদিন কপালে ও পিঠে দাগ দেওয়া হবে। <span style="color:#F59E0B;font-weight:700">— সহিহ বুখারি: ১৪০৩</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mobile donation -->
+      <div class="rz-donation-mobile-card" style="margin:20px 20px 0">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
+          <div style="width:38px;height:38px;border-radius:12px;background:rgba(255,138,0,.1);border:1px solid rgba(255,138,0,.25);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#FF8A00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" fill="rgba(255,138,0,.12)"/></svg>
+          </div>
+          <div>
+            <div style="font-size:13px;font-weight:800;color:var(--text,#1f2937)">Rizers কে টিকিয়ে রাখুন</div>
+            <div style="font-size:11.5px;color:var(--text2,#888);margin-top:2px">মাত্র ৳৯৯/মাসে • সম্পূর্ণ স্বেচ্ছায়</div>
+          </div>
+        </div>
+        <a href="#" onclick="rzGoToPayment&&rzGoToPayment();return false;" style="display:block;width:100%;background:linear-gradient(135deg,#FF8A00,#FFB800);color:#090B12;font-size:13px;font-weight:800;text-align:center;padding:11px;border-radius:12px;text-decoration:none;box-sizing:border-box">🤲 Support করুন</a>
+      </div>
+
+    </div><!-- end rz-page-content -->
+
+    <!-- Desktop donation sidebar -->
+    <div class="rz-donation-sidebar">
+      <div class="rz-dsb-inner">
+        <div style="text-align:center;margin-bottom:20px">
+          <div style="width:58px;height:58px;border-radius:18px;background:linear-gradient(135deg,rgba(255,138,0,.15),rgba(255,184,0,.1));border:1px solid rgba(255,138,0,.3);display:flex;align-items:center;justify-content:center;margin:0 auto 12px">
+            <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="#FF8A00" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" fill="rgba(255,138,0,.12)"/></svg>
+          </div>
+          <div style="font-size:12px;font-weight:800;color:#FF8A00;letter-spacing:1px;text-transform:uppercase">Rizers কে Support করুন</div>
+        </div>
+        <div style="background:rgba(255,138,0,.06);border:1px solid rgba(255,138,0,.15);border-radius:14px;padding:16px;margin-bottom:16px">
+          <div style="font-size:15px;font-weight:700;color:var(--text,#1f2937);line-height:1.6;margin-bottom:10px">"তোমার ছোট সাহায্য হাজারজনের ইবাদত সহজ করে দিতে পারে।"</div>
+          <div style="font-size:12.5px;color:var(--text2,#888);line-height:1.7">Rizers ব্যবহার করে প্রতিদিন হাজারো মানুষ নামাজ, ঘুম আর কোরআন ঠিক করছে।</div>
+        </div>
+        <div style="margin-bottom:16px">
+          <div style="font-size:12px;font-weight:700;color:var(--text2,#888);margin-bottom:10px;text-transform:uppercase;letter-spacing:.8px">মাত্র ৳৯৯/মাসে</div>
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <div style="display:flex;align-items:center;gap:10px"><div style="width:7px;height:7px;border-radius:50%;background:#FF8A00;flex-shrink:0"></div><span style="font-size:13.5px;color:var(--text,#1f2937)">১ কাপ চায়ের দাম</span></div>
+            <div style="display:flex;align-items:center;gap:10px"><div style="width:7px;height:7px;border-radius:50%;background:#22C55E;flex-shrink:0"></div><span style="font-size:13.5px;color:var(--text,#1f2937)">হাজারজনের AI partner চালু থাকে</span></div>
+            <div style="display:flex;align-items:center;gap:10px"><div style="width:7px;height:7px;border-radius:50%;background:#3B82F6;flex-shrink:0"></div><span style="font-size:13.5px;color:var(--text,#1f2937)">সব feature সম্পূর্ণ free থাকে</span></div>
+          </div>
+        </div>
+        <div style="height:1px;background:var(--border,#e5e7eb);margin-bottom:16px"></div>
+        <div style="margin-bottom:20px">
+          <div style="font-size:13px;color:var(--text2,#888);line-height:1.8;font-style:italic">"যে ব্যক্তি কোনো ভালো কাজে সহায়তা করে, সে যেন সেই কাজ নিজেই করলো।"</div>
+          <div style="font-size:11.5px;color:#FF8A00;font-weight:700;margin-top:6px">— বুখারী ও মুসলিম</div>
+        </div>
+        <a href="#" onclick="rzGoToPayment&&rzGoToPayment();return false;" style="display:block;width:100%;background:linear-gradient(135deg,#FF8A00,#FFB800);color:#090B12;font-size:14px;font-weight:800;text-align:center;padding:15px;border-radius:13px;text-decoration:none;box-shadow:0 4px 16px rgba(255,138,0,.4);box-sizing:border-box">🤲 ৳৯৯/মাসে Support করুন</a>
+        <div style="text-align:center;margin-top:12px;font-size:11px;color:var(--text2,#888)">সম্পূর্ণ স্বেচ্ছায় • যেকোনো সময় বাতিল করুন</div>
+      </div>
+    </div>
+  </div><!-- end rz-page-with-banner -->
+</div><!-- end zk-adult-wrap -->
+
+<!-- ══ LOAN MODAL ══ -->
+<div id="zk-loan-modal" style="display:none;position:fixed;inset:0;z-index:1200;background:rgba(0,0,0,.55);backdrop-filter:blur(6px);align-items:flex-end;justify-content:center">
+  <div style="background:var(--card,#fff);border-radius:28px 28px 0 0;padding:24px 24px 36px;width:100%;max-width:520px;box-shadow:0 -20px 60px rgba(0,0,0,.2)">
+    <div style="width:36px;height:4px;border-radius:2px;background:var(--border,#e5e7eb);margin:0 auto 20px"></div>
+    <div style="font-size:16px;font-weight:800;color:var(--text,#1a1a2e);margin-bottom:18px">💳 ঋণ যোগ করুন</div>
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <div>
+        <label style="font-size:11px;font-weight:700;color:var(--text2,#888);display:block;margin-bottom:6px">কার কাছে ঋণ? *</label>
+        <input id="zk-loan-from" type="text" placeholder="যেমন: ব্যাংক লোন, বন্ধু রাকিব..." style="width:100%;padding:12px 14px;border:1.5px solid var(--border,#e5e7eb);border-radius:12px;font-size:14px;color:var(--text,#1a1a2e);background:var(--bg,#fff);box-sizing:border-box;outline:none"/>
+      </div>
+      <div>
+        <label style="font-size:11px;font-weight:700;color:var(--text2,#888);display:block;margin-bottom:6px">ঋণের পরিমাণ (৳) *</label>
+        <input id="zk-loan-amount" type="number" placeholder="0" style="width:100%;padding:12px 14px;border:1.5px solid var(--border,#e5e7eb);border-radius:12px;font-size:20px;font-weight:800;color:#EF4444;background:var(--bg,#fff);box-sizing:border-box;outline:none;text-align:center"/>
+      </div>
+      <div>
+        <label style="font-size:11px;font-weight:700;color:var(--text2,#888);display:block;margin-bottom:6px">ধরন</label>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px">
+          <button onclick="zkPickLoanType(this,'ব্যাংক')" class="zk-loan-type-btn" style="padding:10px 6px;border:1.5px solid var(--border,#e5e7eb);border-radius:10px;font-size:11px;font-weight:700;cursor:pointer;background:var(--bg2,#f3f4f6);color:var(--text2,#888)">🏦 ব্যাংক</button>
+          <button onclick="zkPickLoanType(this,'ব্যক্তিগত')" class="zk-loan-type-btn" style="padding:10px 6px;border:1.5px solid var(--border,#e5e7eb);border-radius:10px;font-size:11px;font-weight:700;cursor:pointer;background:var(--bg2,#f3f4f6);color:var(--text2,#888)">👤 ব্যক্তিগত</button>
+          <button onclick="zkPickLoanType(this,'অন্যান্য')" class="zk-loan-type-btn" style="padding:10px 6px;border:1.5px solid var(--border,#e5e7eb);border-radius:10px;font-size:11px;font-weight:700;cursor:pointer;background:var(--bg2,#f3f4f6);color:var(--text2,#888)">📋 অন্যান্য</button>
+        </div>
+        <input id="zk-loan-type" type="hidden" value="অন্যান্য"/>
+      </div>
+    </div>
+    <button onclick="zkSaveLoan()" style="width:100%;padding:15px;background:linear-gradient(135deg,#EF4444,#DC2626);color:#fff;border:none;border-radius:16px;font-size:15px;font-weight:800;cursor:pointer;margin-top:20px">যোগ করুন ✓</button>
+    <button onclick="zkCloseLoanModal()" style="width:100%;padding:12px;background:none;color:var(--text2,#888);border:none;font-size:13px;cursor:pointer;margin-top:8px">বাতিল</button>
+  </div>
+</div>
+
+<!-- ══ PAYMENT MODAL ══ -->
+<div id="zk-payment-modal" style="display:none;position:fixed;inset:0;z-index:1200;background:rgba(0,0,0,.55);backdrop-filter:blur(6px);align-items:flex-end;justify-content:center">
+  <div style="background:var(--card,#fff);border-radius:28px 28px 0 0;padding:24px 24px 36px;width:100%;max-width:520px;box-shadow:0 -20px 60px rgba(0,0,0,.2)">
+    <div style="width:36px;height:4px;border-radius:2px;background:var(--border,#e5e7eb);margin:0 auto 20px"></div>
+    <div style="font-size:16px;font-weight:800;color:var(--text,#1a1a2e);margin-bottom:18px">যাকাত পরিশোধ লগ করুন</div>
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <div>
+        <label style="font-size:11px;font-weight:700;color:var(--text2,#888);display:block;margin-bottom:6px">পরিমাণ (৳) *</label>
+        <input id="zk-pay-amount" type="number" placeholder="0" style="width:100%;padding:12px 14px;border:1.5px solid var(--border,#e5e7eb);border-radius:12px;font-size:20px;font-weight:800;color:var(--text,#1a1a2e);background:var(--bg,#fff);box-sizing:border-box;outline:none;text-align:center"/>
+      </div>
+      <div>
+        <label style="font-size:11px;font-weight:700;color:var(--text2,#888);display:block;margin-bottom:6px">তারিখ</label>
+        <input id="zk-pay-date" type="date" style="width:100%;padding:12px 14px;border:1.5px solid var(--border,#e5e7eb);border-radius:12px;font-size:13px;color:var(--text,#1a1a2e);background:var(--bg,#fff);box-sizing:border-box;outline:none"/>
+      </div>
+      <div>
+        <label style="font-size:11px;font-weight:700;color:var(--text2,#888);display:block;margin-bottom:6px">নোট</label>
+        <input id="zk-pay-note" type="text" placeholder="কোথায় দিয়েছেন?" style="width:100%;padding:12px 14px;border:1.5px solid var(--border,#e5e7eb);border-radius:12px;font-size:13px;color:var(--text,#1a1a2e);background:var(--bg,#fff);box-sizing:border-box;outline:none"/>
+      </div>
+    </div>
+    <button onclick="zkSavePayment()" style="width:100%;padding:15px;background:linear-gradient(135deg,#F59E0B,#D97706);color:#fff;border:none;border-radius:16px;font-size:15px;font-weight:800;cursor:pointer;margin-top:20px">সংরক্ষণ করুন ✓</button>
+    <button onclick="zkClosePaymentModal()" style="width:100%;padding:12px;background:none;color:var(--text2,#888);border:none;font-size:13px;cursor:pointer;margin-top:8px">বাতিল</button>
+  </div>
+</div>
+
+</div><!-- end zakat-page -->

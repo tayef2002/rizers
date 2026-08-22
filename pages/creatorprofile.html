@@ -1,0 +1,116 @@
+<div id="creatorprofile-page" class="app-page" style="display:none;padding-top:0;background:var(--bg)">
+
+<style>
+/* Mobile: avatar top, name-block below (block layout) — mirrors profile.html's #pf-av-name-wrap rules exactly */
+#cp-av-name-wrap{display:block;padding:0 12px}
+#cp-avatar-row{display:inline-block}
+#cp-name-block{padding-top:8px;padding-bottom:4px}
+
+@media(min-width:768px){
+  #cp-cover{height:340px!important}
+  #cp-info-block{max-width:1150px;margin:0 auto;padding:40px 16px 36px!important}
+  #cp-avatar{width:168px!important;height:168px!important;font-size:64px!important;margin-top:0px!important;border-width:4px!important}
+  #cp-name{font-size:32px!important}
+  #cp-av-name-wrap{display:flex!important;align-items:flex-end;gap:16px;padding:0}
+  #cp-avatar-row{display:block;margin-top:0;flex-shrink:0;align-self:flex-start}
+  #cp-avatar{margin-top:-84px!important}
+  #cp-name-block{flex:1;padding-top:6px;padding-bottom:8px}
+  #cp-action-btns-row{flex-shrink:0;align-self:flex-end;padding:0 0 12px;width:auto;margin-bottom:0!important}
+  #cp-action-btns-row>div{width:auto!important}
+  #cp-tabs-inner{max-width:1150px;margin:0 auto;padding:0 16px}
+  #cp-desktop-cols{display:grid!important;grid-template-columns:280px 1fr;gap:16px;max-width:1150px!important;margin:16px auto 0!important;padding:0 16px 24px}
+  #cp-left-col{display:block!important;position:sticky;top:8px;align-self:start}
+  #cp-videos-grid{padding:0!important}
+}
+@media(max-width:767px){
+  #cp-desktop-cols{display:block}
+  #cp-left-col{display:none}
+}
+.cp-tab-btn{padding:14px 18px 12px;border:none;border-bottom:3px solid transparent;background:none;color:var(--text2);font-size:15px;font-weight:600;cursor:default;white-space:nowrap;font-family:'Hind Siliguri',sans-serif}
+.cp-tab-btn.active{color:#FFB800;border-bottom-color:#FFB800;font-weight:700}
+.cp-detail-card{background:var(--card);border-radius:10px;padding:14px 16px;border:1px solid var(--border);margin-bottom:12px}
+.cp-detail-card-title{font-size:16px;font-weight:700;color:var(--text);margin-bottom:12px;font-family:'Hind Siliguri',sans-serif}
+</style>
+
+  <!-- Cover — mirrors profile.html's #pf-cover exactly (no z-index anywhere, same as real profile) -->
+  <div id="cp-cover" style="position:relative;height:190px;background:linear-gradient(135deg,#090B12 0%,#1a1200 60%,#FFB800 100%);overflow:hidden">
+    <div style="position:absolute;inset:0;background:repeating-linear-gradient(135deg,transparent,transparent 30px,rgba(255,255,255,.04) 30px,rgba(255,255,255,.04) 60px)"></div>
+    <button onclick="showPage('rizplay')" style="position:absolute;top:10px;left:10px;z-index:10;display:flex;align-items:center;gap:6px;background:rgba(0,0,0,.48);border:none;border-radius:50px;padding:7px 14px 7px 10px;color:#fff;font-size:13px;font-weight:700;cursor:pointer;font-family:'Hind Siliguri',sans-serif;backdrop-filter:blur(6px)">
+      <svg viewBox="0 0 24 24" style="width:17px;height:17px;fill:none;stroke:#fff;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      <span>Back</span>
+    </button>
+  </div>
+
+  <!-- Info block — mirrors profile.html's #pf-info-block exactly: card background, flex row on desktop
+       (avatar + name-block + action buttons side by side), block/stacked on mobile -->
+  <div style="background:var(--card);border-bottom:1px solid var(--border)">
+  <div id="cp-info-block" style="padding:0 12px">
+  <div id="cp-av-name-wrap">
+
+    <div id="cp-avatar-row" style="position:relative;flex-shrink:0">
+      <div id="cp-avatar" style="width:90px;height:90px;border-radius:50%;background:linear-gradient(135deg,#FF8A00,#FFB800);background-size:cover;background-position:center;display:flex;align-items:center;justify-content:center;font-size:36px;font-weight:800;color:#090B12;font-family:'Hind Siliguri',sans-serif;border:3px solid var(--card);margin-top:-46px"></div>
+    </div>
+
+    <div id="cp-name-block">
+      <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:5px">
+        <span id="cp-name" style="font-size:20px;font-weight:700;color:var(--text);font-family:'Hind Siliguri',sans-serif"></span>
+        <span onclick="_rzOpenCreatorInfo()" title="এই channel এখনো YouTube থেকে auto-synced — creator RIZERS-এ join করেননি। বিস্তারিত জানতে ক্লিক করুন।" style="display:inline-flex;align-items:center;gap:4px;background:rgba(255,138,0,.15);color:#FF8A00;font-size:11px;font-weight:700;padding:3px 9px;border-radius:20px;cursor:pointer;font-family:'Hind Siliguri',sans-serif">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#FF8A00" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+          Unverified
+        </span>
+      </div>
+      <div style="font-size:12px;color:var(--text2);margin-bottom:8px;font-family:'Hind Siliguri',sans-serif">
+        🗳️ <span id="cp-vote-count">0</span> জন Rizer চায় এই creator RIZERS-এ join করুক
+      </div>
+      <div id="cp-bio" style="font-size:13px;color:var(--text);line-height:1.5;margin-bottom:2px;font-family:'Hind Siliguri',sans-serif;white-space:pre-line;overflow:hidden;max-height:58px;transition:max-height .4s ease,opacity .4s ease"></div>
+      <span id="cp-bio-toggle" onclick="_rzToggleBio()" style="display:none;font-size:12px;color:#FF8A00;font-weight:700;cursor:pointer;font-family:'Hind Siliguri',sans-serif;margin-bottom:8px">আরো দেখাও</span>
+    </div>
+
+    <div id="cp-action-btns-row" style="padding-bottom:14px">
+      <div style="display:flex;gap:8px">
+        <button id="cp-connect-btn" onclick="_rzSendConnectRequest()" style="flex:2;display:flex;align-items:center;justify-content:center;gap:6px;padding:10px 12px;background:linear-gradient(90deg,#FF8A00,#FFB800);color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Hind Siliguri',sans-serif;white-space:nowrap">
+          <svg viewBox="0 0 24 24" style="width:15px;height:15px;fill:#fff;flex-shrink:0"><path d="M15 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm-9-2V7H4v3H1v2h3v3h2v-3h3v-2H6zm9 4c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+          <span id="cp-connect-txt">Connect Rizer</span>
+        </button>
+        <button id="cp-vote-btn" onclick="_rzCastVote()" style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:10px 12px;background:var(--border);color:var(--text);border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Hind Siliguri',sans-serif;white-space:nowrap">
+          <span>🗳️</span><span id="cp-vote-txt">Vote</span>
+        </button>
+      </div>
+    </div>
+
+  </div>
+  </div>
+  </div>
+
+  <!-- Tab strip — mirrors profile.html's .pf-tab-btn pattern. Only one real tab (Videos) since
+       a channel doesn't have Risers/Achievements, but the visual pattern stays consistent with
+       the real profile so switching between the two doesn't feel jarring. -->
+  <div style="border-bottom:1px solid var(--border);overflow-x:auto">
+    <div id="cp-tabs-inner" style="display:flex">
+      <button class="cp-tab-btn active">ভিডিও</button>
+    </div>
+  </div>
+
+  <div id="cp-desktop-cols">
+    <div id="cp-left-col">
+      <div class="cp-detail-card">
+        <div class="cp-detail-card-title">Channel তথ্য</div>
+        <div style="display:flex;flex-direction:column;gap:10px;font-size:13px;color:var(--text);font-family:'Hind Siliguri',sans-serif">
+          <div style="display:flex;align-items:center;gap:8px">
+            <svg viewBox="0 0 24 24" style="width:15px;height:15px;fill:none;stroke:var(--text2);stroke-width:2"><path d="M20 5h-3.17L15 3H9L7.17 5H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2z"/><circle cx="12" cy="13" r="3"/></svg>
+            <span id="cp-video-count">0</span>&nbsp;টি ভিডিও
+          </div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <svg viewBox="0 0 24 24" style="width:15px;height:15px;fill:none;stroke:var(--text2);stroke-width:2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            <span>YouTube থেকে auto-synced</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="cp-right-col">
+      <div id="cp-videos-title" style="font-size:14px;font-weight:800;color:var(--text);font-family:'Hind Siliguri',sans-serif;margin-bottom:8px">এই channel-এর ভিডিও</div>
+      <div id="cp-videos-grid"></div>
+    </div>
+  </div>
+
+</div>

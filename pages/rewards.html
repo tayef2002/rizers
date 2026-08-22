@@ -1,0 +1,299 @@
+<div id="rewards-page" class="app-page" style="display:none;overflow-x:hidden">
+<div style="padding:16px 16px 80px 16px">
+
+  <!-- Coin Wallet Hero -->
+  <div style="background:linear-gradient(160deg,#0e1020 0%,#181b35 60%,#0e1020 100%);border-radius:22px;padding:22px;margin-bottom:14px;color:#fff;border:1px solid rgba(255,138,0,.18);box-shadow:0 8px 32px rgba(0,0,0,.5)">
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:18px">
+      <div>
+        <div style="font-size:11px;color:rgba(255,255,255,.4);font-weight:600;letter-spacing:1px;margin-bottom:10px">RIZERS COIN WALLET</div>
+        <div style="display:flex;align-items:center;gap:12px">
+          <div style="width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,#FF8A00,#FFB800);display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(255,138,0,.5);flex-shrink:0">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8" fill="rgba(0,0,0,.2)"/><text x="12" y="16.5" text-anchor="middle" font-size="12" font-weight="900" fill="#fff" font-family="Georgia,serif">R</text></svg>
+          </div>
+          <div>
+            <div id="rw-coin-balance" style="font-size:34px;font-weight:700;color:#FFB800;line-height:1">১,২৪০</div>
+            <div style="font-size:11px;color:rgba(255,255,255,.4);margin-top:2px">Rizers Coin (RZC)</div>
+          </div>
+        </div>
+      </div>
+      <div id="rw-multiplier-wrap" style="text-align:center">
+        <div style="background:rgba(255,138,0,.15);border:1.5px solid rgba(255,138,0,.35);border-radius:14px;padding:10px 14px">
+          <div id="rw-multiplier" style="font-size:22px;font-weight:700;color:#FF8A00">1x</div>
+          <div style="font-size:9px;color:rgba(255,255,255,.4);font-weight:700;margin-top:1px">MULTIPLIER</div>
+        </div>
+        <div id="rw-streak-label" style="font-size:10px;color:rgba(255,255,255,.4);margin-top:4px">০ দিন streak</div>
+      </div>
+    </div>
+    <!-- Progress to 3000 -->
+    <div style="background:rgba(255,255,255,.05);border:1px solid rgba(255,138,0,.12);border-radius:14px;padding:14px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+        <span style="font-size:12px;color:rgba(255,255,255,.5)">১ মাস Subscription এর জন্য</span>
+        <span id="rw-progress-label" style="font-size:12px;font-weight:700;color:#FF8A00">১,২৪০ / ৩,০০০</span>
+      </div>
+      <div style="height:10px;background:rgba(255,255,255,.08);border-radius:10px;overflow:hidden">
+        <div id="rw-redeem-bar" style="height:100%;width:0%;background:linear-gradient(90deg,#FF8A00,#FFB800);border-radius:10px;transition:.6s ease;box-shadow:0 0 8px rgba(255,138,0,.5)"></div>
+      </div>
+      <div id="rw-progress-sub" style="font-size:11px;color:rgba(255,255,255,.35);margin-top:6px">আর ১,৭৬০ RZC দরকার</div>
+    </div>
+    <!-- Coin Burn Warning -->
+    <div id="rw-burn-wrap" style="display:none;background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.3);border-radius:12px;padding:11px 13px;margin-top:12px">
+      <div style="display:flex;align-items:center;gap:8px">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2.5" stroke-linecap="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        <span id="rw-burn-msg" style="font-size:12px;color:#ef4444;font-weight:600"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Profile + Level -->
+  <div style="background:linear-gradient(135deg,#FF8A00,#FFB800);border-radius:20px;padding:20px;margin-bottom:14px;display:flex;justify-content:space-between;align-items:center">
+    <div>
+      <div style="font-size:11px;color:rgba(9,11,18,.6);font-weight:700;letter-spacing:.5px;margin-bottom:5px">তোমার প্রোফাইল</div>
+      <div id="rw-user-name" style="font-size:22px;font-weight:700;color:#090B12;margin-bottom:10px">রাফিয়া</div>
+      <div style="display:flex;gap:7px;flex-wrap:wrap">
+        <span id="rw-level-badge" style="background:rgba(9,11,18,.18);border-radius:50px;padding:5px 14px;font-size:12px;font-weight:700;color:#090B12">★ Gold Riser</span>
+        <span id="rw-streak-badge" style="background:rgba(9,11,18,.18);border-radius:50px;padding:5px 14px;font-size:12px;font-weight:700;color:#090B12">🔥 12 দিন</span>
+      </div>
+    </div>
+    <div id="rw-medal" style="font-size:68px;line-height:1;filter:drop-shadow(0 4px 8px rgba(0,0,0,.2))">🥇</div>
+  </div>
+
+  <!-- Stats Grid -->
+  <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:14px">
+    <div style="background:var(--card,#fff);border-radius:14px;padding:15px;border:1px solid var(--border,#f0f0f0)">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FF8A00" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>
+      <div id="rw-badges-count" style="font-size:24px;font-weight:700;color:#FF8A00;margin-top:6px">8</div>
+      <div style="font-size:11px;color:var(--text2,#888);margin-top:2px">মোট Badges</div>
+    </div>
+    <div style="background:var(--card,#fff);border-radius:14px;padding:15px;border:1px solid var(--border,#f0f0f0)">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="#FF8A00"><path d="M12 2C8.5 7 6 10 6 14a6 6 0 0012 0c0-4-2.5-7-6-12z"/></svg>
+      <div id="rw-streak-count" style="font-size:24px;font-weight:700;color:#FF8A00;margin-top:6px">12</div>
+      <div style="font-size:11px;color:var(--text2,#888);margin-top:2px">দিনের Streak</div>
+    </div>
+    <div style="background:var(--card,#fff);border-radius:14px;padding:15px;border:1px solid var(--border,#f0f0f0)">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FFB800" stroke-width="1.5" stroke-linecap="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      <div id="rw-coin-today" style="font-size:24px;font-weight:700;color:#FFB800;margin-top:6px">+0</div>
+      <div style="font-size:11px;color:var(--text2,#888);margin-top:2px">আজকের RZC</div>
+    </div>
+    <div style="background:var(--card,#fff);border-radius:14px;padding:15px;border:1px solid var(--border,#f0f0f0)">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="1.5" stroke-linecap="round"><path d="M6 9H4.5a2.5 2.5 0 010-5H6"/><path d="M18 9h1.5a2.5 2.5 0 000-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0012 0V2z"/></svg>
+      <div id="rw-challenges-done" style="font-size:24px;font-weight:700;color:#ef4444;margin-top:6px">3</div>
+      <div style="font-size:11px;color:var(--text2,#888);margin-top:2px">সম্পন্ন Challenge</div>
+    </div>
+  </div>
+
+  <!-- What can you do with RZC -->
+  <div style="background:linear-gradient(160deg,#0e1020,#181b35);border-radius:18px;padding:20px;margin-bottom:14px;border:1px solid rgba(255,138,0,.18)">
+    <h3 style="font-size:14px;font-weight:700;color:#fff;margin:0 0 14px;display:flex;align-items:center;gap:7px">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#FF8A00" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      <span style="color:#fff">RZC দিয়ে কী করতে পারবেন?</span>
+    </h3>
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <div style="display:flex;align-items:center;gap:12px;padding:12px;background:rgba(255,138,0,.08);border-radius:12px;border:1px solid rgba(255,138,0,.15)">
+        <div style="width:40px;height:40px;border-radius:12px;background:rgba(255,138,0,.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:20px">🎁</div>
+        <div style="flex:1">
+          <div style="font-size:13px;font-weight:700;color:#FFB800">৫০০ RZC</div>
+          <div style="font-size:12px;color:rgba(255,255,255,.6);margin-top:1px">১ সপ্তাহ Subscription বিনামূল্যে</div>
+        </div>
+        <div style="font-size:11px;color:#FF8A00;font-weight:700;background:rgba(255,138,0,.15);padding:4px 10px;border-radius:50px;white-space:nowrap">Redeem</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;padding:12px;background:rgba(255,138,0,.12);border-radius:12px;border:1.5px solid rgba(255,138,0,.3)">
+        <div style="width:40px;height:40px;border-radius:12px;background:rgba(255,138,0,.25);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:20px">🏆</div>
+        <div style="flex:1">
+          <div style="font-size:13px;font-weight:700;color:#FFB800">৩,০০০ RZC</div>
+          <div style="font-size:12px;color:rgba(255,255,255,.6);margin-top:1px">১ মাস Subscription সম্পূর্ণ বিনামূল্যে</div>
+        </div>
+        <div style="font-size:11px;color:#FF8A00;font-weight:700;background:rgba(255,138,0,.2);padding:4px 10px;border-radius:50px;white-space:nowrap">🔥 জনপ্রিয়</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;padding:12px;background:rgba(139,92,246,.08);border-radius:12px;border:1px solid rgba(139,92,246,.2)">
+        <div style="width:40px;height:40px;border-radius:12px;background:rgba(139,92,246,.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:20px">❤️</div>
+        <div style="flex:1">
+          <div style="font-size:13px;font-weight:700;color:#a78bfa">৩,০০০ RZC</div>
+          <div style="font-size:12px;color:rgba(255,255,255,.6);margin-top:1px">বন্ধুকে Gift করুন — সদকায়ে জারিয়া</div>
+        </div>
+        <div style="font-size:11px;color:#a78bfa;font-weight:700;background:rgba(139,92,246,.15);padding:4px 10px;border-radius:50px;white-space:nowrap">সদকা</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;padding:12px;background:rgba(16,185,129,.07);border-radius:12px;border:1px solid rgba(16,185,129,.18)">
+        <div style="width:40px;height:40px;border-radius:12px;background:rgba(16,185,129,.18);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:20px">🚀</div>
+        <div style="flex:1">
+          <div style="font-size:13px;font-weight:700;color:#34d399">শীঘ্রই আসছে</div>
+          <div style="font-size:12px;color:rgba(255,255,255,.6);margin-top:1px">Premium content, exclusive features ও আরো অনেক কিছু</div>
+        </div>
+        <div style="font-size:11px;color:#34d399;font-weight:700;background:rgba(16,185,129,.12);padding:4px 10px;border-radius:50px;white-space:nowrap">Coming</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Redeem -->
+  <div style="background:var(--card,#fff);border-radius:18px;padding:18px;border:1px solid var(--border,#f0f0f0);margin-bottom:14px">
+    <h3 style="font-size:14px;font-weight:700;color:var(--text,#1a1a2e);margin:0 0 14px;display:flex;align-items:center;gap:7px">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#FF8A00" stroke-width="2" stroke-linecap="round"><path d="M20 12V22H4V12"/><path d="M22 7H2v5h20V7z"/><path d="M12 22V7"/><path d="M12 7H7.5a2.5 2.5 0 010-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 000-5C13 2 12 7 12 7z"/></svg>
+      Coin Redeem করুন
+    </h3>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px">
+      <div style="border:1.5px solid rgba(255,138,0,.25);border-radius:14px;padding:14px;text-align:center;background:rgba(255,138,0,.03)">
+        <div style="font-size:11px;color:var(--text2,#888);margin-bottom:4px">১ সপ্তাহ Free</div>
+        <div style="font-size:20px;font-weight:700;color:#FF8A00;margin-bottom:10px">৫০০ RZC</div>
+        <button onclick="rwRedeem(500,'week')" style="width:100%;padding:8px;background:linear-gradient(135deg,#FF8A00,#FFB800);color:#090B12;border:none;border-radius:9px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit">Redeem</button>
+      </div>
+      <div style="border:2px solid rgba(255,138,0,.5);border-radius:14px;padding:14px;text-align:center;background:rgba(255,138,0,.07);position:relative">
+        <div style="position:absolute;top:-9px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#FF8A00,#FFB800);color:#090B12;font-size:9px;font-weight:700;padding:2px 10px;border-radius:50px;white-space:nowrap">🔥 জনপ্রিয়</div>
+        <div style="font-size:11px;color:var(--text2,#888);margin-bottom:4px">১ মাস Free</div>
+        <div style="font-size:20px;font-weight:700;color:#FF8A00;margin-bottom:10px">৩,০০০ RZC</div>
+        <button onclick="rwRedeem(3000,'month')" style="width:100%;padding:8px;background:linear-gradient(135deg,#FF8A00,#FFB800);color:#090B12;border:none;border-radius:9px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit">Redeem</button>
+      </div>
+    </div>
+    <button onclick="rwGiftCoin()" style="width:100%;padding:12px;background:rgba(255,138,0,.06);border:1.5px dashed rgba(255,138,0,.35);border-radius:12px;color:#FF8A00;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:8px">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+      সদকা — বন্ধুকে Gift করুন (৩,০০০ RZC)
+    </button>
+  </div>
+
+  <!-- Hard Challenges -->
+  <div style="background:var(--card,#fff);border-radius:18px;padding:18px;border:1px solid var(--border,#f0f0f0);margin-bottom:14px">
+    <h3 style="font-size:14px;font-weight:700;color:var(--text,#1a1a2e);margin:0 0 14px;display:flex;align-items:center;gap:7px">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="#FF8A00"><path d="M12 2C8.5 7 6 10 6 14a6 6 0 0012 0c0-4-2.5-7-6-12z"/></svg>
+      Hard Challenges
+      <span style="margin-left:auto;font-size:10px;font-weight:600;color:rgba(255,138,0,.7);background:rgba(255,138,0,.1);padding:2px 8px;border-radius:50px">RZC পাবেন</span>
+    </h3>
+    <div id="rw-challenges-list"></div>
+  </div>
+
+  <!-- Level Roadmap -->
+  <div style="background:var(--card,#fff);border-radius:18px;padding:18px;border:1px solid var(--border,#f0f0f0);margin-bottom:14px">
+    <h3 style="font-size:14px;font-weight:700;color:var(--text,#1a1a2e);margin:0 0 16px;display:flex;align-items:center;gap:7px">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#FF8A00" stroke-width="2" stroke-linecap="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+      Level Roadmap
+    </h3>
+    <div id="rw-levels" style="display:flex;align-items:center;overflow-x:auto;padding-bottom:8px;scrollbar-width:none"></div>
+  </div>
+
+  <!-- Badge Collection -->
+  <div style="background:var(--card,#fff);border-radius:18px;padding:18px;border:1px solid var(--border,#f0f0f0);margin-bottom:14px">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
+      <h3 style="font-size:14px;font-weight:700;color:var(--text,#1a1a2e);margin:0;display:flex;align-items:center;gap:7px">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#FF8A00" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>
+        Badge Collection
+      </h3>
+      <span id="rw-badge-count-label" style="font-size:11px;background:rgba(255,138,0,.1);color:#FF8A00;padding:4px 10px;border-radius:50px;font-weight:700">8/14 অর্জন</span>
+    </div>
+    <div style="display:flex;gap:7px;flex-wrap:wrap;margin-bottom:12px">
+      <button class="rw-bf" onclick="rwFilterBadge('all',this)" style="padding:6px 14px;border-radius:50px;border:none;background:#FF8A00;color:#fff;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit">সব</button>
+      <button class="rw-bf" onclick="rwFilterBadge('earned',this)" style="padding:6px 14px;border-radius:50px;border:1.5px solid var(--border,#e5e7eb);background:transparent;color:var(--text2,#666);font-size:12px;cursor:pointer;font-family:inherit">✅ অর্জিত</button>
+      <button class="rw-bf" onclick="rwFilterBadge('locked',this)" style="padding:6px 14px;border-radius:50px;border:1.5px solid var(--border,#e5e7eb);background:transparent;color:var(--text2,#666);font-size:12px;cursor:pointer;font-family:inherit">🔒 বাকি</button>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px" id="rw-badge-grid"></div>
+  </div>
+
+  <!-- Rizers Fund Rise -->
+  <div style="border-radius:22px;padding:22px;margin-bottom:14px;position:relative;overflow:hidden;background:linear-gradient(135deg,#0e1020 0%,#1a1030 50%,#0e1020 100%);border:1px solid rgba(139,92,246,.25)">
+    <div style="position:absolute;top:-30px;right:-30px;width:120px;height:120px;background:rgba(139,92,246,.1);border-radius:50%"></div>
+    <div style="position:absolute;bottom:-20px;left:-20px;width:80px;height:80px;background:rgba(255,138,0,.07);border-radius:50%"></div>
+    <div style="position:relative">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+        <span style="font-size:18px">🚀</span>
+        <span style="font-size:11px;font-weight:700;color:#a78bfa;letter-spacing:1px">RIZERS FUND RISE</span>
+      </div>
+      <h3 style="font-size:18px;font-weight:700;color:#fff;margin:0 0 6px;line-height:1.3">আমাদের বড় স্বপ্ন<br><span style="color:#FFB800">আপনার সাপোর্টে পূরণ হবে</span></h3>
+      <p style="font-size:12px;color:rgba(255,255,255,.5);margin:0 0 18px;line-height:1.6">Rizers এর অনেক বড় পরিকল্পনা আছে — Bangladesh এর প্রতিটা ঘরে Islamic discipline পৌঁছে দিতে। এর জন্য দরকার আপনাদের সাপোর্ট।</p>
+
+      <!-- Fund goals -->
+      <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:18px">
+        <div style="background:rgba(255,255,255,.04);border-radius:12px;padding:13px;border:1px solid rgba(255,255,255,.07)">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+            <div style="display:flex;align-items:center;gap:8px">
+              <span style="font-size:16px">📱</span>
+              <div>
+                <div style="font-size:12px;font-weight:700;color:#fff">Native Android App</div>
+                <div style="font-size:10px;color:rgba(255,255,255,.4)">Google Play Store এ Rizers</div>
+              </div>
+            </div>
+            <div style="text-align:right">
+              <div style="font-size:11px;font-weight:700;color:#FFB800">৪৫%</div>
+              <div style="font-size:9px;color:rgba(255,255,255,.3)">funded</div>
+            </div>
+          </div>
+          <div style="height:6px;background:rgba(255,255,255,.07);border-radius:10px;overflow:hidden">
+            <div style="height:100%;width:45%;background:linear-gradient(90deg,#FF8A00,#FFB800);border-radius:10px"></div>
+          </div>
+        </div>
+        <div style="background:rgba(255,255,255,.04);border-radius:12px;padding:13px;border:1px solid rgba(255,255,255,.07)">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+            <div style="display:flex;align-items:center;gap:8px">
+              <span style="font-size:16px">🌍</span>
+              <div>
+                <div style="font-size:12px;font-weight:700;color:#fff">AI Daily Plan (Claude API)</div>
+                <div style="font-size:10px;color:rgba(255,255,255,.4)">Personalized Islamic life plan</div>
+              </div>
+            </div>
+            <div style="text-align:right">
+              <div style="font-size:11px;font-weight:700;color:#FFB800">28%</div>
+              <div style="font-size:9px;color:rgba(255,255,255,.3)">funded</div>
+            </div>
+          </div>
+          <div style="height:6px;background:rgba(255,255,255,.07);border-radius:10px;overflow:hidden">
+            <div style="height:100%;width:28%;background:linear-gradient(90deg,#a78bfa,#818cf8);border-radius:10px"></div>
+          </div>
+        </div>
+        <div style="background:rgba(255,255,255,.04);border-radius:12px;padding:13px;border:1px solid rgba(255,255,255,.07)">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+            <div style="display:flex;align-items:center;gap:8px">
+              <span style="font-size:16px">🏫</span>
+              <div>
+                <div style="font-size:12px;font-weight:700;color:#fff">Protishthan — School System</div>
+                <div style="font-size:10px;color:rgba(255,255,255,.4)">বাংলাদেশের ৯৯% স্কুলে পৌঁছানো</div>
+              </div>
+            </div>
+            <div style="text-align:right">
+              <div style="font-size:11px;font-weight:700;color:#FFB800">12%</div>
+              <div style="font-size:9px;color:rgba(255,255,255,.3)">funded</div>
+            </div>
+          </div>
+          <div style="height:6px;background:rgba(255,255,255,.07);border-radius:10px;overflow:hidden">
+            <div style="height:100%;width:12%;background:linear-gradient(90deg,#34d399,#10b981);border-radius:10px"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contribution options -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px">
+        <button onclick="rwDonate(30)" style="padding:12px 8px;background:rgba(255,138,0,.1);border:1.5px solid rgba(255,138,0,.3);border-radius:12px;color:#FF8A00;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;text-align:center">
+          <div>৩০ টাকা</div>
+          <div style="font-size:10px;color:rgba(255,138,0,.7);font-weight:500;margin-top:2px">Supporter</div>
+        </button>
+        <button onclick="rwDonate(99)" style="padding:12px 8px;background:rgba(255,138,0,.15);border:2px solid rgba(255,138,0,.5);border-radius:12px;color:#FFB800;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;text-align:center;position:relative">
+          <div style="position:absolute;top:-7px;left:50%;transform:translateX(-50%);background:#FF8A00;color:#090B12;font-size:8px;font-weight:700;padding:1px 8px;border-radius:50px;white-space:nowrap">⭐ Hero</div>
+          <div>৯৯ টাকা</div>
+          <div style="font-size:10px;color:rgba(255,184,0,.7);font-weight:500;margin-top:2px">Rise Hero</div>
+        </button>
+      </div>
+      <button onclick="rwDonate(0)" style="width:100%;padding:11px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:12px;color:rgba(255,255,255,.5);font-size:12px;font-weight:600;cursor:pointer;font-family:inherit">নিজে পরিমাণ লিখুন →</button>
+
+      <!-- Transparency note -->
+      <div style="margin-top:14px;padding:11px;background:rgba(255,138,0,.06);border-radius:10px;border:1px solid rgba(255,138,0,.12);display:flex;align-items:flex-start;gap:8px">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FF8A00" stroke-width="2" stroke-linecap="round" style="flex-shrink:0;margin-top:1px"><polyline points="20 6 9 17 4 12"/></svg>
+        <span style="font-size:11px;color:rgba(255,255,255,.5);line-height:1.6">প্রতিটা টাকা কোথায় যাচ্ছে তা real-time dashboard এ দেখা যাবে। আমরা বিশ্বাসে চলি।</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Coin History -->
+  <div style="background:linear-gradient(160deg,#0e1020,#181b35);border-radius:18px;padding:18px;color:#fff;margin-bottom:14px;border:1px solid rgba(255,138,0,.1)">
+    <h3 style="font-size:14px;font-weight:700;margin:0 0 14px;display:flex;align-items:center;gap:7px">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#FF8A00" stroke-width="2" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+      Coin History
+    </h3>
+    <div id="rw-coin-history"></div>
+    <div style="background:rgba(255,255,255,.05);border-radius:12px;padding:14px;margin-top:12px;display:flex;justify-content:space-between;align-items:center;border:1px solid rgba(255,138,0,.1)">
+      <div>
+        <div style="font-size:11px;color:rgba(255,255,255,.4)">আজ অর্জিত</div>
+        <div id="rw-today-summary" style="font-size:22px;font-weight:700;color:#FF8A00">+0 RZC</div>
+      </div>
+      <div style="text-align:right">
+        <div style="font-size:11px;color:rgba(255,255,255,.4)">মোট জমা</div>
+        <div id="rw-total-summary" style="font-size:18px;font-weight:700;color:#FFB800">১,২৪০ RZC</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>

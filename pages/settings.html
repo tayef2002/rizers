@@ -1,0 +1,229 @@
+<div id="settings-page" class="app-page" style="display:none">
+<div id="st-adult-wrap" style="display:flex;align-items:flex-start;flex-wrap:wrap">
+<div class="rz-page-content" style="padding:16px 16px 100px;flex:1;min-width:0;width:100%;box-sizing:border-box">
+
+  <!-- PROFILE CARD -->
+  <div style="background:var(--card,#fff);border-radius:20px;border:1px solid var(--border,#f0f0f0);padding:20px;margin-bottom:14px">
+    <div style="display:flex;align-items:center;gap:14px">
+      <div id="st-avatar" style="width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,#FF8A00,#FFB800);display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;color:#fff;flex-shrink:0">T</div>
+      <div style="flex:1;min-width:0">
+        <div id="st-name" style="font-size:16px;font-weight:700;color:var(--text,#1a1a2e)">Loading...</div>
+        <div id="st-email" style="font-size:12px;color:var(--text-muted,#888);margin-top:1px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">—</div>
+        <div id="st-sub-badge" style="display:inline-flex;align-items:center;gap:4px;font-size:10px;background:rgba(16,185,129,.1);color:#10B981;padding:3px 10px;border-radius:50px;font-weight:600;margin-top:5px">
+          <svg width="10" height="10" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 6l3 3 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          Active Subscriber
+        </div>
+      </div>
+      <button onclick="stToggleProfileForm()" style="padding:8px 16px;border:1.5px solid #FF8A00;background:transparent;color:#FF8A00;border-radius:10px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;flex-shrink:0;display:flex;align-items:center;gap:5px">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+        Edit
+      </button>
+    </div>
+
+    <!-- Edit Form -->
+    <div id="st-profile-form" style="display:none;margin-top:18px;padding-top:16px;border-top:1px solid var(--border,#f0f0f0)">
+      <div id="st-name-restrict-msg" style="display:none;font-size:11px;color:#EF4444;background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);border-radius:8px;padding:8px 12px;margin-bottom:10px"></div>
+      <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:12px">
+        <div>
+          <div style="font-size:11px;font-weight:600;color:var(--text-muted,#888);margin-bottom:4px">নাম <span id="st-name-days-left" style="font-weight:400;color:var(--text-muted,#aaa)"></span></div>
+          <input id="st-inp-name" type="text" placeholder="তোমার নাম" style="width:100%;border:1.5px solid var(--border,#e5e7eb);border-radius:10px;padding:9px 11px;font-size:13px;font-family:inherit;outline:none;color:var(--text,#1a1a2e);background:var(--card,#fff);box-sizing:border-box"/>
+        </div>
+        <div>
+          <div style="font-size:11px;font-weight:600;color:var(--text-muted,#888);margin-bottom:4px">Username <span id="st-uname-days-left" style="font-weight:400;color:var(--text-muted,#aaa)"></span></div>
+          <div style="position:relative">
+            <span style="position:absolute;left:11px;top:50%;transform:translateY(-50%);font-size:13px;color:var(--text-muted,#aaa);pointer-events:none">@</span>
+            <input id="st-inp-uname" type="text" placeholder="username" style="width:100%;border:1.5px solid var(--border,#e5e7eb);border-radius:10px;padding:9px 11px 9px 24px;font-size:13px;font-family:inherit;outline:none;color:var(--text,#1a1a2e);background:var(--card,#fff);box-sizing:border-box"/>
+          </div>
+          <div id="st-uname-status" style="font-size:11px;margin-top:4px;padding-left:2px"></div>
+        </div>
+        <div>
+          <div style="font-size:11px;font-weight:600;color:var(--text-muted,#888);margin-bottom:4px">Phone <span style="font-size:10px;font-weight:400;color:var(--text-muted,#aaa)">(account থেকে auto)</span></div>
+          <input id="st-inp-phone" type="tel" readonly style="width:100%;border:1.5px solid var(--border,#e5e7eb);border-radius:10px;padding:9px 11px;font-size:13px;font-family:inherit;outline:none;color:var(--text-muted,#999);background:var(--bg,#f5f5f5);box-sizing:border-box;cursor:not-allowed"/>
+        </div>
+        <div>
+          <div style="font-size:11px;font-weight:600;color:var(--text-muted,#888);margin-bottom:4px">পেশা <span style="font-size:10px;font-weight:400;color:var(--text-muted,#aaa)">(account থেকে auto)</span></div>
+          <input id="st-inp-job" type="text" readonly style="width:100%;border:1.5px solid var(--border,#e5e7eb);border-radius:10px;padding:9px 11px;font-size:13px;font-family:inherit;outline:none;color:var(--text-muted,#999);background:var(--bg,#f5f5f5);box-sizing:border-box;cursor:not-allowed"/>
+        </div>
+      </div>
+      <div style="display:flex;gap:8px">
+        <button id="st-save-btn" onclick="stSaveProfile()" style="padding:10px 20px;background:#FF8A00;color:#fff;border:none;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit">Save করো</button>
+        <button onclick="stToggleProfileForm()" style="padding:10px 16px;background:var(--bg,#f5f5f5);color:var(--text-muted,#666);border:none;border-radius:10px;font-size:13px;cursor:pointer;font-family:inherit">বাতিল</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- REYS BALANCE + HISTORY -->
+  <div style="background:linear-gradient(135deg,rgba(255,138,0,.08),rgba(255,184,0,.04));border:1px solid rgba(255,138,0,.18);border-radius:16px;margin-bottom:14px;overflow:hidden">
+    <div style="display:flex;gap:4px;padding:6px">
+      <button id="st-reys-tab-balance" onclick="stReysTab('balance')" style="flex:1;padding:9px 4px;border:none;border-radius:11px;background:rgba(255,138,0,.16);color:#FF8A00;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;transition:background .15s,color .15s">ব্যালেন্স</button>
+      <button id="st-reys-tab-history" onclick="stReysTab('history')" style="flex:1;padding:9px 4px;border:none;border-radius:11px;background:transparent;color:var(--text-muted,#888);font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;transition:background .15s,color .15s">হিস্ট্রি</button>
+    </div>
+
+    <div id="st-reys-view-balance" style="padding:6px 16px 16px;display:flex;align-items:center;gap:14px">
+      <div style="width:48px;height:48px;border-radius:14px;background:rgba(255,138,0,.12);border:1px solid rgba(255,138,0,.25);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FF8A00" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      </div>
+      <div style="flex:1">
+        <div style="font-size:11px;color:var(--text-muted,#888);margin-bottom:2px">তোমার Reys ব্যালেন্স</div>
+        <div style="font-size:22px;font-weight:800;color:#FF8A00" id="st-reys-bal">0 Reys</div>
+        <div style="font-size:11px;color:var(--text-muted,#888);margin-top:2px">কিছু ফিচার আনলক করতে ব্যবহার হয়</div>
+      </div>
+      <button onclick="showPage('subscription')" style="padding:8px 14px;background:#FF8A00;color:#fff;border:none;border-radius:10px;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;flex-shrink:0">Reys নাও</button>
+    </div>
+
+    <div id="st-reys-view-history" style="display:none;padding:2px 10px 10px">
+      <div id="st-reys-history-list" style="max-height:360px;overflow-y:auto"></div>
+    </div>
+  </div>
+
+  <!-- APPEARANCE -->
+  <div style="background:var(--card,#fff);border-radius:18px;border:1px solid var(--border,#f0f0f0);margin-bottom:14px;overflow:hidden">
+    <div style="padding:14px 18px;font-size:11px;font-weight:700;color:var(--text-muted,#999);letter-spacing:.6px">APPEARANCE</div>
+
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:0 18px 14px;border-bottom:1px solid var(--border,#f5f5f5)">
+      <div style="display:flex;align-items:center;gap:12px">
+        <div id="st-dm-icon-wrap" style="width:40px;height:40px;border-radius:11px;background:var(--bg,#f5f5f5);display:flex;align-items:center;justify-content:center;color:var(--text-muted,#666)">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        </div>
+        <div>
+          <div style="font-size:14px;font-weight:600;color:var(--text,#1a1a2e)">Dark Mode</div>
+          <div style="font-size:11px;color:var(--text-muted,#888);margin-top:1px" id="st-dm-label">বন্ধ আছে</div>
+        </div>
+      </div>
+      <div onclick="toggleDarkMode();stSyncDarkUI()" id="dm-toggle" style="width:50px;height:27px;border-radius:50px;background:#e5e7eb;cursor:pointer;position:relative;transition:.3s;flex-shrink:0">
+        <div id="dm-knob" style="width:21px;height:21px;border-radius:50%;background:#fff;position:absolute;top:3px;left:3px;transition:.3s;box-shadow:0 1px 4px rgba(0,0,0,.25)"></div>
+      </div>
+    </div>
+
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 18px">
+      <div style="display:flex;align-items:center;gap:12px">
+        <div style="width:40px;height:40px;border-radius:11px;background:var(--bg,#f5f5f5);display:flex;align-items:center;justify-content:center;color:var(--text-muted,#666)">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+        </div>
+        <div>
+          <div style="font-size:14px;font-weight:600;color:var(--text,#1a1a2e)">Language</div>
+          <div style="font-size:11px;color:var(--text-muted,#888);margin-top:1px" id="lang-label">বাংলা</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:6px">
+        <button onclick="setLang('bn')" id="lang-bn" style="padding:7px 15px;border-radius:8px;border:2px solid #FF8A00;background:#FF8A00;color:#fff;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit">BN</button>
+        <button onclick="setLang('en')" id="lang-en" style="padding:7px 15px;border-radius:8px;border:2px solid var(--border,#e5e7eb);background:var(--card,#fff);color:var(--text-muted,#888);font-size:12px;font-weight:700;cursor:pointer;font-family:inherit">EN</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- NOTIFICATIONS -->
+  <div style="background:var(--card,#fff);border-radius:18px;border:1px solid var(--border,#f0f0f0);margin-bottom:14px;overflow:hidden">
+    <div style="padding:14px 18px;font-size:11px;font-weight:700;color:var(--text-muted,#999);letter-spacing:.6px">NOTIFICATIONS</div>
+    <div id="st-notif-rows"></div>
+  </div>
+
+  <!-- KIDS PROFILES -->
+  <div style="background:var(--card,#fff);border-radius:18px;border:1px solid var(--border,#f0f0f0);margin-bottom:14px;overflow:hidden">
+    <div style="padding:14px 18px;display:flex;align-items:center;justify-content:space-between">
+      <div style="font-size:11px;font-weight:700;color:var(--text-muted,#999);letter-spacing:.6px">KIDS PROFILES</div>
+      <button onclick="showPage('kids')" style="font-size:11px;font-weight:700;color:#FF8A00;background:rgba(255,138,0,.08);border:1px solid rgba(255,138,0,.2);padding:5px 12px;border-radius:8px;cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:4px">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        Add Kid
+      </button>
+    </div>
+    <div id="st-kids-list" style="padding:0 14px 14px"></div>
+  </div>
+
+  <!-- REFERRAL & GROWTH -->
+  <div style="background:var(--card,#fff);border-radius:18px;border:1px solid var(--border,#f0f0f0);margin-bottom:14px;overflow:hidden">
+    <div style="padding:14px 18px;font-size:11px;font-weight:700;color:var(--text-muted,#999);letter-spacing:.6px">REFERRAL & GROWTH</div>
+
+    <div onclick="showPage('referral')" style="display:flex;align-items:center;gap:12px;padding:0 18px 14px;border-bottom:1px solid var(--border,#f5f5f5);cursor:pointer">
+      <div style="width:40px;height:40px;border-radius:11px;background:rgba(255,138,0,.08);display:flex;align-items:center;justify-content:center;color:#FF8A00;flex-shrink:0">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+      </div>
+      <div style="flex:1">
+        <div style="font-size:14px;font-weight:600;color:var(--text,#1a1a2e)">Referral Program</div>
+        <div style="font-size:11px;color:var(--text-muted,#888);margin-top:1px">প্রতি invite এ <span id="st-ref-reys" style="color:#FF8A00;font-weight:600">৫০০ Reys</span> — <span id="st-ref-count" style="color:#FF8A00;font-weight:600">০ জন</span> invited</div>
+      </div>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted,#ccc)" stroke-width="2" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
+    </div>
+
+    <div onclick="showPage('referral')" style="display:flex;align-items:center;gap:12px;padding:14px 18px;cursor:pointer">
+      <div style="width:40px;height:40px;border-radius:11px;background:rgba(255,138,0,.08);display:flex;align-items:center;justify-content:center;color:#FF8A00;flex-shrink:0">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>
+      </div>
+      <div style="flex:1">
+        <div style="font-size:14px;font-weight:600;color:var(--text,#1a1a2e)">Creator Program</div>
+        <div style="font-size:11px;color:var(--text-muted,#888);margin-top:1px">Top referrer হলে monthly বিকাশ payment</div>
+      </div>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted,#ccc)" stroke-width="2" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
+    </div>
+  </div>
+
+  <!-- ACCOUNT -->
+  <div style="background:var(--card,#fff);border-radius:18px;border:1px solid var(--border,#f0f0f0);margin-bottom:14px;overflow:hidden">
+    <div style="padding:14px 18px;font-size:11px;font-weight:700;color:var(--text-muted,#999);letter-spacing:.6px">ACCOUNT</div>
+    <div id="st-account-rows"></div>
+  </div>
+
+  <!-- ABOUT -->
+  <div style="background:var(--card,#fff);border-radius:18px;border:1px solid var(--border,#f0f0f0);margin-bottom:14px;overflow:hidden">
+    <div style="padding:14px 18px;font-size:11px;font-weight:700;color:var(--text-muted,#999);letter-spacing:.6px">ABOUT</div>
+    <div id="st-about-rows"></div>
+  </div>
+
+  <!-- LOGOUT -->
+  <button onclick="stLogout()" style="width:100%;padding:15px;background:var(--card,#fff);color:#EF4444;border:1.5px solid rgba(239,68,68,.2);border-radius:16px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:8px">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+    Logout
+  </button>
+  <div style="text-align:center;font-size:10px;color:var(--text-muted,#bbb);padding-bottom:6px">Rizers v1.0.0 · Made with ❤️ in Bangladesh</div>
+
+</div><!-- /rz-page-content -->
+
+<!-- DONATION SIDEBAR — fixed right, same pattern as Habit Tracker -->
+<div class="rz-donation-sidebar">
+  <div class="rz-dsb-inner" style="overflow-y:auto;padding:20px 14px">
+
+    <!-- Icon + Title -->
+    <div style="text-align:center;margin-bottom:14px">
+      <div style="width:56px;height:56px;border-radius:18px;background:linear-gradient(135deg,rgba(255,138,0,.15),rgba(255,184,0,.1));border:1px solid rgba(255,138,0,.3);display:flex;align-items:center;justify-content:center;margin:0 auto 12px">
+        <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="#FF8A00" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" fill="rgba(255,138,0,.12)"/></svg>
+      </div>
+      <div style="font-size:11px;font-weight:800;color:#FF8A00;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:8px">RIZERS কে SUPPORT করুন</div>
+      <div style="font-size:14px;font-weight:800;color:var(--text,#1f2937);line-height:1.5">"তোমার ছোট সাহায্য হাজারজনের ইবাদত সহজ করে দিতে পারে।"</div>
+    </div>
+
+    <!-- Story -->
+    <div style="background:rgba(255,138,0,.06);border:1px solid rgba(255,138,0,.18);border-radius:14px;padding:12px;margin-bottom:14px">
+      <div style="font-size:12.5px;color:var(--text,#1f2937);line-height:1.8">Rizers সম্পূর্ণ <strong>বিনামূল্যে</strong> চলে।<br>মাত্র <strong style="color:#FF8A00">৳৯৯/মাস</strong> — এক কাপ চায়ের দাম।</div>
+    </div>
+
+    <!-- Benefits -->
+    <div style="display:flex;flex-direction:column;gap:9px;margin-bottom:14px">
+      <div style="display:flex;align-items:center;gap:9px">
+        <div style="width:34px;height:34px;border-radius:10px;background:rgba(255,138,0,.1);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:16px">🤖</div>
+        <div><div style="font-size:12.5px;font-weight:700;color:var(--text,#1f2937)">AI সবার জন্য ফ্রি থাকবে</div><div style="font-size:10.5px;color:var(--text-muted,#888);margin-top:1px">হাজারজনের AI partner</div></div>
+      </div>
+      <div style="display:flex;align-items:center;gap:9px">
+        <div style="width:34px;height:34px;border-radius:10px;background:rgba(34,197,94,.1);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:16px">🌱</div>
+        <div><div style="font-size:12.5px;font-weight:700;color:var(--text,#1f2937)">নতুন feature আসতে থাকবে</div><div style="font-size:10.5px;color:var(--text-muted,#888);margin-top:1px">সব feature সম্পূর্ণ free</div></div>
+      </div>
+      <div style="display:flex;align-items:center;gap:9px">
+        <div style="width:34px;height:34px;border-radius:10px;background:rgba(59,130,246,.1);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:16px">🕌</div>
+        <div><div style="font-size:12.5px;font-weight:700;color:var(--text,#1f2937)">ইসলামিক lifestyle সহজ হবে</div><div style="font-size:10.5px;color:var(--text-muted,#888);margin-top:1px">নামাজ, কোরআন — সব এক জায়গায়</div></div>
+      </div>
+    </div>
+
+    <!-- Hadith -->
+    <div style="padding:11px 12px;border-left:3px solid #FF8A00;background:rgba(255,138,0,.04);border-radius:0 10px 10px 0;margin-bottom:16px">
+      <div style="font-size:12px;color:var(--text,#1f2937);line-height:1.7;font-style:italic">"যে ব্যক্তি কোনো ভালো কাজে সহায়তা করে, সে যেন সেই কাজ নিজেই করলো।"</div>
+      <div style="font-size:11px;color:#FF8A00;font-weight:800;margin-top:4px">— বুখারী ও মুসলিম</div>
+    </div>
+
+    <!-- CTA -->
+    <a href="#" onclick="rzGoToPayment&&rzGoToPayment();return false;" style="display:block;width:100%;background:linear-gradient(135deg,#FF8A00,#FFB800);color:#090B12;font-size:14px;font-weight:800;text-align:center;padding:14px;border-radius:13px;text-decoration:none;box-shadow:0 4px 16px rgba(255,138,0,.35);box-sizing:border-box;margin-bottom:8px">🤲 ৳৯৯/মাসে Support করুন</a>
+    <div style="text-align:center;font-size:10.5px;color:var(--text-muted,#888);line-height:1.5">সম্পূর্ণ স্বেচ্ছায় • যেকোনো সময় বাতিল করুন<br>জাযাকাল্লাহু খায়রান 🤍</div>
+
+  </div>
+</div><!-- /rz-donation-sidebar -->
+
+</div><!-- /st-adult-wrap -->
+</div>

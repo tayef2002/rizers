@@ -1,0 +1,400 @@
+<div id="career-page" class="app-page" style="display:none;overflow-x:hidden">
+
+<!-- ══ KIDS WRAP ══ -->
+<div id="cr-kids-wrap" style="display:none">
+  <div style="padding:24px 20px 32px">
+    <div style="text-align:center;padding:32px 0 20px">
+      <div style="font-size:52px;margin-bottom:12px">💼</div>
+      <div style="font-size:18px;font-weight:800;color:var(--text,#1a1a2e);margin-bottom:8px">ক্যারিয়ার ট্র্যাকার</div>
+      <div style="font-size:13px;color:var(--text2,#666);line-height:1.6">এই সেকশনটি বড়দের জন্য।<br>বড় হলে তুমিও তোমার স্বপ্নের চাকরি ট্র্যাক করতে পারবে!</div>
+    </div>
+    <!-- Donation mobile card -->
+    <div class="rz-donation-mobile-card" style="margin-top:8px">
+      <div style="display:flex;align-items:center;gap:12px">
+        <div style="width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,#ff6b6b,#ee5a24);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="#fff"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+        </div>
+        <div style="flex:1">
+          <div style="font-size:13px;font-weight:800;color:var(--text,#1a1a2e)">Rizers কে টিকিয়ে রাখুন</div>
+          <div style="font-size:11px;color:var(--text2,#888);margin-top:2px">আপনার সাপোর্টে এই app বেঁচে থাকে</div>
+        </div>
+        <button onclick="rzShowDonation&&rzShowDonation()" style="padding:8px 14px;background:linear-gradient(135deg,#FF8A00,#FFB800);color:#fff;border:none;border-radius:20px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap">সাপোর্ট করুন</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ ADULT WRAP ══ -->
+<div id="cr-adult-wrap" style="display:none">
+  <div class="rz-page-with-banner">
+    <div class="rz-page-content" style="padding:0 0 80px 0">
+
+      <!-- ═══ HERO CARD ═══ -->
+      <div id="cr-hero" style="background:linear-gradient(135deg,#1e1b4b 0%,#312e81 50%,#1e1b4b 100%);padding:28px 24px 24px;position:relative;overflow:hidden;margin:16px 20px 0;border-radius:24px">
+        <div style="position:absolute;width:220px;height:220px;border-radius:50%;border:1.5px solid rgba(99,102,241,.25);top:-60px;right:-50px;pointer-events:none"></div>
+        <div style="position:absolute;width:130px;height:130px;border-radius:50%;border:1.5px solid rgba(139,92,246,.2);top:10px;right:20px;pointer-events:none"></div>
+
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:20px">
+          <div style="flex:1">
+            <div style="font-size:10px;color:rgba(255,255,255,.5);letter-spacing:.8px;text-transform:uppercase;margin-bottom:4px">ক্যারিয়ার ড্যাশবোর্ড</div>
+            <div id="cr-role-display" onclick="crEditProfile()" style="font-size:18px;font-weight:800;color:#fff;cursor:pointer;margin-bottom:2px">আপনার পদবী লিখুন</div>
+            <div id="cr-company-display" onclick="crEditProfile()" style="font-size:12px;color:rgba(255,255,255,.6);cursor:pointer">কোম্পানি / প্রতিষ্ঠান</div>
+          </div>
+          <!-- Career Score Ring -->
+          <div style="text-align:center;flex-shrink:0">
+            <svg width="72" height="72" viewBox="0 0 72 72">
+              <circle cx="36" cy="36" r="30" fill="none" stroke="rgba(255,255,255,.1)" stroke-width="6"/>
+              <circle id="cr-score-ring" cx="36" cy="36" r="30" fill="none" stroke="url(#crGrad)" stroke-width="6" stroke-linecap="round" stroke-dasharray="188.5" stroke-dashoffset="188.5" transform="rotate(-90 36 36)" style="transition:stroke-dashoffset .8s ease"/>
+              <defs><linearGradient id="crGrad" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#818cf8"/><stop offset="100%" stop-color="#c084fc"/></linearGradient></defs>
+              <text x="36" y="40" text-anchor="middle" fill="#fff" font-size="16" font-weight="800" id="cr-score-text">0</text>
+            </svg>
+            <div style="font-size:9px;color:rgba(255,255,255,.5);margin-top:2px;text-transform:uppercase;letter-spacing:.5px">Career Score</div>
+          </div>
+        </div>
+
+        <!-- Career Stage Selector -->
+        <div style="margin-bottom:18px">
+          <div style="font-size:10px;color:rgba(255,255,255,.4);margin-bottom:8px;text-transform:uppercase;letter-spacing:.6px">ক্যারিয়ার স্টেজ</div>
+          <div style="display:flex;gap:6px;flex-wrap:wrap" id="cr-stage-pills">
+            <span onclick="crSetStage('student')" data-stage="student" class="cr-stage-pill" style="padding:5px 11px;border-radius:20px;font-size:11px;font-weight:700;cursor:pointer;border:1.5px solid rgba(255,255,255,.2);color:rgba(255,255,255,.7);transition:all .2s">📚 ছাত্র</span>
+            <span onclick="crSetStage('entry')" data-stage="entry" class="cr-stage-pill" style="padding:5px 11px;border-radius:20px;font-size:11px;font-weight:700;cursor:pointer;border:1.5px solid rgba(255,255,255,.2);color:rgba(255,255,255,.7);transition:all .2s">🌱 জুনিয়র</span>
+            <span onclick="crSetStage('mid')" data-stage="mid" class="cr-stage-pill" style="padding:5px 11px;border-radius:20px;font-size:11px;font-weight:700;cursor:pointer;border:1.5px solid rgba(255,255,255,.2);color:rgba(255,255,255,.7);transition:all .2s">⚡ মিড</span>
+            <span onclick="crSetStage('senior')" data-stage="senior" class="cr-stage-pill" style="padding:5px 11px;border-radius:20px;font-size:11px;font-weight:700;cursor:pointer;border:1.5px solid rgba(255,255,255,.2);color:rgba(255,255,255,.7);transition:all .2s">🔥 সিনিয়র</span>
+            <span onclick="crSetStage('lead')" data-stage="lead" class="cr-stage-pill" style="padding:5px 11px;border-radius:20px;font-size:11px;font-weight:700;cursor:pointer;border:1.5px solid rgba(255,255,255,.2);color:rgba(255,255,255,.7);transition:all .2s">👑 লিড</span>
+            <span onclick="crSetStage('expert')" data-stage="expert" class="cr-stage-pill" style="padding:5px 11px;border-radius:20px;font-size:11px;font-weight:700;cursor:pointer;border:1.5px solid rgba(255,255,255,.2);color:rgba(255,255,255,.7);transition:all .2s">🏆 এক্সপার্ট</span>
+          </div>
+        </div>
+
+        <!-- Quick Stats -->
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px">
+          <div style="background:rgba(255,255,255,.08);border-radius:14px;padding:12px;text-align:center">
+            <div id="cr-stat-jobs" style="font-size:22px;font-weight:800;color:#a5b4fc">0</div>
+            <div style="font-size:10px;color:rgba(255,255,255,.5);margin-top:2px">আবেদন</div>
+          </div>
+          <div style="background:rgba(255,255,255,.08);border-radius:14px;padding:12px;text-align:center">
+            <div id="cr-stat-skills" style="font-size:22px;font-weight:800;color:#c4b5fd">0</div>
+            <div style="font-size:10px;color:rgba(255,255,255,.5);margin-top:2px">দক্ষতা</div>
+          </div>
+          <div style="background:rgba(255,255,255,.08);border-radius:14px;padding:12px;text-align:center">
+            <div id="cr-stat-goals" style="font-size:22px;font-weight:800;color:#f0abfc">0</div>
+            <div style="font-size:10px;color:rgba(255,255,255,.5);margin-top:2px">লক্ষ্য পূরণ</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══ CAREER GOALS ═══ -->
+      <div style="margin:20px 20px 0">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+          <div>
+            <div style="font-size:16px;font-weight:800;color:var(--text,#1a1a2e)">ক্যারিয়ার লক্ষ্য</div>
+            <div style="font-size:11px;color:var(--text2,#888);margin-top:2px">সময়সীমা দিয়ে লক্ষ্য নির্ধারণ করুন</div>
+          </div>
+          <button onclick="crOpenAddGoal()" style="display:flex;align-items:center;gap:5px;padding:8px 14px;background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff;border:none;border-radius:20px;font-size:12px;font-weight:700;cursor:pointer">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            লক্ষ্য যোগ
+          </button>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px">
+          <div style="background:rgba(255,138,0,.08);border:1.5px solid rgba(255,138,0,.2);border-radius:14px;padding:10px;text-align:center">
+            <div style="font-size:10px;color:#FF8A00;font-weight:700;margin-bottom:4px">🔥 ৩ মাস</div>
+            <div id="cr-g3m-pct" style="font-size:18px;font-weight:800;color:var(--text,#1a1a2e)">0%</div>
+          </div>
+          <div style="background:rgba(99,102,241,.08);border:1.5px solid rgba(99,102,241,.2);border-radius:14px;padding:10px;text-align:center">
+            <div style="font-size:10px;color:#6366f1;font-weight:700;margin-bottom:4px">🎯 ৬ মাস</div>
+            <div id="cr-g6m-pct" style="font-size:18px;font-weight:800;color:var(--text,#1a1a2e)">0%</div>
+          </div>
+          <div style="background:rgba(139,92,246,.08);border:1.5px solid rgba(139,92,246,.2);border-radius:14px;padding:10px;text-align:center">
+            <div style="font-size:10px;color:#8b5cf6;font-weight:700;margin-bottom:4px">🚀 ১ বছর</div>
+            <div id="cr-g1y-pct" style="font-size:18px;font-weight:800;color:var(--text,#1a1a2e)">0%</div>
+          </div>
+        </div>
+        <div id="cr-goals-list" style="display:flex;flex-direction:column;gap:8px"></div>
+      </div>
+
+      <!-- ═══ JOB APPLICATION KANBAN ═══ -->
+      <div style="margin:24px 20px 0">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+          <div>
+            <div style="font-size:16px;font-weight:800;color:var(--text,#1a1a2e)">চাকরির আবেদন</div>
+            <div style="font-size:11px;color:var(--text2,#888);margin-top:2px">আবেদন ট্র্যাক করুন ধাপে ধাপে</div>
+          </div>
+          <button onclick="crOpenAddJob('applied')" style="display:flex;align-items:center;gap:5px;padding:8px 14px;background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff;border:none;border-radius:20px;font-size:12px;font-weight:700;cursor:pointer">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            আবেদন যোগ
+          </button>
+        </div>
+
+        <!-- Kanban Board -->
+        <div style="display:flex;gap:12px;overflow-x:auto;padding-bottom:12px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none">
+          <!-- Applied Column -->
+          <div style="min-width:220px;max-width:220px;flex-shrink:0;scroll-snap-align:start">
+            <div style="background:rgba(99,102,241,.1);border:1.5px solid rgba(99,102,241,.25);border-radius:16px;padding:12px">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+                <div style="display:flex;align-items:center;gap:6px">
+                  <div style="width:8px;height:8px;border-radius:50%;background:#6366f1"></div>
+                  <span style="font-size:12px;font-weight:700;color:#6366f1">📝 আবেদন</span>
+                </div>
+                <span id="cr-count-applied" style="font-size:11px;background:rgba(99,102,241,.2);color:#6366f1;padding:2px 8px;border-radius:10px;font-weight:700">0</span>
+              </div>
+              <div id="cr-col-applied" style="display:flex;flex-direction:column;gap:8px;min-height:60px"></div>
+              <button onclick="crOpenAddJob('applied')" style="width:100%;margin-top:8px;padding:8px;border:1.5px dashed rgba(99,102,241,.3);border-radius:10px;background:transparent;color:rgba(99,102,241,.7);font-size:12px;font-weight:600;cursor:pointer">+ যোগ করুন</button>
+            </div>
+          </div>
+
+          <!-- Interview Column -->
+          <div style="min-width:220px;max-width:220px;flex-shrink:0;scroll-snap-align:start">
+            <div style="background:rgba(245,158,11,.08);border:1.5px solid rgba(245,158,11,.25);border-radius:16px;padding:12px">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+                <div style="display:flex;align-items:center;gap:6px">
+                  <div style="width:8px;height:8px;border-radius:50%;background:#f59e0b"></div>
+                  <span style="font-size:12px;font-weight:700;color:#d97706">🎯 ইন্টারভিউ</span>
+                </div>
+                <span id="cr-count-interview" style="font-size:11px;background:rgba(245,158,11,.2);color:#d97706;padding:2px 8px;border-radius:10px;font-weight:700">0</span>
+              </div>
+              <div id="cr-col-interview" style="display:flex;flex-direction:column;gap:8px;min-height:60px"></div>
+              <button onclick="crOpenAddJob('interview')" style="width:100%;margin-top:8px;padding:8px;border:1.5px dashed rgba(245,158,11,.3);border-radius:10px;background:transparent;color:rgba(245,158,11,.8);font-size:12px;font-weight:600;cursor:pointer">+ যোগ করুন</button>
+            </div>
+          </div>
+
+          <!-- Offer Column -->
+          <div style="min-width:220px;max-width:220px;flex-shrink:0;scroll-snap-align:start">
+            <div style="background:rgba(16,185,129,.08);border:1.5px solid rgba(16,185,129,.25);border-radius:16px;padding:12px">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+                <div style="display:flex;align-items:center;gap:6px">
+                  <div style="width:8px;height:8px;border-radius:50%;background:#10b981"></div>
+                  <span style="font-size:12px;font-weight:700;color:#059669">🎁 অফার পেয়েছি</span>
+                </div>
+                <span id="cr-count-offer" style="font-size:11px;background:rgba(16,185,129,.2);color:#059669;padding:2px 8px;border-radius:10px;font-weight:700">0</span>
+              </div>
+              <div id="cr-col-offer" style="display:flex;flex-direction:column;gap:8px;min-height:60px"></div>
+              <button onclick="crOpenAddJob('offer')" style="width:100%;margin-top:8px;padding:8px;border:1.5px dashed rgba(16,185,129,.3);border-radius:10px;background:transparent;color:rgba(16,185,129,.8);font-size:12px;font-weight:600;cursor:pointer">+ যোগ করুন</button>
+            </div>
+          </div>
+
+          <!-- Result Column -->
+          <div style="min-width:220px;max-width:220px;flex-shrink:0;scroll-snap-align:start">
+            <div style="background:rgba(107,114,128,.06);border:1.5px solid rgba(107,114,128,.2);border-radius:16px;padding:12px">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+                <div style="display:flex;align-items:center;gap:6px">
+                  <div style="width:8px;height:8px;border-radius:50%;background:#6b7280"></div>
+                  <span style="font-size:12px;font-weight:700;color:var(--text2,#6b7280)">🏁 ফলাফল</span>
+                </div>
+                <span id="cr-count-result" style="font-size:11px;background:rgba(107,114,128,.15);color:var(--text2,#6b7280);padding:2px 8px;border-radius:10px;font-weight:700">0</span>
+              </div>
+              <div id="cr-col-result" style="display:flex;flex-direction:column;gap:8px;min-height:60px"></div>
+              <button onclick="crOpenAddJob('result')" style="width:100%;margin-top:8px;padding:8px;border:1.5px dashed rgba(107,114,128,.25);border-radius:10px;background:transparent;color:var(--text2,#6b7280);font-size:12px;font-weight:600;cursor:pointer">+ যোগ করুন</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══ CV CHECKLIST ═══ -->
+      <div style="margin:20px 20px 0;background:var(--card,#fff);border:1.5px solid var(--border,#e5e7eb);border-radius:20px;padding:18px">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+          <div>
+            <div style="font-size:15px;font-weight:800;color:var(--text,#1a1a2e)">📄 CV / রেজুমে স্কোর</div>
+            <div style="font-size:11px;color:var(--text2,#888);margin-top:2px">আপনার রেজুমে কতটা রেডি?</div>
+          </div>
+          <div style="text-align:center">
+            <div id="cr-cv-pct" style="font-size:24px;font-weight:800;color:#6366f1">0%</div>
+          </div>
+        </div>
+        <div style="background:rgba(99,102,241,.1);border-radius:8px;height:6px;margin-bottom:14px;overflow:hidden">
+          <div id="cr-cv-bar" style="height:100%;background:linear-gradient(90deg,#6366f1,#8b5cf6);border-radius:8px;width:0%;transition:width .5s ease"></div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px" id="cr-cv-checklist">
+          <!-- Rendered by JS -->
+        </div>
+      </div>
+
+      <!-- ═══ SKILLS TRACKER ═══ -->
+      <div style="margin:20px 20px 0">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+          <div>
+            <div style="font-size:16px;font-weight:800;color:var(--text,#1a1a2e)">দক্ষতা ট্র্যাকার</div>
+            <div style="font-size:11px;color:var(--text2,#888);margin-top:2px">আপনার skills এর level বিল্ড করুন</div>
+          </div>
+          <button onclick="crOpenAddSkill()" style="display:flex;align-items:center;gap:5px;padding:8px 14px;background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff;border:none;border-radius:20px;font-size:12px;font-weight:700;cursor:pointer">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            স্কিল যোগ
+          </button>
+        </div>
+        <!-- Filter tabs -->
+        <div style="display:flex;gap:6px;margin-bottom:12px;overflow-x:auto;scrollbar-width:none">
+          <button onclick="crFilterSkills('all')" id="cr-sf-all" style="padding:6px 14px;border-radius:20px;font-size:12px;font-weight:700;cursor:pointer;background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff;border:none;white-space:nowrap">সব</button>
+          <button onclick="crFilterSkills('tech')" id="cr-sf-tech" style="padding:6px 14px;border-radius:20px;font-size:12px;font-weight:700;cursor:pointer;background:var(--card,#fff);color:var(--text2,#888);border:1.5px solid var(--border,#e5e7eb);white-space:nowrap">💻 টেকনিক্যাল</button>
+          <button onclick="crFilterSkills('soft')" id="cr-sf-soft" style="padding:6px 14px;border-radius:20px;font-size:12px;font-weight:700;cursor:pointer;background:var(--card,#fff);color:var(--text2,#888);border:1.5px solid var(--border,#e5e7eb);white-space:nowrap">🤝 সফট স্কিল</button>
+          <button onclick="crFilterSkills('lang')" id="cr-sf-lang" style="padding:6px 14px;border-radius:20px;font-size:12px;font-weight:700;cursor:pointer;background:var(--card,#fff);color:var(--text2,#888);border:1.5px solid var(--border,#e5e7eb);white-space:nowrap">🌐 ভাষা</button>
+          <button onclick="crFilterSkills('pro')" id="cr-sf-pro" style="padding:6px 14px;border-radius:20px;font-size:12px;font-weight:700;cursor:pointer;background:var(--card,#fff);color:var(--text2,#888);border:1.5px solid var(--border,#e5e7eb);white-space:nowrap">📚 পেশাদার</button>
+        </div>
+        <div id="cr-skills-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:10px"></div>
+      </div>
+
+    </div><!-- end rz-page-content -->
+
+    <!-- Desktop donation sidebar -->
+    <div class="rz-donation-sidebar">
+      <div class="rz-dsb-inner">
+        <div style="text-align:center;margin-bottom:20px">
+          <div style="width:58px;height:58px;border-radius:18px;background:linear-gradient(135deg,rgba(255,138,0,0.15),rgba(255,184,0,0.1));border:1px solid rgba(255,138,0,0.3);display:flex;align-items:center;justify-content:center;margin:0 auto 12px">
+            <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="#FF8A00" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" fill="rgba(255,138,0,0.12)"/></svg>
+          </div>
+          <div style="font-size:12px;font-weight:800;color:#FF8A00;letter-spacing:1px;text-transform:uppercase">Rizers কে Support করুন</div>
+        </div>
+        <div style="background:rgba(255,138,0,0.06);border:1px solid rgba(255,138,0,0.15);border-radius:14px;padding:16px;margin-bottom:16px">
+          <div style="font-size:15px;font-weight:700;color:var(--text,#1f2937);line-height:1.6;margin-bottom:10px">"তোমার ছোট সাহায্য হাজারজনের ইবাদত সহজ করে দিতে পারে।"</div>
+          <div style="font-size:12.5px;color:var(--text2,#888);line-height:1.7">Rizers ব্যবহার করে প্রতিদিন হাজারো মানুষ নামাজ, ঘুম আর কোরআন ঠিক করছে। তুমি চাইলে এই যাত্রার অংশ হতে পারো।</div>
+        </div>
+        <div style="margin-bottom:16px">
+          <div style="font-size:12px;font-weight:700;color:var(--text2,#888);margin-bottom:10px;text-transform:uppercase;letter-spacing:.8px">মাত্র ৳৯৯/মাসে</div>
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <div style="display:flex;align-items:center;gap:10px"><div style="width:7px;height:7px;border-radius:50%;background:#FF8A00;flex-shrink:0"></div><span style="font-size:13.5px;color:var(--text,#1f2937)">১ কাপ চায়ের দাম</span></div>
+            <div style="display:flex;align-items:center;gap:10px"><div style="width:7px;height:7px;border-radius:50%;background:#22C55E;flex-shrink:0"></div><span style="font-size:13.5px;color:var(--text,#1f2937)">হাজারজনের AI partner চালু থাকে</span></div>
+            <div style="display:flex;align-items:center;gap:10px"><div style="width:7px;height:7px;border-radius:50%;background:#3B82F6;flex-shrink:0"></div><span style="font-size:13.5px;color:var(--text,#1f2937)">সব feature সম্পূর্ণ free থাকে</span></div>
+          </div>
+        </div>
+        <div style="height:1px;background:var(--border,#e5e7eb);margin-bottom:16px"></div>
+        <div style="margin-bottom:20px;flex:1">
+          <div style="font-size:13px;color:var(--text2,#888);line-height:1.8;font-style:italic">"যে ব্যক্তি কোনো ভালো কাজে সহায়তা করে, সে যেন সেই কাজ নিজেই করলো।"</div>
+          <div style="font-size:11.5px;color:#FF8A00;font-weight:700;margin-top:6px">— বুখারী ও মুসলিম</div>
+        </div>
+        <a href="#" onclick="rzGoToPayment&&rzGoToPayment();return false;" style="display:block;width:100%;background:linear-gradient(135deg,#FF8A00,#FFB800);color:#090B12;font-size:14px;font-weight:800;text-align:center;padding:15px;border-radius:13px;text-decoration:none;box-shadow:0 4px 16px rgba(255,138,0,0.4);box-sizing:border-box">🤲 ৳৯৯/মাসে Support করুন</a>
+        <div style="text-align:center;margin-top:12px;font-size:11px;color:var(--text2,#888)">সম্পূর্ণ স্বেচ্ছায় • যেকোনো সময় বাতিল করুন</div>
+      </div>
+    </div>
+  </div><!-- end rz-page-with-banner -->
+</div><!-- end adult wrap -->
+
+<!-- ══════════ MODALS ══════════ -->
+
+<!-- Profile Edit Modal -->
+<div id="cr-profile-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:9000;align-items:flex-end;justify-content:center">
+  <div style="background:var(--card,#fff);border-radius:24px 24px 0 0;padding:24px;width:100%;max-width:500px;max-height:85vh;overflow-y:auto">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px">
+      <div style="font-size:16px;font-weight:800;color:var(--text,#1a1a2e)">প্রোফাইল সম্পাদনা</div>
+      <button onclick="crCloseModal('cr-profile-modal')" style="width:32px;height:32px;border-radius:50%;background:var(--border,#f1f5f9);border:none;cursor:pointer;font-size:16px">✕</button>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <div>
+        <label style="font-size:12px;font-weight:700;color:var(--text2,#888);display:block;margin-bottom:6px">পদবী / Job Title</label>
+        <input id="cr-inp-role" type="text" placeholder="যেমন: Software Developer" style="width:100%;padding:13px 16px;background:var(--bg,#f8fafc);border:1.5px solid var(--border,#e5e7eb);border-radius:14px;font-size:15px;color:var(--text,#1a1a2e);outline:none;box-sizing:border-box"/>
+      </div>
+      <div>
+        <label style="font-size:12px;font-weight:700;color:var(--text2,#888);display:block;margin-bottom:6px">কোম্পানি / প্রতিষ্ঠান</label>
+        <input id="cr-inp-company" type="text" placeholder="যেমন: Google Bangladesh" style="width:100%;padding:13px 16px;background:var(--bg,#f8fafc);border:1.5px solid var(--border,#e5e7eb);border-radius:14px;font-size:15px;color:var(--text,#1a1a2e);outline:none;box-sizing:border-box"/>
+      </div>
+      <button onclick="crSaveProfile()" style="width:100%;padding:15px;background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff;border:none;border-radius:14px;font-size:15px;font-weight:800;cursor:pointer">সংরক্ষণ করুন</button>
+    </div>
+  </div>
+</div>
+
+<!-- Add Job Modal -->
+<div id="cr-job-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:9000;align-items:flex-end;justify-content:center">
+  <div style="background:var(--card,#fff);border-radius:24px 24px 0 0;padding:24px;width:100%;max-width:500px;max-height:85vh;overflow-y:auto">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px">
+      <div style="font-size:16px;font-weight:800;color:var(--text,#1a1a2e)">আবেদন যোগ করুন</div>
+      <button onclick="crCloseModal('cr-job-modal')" style="width:32px;height:32px;border-radius:50%;background:var(--border,#f1f5f9);border:none;cursor:pointer;font-size:16px">✕</button>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <div>
+        <label style="font-size:12px;font-weight:700;color:var(--text2,#888);display:block;margin-bottom:6px">কোম্পানির নাম *</label>
+        <input id="cr-j-company" type="text" placeholder="যেমন: Grameenphone" style="width:100%;padding:13px 16px;background:var(--bg,#f8fafc);border:1.5px solid var(--border,#e5e7eb);border-radius:14px;font-size:15px;color:var(--text,#1a1a2e);outline:none;box-sizing:border-box"/>
+      </div>
+      <div>
+        <label style="font-size:12px;font-weight:700;color:var(--text2,#888);display:block;margin-bottom:6px">পদবী / Role *</label>
+        <input id="cr-j-role" type="text" placeholder="যেমন: Junior Developer" style="width:100%;padding:13px 16px;background:var(--bg,#f8fafc);border:1.5px solid var(--border,#e5e7eb);border-radius:14px;font-size:15px;color:var(--text,#1a1a2e);outline:none;box-sizing:border-box"/>
+      </div>
+      <div>
+        <label style="font-size:12px;font-weight:700;color:var(--text2,#888);display:block;margin-bottom:6px">প্রত্যাশিত বেতন</label>
+        <input id="cr-j-salary" type="number" placeholder="৳ মাসিক বেতন" style="width:100%;padding:13px 16px;background:var(--bg,#f8fafc);border:1.5px solid var(--border,#e5e7eb);border-radius:14px;font-size:15px;color:var(--text,#1a1a2e);outline:none;box-sizing:border-box"/>
+      </div>
+      <div>
+        <label style="font-size:12px;font-weight:700;color:var(--text2,#888);display:block;margin-bottom:6px">স্টেজ</label>
+        <select id="cr-j-stage" style="width:100%;padding:13px 16px;background:var(--bg,#f8fafc);border:1.5px solid var(--border,#e5e7eb);border-radius:14px;font-size:15px;color:var(--text,#1a1a2e);outline:none">
+          <option value="applied">📝 আবেদন করেছি</option>
+          <option value="interview">🎯 ইন্টারভিউ</option>
+          <option value="offer">🎁 অফার পেয়েছি</option>
+          <option value="result">✅ সফল হয়েছি</option>
+        </select>
+      </div>
+      <div>
+        <label style="font-size:12px;font-weight:700;color:var(--text2,#888);display:block;margin-bottom:6px">নোট (ঐচ্ছিক)</label>
+        <input id="cr-j-note" type="text" placeholder="যেমন: রেফারেল আছে, HR এর সাথে কথা হয়েছে..." style="width:100%;padding:13px 16px;background:var(--bg,#f8fafc);border:1.5px solid var(--border,#e5e7eb);border-radius:14px;font-size:15px;color:var(--text,#1a1a2e);outline:none;box-sizing:border-box"/>
+      </div>
+      <input type="hidden" id="cr-j-id"/>
+      <button onclick="crSaveJob()" style="width:100%;padding:15px;background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff;border:none;border-radius:14px;font-size:15px;font-weight:800;cursor:pointer">সংরক্ষণ করুন</button>
+    </div>
+  </div>
+</div>
+
+<!-- Add Skill Modal -->
+<div id="cr-skill-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:9000;align-items:flex-end;justify-content:center">
+  <div style="background:var(--card,#fff);border-radius:24px 24px 0 0;padding:24px;width:100%;max-width:500px;max-height:85vh;overflow-y:auto">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px">
+      <div style="font-size:16px;font-weight:800;color:var(--text,#1a1a2e)">দক্ষতা যোগ করুন</div>
+      <button onclick="crCloseModal('cr-skill-modal')" style="width:32px;height:32px;border-radius:50%;background:var(--border,#f1f5f9);border:none;cursor:pointer;font-size:16px">✕</button>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <div>
+        <label style="font-size:12px;font-weight:700;color:var(--text2,#888);display:block;margin-bottom:6px">দক্ষতার নাম *</label>
+        <input id="cr-sk-name" type="text" placeholder="যেমন: JavaScript, যোগাযোগ দক্ষতা..." style="width:100%;padding:13px 16px;background:var(--bg,#f8fafc);border:1.5px solid var(--border,#e5e7eb);border-radius:14px;font-size:15px;color:var(--text,#1a1a2e);outline:none;box-sizing:border-box"/>
+      </div>
+      <div>
+        <label style="font-size:12px;font-weight:700;color:var(--text2,#888);display:block;margin-bottom:6px">ক্যাটাগরি</label>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+          <div onclick="crSelSkillCat('tech',this)" class="cr-cat-opt" style="padding:12px;border:1.5px solid var(--border,#e5e7eb);border-radius:12px;cursor:pointer;text-align:center;font-size:12px;font-weight:700;color:var(--text2,#888);transition:all .2s">💻 টেকনিক্যাল</div>
+          <div onclick="crSelSkillCat('soft',this)" class="cr-cat-opt" style="padding:12px;border:1.5px solid var(--border,#e5e7eb);border-radius:12px;cursor:pointer;text-align:center;font-size:12px;font-weight:700;color:var(--text2,#888);transition:all .2s">🤝 সফট স্কিল</div>
+          <div onclick="crSelSkillCat('lang',this)" class="cr-cat-opt" style="padding:12px;border:1.5px solid var(--border,#e5e7eb);border-radius:12px;cursor:pointer;text-align:center;font-size:12px;font-weight:700;color:var(--text2,#888);transition:all .2s">🌐 ভাষা</div>
+          <div onclick="crSelSkillCat('pro',this)" class="cr-cat-opt" style="padding:12px;border:1.5px solid var(--border,#e5e7eb);border-radius:12px;cursor:pointer;text-align:center;font-size:12px;font-weight:700;color:var(--text2,#888);transition:all .2s">📚 পেশাদার</div>
+        </div>
+        <input type="hidden" id="cr-sk-cat" value="tech"/>
+      </div>
+      <div>
+        <label style="font-size:12px;font-weight:700;color:var(--text2,#888);display:block;margin-bottom:10px">দক্ষতার স্তর</label>
+        <div style="display:flex;gap:8px;justify-content:center" id="cr-sk-stars">
+          <span onclick="crSetSkillStar(1)" data-star="1" style="font-size:28px;cursor:pointer;filter:grayscale(1);transition:filter .15s">⭐</span>
+          <span onclick="crSetSkillStar(2)" data-star="2" style="font-size:28px;cursor:pointer;filter:grayscale(1);transition:filter .15s">⭐</span>
+          <span onclick="crSetSkillStar(3)" data-star="3" style="font-size:28px;cursor:pointer;filter:grayscale(1);transition:filter .15s">⭐</span>
+          <span onclick="crSetSkillStar(4)" data-star="4" style="font-size:28px;cursor:pointer;filter:grayscale(1);transition:filter .15s">⭐</span>
+          <span onclick="crSetSkillStar(5)" data-star="5" style="font-size:28px;cursor:pointer;filter:grayscale(1);transition:filter .15s">⭐</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;margin-top:6px;padding:0 4px">
+          <span style="font-size:10px;color:var(--text2,#aaa)">নতুন শিখছি</span>
+          <span style="font-size:10px;color:var(--text2,#aaa)">বিশেষজ্ঞ</span>
+        </div>
+        <input type="hidden" id="cr-sk-level" value="3"/>
+      </div>
+      <input type="hidden" id="cr-sk-id"/>
+      <button onclick="crSaveSkill()" style="width:100%;padding:15px;background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff;border:none;border-radius:14px;font-size:15px;font-weight:800;cursor:pointer">সংরক্ষণ করুন</button>
+    </div>
+  </div>
+</div>
+
+<!-- Add Goal Modal -->
+<div id="cr-goal-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:9000;align-items:flex-end;justify-content:center">
+  <div style="background:var(--card,#fff);border-radius:24px 24px 0 0;padding:24px;width:100%;max-width:500px;max-height:85vh;overflow-y:auto">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px">
+      <div style="font-size:16px;font-weight:800;color:var(--text,#1a1a2e)">লক্ষ্য যোগ করুন</div>
+      <button onclick="crCloseModal('cr-goal-modal')" style="width:32px;height:32px;border-radius:50%;background:var(--border,#f1f5f9);border:none;cursor:pointer;font-size:16px">✕</button>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <div>
+        <label style="font-size:12px;font-weight:700;color:var(--text2,#888);display:block;margin-bottom:6px">লক্ষ্য লিখুন *</label>
+        <textarea id="cr-gl-text" placeholder="যেমন: React শিখে একটি portfolio project বানাবো..." rows="3" style="width:100%;padding:13px 16px;background:var(--bg,#f8fafc);border:1.5px solid var(--border,#e5e7eb);border-radius:14px;font-size:15px;color:var(--text,#1a1a2e);outline:none;box-sizing:border-box;resize:none"></textarea>
+      </div>
+      <div>
+        <label style="font-size:12px;font-weight:700;color:var(--text2,#888);display:block;margin-bottom:8px">সময়সীমা</label>
+        <div style="display:flex;gap:8px">
+          <button onclick="crSelGoalTime('3m',this)" class="cr-time-opt" style="flex:1;padding:11px;border-radius:12px;border:1.5px solid rgba(255,138,0,.3);background:rgba(255,138,0,.08);color:#FF8A00;font-size:13px;font-weight:700;cursor:pointer">🔥 ৩ মাস</button>
+          <button onclick="crSelGoalTime('6m',this)" class="cr-time-opt" style="flex:1;padding:11px;border-radius:12px;border:1.5px solid var(--border,#e5e7eb);background:var(--bg,#f8fafc);color:var(--text2,#888);font-size:13px;font-weight:700;cursor:pointer">🎯 ৬ মাস</button>
+          <button onclick="crSelGoalTime('1y',this)" class="cr-time-opt" style="flex:1;padding:11px;border-radius:12px;border:1.5px solid var(--border,#e5e7eb);background:var(--bg,#f8fafc);color:var(--text2,#888);font-size:13px;font-weight:700;cursor:pointer">🚀 ১ বছর</button>
+        </div>
+        <input type="hidden" id="cr-gl-timeline" value="3m"/>
+      </div>
+      <input type="hidden" id="cr-gl-id"/>
+      <button onclick="crSaveGoal()" style="width:100%;padding:15px;background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff;border:none;border-radius:14px;font-size:15px;font-weight:800;cursor:pointer">সংরক্ষণ করুন</button>
+    </div>
+  </div>
+</div>
+
+</div><!-- end career-page -->

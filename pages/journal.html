@@ -1,0 +1,281 @@
+<!-- Journal Page -->
+<div id="journal-page" class="page-div app-page">
+
+<!-- KIDS MODE -->
+<div id="jn-kids-wrap" style="display:none;padding:20px">
+  <div style="text-align:center;padding:40px 20px">
+    <div style="font-size:48px;margin-bottom:12px">📔</div>
+    <h2 style="font-size:20px;font-weight:800;color:var(--text,#1a1a2e);margin-bottom:8px">জার্নাল</h2>
+    <p style="font-size:13px;color:var(--text2,#888)">এই ফিচারটি প্রাপ্তবয়স্কদের জন্য। ব্যক্তিগত জীবন ক্রনিকেল।</p>
+  </div>
+  <div style="max-width:400px;margin:0 auto;background:linear-gradient(160deg,#12142a,#1c1f3a);border-radius:20px;padding:24px;color:#fff;border:1px solid rgba(255,138,0,.2)">
+    <div style="font-size:13px;font-weight:700;opacity:.8;margin-bottom:8px">📔 Rizers Journal</div>
+    <div style="font-size:18px;font-weight:900;margin-bottom:8px">প্রতিদিন লিখুন, প্রতিদিন বাড়ুন</div>
+    <p style="font-size:12px;opacity:.85;margin-bottom:16px">আপনার চিন্তা, অনুভূতি ও স্বপ্ন লিখে রাখুন Rizers Journal-এ।</p>
+    <button onclick="showPage('subscription')" style="background:linear-gradient(135deg,#FF8A00,#FFB800);color:#090B12;border:none;padding:10px 20px;border-radius:10px;font-weight:800;font-size:13px;cursor:pointer;width:100%">সাপোর্ট করুন →</button>
+  </div>
+</div>
+
+<!-- ADULT MODE -->
+<div id="jn-adult-wrap" style="display:none">
+  <div class="rz-page-with-banner" style="display:flex;gap:0;min-height:calc(100vh - 60px)">
+
+    <!-- MAIN CONTENT -->
+    <div class="rz-page-content" style="flex:1;padding:20px 24px 40px;min-width:0">
+
+      <!-- HERO CARD -->
+      <div style="background:linear-gradient(160deg,#12142a 0%,#1c1f3a 50%,#16192e 100%);border-radius:20px;padding:24px;margin-bottom:20px;position:relative;overflow:hidden;border:1px solid rgba(255,138,0,.15)">
+        <div style="position:absolute;top:-30px;right:-30px;width:160px;height:160px;background:radial-gradient(circle,rgba(255,138,0,.12),transparent 70%);border-radius:50%"></div>
+        <div style="position:absolute;bottom:-20px;left:30%;width:100px;height:100px;background:radial-gradient(circle,rgba(255,255,255,.04),transparent 70%);border-radius:50%"></div>
+
+        <div style="display:flex;align-items:flex-start;gap:20px;position:relative;flex-wrap:wrap">
+          <!-- Book icon with streak -->
+          <div style="flex-shrink:0;text-align:center">
+            <div style="font-size:48px;line-height:1;margin-bottom:4px">📔</div>
+            <div style="font-size:9px;font-weight:700;color:rgba(255,255,255,.5)">জার্নাল</div>
+          </div>
+          <!-- Main info -->
+          <div style="flex:1;min-width:160px">
+            <div style="font-size:10px;font-weight:700;color:#FF8A00;letter-spacing:1.5px;margin-bottom:6px">✍️ PERSONAL CHRONICLE</div>
+            <div id="jn-hero-prompt" style="font-size:15px;font-weight:800;color:#fff;margin-bottom:6px;line-height:1.4">"আজকের চিন্তাগুলো লিখে রাখুন — কাল পড়ে অবাক হবেন।"</div>
+            <div style="font-size:11px;color:rgba(255,255,255,.5)">আপনার ব্যক্তিগত জীবন ক্রনিকেল</div>
+          </div>
+          <!-- Stat tiles -->
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <div style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:10px 14px;text-align:center;min-width:56px">
+              <div id="jn-stat-streak" style="font-size:20px;font-weight:900;color:#FF8A00">0</div>
+              <div style="font-size:9px;color:rgba(255,255,255,.4);font-weight:600">দিনের স্ট্রিক</div>
+            </div>
+            <div style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:10px 14px;text-align:center;min-width:56px">
+              <div id="jn-stat-entries" style="font-size:20px;font-weight:900;color:#34D399">0</div>
+              <div style="font-size:9px;color:rgba(255,255,255,.4);font-weight:600">এন্ট্রি</div>
+            </div>
+            <div style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:10px 14px;text-align:center;min-width:56px">
+              <div id="jn-stat-words" style="font-size:20px;font-weight:900;color:#60A5FA">0</div>
+              <div style="font-size:9px;color:rgba(255,255,255,.4);font-weight:600">শব্দ</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bottom bar -->
+        <div style="display:flex;align-items:center;gap:16px;margin-top:16px;padding-top:14px;border-top:1px solid rgba(255,255,255,.06);flex-wrap:wrap">
+          <div style="display:flex;align-items:center;gap:5px"><span style="font-size:11px;color:rgba(255,255,255,.4)">⭐ পছন্দের:</span><span id="jn-ct-starred" style="font-size:11px;font-weight:700;color:#FF8A00">0</span></div>
+          <div style="display:flex;align-items:center;gap:5px"><span style="font-size:11px;color:rgba(255,255,255,.4)">📅 এই মাসে:</span><span id="jn-ct-month" style="font-size:11px;font-weight:700;color:#34D399">0</span></div>
+          <div style="display:flex;align-items:center;gap:5px"><span style="font-size:11px;color:rgba(255,255,255,.4)">💬 গড়:</span><span id="jn-ct-avg" style="font-size:11px;font-weight:700;color:#60A5FA">0 শব্দ</span></div>
+          <div style="margin-left:auto">
+            <button onclick="jnOpenComposer()" style="background:linear-gradient(135deg,#FF8A00,#FFB800);color:#090B12;border:none;padding:8px 18px;border-radius:10px;font-weight:800;font-size:12px;cursor:pointer">✍️ নতুন এন্ট্রি</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- DAILY PROMPT CARD -->
+      <div id="jn-prompt-card" style="background:linear-gradient(135deg,rgba(255,138,0,.08),rgba(255,138,0,.03));border:1.5px solid rgba(255,138,0,.2);border-radius:14px;padding:14px 18px;margin-bottom:16px;display:flex;align-items:flex-start;gap:12px">
+        <div style="font-size:24px;flex-shrink:0">💡</div>
+        <div style="flex:1">
+          <div style="font-size:10px;font-weight:700;color:#FF8A00;letter-spacing:1px;margin-bottom:4px">আজকের লেখার অনুপ্রেরণা</div>
+          <div id="jn-prompt-text" style="font-size:13px;font-weight:700;color:var(--text,#1a1a2e);line-height:1.5">লোড হচ্ছে...</div>
+        </div>
+        <button onclick="jnNextPrompt()" style="background:rgba(255,138,0,.1);border:1px solid rgba(255,138,0,.2);border-radius:8px;padding:6px 10px;cursor:pointer;font-size:11px;font-weight:700;color:#FF8A00;flex-shrink:0;white-space:nowrap">পরবর্তী →</button>
+      </div>
+
+      <!-- COMPOSER -->
+      <div id="jn-composer" style="background:var(--bg,#fff);border:2px solid var(--border,#e5e7eb);border-radius:16px;margin-bottom:20px;overflow:hidden;transition:.3s">
+        <!-- Composer header -->
+        <div style="background:linear-gradient(160deg,#12142a,#1c1f3a);padding:14px 18px;display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+          <span style="font-size:13px;font-weight:800;color:#fff">✍️ নতুন এন্ট্রি লিখুন</span>
+          <!-- Mood selector -->
+          <div style="display:flex;gap:5px;margin-left:auto" id="jn-mood-row">
+            <button onclick="jnSetMood('happy','😊')" id="jnm-happy" title="খুশি" style="background:rgba(255,255,255,.1);border:1.5px solid transparent;border-radius:8px;padding:4px 7px;cursor:pointer;font-size:14px;transition:.2s">😊</button>
+            <button onclick="jnSetMood('grateful','🙏')" id="jnm-grateful" title="কৃতজ্ঞ" style="background:rgba(255,255,255,.1);border:1.5px solid transparent;border-radius:8px;padding:4px 7px;cursor:pointer;font-size:14px;transition:.2s">🙏</button>
+            <button onclick="jnSetMood('motivated','🔥')" id="jnm-motivated" title="অনুপ্রাণিত" style="background:rgba(255,255,255,.1);border:1.5px solid transparent;border-radius:8px;padding:4px 7px;cursor:pointer;font-size:14px;transition:.2s">🔥</button>
+            <button onclick="jnSetMood('reflective','🤔')" id="jnm-reflective" title="চিন্তাশীল" style="background:rgba(255,255,255,.1);border:1.5px solid transparent;border-radius:8px;padding:4px 7px;cursor:pointer;font-size:14px;transition:.2s">🤔</button>
+            <button onclick="jnSetMood('sad','😔')" id="jnm-sad" title="দুঃখিত" style="background:rgba(255,255,255,.1);border:1.5px solid transparent;border-radius:8px;padding:4px 7px;cursor:pointer;font-size:14px;transition:.2s">😔</button>
+            <button onclick="jnSetMood('anxious','😰')" id="jnm-anxious" title="উদ্বিগ্ন" style="background:rgba(255,255,255,.1);border:1.5px solid transparent;border-radius:8px;padding:4px 7px;cursor:pointer;font-size:14px;transition:.2s">😰</button>
+            <button onclick="jnSetMood('peaceful','😌')" id="jnm-peaceful" title="শান্ত" style="background:rgba(255,255,255,.1);border:1.5px solid transparent;border-radius:8px;padding:4px 7px;cursor:pointer;font-size:14px;transition:.2s">😌</button>
+            <button onclick="jnSetMood('angry','😤')" id="jnm-angry" title="রাগান্বিত" style="background:rgba(255,255,255,.1);border:1.5px solid transparent;border-radius:8px;padding:4px 7px;cursor:pointer;font-size:14px;transition:.2s">😤</button>
+          </div>
+        </div>
+        <!-- Template selector -->
+        <div style="padding:10px 16px;background:var(--bg2,#f3f4f6);border-bottom:1px solid var(--border,#e5e7eb);display:flex;gap:6px;flex-wrap:wrap;align-items:center">
+          <span style="font-size:10px;font-weight:700;color:var(--text2,#888)">টেমপ্লেট:</span>
+          <button onclick="jnUseTemplate('morning')" style="padding:4px 10px;border-radius:8px;border:1px solid var(--border,#e5e7eb);background:var(--bg,#fff);font-size:10px;font-weight:700;cursor:pointer;color:var(--text2,#888)">🌅 সকাল</button>
+          <button onclick="jnUseTemplate('evening')" style="padding:4px 10px;border-radius:8px;border:1px solid var(--border,#e5e7eb);background:var(--bg,#fff);font-size:10px;font-weight:700;cursor:pointer;color:var(--text2,#888)">🌙 সন্ধ্যা</button>
+          <button onclick="jnUseTemplate('gratitude')" style="padding:4px 10px;border-radius:8px;border:1px solid var(--border,#e5e7eb);background:var(--bg,#fff);font-size:10px;font-weight:700;cursor:pointer;color:var(--text2,#888)">🙏 শোকর</button>
+          <button onclick="jnUseTemplate('dua')" style="padding:4px 10px;border-radius:8px;border:1px solid var(--border,#e5e7eb);background:var(--bg,#fff);font-size:10px;font-weight:700;cursor:pointer;color:var(--text2,#888)">🤲 দুআ</button>
+          <button onclick="jnUseTemplate('review')" style="padding:4px 10px;border-radius:8px;border:1px solid var(--border,#e5e7eb);background:var(--bg,#fff);font-size:10px;font-weight:700;cursor:pointer;color:var(--text2,#888)">📊 সাপ্তাহিক</button>
+          <button onclick="jnUseTemplate('dream')" style="padding:4px 10px;border-radius:8px;border:1px solid var(--border,#e5e7eb);background:var(--bg,#fff);font-size:10px;font-weight:700;cursor:pointer;color:var(--text2,#888)">💭 স্বপ্ন</button>
+        </div>
+        <!-- Title -->
+        <div style="padding:14px 18px 0">
+          <input id="jn-c-title" type="text" placeholder="শিরোনাম লিখুন... (ঐচ্ছিক)" style="width:100%;box-sizing:border-box;border:none;background:transparent;font-size:16px;font-weight:800;color:var(--text,#1a1a2e);outline:none;font-family:inherit"/>
+        </div>
+        <!-- Body -->
+        <div style="padding:8px 18px">
+          <textarea id="jn-c-body" placeholder="আজকের চিন্তা, অনুভূতি, ঘটনা লিখুন..." rows="6" style="width:100%;box-sizing:border-box;border:none;background:transparent;font-size:14px;color:var(--text,#1a1a2e);outline:none;resize:vertical;font-family:inherit;line-height:1.7" oninput="jnUpdateWordCount()"></textarea>
+        </div>
+        <!-- Tags + word count + save -->
+        <div style="padding:10px 16px 14px;border-top:1px solid var(--border,#e5e7eb);display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+          <!-- Tag chips -->
+          <div style="display:flex;gap:5px;flex-wrap:wrap" id="jn-tag-row">
+            <button onclick="jnToggleTag('ব্যক্তিগত')" class="jn-tag-btn" data-tag="ব্যক্তিগত" style="padding:3px 9px;border-radius:20px;border:1.5px solid var(--border,#e5e7eb);background:transparent;font-size:10px;cursor:pointer;font-weight:600;color:var(--text2,#888)">ব্যক্তিগত</button>
+            <button onclick="jnToggleTag('কাজ')" class="jn-tag-btn" data-tag="কাজ" style="padding:3px 9px;border-radius:20px;border:1.5px solid var(--border,#e5e7eb);background:transparent;font-size:10px;cursor:pointer;font-weight:600;color:var(--text2,#888)">কাজ</button>
+            <button onclick="jnToggleTag('ইসলাম')" class="jn-tag-btn" data-tag="ইসলাম" style="padding:3px 9px;border-radius:20px;border:1.5px solid var(--border,#e5e7eb);background:transparent;font-size:10px;cursor:pointer;font-weight:600;color:var(--text2,#888)">ইসলাম</button>
+            <button onclick="jnToggleTag('স্বপ্ন')" class="jn-tag-btn" data-tag="স্বপ্ন" style="padding:3px 9px;border-radius:20px;border:1.5px solid var(--border,#e5e7eb);background:transparent;font-size:10px;cursor:pointer;font-weight:600;color:var(--text2,#888)">স্বপ্ন</button>
+            <button onclick="jnToggleTag('লক্ষ্য')" class="jn-tag-btn" data-tag="লক্ষ্য" style="padding:3px 9px;border-radius:20px;border:1.5px solid var(--border,#e5e7eb);background:transparent;font-size:10px;cursor:pointer;font-weight:600;color:var(--text2,#888)">লক্ষ্য</button>
+            <button onclick="jnToggleTag('পরিবার')" class="jn-tag-btn" data-tag="পরিবার" style="padding:3px 9px;border-radius:20px;border:1.5px solid var(--border,#e5e7eb);background:transparent;font-size:10px;cursor:pointer;font-weight:600;color:var(--text2,#888)">পরিবার</button>
+          </div>
+          <input type="hidden" id="jn-c-tags" value="[]"/>
+          <div style="margin-left:auto;display:flex;align-items:center;gap:10px">
+            <span id="jn-word-count" style="font-size:10px;color:var(--text2,#888);white-space:nowrap">0 শব্দ · ~0 মিনিট</span>
+            <label style="display:flex;align-items:center;gap:4px;cursor:pointer">
+              <input type="checkbox" id="jn-c-starred" style="accent-color:#FF8A00"/>
+              <span style="font-size:10px;font-weight:700;color:var(--text2,#888)">⭐ পছন্দের</span>
+            </label>
+            <button onclick="jnSaveEntry()" style="background:linear-gradient(135deg,#FF8A00,#FFB800);color:#090B12;border:none;padding:8px 18px;border-radius:10px;font-weight:800;font-size:12px;cursor:pointer">সংরক্ষণ ✓</button>
+          </div>
+        </div>
+        <input type="hidden" id="jn-c-id"/>
+        <input type="hidden" id="jn-c-mood" value=""/>
+      </div>
+
+      <!-- SEARCH + FILTER -->
+      <div style="background:var(--bg2,#f3f4f6);border-radius:16px;padding:10px 12px;margin-bottom:16px;display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+        <!-- Search -->
+        <div style="flex:1;min-width:180px;background:var(--bg,#fff);border:1.5px solid var(--border,#e5e7eb);border-radius:10px;padding:8px 14px;display:flex;align-items:center;gap:8px;transition:.2s" onfocus-within="this.style.borderColor='#1a6b3c'">
+          <span style="font-size:13px;flex-shrink:0">🔍</span>
+          <input id="jn-search" type="text" placeholder="এন্ট্রি খুঁজুন..." autocomplete="new-password" name="jn-search-field" style="border:none;background:transparent;font-size:12px;color:var(--text,#1a1a2e);outline:none;flex:1;font-weight:600;min-width:0" oninput="jnSearch()" onfocus="this.closest('div').style.borderColor='#1a6b3c'" onblur="this.closest('div').style.borderColor='var(--border,#e5e7eb)'"/>
+        </div>
+        <!-- Filter pills -->
+        <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap">
+          <button id="jnf-all" onclick="jnSetFilter('all')" style="padding:8px 16px;border-radius:10px;border:none;background:#1a6b3c;color:#fff;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap">সব</button>
+          <button id="jnf-today" onclick="jnSetFilter('today')" style="padding:8px 16px;border-radius:10px;border:none;background:var(--bg,#fff);color:var(--text2,#888);font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap">আজ</button>
+          <button id="jnf-starred" onclick="jnSetFilter('starred')" style="padding:8px 16px;border-radius:10px;border:none;background:var(--bg,#fff);color:var(--text2,#888);font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap">⭐ পছন্দের</button>
+          <button id="jnf-islamic" onclick="jnSetFilter('islamic')" style="padding:8px 16px;border-radius:10px;border:none;background:var(--bg,#fff);color:var(--text2,#888);font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap">🕌 ইসলামী</button>
+        </div>
+      </div>
+
+      <!-- ENTRY LIST -->
+      <div id="jn-entry-list"></div>
+
+      <!-- HEATMAP -->
+      <div style="margin-top:20px;background:var(--bg2,#f3f4f6);border-radius:16px;padding:16px">
+        <div style="font-size:13px;font-weight:800;color:var(--text,#1a1a2e);margin-bottom:12px">📊 লেখার ধারাবাহিকতা (৪৯ দিন)</div>
+        <div id="jn-heatmap" style="display:flex;gap:3px;flex-wrap:wrap"></div>
+        <div style="display:flex;align-items:center;gap:6px;margin-top:8px">
+          <span style="font-size:10px;color:var(--text2,#888)">কম</span>
+          <div style="display:flex;gap:2px">
+            <div style="width:9px;height:9px;border-radius:2px;background:var(--border,#e5e7eb)"></div>
+            <div style="width:9px;height:9px;border-radius:2px;background:rgba(26,107,60,.3)"></div>
+            <div style="width:9px;height:9px;border-radius:2px;background:rgba(26,107,60,.6)"></div>
+            <div style="width:9px;height:9px;border-radius:2px;background:#1a6b3c"></div>
+          </div>
+          <span style="font-size:10px;color:var(--text2,#888)">বেশি</span>
+        </div>
+      </div>
+
+      <!-- MOOD ANALYTICS -->
+      <div style="margin-top:14px;background:var(--bg2,#f3f4f6);border-radius:16px;padding:16px">
+        <div style="font-size:13px;font-weight:800;color:var(--text,#1a1a2e);margin-bottom:12px">😊 মেজাজের প্রবণতা</div>
+        <div id="jn-mood-chart" style="display:flex;flex-direction:column;gap:8px"></div>
+      </div>
+
+      <!-- ISLAMIC JOURNAL SECTION -->
+      <div style="margin-top:14px;background:linear-gradient(160deg,#12142a,#1c1f3a);border-radius:16px;padding:18px;border:1px solid rgba(255,138,0,.12)">
+        <div style="font-size:13px;font-weight:800;color:#fff;margin-bottom:4px">🕌 ইসলামী জার্নাল</div>
+        <div style="font-size:11px;color:rgba(255,255,255,.5);margin-bottom:14px">আল্লাহর সাথে সম্পর্ক গভীর করুন লেখার মাধ্যমে</div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px">
+          <div onclick="jnUseTemplate('shukr')" style="background:rgba(255,255,255,.06);border:1px solid rgba(255,138,0,.3);border-radius:12px;padding:14px;cursor:pointer;transition:.2s" onmouseover="this.style.background='rgba(255,138,0,.1)'" onmouseout="this.style.background='rgba(255,255,255,.06)'">
+            <div style="font-size:22px;margin-bottom:6px">🤲</div>
+            <div style="font-size:12px;font-weight:800;color:#FF8A00;margin-bottom:3px">শোকরানা</div>
+            <div style="font-size:10px;color:rgba(255,255,255,.5)">আজ কীসের জন্য কৃতজ্ঞ?</div>
+          </div>
+          <div onclick="jnUseTemplate('tawbah')" style="background:rgba(255,255,255,.06);border:1px solid rgba(52,211,153,.2);border-radius:12px;padding:14px;cursor:pointer;transition:.2s" onmouseover="this.style.background='rgba(52,211,153,.08)'" onmouseout="this.style.background='rgba(255,255,255,.06)'">
+            <div style="font-size:22px;margin-bottom:6px">💚</div>
+            <div style="font-size:12px;font-weight:800;color:#34D399;margin-bottom:3px">তওবাহ ও আত্মসমালোচনা</div>
+            <div style="font-size:10px;color:rgba(255,255,255,.5)">আজ কী ভুল করলাম?</div>
+          </div>
+          <div onclick="jnUseTemplate('dua')" style="background:rgba(255,255,255,.06);border:1px solid rgba(96,165,250,.2);border-radius:12px;padding:14px;cursor:pointer;transition:.2s" onmouseover="this.style.background='rgba(96,165,250,.08)'" onmouseout="this.style.background='rgba(255,255,255,.06)'">
+            <div style="font-size:22px;margin-bottom:6px">🌙</div>
+            <div style="font-size:12px;font-weight:800;color:#60A5FA;margin-bottom:3px">দুআর লগ</div>
+            <div style="font-size:10px;color:rgba(255,255,255,.5)">আজকের দুআ ও মুনাজাত</div>
+          </div>
+          <div onclick="jnUseTemplate('quran')" style="background:rgba(255,255,255,.06);border:1px solid rgba(196,181,253,.2);border-radius:12px;padding:14px;cursor:pointer;transition:.2s" onmouseover="this.style.background='rgba(196,181,253,.08)'" onmouseout="this.style.background='rgba(255,255,255,.06)'">
+            <div style="font-size:22px;margin-bottom:6px">📖</div>
+            <div style="font-size:12px;font-weight:800;color:#C4B5FD;margin-bottom:3px">কোরআন রিফ্লেকশন</div>
+            <div style="font-size:10px;color:rgba(255,255,255,.5)">আজ কী পড়লাম ও শিখলাম?</div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- end page-content -->
+
+    <!-- DESKTOP DONATION SIDEBAR -->
+    <div class="rz-donation-sidebar" style="width:260px;flex-shrink:0;background:var(--bg2,#f3f4f6);border-left:1px solid var(--border,#e5e7eb);padding:20px;overflow-y:auto">
+      <div style="background:linear-gradient(160deg,#12142a,#1c1f3a);border-radius:16px;padding:20px;color:#fff;margin-bottom:16px;border:1px solid rgba(255,138,0,.15)">
+        <div style="font-size:10px;font-weight:700;opacity:.7;margin-bottom:6px;letter-spacing:1px">RIZERS JOURNAL</div>
+        <div style="font-size:16px;font-weight:900;margin-bottom:8px">প্রতিদিন লিখুন</div>
+        <p style="font-size:11px;opacity:.85;line-height:1.5;margin-bottom:14px">"কলম হলো মানুষের সেরা বন্ধু — যা মনে আছে তা লিখুন, ভুলে যাবেন না।"</p>
+        <ul style="list-style:none;padding:0;margin:0 0 14px;display:flex;flex-direction:column;gap:6px">
+          <li style="font-size:11px;display:flex;align-items:center;gap:6px"><span style="color:#FFB800">✓</span> ৬টি টেমপ্লেট</li>
+          <li style="font-size:11px;display:flex;align-items:center;gap:6px"><span style="color:#FFB800">✓</span> মেজাজ ট্র্যাকিং</li>
+          <li style="font-size:11px;display:flex;align-items:center;gap:6px"><span style="color:#FFB800">✓</span> লেখার স্ট্রিক</li>
+          <li style="font-size:11px;display:flex;align-items:center;gap:6px"><span style="color:#FFB800">✓</span> ইসলামী জার্নাল</li>
+          <li style="font-size:11px;display:flex;align-items:center;gap:6px"><span style="color:#FFB800">✓</span> ফুল-টেক্সট সার্চ</li>
+        </ul>
+        <button onclick="showPage('subscription')" style="background:linear-gradient(135deg,#FF8A00,#FFB800);color:#090B12;border:none;padding:10px;border-radius:10px;font-weight:900;font-size:12px;cursor:pointer;width:100%">সাপোর্ট করুন →</button>
+      </div>
+      <!-- Recent moods mini -->
+      <div style="background:var(--bg,#fff);border-radius:14px;padding:14px;border:1px solid var(--border,#e5e7eb);margin-bottom:12px">
+        <div style="font-size:11px;font-weight:800;color:var(--text,#1a1a2e);margin-bottom:8px">😊 সাম্প্রতিক মেজাজ</div>
+        <div id="jn-sb-moods" style="display:flex;gap:4px;flex-wrap:wrap"></div>
+      </div>
+      <!-- Writing progress -->
+      <div style="background:var(--bg,#fff);border-radius:14px;padding:14px;border:1px solid var(--border,#e5e7eb)">
+        <div style="font-size:11px;font-weight:800;color:var(--text,#1a1a2e);margin-bottom:10px">📈 লেখার অগ্রগতি</div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <div style="display:flex;justify-content:space-between"><span style="font-size:11px;color:var(--text2,#888)">🔥 স্ট্রিক</span><span id="jn-sb-streak" style="font-size:11px;font-weight:700;color:#FF8A00">0 দিন</span></div>
+          <div style="display:flex;justify-content:space-between"><span style="font-size:11px;color:var(--text2,#888)">📝 মোট এন্ট্রি</span><span id="jn-sb-entries" style="font-size:11px;font-weight:700;color:#1a6b3c">0</span></div>
+          <div style="display:flex;justify-content:space-between"><span style="font-size:11px;color:var(--text2,#888)">💬 মোট শব্দ</span><span id="jn-sb-words" style="font-size:11px;font-weight:700;color:#60A5FA">0</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div><!-- end adult wrap -->
+
+<!-- MOBILE DONATION -->
+<div id="jn-mob-donation" style="display:none;margin:16px;background:linear-gradient(160deg,#12142a,#1c1f3a);border-radius:16px;padding:20px;color:#fff;border:1px solid rgba(255,138,0,.15)">
+  <div style="font-size:14px;font-weight:900;margin-bottom:6px">📔 Rizers Journal</div>
+  <p style="font-size:11px;opacity:.85;margin-bottom:12px">প্রতিদিন লিখুন, প্রতিদিন বাড়ুন।</p>
+  <button onclick="showPage('subscription')" style="background:linear-gradient(135deg,#FF8A00,#FFB800);color:#090B12;border:none;padding:9px 18px;border-radius:10px;font-weight:800;font-size:12px;cursor:pointer">সাপোর্ট করুন →</button>
+</div>
+
+<!-- ENTRY DETAIL/EDIT MODAL -->
+<div id="jn-entry-modal" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.6);backdrop-filter:blur(4px);align-items:flex-start;justify-content:center;padding:20px;overflow-y:auto">
+  <div style="background:var(--bg,#fff);border-radius:20px;width:100%;max-width:600px;margin:0 auto;box-shadow:0 25px 80px rgba(0,0,0,.3)">
+    <!-- Modal header -->
+    <div style="background:linear-gradient(160deg,#12142a,#1c1f3a);border-radius:20px 20px 0 0;padding:20px 24px;display:flex;align-items:center;gap:10px;border-bottom:1px solid rgba(255,138,0,.2)">
+      <span id="jn-modal-mood-icon" style="font-size:24px"></span>
+      <div style="flex:1">
+        <div id="jn-modal-date" style="font-size:10px;color:rgba(255,255,255,.5);font-weight:600;margin-bottom:2px"></div>
+        <div id="jn-modal-title" style="font-size:16px;font-weight:900;color:#fff"></div>
+      </div>
+      <div style="display:flex;gap:6px">
+        <button id="jn-modal-star-btn" onclick="jnModalToggleStar()" style="background:rgba(255,255,255,.1);color:#fff;border:none;padding:7px 10px;border-radius:8px;cursor:pointer;font-size:14px">⭐</button>
+        <button onclick="jnModalEdit()" style="background:rgba(255,255,255,.1);color:#fff;border:none;padding:7px 12px;border-radius:8px;cursor:pointer;font-size:12px;font-weight:700">✏️ সম্পাদনা</button>
+        <button onclick="jnCloseModal()" style="background:rgba(255,255,255,.1);color:#fff;border:none;width:30px;height:30px;border-radius:8px;cursor:pointer;font-size:14px">✕</button>
+      </div>
+    </div>
+    <!-- Tags row -->
+    <div id="jn-modal-tags" style="padding:10px 20px;border-bottom:1px solid var(--border,#e5e7eb);display:flex;gap:6px;flex-wrap:wrap"></div>
+    <!-- Body -->
+    <div id="jn-modal-body" style="padding:20px 24px;font-size:14px;color:var(--text,#1a1a2e);line-height:1.8;white-space:pre-wrap;min-height:200px;max-height:60vh;overflow-y:auto"></div>
+    <!-- Footer -->
+    <div style="padding:12px 24px;border-top:1px solid var(--border,#e5e7eb);display:flex;align-items:center;justify-content:space-between">
+      <span id="jn-modal-stats" style="font-size:11px;color:var(--text2,#888)"></span>
+      <button onclick="jnModalDelete()" style="background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);color:#EF4444;padding:7px 14px;border-radius:8px;cursor:pointer;font-size:12px;font-weight:700">🗑️ মুছুন</button>
+    </div>
+  </div>
+</div>
+
+</div><!-- end journal-page -->

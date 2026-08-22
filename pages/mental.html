@@ -1,0 +1,385 @@
+<div id="mental-page" class="page-div app-page" style="display:none">
+
+<!-- ══ KIDS WRAP ══ -->
+<div id="mh-kids-wrap" style="display:none">
+  <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:60vh;padding:40px 20px;text-align:center">
+    <div style="font-size:64px;margin-bottom:16px">🧸</div>
+    <div style="font-size:20px;font-weight:800;color:var(--text,#1a1a2e);margin-bottom:8px">Mental Health</div>
+    <div style="font-size:14px;color:var(--text2,#888);max-width:280px;line-height:1.6">এই section টি বড়দের জন্য।<br>উপরে <strong>Me</strong> বাটন চাপুন।</div>
+  </div>
+  <div class="rz-donation-mobile-card" style="margin:0 16px 24px">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
+      <div style="width:38px;height:38px;border-radius:12px;background:rgba(124,58,237,.1);border:1px solid rgba(124,58,237,.25);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#7C3AED" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" fill="rgba(124,58,237,.12)"/></svg>
+      </div>
+      <div>
+        <div style="font-size:13px;font-weight:800;color:var(--text,#1f2937)">Rizers কে Support করুন</div>
+        <div style="font-size:11.5px;color:var(--text2,#888);margin-top:2px">মাত্র ৳৯৯/মাসে • সম্পূর্ণ স্বেচ্ছায়</div>
+      </div>
+    </div>
+    <a href="#" onclick="rzGoToPayment&&rzGoToPayment();return false;" style="display:block;width:100%;background:linear-gradient(135deg,#7C3AED,#06B6D4);color:#fff;font-size:13px;font-weight:800;text-align:center;padding:11px;border-radius:12px;text-decoration:none;box-sizing:border-box">🤲 Support করুন</a>
+  </div>
+</div>
+
+<!-- ══ ADULT WRAP ══ -->
+<div id="mh-adult-wrap" style="display:none">
+<div class="rz-page-with-banner">
+<div class="rz-page-content" style="padding:20px 20px 40px">
+
+<!-- HERO CARD -->
+<div style="background:linear-gradient(135deg,#1a0a2e 0%,#0d1117 55%,#0a1a2e 100%);border-radius:20px;padding:22px;margin-bottom:18px;border:1px solid rgba(124,58,237,.25);position:relative;overflow:hidden">
+  <div style="position:absolute;top:-40px;right:-40px;width:180px;height:180px;background:radial-gradient(circle,rgba(124,58,237,.15) 0%,transparent 70%);border-radius:50%;pointer-events:none"></div>
+  <div style="position:absolute;bottom:-30px;left:30%;width:120px;height:120px;background:radial-gradient(circle,rgba(6,182,212,.1) 0%,transparent 70%);border-radius:50%;pointer-events:none"></div>
+  <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:16px">
+    <div>
+      <div style="font-size:10px;font-weight:800;color:rgba(124,58,237,.8);letter-spacing:2px;text-transform:uppercase;margin-bottom:4px">🧠 MENTAL HEALTH</div>
+      <div id="mh-hero-date" style="font-size:16px;font-weight:900;color:#fff">আজকের অবস্থা</div>
+      <div id="mh-hero-mood-label" style="font-size:12px;color:rgba(255,255,255,.5);margin-top:3px">মুড লগ করুন</div>
+    </div>
+    <!-- Wellness Score Ring -->
+    <div style="text-align:center">
+      <svg width="72" height="72" viewBox="0 0 72 72">
+        <circle cx="36" cy="36" r="30" fill="none" stroke="rgba(255,255,255,.08)" stroke-width="7"/>
+        <circle id="mh-score-ring" cx="36" cy="36" r="30" fill="none" stroke="url(#mhGrad)" stroke-width="7" stroke-linecap="round" stroke-dasharray="188.5" stroke-dashoffset="188.5" transform="rotate(-90 36 36)" style="transition:stroke-dashoffset 1s ease"/>
+        <defs><linearGradient id="mhGrad" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#7C3AED"/><stop offset="100%" stop-color="#06B6D4"/></linearGradient></defs>
+        <text id="mh-score-txt" x="36" y="40" text-anchor="middle" font-size="14" font-weight="900" fill="#fff">—</text>
+      </svg>
+      <div style="font-size:9px;color:rgba(255,255,255,.4);margin-top:2px">Wellness Score</div>
+    </div>
+  </div>
+  <!-- 4 stat tiles -->
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px">
+    <div style="background:rgba(255,255,255,.05);border-radius:12px;padding:10px;text-align:center;border:1px solid rgba(255,255,255,.06)">
+      <div id="mh-tile-mood" style="font-size:20px">😐</div>
+      <div style="font-size:9px;color:rgba(255,255,255,.4);margin-top:2px">আজকের মুড</div>
+    </div>
+    <div style="background:rgba(255,255,255,.05);border-radius:12px;padding:10px;text-align:center;border:1px solid rgba(255,255,255,.06)">
+      <div id="mh-tile-stress" style="font-size:13px;font-weight:900;color:#F59E0B">—</div>
+      <div style="font-size:9px;color:rgba(255,255,255,.4);margin-top:2px">স্ট্রেস লেভেল</div>
+    </div>
+    <div style="background:rgba(255,255,255,.05);border-radius:12px;padding:10px;text-align:center;border:1px solid rgba(255,255,255,.06)">
+      <div id="mh-tile-streak" style="font-size:13px;font-weight:900;color:#10B981">0</div>
+      <div style="font-size:9px;color:rgba(255,255,255,.4);margin-top:2px">দিনের streak</div>
+    </div>
+    <div style="background:rgba(255,255,255,.05);border-radius:12px;padding:10px;text-align:center;border:1px solid rgba(255,255,255,.06)">
+      <div id="mh-tile-selfcare" style="font-size:13px;font-weight:900;color:#7C3AED">0/6</div>
+      <div style="font-size:9px;color:rgba(255,255,255,.4);margin-top:2px">Self-care</div>
+    </div>
+  </div>
+</div>
+
+<!-- MOOD CHECK-IN -->
+<div style="background:var(--card,#fff);border:1.5px solid var(--border,#e5e7eb);border-radius:18px;padding:18px;margin-bottom:14px">
+  <div style="font-size:13px;font-weight:800;color:var(--text,#1a1a2e);margin-bottom:14px">😊 আজকের মুড চেক-ইন</div>
+  <div style="display:flex;justify-content:space-around;margin-bottom:14px" id="mh-mood-btns">
+    <button onclick="mhSetMood(1)" id="mh-m1" style="font-size:28px;background:none;border:2.5px solid transparent;border-radius:14px;padding:8px;cursor:pointer;transition:.2s" title="খুব খারাপ">😢</button>
+    <button onclick="mhSetMood(2)" id="mh-m2" style="font-size:28px;background:none;border:2.5px solid transparent;border-radius:14px;padding:8px;cursor:pointer;transition:.2s" title="খারাপ">😔</button>
+    <button onclick="mhSetMood(3)" id="mh-m3" style="font-size:28px;background:none;border:2.5px solid transparent;border-radius:14px;padding:8px;cursor:pointer;transition:.2s" title="মাঝারি">😐</button>
+    <button onclick="mhSetMood(4)" id="mh-m4" style="font-size:28px;background:none;border:2.5px solid transparent;border-radius:14px;padding:8px;cursor:pointer;transition:.2s" title="ভালো">🙂</button>
+    <button onclick="mhSetMood(5)" id="mh-m5" style="font-size:28px;background:none;border:2.5px solid transparent;border-radius:14px;padding:8px;cursor:pointer;transition:.2s" title="খুব ভালো">😄</button>
+  </div>
+  <div style="display:flex;justify-content:space-around;margin-bottom:12px;padding:0 4px">
+    <span style="font-size:9px;color:var(--text2,#888);font-weight:600">খুব খারাপ</span>
+    <span style="font-size:9px;color:var(--text2,#888);font-weight:600">খারাপ</span>
+    <span style="font-size:9px;color:var(--text2,#888);font-weight:600">মাঝারি</span>
+    <span style="font-size:9px;color:var(--text2,#888);font-weight:600">ভালো</span>
+    <span style="font-size:9px;color:var(--text2,#888);font-weight:600">খুব ভালো</span>
+  </div>
+  <textarea id="mh-mood-note" placeholder="আজকে কেমন লাগছে? (ঐচ্ছিক)" style="width:100%;min-height:70px;padding:10px 12px;background:var(--bg2,#f3f4f6);border:1.5px solid var(--border,#e5e7eb);border-radius:12px;font-size:13px;color:var(--text,#1a1a2e);resize:vertical;box-sizing:border-box;font-family:inherit"></textarea>
+  <button onclick="mhSaveMood()" style="width:100%;margin-top:10px;padding:12px;background:linear-gradient(135deg,#7C3AED,#06B6D4);color:#fff;border:none;border-radius:12px;font-size:13px;font-weight:800;cursor:pointer">মুড সেভ করুন</button>
+</div>
+
+<!-- WEEKLY MOOD CALENDAR -->
+<div style="background:var(--card,#fff);border:1.5px solid var(--border,#e5e7eb);border-radius:18px;padding:18px;margin-bottom:14px">
+  <div style="font-size:13px;font-weight:800;color:var(--text,#1a1a2e);margin-bottom:14px">📅 সাপ্তাহিক মুড ক্যালেন্ডার</div>
+  <div id="mh-mood-calendar" style="display:grid;grid-template-columns:repeat(7,1fr);gap:6px"></div>
+  <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:12px;padding-top:10px;border-top:1px solid var(--border,#e5e7eb)">
+    <span style="font-size:10px;color:var(--text2,#888)">মুড স্কেল:</span>
+    <span style="font-size:10px">😢 খুব খারাপ</span>
+    <span style="font-size:10px">😔 খারাপ</span>
+    <span style="font-size:10px">😐 মাঝারি</span>
+    <span style="font-size:10px">🙂 ভালো</span>
+    <span style="font-size:10px">😄 খুব ভালো</span>
+  </div>
+</div>
+
+<!-- BREATHING EXERCISE -->
+<div style="background:var(--card,#fff);border:1.5px solid var(--border,#e5e7eb);border-radius:18px;padding:18px;margin-bottom:14px">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
+    <div style="font-size:13px;font-weight:800;color:var(--text,#1a1a2e)">🌬️ শ্বাস-প্রশ্বাসের ব্যায়াম</div>
+    <select id="mh-breath-type" onchange="mhSetBreathType()" style="font-size:11px;padding:5px 8px;background:var(--bg2,#f3f4f6);border:1.5px solid var(--border,#e5e7eb);border-radius:8px;color:var(--text,#1a1a2e);font-weight:700;cursor:pointer">
+      <option value="box">Box Breathing (4-4-4-4)</option>
+      <option value="478">4-7-8 Relaxation</option>
+      <option value="calm">শান্তির শ্বাস (5-5)</option>
+    </select>
+  </div>
+  <div id="mh-breath-desc" style="font-size:11px;color:var(--text2,#888);margin-bottom:16px">৪ সেকেন্ড শ্বাস নিন → ৪ ধরুন → ৪ ছাড়ুন → ৪ বিশ্রাম</div>
+  <!-- Animated Circle -->
+  <div style="display:flex;flex-direction:column;align-items:center;gap:16px">
+    <div style="position:relative;width:160px;height:160px">
+      <svg width="160" height="160" viewBox="0 0 160 160" style="position:absolute;top:0;left:0">
+        <circle cx="80" cy="80" r="70" fill="none" stroke="var(--border,#e5e7eb)" stroke-width="6"/>
+        <circle id="mh-breath-ring" cx="80" cy="80" r="70" fill="none" stroke="url(#breathGrad)" stroke-width="6" stroke-linecap="round" stroke-dasharray="439.8" stroke-dashoffset="439.8" transform="rotate(-90 80 80)" style="transition:stroke-dashoffset 0.1s linear"/>
+        <defs><linearGradient id="breathGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#7C3AED"/><stop offset="100%" stop-color="#06B6D4"/></linearGradient></defs>
+      </svg>
+      <div id="mh-breath-circle" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:90px;height:90px;border-radius:50%;background:linear-gradient(135deg,rgba(124,58,237,.15),rgba(6,182,212,.15));border:2px solid rgba(124,58,237,.3);transition:all 0.3s ease;display:flex;align-items:center;justify-content:center">
+        <div style="text-align:center">
+          <div id="mh-breath-count" style="font-size:28px;font-weight:900;color:#7C3AED;line-height:1">4</div>
+          <div id="mh-breath-label" style="font-size:9px;font-weight:700;color:var(--text2,#888)">শুরু করুন</div>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex;gap:10px">
+      <button id="mh-breath-btn" onclick="mhToggleBreath()" style="padding:11px 28px;background:linear-gradient(135deg,#7C3AED,#06B6D4);color:#fff;border:none;border-radius:12px;font-size:13px;font-weight:800;cursor:pointer">শুরু করুন</button>
+      <div id="mh-breath-cycles" style="padding:11px 16px;background:var(--bg2,#f3f4f6);border-radius:12px;font-size:12px;font-weight:700;color:var(--text2,#888)">0 cycle</div>
+    </div>
+  </div>
+</div>
+
+<!-- STRESS TRACKER -->
+<div style="background:var(--card,#fff);border:1.5px solid var(--border,#e5e7eb);border-radius:18px;padding:18px;margin-bottom:14px">
+  <div style="font-size:13px;font-weight:800;color:var(--text,#1a1a2e);margin-bottom:14px">😤 স্ট্রেস ট্র্যাকার</div>
+  <div style="margin-bottom:12px">
+    <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text2,#888);margin-bottom:6px">
+      <span>স্ট্রেস লেভেল</span>
+      <span id="mh-stress-val" style="font-weight:800;color:#F59E0B">5/10</span>
+    </div>
+    <input type="range" id="mh-stress-slider" min="1" max="10" value="5" oninput="mhUpdateStressDisplay(this.value)" style="width:100%;accent-color:#7C3AED;cursor:pointer">
+    <div style="display:flex;justify-content:space-between;font-size:9px;color:var(--text2,#888);margin-top:3px">
+      <span>শান্ত</span><span>মাঝারি</span><span>অনেক বেশি</span>
+    </div>
+  </div>
+  <div style="margin-bottom:12px">
+    <div style="font-size:11px;font-weight:700;color:var(--text2,#888);margin-bottom:8px">স্ট্রেসের কারণ (একাধিক বাছাই করুন)</div>
+    <div style="display:flex;flex-wrap:wrap;gap:6px" id="mh-stress-triggers">
+      <button onclick="mhToggleTrigger(this,'পড়াশোনা')" style="padding:5px 12px;border-radius:20px;font-size:11px;font-weight:700;cursor:pointer;background:var(--bg2,#f3f4f6);color:var(--text2,#888);border:1.5px solid var(--border,#e5e7eb);transition:.2s">📚 পড়াশোনা</button>
+      <button onclick="mhToggleTrigger(this,'পরিবার')" style="padding:5px 12px;border-radius:20px;font-size:11px;font-weight:700;cursor:pointer;background:var(--bg2,#f3f4f6);color:var(--text2,#888);border:1.5px solid var(--border,#e5e7eb);transition:.2s">🏠 পরিবার</button>
+      <button onclick="mhToggleTrigger(this,'কাজ')" style="padding:5px 12px;border-radius:20px;font-size:11px;font-weight:700;cursor:pointer;background:var(--bg2,#f3f4f6);color:var(--text2,#888);border:1.5px solid var(--border,#e5e7eb);transition:.2s">💼 কাজ</button>
+      <button onclick="mhToggleTrigger(this,'আর্থিক')" style="padding:5px 12px;border-radius:20px;font-size:11px;font-weight:700;cursor:pointer;background:var(--bg2,#f3f4f6);color:var(--text2,#888);border:1.5px solid var(--border,#e5e7eb);transition:.2s">💸 আর্থিক</button>
+      <button onclick="mhToggleTrigger(this,'সম্পর্ক')" style="padding:5px 12px;border-radius:20px;font-size:11px;font-weight:700;cursor:pointer;background:var(--bg2,#f3f4f6);color:var(--text2,#888);border:1.5px solid var(--border,#e5e7eb);transition:.2s">💞 সম্পর্ক</button>
+      <button onclick="mhToggleTrigger(this,'স্বাস্থ্য')" style="padding:5px 12px;border-radius:20px;font-size:11px;font-weight:700;cursor:pointer;background:var(--bg2,#f3f4f6);color:var(--text2,#888);border:1.5px solid var(--border,#e5e7eb);transition:.2s">🏥 স্বাস্থ্য</button>
+      <button onclick="mhToggleTrigger(this,'সামাজিক')" style="padding:5px 12px;border-radius:20px;font-size:11px;font-weight:700;cursor:pointer;background:var(--bg2,#f3f4f6);color:var(--text2,#888);border:1.5px solid var(--border,#e5e7eb);transition:.2s">👥 সামাজিক</button>
+      <button onclick="mhToggleTrigger(this,'অন্যান্য')" style="padding:5px 12px;border-radius:20px;font-size:11px;font-weight:700;cursor:pointer;background:var(--bg2,#f3f4f6);color:var(--text2,#888);border:1.5px solid var(--border,#e5e7eb);transition:.2s">📌 অন্যান্য</button>
+    </div>
+  </div>
+  <button onclick="mhSaveStress()" style="width:100%;padding:11px;background:linear-gradient(135deg,#7C3AED,#06B6D4);color:#fff;border:none;border-radius:12px;font-size:13px;font-weight:800;cursor:pointer">স্ট্রেস লগ করুন</button>
+</div>
+
+<!-- GROUNDING EXERCISE (5-4-3-2-1) -->
+<div style="background:var(--card,#fff);border:1.5px solid var(--border,#e5e7eb);border-radius:18px;padding:18px;margin-bottom:14px">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+    <div>
+      <div style="font-size:13px;font-weight:800;color:var(--text,#1a1a2e)">🌿 Grounding Exercise</div>
+      <div style="font-size:11px;color:var(--text2,#888);margin-top:2px">৫-৪-৩-২-১ পদ্ধতি — উদ্বেগ কমানোর সেরা উপায়</div>
+    </div>
+    <button onclick="mhStartGrounding()" id="mh-ground-btn" style="padding:8px 16px;background:linear-gradient(135deg,#7C3AED,#06B6D4);color:#fff;border:none;border-radius:10px;font-size:11px;font-weight:800;cursor:pointer">শুরু করুন</button>
+  </div>
+  <div id="mh-grounding-content">
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <div style="background:rgba(124,58,237,.06);border:1.5px solid rgba(124,58,237,.15);border-radius:12px;padding:12px;display:flex;align-items:center;gap:10px">
+        <div style="width:28px;height:28px;border-radius:8px;background:rgba(124,58,237,.15);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;color:#7C3AED;flex-shrink:0">5</div>
+        <div><div style="font-size:12px;font-weight:700;color:var(--text,#1a1a2e)">👁️ ৫টি জিনিস দেখুন</div><div style="font-size:11px;color:var(--text2,#888)">চারপাশে ৫টি জিনিস খুঁজে বের করুন</div></div>
+      </div>
+      <div style="background:rgba(124,58,237,.06);border:1.5px solid rgba(124,58,237,.15);border-radius:12px;padding:12px;display:flex;align-items:center;gap:10px">
+        <div style="width:28px;height:28px;border-radius:8px;background:rgba(124,58,237,.15);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;color:#7C3AED;flex-shrink:0">4</div>
+        <div><div style="font-size:12px;font-weight:700;color:var(--text,#1a1a2e)">✋ ৪টি জিনিস ছুঁয়ে দেখুন</div><div style="font-size:11px;color:var(--text2,#888)">টেক্সচার অনুভব করুন</div></div>
+      </div>
+      <div style="background:rgba(124,58,237,.06);border:1.5px solid rgba(124,58,237,.15);border-radius:12px;padding:12px;display:flex;align-items:center;gap:10px">
+        <div style="width:28px;height:28px;border-radius:8px;background:rgba(124,58,237,.15);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;color:#7C3AED;flex-shrink:0">3</div>
+        <div><div style="font-size:12px;font-weight:700;color:var(--text,#1a1a2e)">👂 ৩টি শব্দ শুনুন</div><div style="font-size:11px;color:var(--text2,#888)">মনোযোগ দিয়ে শুনুন</div></div>
+      </div>
+      <div style="background:rgba(124,58,237,.06);border:1.5px solid rgba(124,58,237,.15);border-radius:12px;padding:12px;display:flex;align-items:center;gap:10px">
+        <div style="width:28px;height:28px;border-radius:8px;background:rgba(124,58,237,.15);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;color:#7C3AED;flex-shrink:0">2</div>
+        <div><div style="font-size:12px;font-weight:700;color:var(--text,#1a1a2e)">👃 ২টি গন্ধ শুঁকুন</div><div style="font-size:11px;color:var(--text2,#888)">যে কোনো সুগন্ধ/গন্ধ</div></div>
+      </div>
+      <div style="background:rgba(124,58,237,.06);border:1.5px solid rgba(124,58,237,.15);border-radius:12px;padding:12px;display:flex;align-items:center;gap:10px">
+        <div style="width:28px;height:28px;border-radius:8px;background:rgba(124,58,237,.15);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;color:#7C3AED;flex-shrink:0">1</div>
+        <div><div style="font-size:12px;font-weight:700;color:var(--text,#1a1a2e)">👅 ১টি স্বাদ নিন</div><div style="font-size:11px;color:var(--text2,#888)">পানি পান করুন বা কিছু খান</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CBT THOUGHT RECORD -->
+<div style="background:var(--card,#fff);border:1.5px solid var(--border,#e5e7eb);border-radius:18px;padding:18px;margin-bottom:14px">
+  <div style="font-size:13px;font-weight:800;color:var(--text,#1a1a2e);margin-bottom:4px">🧩 Thought Record (CBT)</div>
+  <div style="font-size:11px;color:var(--text2,#888);margin-bottom:14px">নেগেটিভ চিন্তাকে চ্যালেঞ্জ করুন এবং রিফ্রেম করুন</div>
+  <div style="display:flex;flex-direction:column;gap:10px">
+    <div>
+      <label style="font-size:11px;font-weight:700;color:var(--text2,#888);display:block;margin-bottom:4px">1️⃣ পরিস্থিতি (কী ঘটেছে?)</label>
+      <textarea id="mh-cbt-situation" placeholder="যেমন: পরীক্ষায় খারাপ করেছি..." style="width:100%;min-height:60px;padding:10px 12px;background:var(--bg2,#f3f4f6);border:1.5px solid var(--border,#e5e7eb);border-radius:10px;font-size:12px;color:var(--text,#1a1a2e);resize:vertical;box-sizing:border-box;font-family:inherit"></textarea>
+    </div>
+    <div>
+      <label style="font-size:11px;font-weight:700;color:var(--text2,#888);display:block;margin-bottom:4px">2️⃣ নেগেটিভ চিন্তা (মনে কী আসছে?)</label>
+      <textarea id="mh-cbt-thought" placeholder="যেমন: আমি কখনো সফল হবো না..." style="width:100%;min-height:60px;padding:10px 12px;background:var(--bg2,#f3f4f6);border:1.5px solid var(--border,#e5e7eb);border-radius:10px;font-size:12px;color:var(--text,#1a1a2e);resize:vertical;box-sizing:border-box;font-family:inherit"></textarea>
+    </div>
+    <div>
+      <label style="font-size:11px;font-weight:700;color:var(--text2,#888);display:block;margin-bottom:4px">3️⃣ অনুভূতি ও তীব্রতা (০-১০)</label>
+      <div style="display:flex;gap:8px">
+        <input id="mh-cbt-emotion" type="text" placeholder="রাগ, দুঃখ, উদ্বেগ..." style="flex:1;padding:10px 12px;background:var(--bg2,#f3f4f6);border:1.5px solid var(--border,#e5e7eb);border-radius:10px;font-size:12px;color:var(--text,#1a1a2e);box-sizing:border-box">
+        <input id="mh-cbt-intensity" type="number" min="0" max="10" placeholder="8" style="width:70px;padding:10px 12px;background:var(--bg2,#f3f4f6);border:1.5px solid var(--border,#e5e7eb);border-radius:10px;font-size:12px;color:var(--text,#1a1a2e);box-sizing:border-box;text-align:center">
+      </div>
+    </div>
+    <div>
+      <label style="font-size:11px;font-weight:700;color:var(--text2,#888);display:block;margin-bottom:4px">4️⃣ বাস্তবসম্মত পুনর্বিবেচনা (কি সত্যিই এতটা খারাপ?)</label>
+      <textarea id="mh-cbt-reframe" placeholder="যেমন: একটা পরীক্ষা সব কিছু নির্ধারণ করে না। আমি চেষ্টা করব..." style="width:100%;min-height:60px;padding:10px 12px;background:var(--bg2,#f3f4f6);border:1.5px solid var(--border,#e5e7eb);border-radius:10px;font-size:12px;color:var(--text,#1a1a2e);resize:vertical;box-sizing:border-box;font-family:inherit"></textarea>
+    </div>
+    <button onclick="mhSaveCBT()" style="width:100%;padding:12px;background:linear-gradient(135deg,#7C3AED,#06B6D4);color:#fff;border:none;border-radius:12px;font-size:13px;font-weight:800;cursor:pointer">Thought Record সেভ করুন</button>
+  </div>
+  <!-- Saved Records -->
+  <div id="mh-cbt-list" style="margin-top:14px;display:flex;flex-direction:column;gap:8px"></div>
+</div>
+
+<!-- SELF-CARE CHECKLIST -->
+<div style="background:var(--card,#fff);border:1.5px solid var(--border,#e5e7eb);border-radius:18px;padding:18px;margin-bottom:14px">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+    <div style="font-size:13px;font-weight:800;color:var(--text,#1a1a2e)">✅ আজকের Self-Care Checklist</div>
+    <div id="mh-selfcare-count" style="font-size:12px;font-weight:800;color:#7C3AED">0/6</div>
+  </div>
+  <div id="mh-selfcare-items" style="display:flex;flex-direction:column;gap:8px">
+    <div onclick="mhToggleSelfCare(this,'প্রার্থনা/নামাজ')" data-key="namaz" style="display:flex;align-items:center;gap:12px;padding:12px;background:var(--bg2,#f3f4f6);border-radius:12px;cursor:pointer;border:1.5px solid transparent;transition:.2s">
+      <div class="mh-sc-check" style="width:22px;height:22px;border-radius:7px;border:2px solid var(--border,#e5e7eb);background:var(--card,#fff);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:13px;transition:.2s"></div>
+      <div style="font-size:13px">🕌 প্রার্থনা / নামাজ</div>
+    </div>
+    <div onclick="mhToggleSelfCare(this,'ব্যায়াম')" data-key="exercise" style="display:flex;align-items:center;gap:12px;padding:12px;background:var(--bg2,#f3f4f6);border-radius:12px;cursor:pointer;border:1.5px solid transparent;transition:.2s">
+      <div class="mh-sc-check" style="width:22px;height:22px;border-radius:7px;border:2px solid var(--border,#e5e7eb);background:var(--card,#fff);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:13px;transition:.2s"></div>
+      <div style="font-size:13px">🏃 ব্যায়াম / হাঁটা</div>
+    </div>
+    <div onclick="mhToggleSelfCare(this,'পর্যাপ্ত ঘুম')" data-key="sleep" style="display:flex;align-items:center;gap:12px;padding:12px;background:var(--bg2,#f3f4f6);border-radius:12px;cursor:pointer;border:1.5px solid transparent;transition:.2s">
+      <div class="mh-sc-check" style="width:22px;height:22px;border-radius:7px;border:2px solid var(--border,#e5e7eb);background:var(--card,#fff);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:13px;transition:.2s"></div>
+      <div style="font-size:13px">😴 পর্যাপ্ত ঘুম (৭-৮ ঘন্টা)</div>
+    </div>
+    <div onclick="mhToggleSelfCare(this,'পানি পান')" data-key="water" style="display:flex;align-items:center;gap:12px;padding:12px;background:var(--bg2,#f3f4f6);border-radius:12px;cursor:pointer;border:1.5px solid transparent;transition:.2s">
+      <div class="mh-sc-check" style="width:22px;height:22px;border-radius:7px;border:2px solid var(--border,#e5e7eb);background:var(--card,#fff);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:13px;transition:.2s"></div>
+      <div style="font-size:13px">💧 পর্যাপ্ত পানি পান</div>
+    </div>
+    <div onclick="mhToggleSelfCare(this,'প্রিয়জনের সাথে কথা')" data-key="social" style="display:flex;align-items:center;gap:12px;padding:12px;background:var(--bg2,#f3f4f6);border-radius:12px;cursor:pointer;border:1.5px solid transparent;transition:.2s">
+      <div class="mh-sc-check" style="width:22px;height:22px;border-radius:7px;border:2px solid var(--border,#e5e7eb);background:var(--card,#fff);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:13px;transition:.2s"></div>
+      <div style="font-size:13px">💬 প্রিয়জনের সাথে কথা</div>
+    </div>
+    <div onclick="mhToggleSelfCare(this,'স্ক্রিন বিরতি')" data-key="screen" style="display:flex;align-items:center;gap:12px;padding:12px;background:var(--bg2,#f3f4f6);border-radius:12px;cursor:pointer;border:1.5px solid transparent;transition:.2s">
+      <div class="mh-sc-check" style="width:22px;height:22px;border-radius:7px;border:2px solid var(--border,#e5e7eb);background:var(--card,#fff);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:13px;transition:.2s"></div>
+      <div style="font-size:13px">📵 স্ক্রিন থেকে বিরতি নিয়েছি</div>
+    </div>
+  </div>
+</div>
+
+<!-- DHIKR COUNTER -->
+<div style="background:linear-gradient(135deg,#0f0a1e 0%,#0d1117 100%);border:1px solid rgba(124,58,237,.2);border-radius:18px;padding:18px;margin-bottom:14px">
+  <div style="font-size:13px;font-weight:800;color:#fff;margin-bottom:4px">📿 ইসলামিক মানসিক শান্তি</div>
+  <div style="font-size:11px;color:rgba(255,255,255,.4);margin-bottom:16px">যিকির ও দোয়া</div>
+  <!-- Dhikr selector -->
+  <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px" id="mh-dhikr-btns">
+    <button onclick="mhSetDhikr('سُبْحَانَ اللّٰهِ','সুবহানাল্লাহ')" style="padding:6px 12px;border-radius:20px;font-size:11px;font-weight:700;cursor:pointer;background:rgba(124,58,237,.2);color:#a78bfa;border:1px solid rgba(124,58,237,.3)">সুবহানাল্লাহ</button>
+    <button onclick="mhSetDhikr('اَلْحَمْدُ لِلّٰهِ','আলহামদুলিল্লাহ')" style="padding:6px 12px;border-radius:20px;font-size:11px;font-weight:700;cursor:pointer;background:rgba(124,58,237,.15);color:rgba(167,139,250,.7);border:1px solid rgba(124,58,237,.2)">আলহামদুলিল্লাহ</button>
+    <button onclick="mhSetDhikr('اَللّٰهُ اَكْبَرُ','আল্লাহু আকবার')" style="padding:6px 12px;border-radius:20px;font-size:11px;font-weight:700;cursor:pointer;background:rgba(124,58,237,.15);color:rgba(167,139,250,.7);border:1px solid rgba(124,58,237,.2)">আল্লাহু আকবার</button>
+    <button onclick="mhSetDhikr('لَا إِلٰهَ إِلَّا اللّٰهُ','লা ইলাহা ইল্লাল্লাহ')" style="padding:6px 12px;border-radius:20px;font-size:11px;font-weight:700;cursor:pointer;background:rgba(124,58,237,.15);color:rgba(167,139,250,.7);border:1px solid rgba(124,58,237,.2)">লা ইলাহা ইল্লাল্লাহ</button>
+    <button onclick="mhSetDhikr('اَسْتَغْفِرُ اللّٰهَ','আস্তাগফিরুল্লাহ')" style="padding:6px 12px;border-radius:20px;font-size:11px;font-weight:700;cursor:pointer;background:rgba(124,58,237,.15);color:rgba(167,139,250,.7);border:1px solid rgba(124,58,237,.2)">আস্তাগফিরুল্লাহ</button>
+  </div>
+  <div style="text-align:center;margin-bottom:16px">
+    <div id="mh-dhikr-arabic" style="font-size:22px;color:#a78bfa;font-weight:700;margin-bottom:4px;direction:rtl">سُبْحَانَ اللّٰهِ</div>
+    <div id="mh-dhikr-bangla" style="font-size:12px;color:rgba(255,255,255,.5)">সুবহানাল্লাহ</div>
+  </div>
+  <!-- Counter -->
+  <div style="display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:14px">
+    <button onclick="mhDhikrReset()" style="width:36px;height:36px;border-radius:10px;background:rgba(239,68,68,.15);border:1px solid rgba(239,68,68,.3);color:#EF4444;font-size:16px;cursor:pointer;font-weight:700">↺</button>
+    <button onclick="mhDhikrTap()" style="width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,#7C3AED,#06B6D4);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(124,58,237,.4);transition:transform .1s" id="mh-dhikr-tap-btn">
+      <div id="mh-dhikr-count" style="font-size:26px;font-weight:900;color:#fff">0</div>
+    </button>
+    <div style="width:36px;height:36px;border-radius:10px;background:rgba(124,58,237,.15);border:1px solid rgba(124,58,237,.3);display:flex;align-items:center;justify-content:center">
+      <div id="mh-dhikr-target-disp" style="font-size:10px;color:#a78bfa;font-weight:700;text-align:center">লক্ষ্য<br>33</div>
+    </div>
+  </div>
+  <div style="background:rgba(255,255,255,.04);border-radius:10px;overflow:hidden;height:4px;margin-bottom:14px">
+    <div id="mh-dhikr-bar" style="height:100%;background:linear-gradient(90deg,#7C3AED,#06B6D4);width:0%;transition:.3s"></div>
+  </div>
+  <!-- Islamic tips -->
+  <div style="display:flex;flex-direction:column;gap:8px">
+    <div style="background:rgba(255,255,255,.04);border-radius:12px;padding:12px;border-left:3px solid #7C3AED">
+      <div style="font-size:12px;color:rgba(255,255,255,.7);font-style:italic;line-height:1.6">"নিশ্চয়ই আল্লাহর স্মরণেই হৃদয় শান্তি পায়।"</div>
+      <div style="font-size:10px;color:rgba(255,255,255,.3);margin-top:4px">— সূরা আর-রা'দ: ২৮</div>
+    </div>
+    <div style="background:rgba(255,255,255,.04);border-radius:12px;padding:12px;border-left:3px solid #06B6D4">
+      <div style="font-size:12px;color:rgba(255,255,255,.7);font-style:italic;line-height:1.6">"কষ্টের সাথে অবশ্যই স্বস্তি আছে।"</div>
+      <div style="font-size:10px;color:rgba(255,255,255,.3);margin-top:4px">— সূরা আশ-শারহ: ৬</div>
+    </div>
+  </div>
+</div>
+
+<!-- WEEKLY WELLNESS REPORT -->
+<div style="background:var(--card,#fff);border:1.5px solid var(--border,#e5e7eb);border-radius:18px;padding:18px;margin-bottom:14px">
+  <div style="font-size:13px;font-weight:800;color:var(--text,#1a1a2e);margin-bottom:14px">📊 সাপ্তাহিক ওয়েলনেস রিপোর্ট</div>
+  <div id="mh-weekly-report" style="display:flex;flex-direction:column;gap:10px"></div>
+</div>
+
+<!-- CRISIS RESOURCES -->
+<div style="background:linear-gradient(135deg,rgba(239,68,68,.05),rgba(239,68,68,.02));border:1.5px solid rgba(239,68,68,.15);border-radius:18px;padding:18px;margin-bottom:14px">
+  <div style="font-size:13px;font-weight:800;color:var(--text,#1a1a2e);margin-bottom:4px">🆘 সহায়তা প্রয়োজন?</div>
+  <div style="font-size:11px;color:var(--text2,#888);margin-bottom:14px">আপনি একা নন। সাহায্য নিতে লজ্জা নেই।</div>
+  <div style="display:flex;flex-direction:column;gap:8px">
+    <div style="background:var(--card,#fff);border-radius:12px;padding:12px;display:flex;align-items:center;justify-content:space-between;border:1px solid var(--border,#e5e7eb)">
+      <div><div style="font-size:12px;font-weight:800;color:var(--text,#1a1a2e)">কান পেতে রই (বাংলাদেশ)</div><div style="font-size:11px;color:var(--text2,#888)">মানসিক স্বাস্থ্য হেল্পলাইন</div></div>
+      <div style="font-size:13px;font-weight:900;color:#7C3AED">01779-554391</div>
+    </div>
+    <div style="background:var(--card,#fff);border-radius:12px;padding:12px;display:flex;align-items:center;justify-content:space-between;border:1px solid var(--border,#e5e7eb)">
+      <div><div style="font-size:12px;font-weight:800;color:var(--text,#1a1a2e)">জাতীয় মানসিক স্বাস্থ্য ইনস্টিটিউট</div><div style="font-size:11px;color:var(--text2,#888)">NIMH Bangladesh</div></div>
+      <div style="font-size:13px;font-weight:900;color:#7C3AED">16789</div>
+    </div>
+    <div style="background:var(--card,#fff);border-radius:12px;padding:12px;display:flex;align-items:center;justify-content:space-between;border:1px solid var(--border,#e5e7eb)">
+      <div><div style="font-size:12px;font-weight:800;color:var(--text,#1a1a2e)">জরুরি সেবা</div><div style="font-size:11px;color:var(--text2,#888)">Bangladesh Emergency</div></div>
+      <div style="font-size:13px;font-weight:900;color:#EF4444">999</div>
+    </div>
+  </div>
+</div>
+
+<!-- Mobile Donation -->
+<div class="rz-donation-mobile-card" style="margin:0 0 24px">
+  <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
+    <div style="width:38px;height:38px;border-radius:12px;background:rgba(124,58,237,.1);border:1px solid rgba(124,58,237,.25);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#7C3AED" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" fill="rgba(124,58,237,.12)"/></svg>
+    </div>
+    <div>
+      <div style="font-size:13px;font-weight:800;color:var(--text,#1f2937)">Rizers কে Support করুন</div>
+      <div style="font-size:11.5px;color:var(--text2,#888);margin-top:2px">মাত্র ৳৯৯/মাসে • সম্পূর্ণ স্বেচ্ছায়</div>
+    </div>
+  </div>
+  <a href="#" onclick="rzGoToPayment&&rzGoToPayment();return false;" style="display:block;width:100%;background:linear-gradient(135deg,#7C3AED,#06B6D4);color:#fff;font-size:13px;font-weight:800;text-align:center;padding:11px;border-radius:12px;text-decoration:none;box-sizing:border-box">🤲 Support করুন</a>
+</div>
+
+</div><!-- end rz-page-content -->
+
+<!-- Desktop Donation Sidebar -->
+<div class="rz-donation-sidebar">
+  <div class="rz-dsb-inner">
+    <div style="text-align:center;margin-bottom:20px">
+      <div style="width:58px;height:58px;border-radius:18px;background:linear-gradient(135deg,rgba(124,58,237,.15),rgba(6,182,212,.1));border:1px solid rgba(124,58,237,.3);display:flex;align-items:center;justify-content:center;margin:0 auto 12px">
+        <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="#7C3AED" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" fill="rgba(124,58,237,.12)"/></svg>
+      </div>
+      <div style="font-size:12px;font-weight:800;color:#7C3AED;letter-spacing:1px;text-transform:uppercase">Rizers কে Support করুন</div>
+    </div>
+    <div style="background:rgba(124,58,237,.06);border:1px solid rgba(124,58,237,.15);border-radius:14px;padding:16px;margin-bottom:16px">
+      <div style="font-size:15px;font-weight:700;color:var(--text,#1f2937);line-height:1.6;margin-bottom:10px">"সুস্থ মন — সুস্থ জীবনের ভিত্তি।"</div>
+      <div style="font-size:12.5px;color:var(--text2,#888);line-height:1.7">Rizers Mental Health Tracker তোমাকে প্রতিদিন মানসিকভাবে সুস্থ রাখতে সাহায্য করছে।</div>
+    </div>
+    <div style="margin-bottom:16px">
+      <div style="font-size:12px;font-weight:700;color:var(--text2,#888);margin-bottom:10px;text-transform:uppercase;letter-spacing:.8px">মাত্র ৳৯৯/মাসে</div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <div style="display:flex;align-items:center;gap:10px"><div style="width:7px;height:7px;border-radius:50%;background:#7C3AED;flex-shrink:0"></div><span style="font-size:13.5px;color:var(--text,#1f2937)">Mental Health + সব tracker</span></div>
+        <div style="display:flex;align-items:center;gap:10px"><div style="width:7px;height:7px;border-radius:50%;background:#06B6D4;flex-shrink:0"></div><span style="font-size:13.5px;color:var(--text,#1f2937)">CBT, Breathing, Dhikr</span></div>
+        <div style="display:flex;align-items:center;gap:10px"><div style="width:7px;height:7px;border-radius:50%;background:#10B981;flex-shrink:0"></div><span style="font-size:13.5px;color:var(--text,#1f2937)">হাজারজনের সাথে জার্নি</span></div>
+      </div>
+    </div>
+    <div style="height:1px;background:var(--border,#e5e7eb);margin-bottom:16px"></div>
+    <div style="margin-bottom:20px">
+      <div style="font-size:13px;color:var(--text2,#888);line-height:1.8;font-style:italic">"নিশ্চয়ই আল্লাহর স্মরণেই হৃদয় শান্তি পায়।"</div>
+      <div style="font-size:11.5px;color:#7C3AED;font-weight:700;margin-top:6px">— সূরা আর-রা'দ: ২৮</div>
+    </div>
+    <a href="#" onclick="rzGoToPayment&&rzGoToPayment();return false;" style="display:block;width:100%;background:linear-gradient(135deg,#7C3AED,#06B6D4);color:#fff;font-size:14px;font-weight:800;text-align:center;padding:15px;border-radius:13px;text-decoration:none;box-shadow:0 4px 16px rgba(124,58,237,.4);box-sizing:border-box">🤲 ৳৯৯/মাসে Support করুন</a>
+    <div style="text-align:center;margin-top:12px;font-size:11px;color:var(--text2,#888)">সম্পূর্ণ স্বেচ্ছায় • যেকোনো সময় বাতিল করুন</div>
+  </div>
+</div>
+
+</div><!-- end rz-page-with-banner -->
+</div><!-- end mh-adult-wrap -->
+
+</div><!-- end mental-page -->

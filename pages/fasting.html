@@ -1,0 +1,322 @@
+<div id="fasting-page" class="page-div app-page" style="display:none">
+
+<!-- ══ KIDS WRAP ══ -->
+<div id="fs-kids-wrap" style="display:none">
+  <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:60vh;padding:40px 20px;text-align:center">
+    <div style="font-size:64px;margin-bottom:16px">🌙</div>
+    <div style="font-size:20px;font-weight:800;color:var(--text,#1a1a2e);margin-bottom:8px">Fasting Tracker</div>
+    <div style="font-size:14px;color:var(--text2,#888);max-width:280px;line-height:1.6">এই section টি বড়দের জন্য।<br>উপরে <strong>Me</strong> বাটন চাপুন।</div>
+  </div>
+  <div class="rz-donation-mobile-card" style="margin:0 16px 24px">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
+      <div style="width:38px;height:38px;border-radius:12px;background:rgba(15,118,110,.1);border:1px solid rgba(15,118,110,.25);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#0F766E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" fill="rgba(15,118,110,.12)"/></svg>
+      </div>
+      <div>
+        <div style="font-size:13px;font-weight:800;color:var(--text,#1f2937)">Rizers কে Support করুন</div>
+        <div style="font-size:11.5px;color:var(--text2,#888);margin-top:2px">মাত্র ৳৯৯/মাসে • সম্পূর্ণ স্বেচ্ছায়</div>
+      </div>
+    </div>
+    <a href="#" onclick="rzGoToPayment&&rzGoToPayment();return false;" style="display:block;width:100%;background:linear-gradient(135deg,#0F766E,#F59E0B);color:#fff;font-size:13px;font-weight:800;text-align:center;padding:11px;border-radius:12px;text-decoration:none;box-sizing:border-box">🤲 Support করুন</a>
+  </div>
+</div>
+
+<!-- ══ ADULT WRAP ══ -->
+<div id="fs-adult-wrap" style="display:none">
+<div class="rz-page-with-banner">
+<div class="rz-page-content" style="padding:20px 20px 40px">
+
+<!-- HERO CARD — Live Timer -->
+<div style="background:linear-gradient(135deg,#042f2e 0%,#0d1117 55%,#1c1400 100%);border-radius:20px;padding:22px;margin-bottom:18px;border:1px solid rgba(15,118,110,.3);position:relative;overflow:hidden">
+  <div style="position:absolute;top:-50px;right:-50px;width:200px;height:200px;background:radial-gradient(circle,rgba(15,118,110,.12) 0%,transparent 70%);border-radius:50%;pointer-events:none"></div>
+  <div style="position:absolute;bottom:-30px;left:20%;width:150px;height:150px;background:radial-gradient(circle,rgba(245,158,11,.08) 0%,transparent 70%);border-radius:50%;pointer-events:none"></div>
+  <!-- Top row -->
+  <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:20px">
+    <div>
+      <div style="font-size:10px;font-weight:800;color:rgba(15,118,110,.9);letter-spacing:2px;text-transform:uppercase;margin-bottom:4px">🌙 FASTING TRACKER</div>
+      <div id="fs-hero-status" style="font-size:18px;font-weight:900;color:#fff">রোজা শুরু হয়নি</div>
+      <div id="fs-hero-type" style="font-size:12px;color:rgba(255,255,255,.45);margin-top:3px">ধরন বেছে নিন</div>
+    </div>
+    <!-- Fasting Ring Timer -->
+    <div style="text-align:center;position:relative">
+      <svg width="90" height="90" viewBox="0 0 90 90">
+        <circle cx="45" cy="45" r="38" fill="none" stroke="rgba(255,255,255,.07)" stroke-width="7"/>
+        <circle id="fs-timer-ring" cx="45" cy="45" r="38" fill="none" stroke="url(#fsGrad)" stroke-width="7" stroke-linecap="round" stroke-dasharray="238.8" stroke-dashoffset="238.8" transform="rotate(-90 45 45)" style="transition:stroke-dashoffset .5s ease"/>
+        <defs><linearGradient id="fsGrad" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#0F766E"/><stop offset="100%" stop-color="#F59E0B"/></linearGradient></defs>
+      </svg>
+      <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center">
+        <div id="fs-ring-pct" style="font-size:14px;font-weight:900;color:#fff">0%</div>
+      </div>
+    </div>
+  </div>
+  <!-- Big Timer -->
+  <div style="text-align:center;margin-bottom:20px">
+    <div id="fs-big-timer" style="font-size:48px;font-weight:900;color:#fff;letter-spacing:2px;font-variant-numeric:tabular-nums">00:00:00</div>
+    <div id="fs-timer-label" style="font-size:12px;color:rgba(255,255,255,.4);margin-top:4px">অপেক্ষায় আছি...</div>
+  </div>
+  <!-- 4 stat tiles -->
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px">
+    <div style="background:rgba(255,255,255,.05);border-radius:12px;padding:10px;text-align:center;border:1px solid rgba(255,255,255,.06)">
+      <div id="fs-tile-streak" style="font-size:16px;font-weight:900;color:#F59E0B">0</div>
+      <div style="font-size:9px;color:rgba(255,255,255,.4);margin-top:2px">Streak 🔥</div>
+    </div>
+    <div style="background:rgba(255,255,255,.05);border-radius:12px;padding:10px;text-align:center;border:1px solid rgba(255,255,255,.06)">
+      <div id="fs-tile-total" style="font-size:16px;font-weight:900;color:#0F766E">0</div>
+      <div style="font-size:9px;color:rgba(255,255,255,.4);margin-top:2px">মোট রোজা</div>
+    </div>
+    <div style="background:rgba(255,255,255,.05);border-radius:12px;padding:10px;text-align:center;border:1px solid rgba(255,255,255,.06)">
+      <div id="fs-tile-longest" style="font-size:16px;font-weight:900;color:#10B981">0h</div>
+      <div style="font-size:9px;color:rgba(255,255,255,.4);margin-top:2px">সবচেয়ে দীর্ঘ</div>
+    </div>
+    <div style="background:rgba(255,255,255,.05);border-radius:12px;padding:10px;text-align:center;border:1px solid rgba(255,255,255,.06)">
+      <div id="fs-tile-water" style="font-size:16px;font-weight:900;color:#06B6D4">0</div>
+      <div style="font-size:9px;color:rgba(255,255,255,.4);margin-top:2px">পানি গ্লাস</div>
+    </div>
+  </div>
+</div>
+
+<!-- FASTING TYPE SELECTOR -->
+<div style="background:var(--card,#fff);border:1.5px solid var(--border,#e5e7eb);border-radius:18px;padding:18px;margin-bottom:14px">
+  <div style="font-size:13px;font-weight:800;color:var(--text,#1a1a2e);margin-bottom:14px">⚙️ রোজার ধরন বেছে নিন</div>
+  <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:12px" id="fs-type-grid">
+    <div onclick="fsSetType('16:8',16)" id="fst-168" style="padding:12px;border:2px solid var(--border,#e5e7eb);border-radius:14px;cursor:pointer;transition:.2s;background:var(--bg2,#f3f4f6)">
+      <div style="font-size:16px;font-weight:900;color:var(--text,#1a1a2e)">16:8</div>
+      <div style="font-size:11px;color:var(--text2,#888);margin-top:2px">১৬ ঘন্টা রোজা • ৮ খাবার</div>
+      <div style="font-size:10px;color:#10B981;margin-top:4px;font-weight:700">জনপ্রিয় ✓</div>
+    </div>
+    <div onclick="fsSetType('18:6',18)" id="fst-186" style="padding:12px;border:2px solid var(--border,#e5e7eb);border-radius:14px;cursor:pointer;transition:.2s;background:var(--bg2,#f3f4f6)">
+      <div style="font-size:16px;font-weight:900;color:var(--text,#1a1a2e)">18:6</div>
+      <div style="font-size:11px;color:var(--text2,#888);margin-top:2px">১৮ ঘন্টা রোজা • ৬ খাবার</div>
+      <div style="font-size:10px;color:#F59E0B;margin-top:4px;font-weight:700">কঠিন স্তর</div>
+    </div>
+    <div onclick="fsSetType('20:4',20)" id="fst-204" style="padding:12px;border:2px solid var(--border,#e5e7eb);border-radius:14px;cursor:pointer;transition:.2s;background:var(--bg2,#f3f4f6)">
+      <div style="font-size:16px;font-weight:900;color:var(--text,#1a1a2e)">20:4</div>
+      <div style="font-size:11px;color:var(--text2,#888);margin-top:2px">২০ ঘন্টা রোজা • ৪ খাবার</div>
+      <div style="font-size:10px;color:#EF4444;margin-top:4px;font-weight:700">উন্নত স্তর</div>
+    </div>
+    <div onclick="fsSetType('OMAD',23)" id="fst-omad" style="padding:12px;border:2px solid var(--border,#e5e7eb);border-radius:14px;cursor:pointer;transition:.2s;background:var(--bg2,#f3f4f6)">
+      <div style="font-size:16px;font-weight:900;color:var(--text,#1a1a2e)">OMAD</div>
+      <div style="font-size:11px;color:var(--text2,#888);margin-top:2px">২৩ ঘন্টা • দিনে ১ বেলা</div>
+      <div style="font-size:10px;color:#7C3AED;margin-top:4px;font-weight:700">চ্যালেঞ্জ</div>
+    </div>
+    <div onclick="fsSetType('রমাদান',16)" id="fst-ramadan" style="padding:12px;border:2px solid var(--border,#e5e7eb);border-radius:14px;cursor:pointer;transition:.2s;background:var(--bg2,#f3f4f6)">
+      <div style="font-size:16px;font-weight:900;color:var(--text,#1a1a2e)">🌙 রমাদান</div>
+      <div style="font-size:11px;color:var(--text2,#888);margin-top:2px">সেহরি থেকে ইফতার</div>
+      <div style="font-size:10px;color:#F59E0B;margin-top:4px;font-weight:700">ইসলামিক</div>
+    </div>
+    <div onclick="fsSetType('সুন্নাহ',24)" id="fst-sunnah" style="padding:12px;border:2px solid var(--border,#e5e7eb);border-radius:14px;cursor:pointer;transition:.2s;background:var(--bg2,#f3f4f6)">
+      <div style="font-size:16px;font-weight:900;color:var(--text,#1a1a2e)">☀️ সুন্নাহ</div>
+      <div style="font-size:11px;color:var(--text2,#888);margin-top:2px">সোম / বৃহস্পতিবার</div>
+      <div style="font-size:10px;color:#0F766E;margin-top:4px;font-weight:700">সুন্নাহ সুন্নাত</div>
+    </div>
+  </div>
+  <!-- Custom -->
+  <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+    <span style="font-size:12px;font-weight:700;color:var(--text2,#888)">কাস্টম সময়:</span>
+    <input id="fs-custom-hours" type="number" min="1" max="23" placeholder="ঘন্টা" style="width:80px;padding:8px 10px;border:1.5px solid var(--border,#e5e7eb);border-radius:10px;font-size:12px;font-weight:700;color:var(--text,#1a1a2e);background:var(--bg2,#f3f4f6);text-align:center">
+    <button onclick="fsSetCustom()" style="padding:8px 14px;background:var(--bg2,#f3f4f6);border:1.5px solid var(--border,#e5e7eb);border-radius:10px;font-size:11px;font-weight:700;color:var(--text,#1a1a2e);cursor:pointer">সেট করুন</button>
+  </div>
+</div>
+
+<!-- 24HR WINDOW VISUALIZER -->
+<div style="background:var(--card,#fff);border:1.5px solid var(--border,#e5e7eb);border-radius:18px;padding:18px;margin-bottom:14px">
+  <div style="font-size:13px;font-weight:800;color:var(--text,#1a1a2e);margin-bottom:14px">🕐 ২৪ ঘন্টার রোজার উইন্ডো</div>
+  <div style="display:flex;flex-direction:column;align-items:center;gap:12px">
+    <div style="position:relative;width:200px;height:200px">
+      <canvas id="fs-window-canvas" width="200" height="200" style="display:block"></canvas>
+      <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center">
+        <div id="fs-window-label" style="font-size:11px;font-weight:800;color:var(--text,#1a1a2e)">16:8</div>
+        <div style="font-size:9px;color:var(--text2,#888)">উইন্ডো</div>
+      </div>
+    </div>
+    <div style="display:flex;gap:16px;flex-wrap:wrap;justify-content:center">
+      <div style="display:flex;align-items:center;gap:6px"><div style="width:12px;height:12px;border-radius:4px;background:#0F766E"></div><span style="font-size:11px;color:var(--text2,#888)">রোজার সময়</span></div>
+      <div style="display:flex;align-items:center;gap:6px"><div style="width:12px;height:12px;border-radius:4px;background:#F59E0B"></div><span style="font-size:11px;color:var(--text2,#888)">খাওয়ার সময়</span></div>
+      <div style="display:flex;align-items:center;gap:6px"><div style="width:12px;height:12px;border-radius:4px;background:#EF4444;border-radius:50%"></div><span style="font-size:11px;color:var(--text2,#888)">এখন</span></div>
+    </div>
+    <div id="fs-window-info" style="font-size:12px;color:var(--text2,#888);text-align:center;line-height:1.6"></div>
+  </div>
+</div>
+
+<!-- START / STOP BUTTON -->
+<div style="background:var(--card,#fff);border:1.5px solid var(--border,#e5e7eb);border-radius:18px;padding:20px;margin-bottom:14px">
+  <div id="fs-niyyah-box" style="background:rgba(15,118,110,.06);border:1px solid rgba(15,118,110,.15);border-radius:12px;padding:14px;margin-bottom:16px;text-align:center">
+    <div style="font-size:14px;color:rgba(15,118,110,.8);line-height:1.8;font-style:italic;direction:rtl;margin-bottom:6px">نَوَيْتُ صَوْمَ غَدٍ لِلّٰهِ تَعَالَى</div>
+    <div style="font-size:11px;color:var(--text2,#888)">নিয়্যাত: আমি আল্লাহর সন্তুষ্টির জন্য রোজা রাখার নিয়্যাত করলাম।</div>
+  </div>
+  <div style="display:flex;gap:10px">
+    <button id="fs-start-btn" onclick="fsToggleFast()" style="flex:1;padding:16px;background:linear-gradient(135deg,#0F766E,#F59E0B);color:#fff;border:none;border-radius:14px;font-size:15px;font-weight:900;cursor:pointer;letter-spacing:.5px">🌙 রোজা শুরু করুন</button>
+    <button onclick="fsLogManual()" style="padding:16px 14px;background:var(--bg2,#f3f4f6);border:1.5px solid var(--border,#e5e7eb);border-radius:14px;font-size:12px;font-weight:700;color:var(--text2,#888);cursor:pointer;white-space:nowrap">📝 ম্যানুয়াল লগ</button>
+  </div>
+  <div id="fs-start-time-disp" style="text-align:center;margin-top:10px;font-size:11px;color:var(--text2,#888)"></div>
+</div>
+
+<!-- HEALTH BENEFITS TIMELINE -->
+<div style="background:var(--card,#fff);border:1.5px solid var(--border,#e5e7eb);border-radius:18px;padding:18px;margin-bottom:14px">
+  <div style="font-size:13px;font-weight:800;color:var(--text,#1a1a2e);margin-bottom:4px">🧬 শরীরে কী হচ্ছে? — Health Timeline</div>
+  <div style="font-size:11px;color:var(--text2,#888);margin-bottom:14px">রোজার সময় বাড়ার সাথে সাথে unlock হবে</div>
+  <div id="fs-health-timeline" style="display:flex;flex-direction:column;gap:0"></div>
+</div>
+
+<!-- HYDRATION TRACKER -->
+<div style="background:var(--card,#fff);border:1.5px solid var(--border,#e5e7eb);border-radius:18px;padding:18px;margin-bottom:14px">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+    <div style="font-size:13px;font-weight:800;color:var(--text,#1a1a2e)">💧 পানি ট্র্যাকার</div>
+    <div id="fs-water-count-disp" style="font-size:12px;font-weight:800;color:#06B6D4">0 / 8 গ্লাস</div>
+  </div>
+  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px" id="fs-water-glasses">
+  </div>
+  <div style="display:flex;gap:8px">
+    <button onclick="fsAddWater()" style="flex:1;padding:10px;background:rgba(6,182,212,.1);border:1.5px solid rgba(6,182,212,.3);border-radius:10px;color:#06B6D4;font-size:12px;font-weight:700;cursor:pointer">+ এক গ্লাস যোগ করুন</button>
+    <button onclick="fsResetWater()" style="padding:10px 14px;background:var(--bg2,#f3f4f6);border:1.5px solid var(--border,#e5e7eb);border-radius:10px;font-size:11px;font-weight:700;color:var(--text2,#888);cursor:pointer">রিসেট</button>
+  </div>
+</div>
+
+<!-- FASTING LOG HISTORY -->
+<div style="background:var(--card,#fff);border:1.5px solid var(--border,#e5e7eb);border-radius:18px;padding:18px;margin-bottom:14px">
+  <div style="font-size:13px;font-weight:800;color:var(--text,#1a1a2e);margin-bottom:14px">📅 রোজার ইতিহাস — ৭ দিন</div>
+  <div id="fs-history-cal" style="display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-bottom:14px"></div>
+  <div id="fs-log-list" style="display:flex;flex-direction:column;gap:8px"></div>
+</div>
+
+<!-- WEIGHT LOG -->
+<div style="background:var(--card,#fff);border:1.5px solid var(--border,#e5e7eb);border-radius:18px;padding:18px;margin-bottom:14px">
+  <div style="font-size:13px;font-weight:800;color:var(--text,#1a1a2e);margin-bottom:14px">⚖️ ওজন লগ</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px">
+    <div>
+      <label style="font-size:11px;font-weight:700;color:var(--text2,#888);display:block;margin-bottom:6px">রোজার আগে (kg)</label>
+      <input id="fs-weight-before" type="number" step="0.1" placeholder="72.5" style="width:100%;padding:10px 12px;background:var(--bg2,#f3f4f6);border:1.5px solid var(--border,#e5e7eb);border-radius:10px;font-size:14px;font-weight:700;color:var(--text,#1a1a2e);box-sizing:border-box;text-align:center">
+    </div>
+    <div>
+      <label style="font-size:11px;font-weight:700;color:var(--text2,#888);display:block;margin-bottom:6px">রোজার পরে (kg)</label>
+      <input id="fs-weight-after" type="number" step="0.1" placeholder="72.0" style="width:100%;padding:10px 12px;background:var(--bg2,#f3f4f6);border:1.5px solid var(--border,#e5e7eb);border-radius:10px;font-size:14px;font-weight:700;color:var(--text,#1a1a2e);box-sizing:border-box;text-align:center">
+    </div>
+  </div>
+  <button onclick="fsSaveWeight()" style="width:100%;padding:11px;background:linear-gradient(135deg,#0F766E,#F59E0B);color:#fff;border:none;border-radius:12px;font-size:13px;font-weight:800;cursor:pointer">ওজন সেভ করুন</button>
+  <div id="fs-weight-diff" style="margin-top:10px;text-align:center;font-size:12px;color:var(--text2,#888)"></div>
+</div>
+
+<!-- SUNNAH CALENDAR -->
+<div style="background:linear-gradient(135deg,#042f2e 0%,#0d1117 100%);border:1px solid rgba(15,118,110,.25);border-radius:18px;padding:18px;margin-bottom:14px">
+  <div style="font-size:13px;font-weight:800;color:#fff;margin-bottom:4px">☀️ সুন্নাহ রোজার ক্যালেন্ডার</div>
+  <div style="font-size:11px;color:rgba(255,255,255,.4);margin-bottom:14px">সোম ও বৃহস্পতিবার + বিশেষ দিন</div>
+  <div id="fs-sunnah-cal" style="display:grid;grid-template-columns:repeat(7,1fr);gap:5px;margin-bottom:14px"></div>
+  <div style="display:flex;flex-direction:column;gap:8px">
+    <div style="background:rgba(255,255,255,.04);border-radius:12px;padding:12px;border-left:3px solid #F59E0B">
+      <div style="font-size:12px;font-weight:800;color:#F59E0B;margin-bottom:4px">🌟 বিশেষ দিনের রোজা</div>
+      <div style="display:flex;flex-direction:column;gap:6px" id="fs-special-days"></div>
+    </div>
+    <div style="background:rgba(255,255,255,.04);border-radius:12px;padding:12px;border-left:3px solid #0F766E">
+      <div style="font-size:12px;color:rgba(255,255,255,.7);font-style:italic;line-height:1.7">"সোম ও বৃহস্পতিবারে রোজা রাখা হলো, কারণ সেই দিনে আমলনামা আল্লাহর কাছে পেশ করা হয়।"</div>
+      <div style="font-size:10px;color:rgba(255,255,255,.3);margin-top:4px">— তিরমিযি: ৭৪৭</div>
+    </div>
+  </div>
+</div>
+
+<!-- ISLAMIC TIPS -->
+<div style="background:var(--card,#fff);border:1.5px solid var(--border,#e5e7eb);border-radius:18px;padding:18px;margin-bottom:14px">
+  <div style="font-size:13px;font-weight:800;color:var(--text,#1a1a2e);margin-bottom:14px">📖 রোজার ইসলামিক গাইড</div>
+  <div style="display:flex;flex-direction:column;gap:10px">
+    <div style="background:rgba(15,118,110,.05);border:1.5px solid rgba(15,118,110,.15);border-radius:12px;padding:14px">
+      <div style="font-size:12px;font-weight:800;color:#0F766E;margin-bottom:6px">🤲 ইফতারের দোয়া</div>
+      <div style="font-size:14px;color:var(--text,#1a1a2e);direction:rtl;text-align:right;line-height:1.8;margin-bottom:6px">اللَّهُمَّ إِنِّي لَكَ صُمْتُ وَبِكَ آمَنْتُ وَعَلَى رِزْقِكَ أَفْطَرْتُ</div>
+      <div style="font-size:11px;color:var(--text2,#888);line-height:1.6">"হে আল্লাহ! আমি তোমার জন্য রোজা রেখেছি, তোমার উপর ঈমান এনেছি এবং তোমার রিজিক দ্বারা ইফতার করছি।"</div>
+    </div>
+    <div style="background:rgba(245,158,11,.05);border:1.5px solid rgba(245,158,11,.15);border-radius:12px;padding:14px">
+      <div style="font-size:12px;font-weight:800;color:#F59E0B;margin-bottom:6px">💡 রোজার ফজিলত</div>
+      <div style="font-size:12px;color:var(--text2,#888);line-height:1.7">"রোজাদারের মুখের গন্ধ আল্লাহর কাছে কস্তুরির চেয়েও সুগন্ধিময়।" — বুখারি: ১৮৯৪</div>
+    </div>
+    <div style="background:rgba(15,118,110,.05);border:1.5px solid rgba(15,118,110,.15);border-radius:12px;padding:14px">
+      <div style="font-size:12px;font-weight:800;color:#0F766E;margin-bottom:6px">🌙 সেহরির গুরুত্ব</div>
+      <div style="font-size:12px;color:var(--text2,#888);line-height:1.7">"সেহরি খাও, কারণ সেহরিতে বরকত আছে।" — বুখারি: ১৯২৩</div>
+    </div>
+  </div>
+</div>
+
+<!-- Mobile Donation -->
+<div class="rz-donation-mobile-card" style="margin:0 0 24px">
+  <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
+    <div style="width:38px;height:38px;border-radius:12px;background:rgba(15,118,110,.1);border:1px solid rgba(15,118,110,.25);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#0F766E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" fill="rgba(15,118,110,.12)"/></svg>
+    </div>
+    <div>
+      <div style="font-size:13px;font-weight:800;color:var(--text,#1f2937)">Rizers কে Support করুন</div>
+      <div style="font-size:11.5px;color:var(--text2,#888);margin-top:2px">মাত্র ৳৯৯/মাসে • সম্পূর্ণ স্বেচ্ছায়</div>
+    </div>
+  </div>
+  <a href="#" onclick="rzGoToPayment&&rzGoToPayment();return false;" style="display:block;width:100%;background:linear-gradient(135deg,#0F766E,#F59E0B);color:#fff;font-size:13px;font-weight:800;text-align:center;padding:11px;border-radius:12px;text-decoration:none;box-sizing:border-box">🤲 Support করুন</a>
+</div>
+
+</div><!-- end rz-page-content -->
+
+<!-- Desktop Donation Sidebar -->
+<div class="rz-donation-sidebar">
+  <div class="rz-dsb-inner">
+    <div style="text-align:center;margin-bottom:20px">
+      <div style="width:58px;height:58px;border-radius:18px;background:linear-gradient(135deg,rgba(15,118,110,.15),rgba(245,158,11,.1));border:1px solid rgba(15,118,110,.3);display:flex;align-items:center;justify-content:center;margin:0 auto 12px">
+        <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="#0F766E" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" fill="rgba(15,118,110,.12)"/></svg>
+      </div>
+      <div style="font-size:12px;font-weight:800;color:#0F766E;letter-spacing:1px;text-transform:uppercase">Rizers কে Support করুন</div>
+    </div>
+    <div style="background:rgba(15,118,110,.06);border:1px solid rgba(15,118,110,.15);border-radius:14px;padding:16px;margin-bottom:16px">
+      <div style="font-size:15px;font-weight:700;color:var(--text,#1f2937);line-height:1.6;margin-bottom:10px">"রোজা ঢাল স্বরূপ।"</div>
+      <div style="font-size:12.5px;color:var(--text2,#888);line-height:1.7">Rizers Fasting Tracker তোমাকে প্রতিটি রোজা সঠিকভাবে ট্র্যাক করতে সাহায্য করছে।</div>
+    </div>
+    <div style="margin-bottom:16px">
+      <div style="font-size:12px;font-weight:700;color:var(--text2,#888);margin-bottom:10px;text-transform:uppercase;letter-spacing:.8px">মাত্র ৳৯৯/মাসে</div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <div style="display:flex;align-items:center;gap:10px"><div style="width:7px;height:7px;border-radius:50%;background:#0F766E;flex-shrink:0"></div><span style="font-size:13.5px;color:var(--text,#1f2937)">Fasting + সব tracker</span></div>
+        <div style="display:flex;align-items:center;gap:10px"><div style="width:7px;height:7px;border-radius:50%;background:#F59E0B;flex-shrink:0"></div><span style="font-size:13.5px;color:var(--text,#1f2937)">Health Timeline unlock</span></div>
+        <div style="display:flex;align-items:center;gap:10px"><div style="width:7px;height:7px;border-radius:50%;background:#10B981;flex-shrink:0"></div><span style="font-size:13.5px;color:var(--text,#1f2937)">সুন্নাহ ক্যালেন্ডার</span></div>
+      </div>
+    </div>
+    <div style="height:1px;background:var(--border,#e5e7eb);margin-bottom:16px"></div>
+    <div style="margin-bottom:20px">
+      <div style="font-size:13px;color:var(--text2,#888);line-height:1.8;font-style:italic">"রোজাদারের জন্য দুটি আনন্দ রয়েছে: ইফতারের আনন্দ এবং আল্লাহর সাথে সাক্ষাতের আনন্দ।"</div>
+      <div style="font-size:11.5px;color:#0F766E;font-weight:700;margin-top:6px">— বুখারি: ১৯০৪</div>
+    </div>
+    <a href="#" onclick="rzGoToPayment&&rzGoToPayment();return false;" style="display:block;width:100%;background:linear-gradient(135deg,#0F766E,#F59E0B);color:#fff;font-size:14px;font-weight:800;text-align:center;padding:15px;border-radius:13px;text-decoration:none;box-shadow:0 4px 16px rgba(15,118,110,.4);box-sizing:border-box">🤲 ৳৯৯/মাসে Support করুন</a>
+    <div style="text-align:center;margin-top:12px;font-size:11px;color:var(--text2,#888)">সম্পূর্ণ স্বেচ্ছায় • যেকোনো সময় বাতিল করুন</div>
+  </div>
+</div>
+
+</div><!-- end rz-page-with-banner -->
+</div><!-- end fs-adult-wrap -->
+
+<!-- MANUAL LOG MODAL -->
+<div id="fs-log-modal" style="display:none;position:fixed;inset:0;z-index:1200;background:rgba(0,0,0,.55);backdrop-filter:blur(6px);align-items:flex-end;justify-content:center">
+  <div style="background:var(--card,#fff);border-radius:28px 28px 0 0;padding:24px 24px 36px;width:100%;max-width:520px;max-height:85vh;overflow-y:auto">
+    <div style="width:36px;height:4px;border-radius:2px;background:var(--border,#e5e7eb);margin:0 auto 20px"></div>
+    <div style="font-size:16px;font-weight:800;color:var(--text,#1a1a2e);margin-bottom:16px">📝 ম্যানুয়াল রোজা লগ</div>
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <div>
+        <label style="font-size:11px;font-weight:700;color:var(--text2,#888);display:block;margin-bottom:6px">তারিখ</label>
+        <input id="fs-log-date" type="date" style="width:100%;padding:10px 12px;border:1.5px solid var(--border,#e5e7eb);border-radius:10px;font-size:13px;color:var(--text,#1a1a2e);background:var(--bg2,#f3f4f6);box-sizing:border-box">
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+        <div>
+          <label style="font-size:11px;font-weight:700;color:var(--text2,#888);display:block;margin-bottom:6px">শুরুর সময়</label>
+          <input id="fs-log-start" type="time" style="width:100%;padding:10px 12px;border:1.5px solid var(--border,#e5e7eb);border-radius:10px;font-size:13px;color:var(--text,#1a1a2e);background:var(--bg2,#f3f4f6);box-sizing:border-box">
+        </div>
+        <div>
+          <label style="font-size:11px;font-weight:700;color:var(--text2,#888);display:block;margin-bottom:6px">শেষের সময়</label>
+          <input id="fs-log-end" type="time" style="width:100%;padding:10px 12px;border:1.5px solid var(--border,#e5e7eb);border-radius:10px;font-size:13px;color:var(--text,#1a1a2e);background:var(--bg2,#f3f4f6);box-sizing:border-box">
+        </div>
+      </div>
+      <div>
+        <label style="font-size:11px;font-weight:700;color:var(--text2,#888);display:block;margin-bottom:6px">ধরন</label>
+        <select id="fs-log-type" style="width:100%;padding:10px 12px;border:1.5px solid var(--border,#e5e7eb);border-radius:10px;font-size:13px;color:var(--text,#1a1a2e);background:var(--bg2,#f3f4f6);box-sizing:border-box">
+          <option>16:8</option><option>18:6</option><option>20:4</option><option>OMAD</option><option>রমাদান</option><option>সুন্নাহ</option><option>কাস্টম</option>
+        </select>
+      </div>
+      <div>
+        <label style="font-size:11px;font-weight:700;color:var(--text2,#888);display:block;margin-bottom:6px">নোট (ঐচ্ছিক)</label>
+        <input id="fs-log-note" type="text" placeholder="কেমন ছিল রোজা?" style="width:100%;padding:10px 12px;border:1.5px solid var(--border,#e5e7eb);border-radius:10px;font-size:13px;color:var(--text,#1a1a2e);background:var(--bg2,#f3f4f6);box-sizing:border-box">
+      </div>
+      <button onclick="fsSaveManualLog()" style="width:100%;padding:13px;background:linear-gradient(135deg,#0F766E,#F59E0B);color:#fff;border:none;border-radius:12px;font-size:14px;font-weight:800;cursor:pointer">সেভ করুন</button>
+      <button onclick="fsCloseModal()" style="width:100%;padding:11px;background:var(--bg2,#f3f4f6);border:1.5px solid var(--border,#e5e7eb);border-radius:12px;font-size:13px;font-weight:700;color:var(--text2,#888);cursor:pointer">বাতিল করুন</button>
+    </div>
+  </div>
+</div>
+
+</div><!-- end fasting-page -->

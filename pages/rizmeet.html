@@ -1,0 +1,1669 @@
+<div id="rizmeet-page" class="app-page" style="display:none;overflow-x:hidden">
+
+<style>
+/* ── RizMeet scoped styles ── */
+#rizmeet-page {
+  font-family: inherit;
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+  padding-bottom: 80px;
+}
+
+/* Header */
+.rzm-header {
+  background: var(--card);
+  border-bottom: 1.5px solid var(--border);
+  padding: 16px 16px 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.rzm-header-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+.rzm-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.rzm-brand-icon {
+  width: 36px;
+  height: 36px;
+  background: linear-gradient(135deg,#FF8A00,#FFB800);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+}
+.rzm-brand-name {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text);
+}
+.rzm-brand-name span { color: #FF8A00; }
+.rzm-master-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--text2);
+}
+
+/* Tab bar */
+.rzm-tabs {
+  display: flex;
+  gap: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.rzm-tabs::-webkit-scrollbar { display: none; }
+.rzm-tab {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  padding: 8px 14px 10px;
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  color: var(--text2);
+  font-size: 11px;
+  font-weight: 500;
+  white-space: nowrap;
+  transition: all .2s;
+  background: none;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+}
+.rzm-tab .rzm-tab-icon { width:20px;height:20px;display:flex;align-items:center;justify-content:center; }
+.rzm-tab .rzm-tab-icon svg { width:20px;height:20px;fill:currentColor; }
+.rzm-tab.active {
+  color: #FF8A00;
+  border-bottom-color: #FF8A00;
+}
+
+/* Tab panels */
+.rzm-panel { display: none; padding: 16px; }
+.rzm-panel.active { display: block; }
+
+/* Cards */
+.rzm-card {
+  background: var(--card);
+  border: 1.5px solid var(--border);
+  border-radius: 16px;
+  padding: 16px;
+  margin-bottom: 12px;
+}
+.rzm-card-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text2);
+  margin-bottom: 12px;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+}
+
+/* Stats row */
+.rzm-stats {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.rzm-stat {
+  background: var(--card);
+  border: 1.5px solid var(--border);
+  border-radius: 14px;
+  padding: 14px 10px;
+  text-align: center;
+}
+.rzm-stat-val {
+  font-size: 24px;
+  font-weight: 800;
+  color: #FF8A00;
+  line-height: 1;
+}
+.rzm-stat-label {
+  font-size: 10px;
+  color: var(--text2);
+  margin-top: 4px;
+  line-height: 1.3;
+}
+
+/* Share link card */
+.rzm-link-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--bg);
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  padding: 10px 12px;
+  margin-bottom: 10px;
+}
+.rzm-link-url {
+  flex: 1;
+  font-size: 13px;
+  color: #FF8A00;
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.rzm-copy-btn {
+  flex-shrink: 0;
+  background: linear-gradient(135deg,#FF8A00,#FFB800);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 6px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity .2s;
+}
+.rzm-copy-btn:active { opacity: .8; }
+
+/* Dashboard bottom: upcoming mini card + add-event btn */
+.rzm-dash-bottom { display:flex; align-items:flex-start; gap:16px; }
+.rzm-upcoming-card { flex:0 0 420px; min-width:0; }
+.rzm-card-title-row { display:flex; align-items:center; justify-content:space-between; margin-bottom:10px; }
+.rzm-card-title-row .rzm-card-title { margin-bottom:0; }
+.rzm-link-btn { background:none; border:none; color:#FF8A00; font-size:12px; font-weight:600; cursor:pointer; padding:0; }
+.rzm-link-btn:hover { text-decoration:underline; }
+@media(max-width:600px){
+  .rzm-dash-bottom { flex-direction:column; }
+  .rzm-upcoming-card { flex:unset; width:100%; }
+}
+/* Meeting list */
+.rzm-meeting-item { display:flex; align-items:center; gap:12px; padding:12px 0; border-bottom:1px solid var(--border); }
+.rzm-meeting-item:last-child { border-bottom:none; }
+.rzm-meeting-avatar { width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;color:#fff;flex-shrink:0; }
+.rzm-meeting-info { flex:1;min-width:0; }
+.rzm-meeting-name { font-size:14px;font-weight:600;color:var(--text); }
+.rzm-meeting-meta { font-size:11px;color:var(--text2);margin-top:2px; }
+/* Compact meeting card */
+.rzm-meeting-item-compact {
+  display:flex; align-items:flex-start; gap:10px;
+  padding:9px 0; border-bottom:1px solid var(--border);
+}
+.rzm-meeting-item-compact:last-child { border-bottom:none; padding-bottom:0; }
+.rzm-meeting-item-compact:first-child { padding-top:0; }
+.rzm-mic-avatar {
+  width:32px; height:32px; border-radius:50%; flex-shrink:0;
+  display:flex; align-items:center; justify-content:center;
+  font-size:12px; font-weight:700; color:#fff;
+}
+.rzm-mic-body { flex:1; min-width:0; }
+.rzm-mic-row1 { display:flex; align-items:center; gap:6px; flex-wrap:wrap; margin-bottom:2px; }
+.rzm-mic-name { font-size:13px; font-weight:700; color:var(--text); }
+.rzm-mic-time { font-size:10px; color:var(--text2); flex:1; }
+.rzm-mic-type { font-size:11px; color:var(--text2); margin-bottom:4px; }
+.rzm-mi-chips { display:flex; flex-wrap:wrap; gap:4px; }
+.rzm-mi-chip {
+  font-size:10px; padding:2px 7px; border-radius:20px;
+  background:var(--bg2,#f0f0f0); color:var(--text2); white-space:nowrap;
+}
+.rzm-mi-chip-paid { background:#FFF3E0; color:#E65100; font-weight:700; }
+.rzm-mi-note-compact {
+  font-size:10px; color:var(--text2); margin-top:4px;
+  padding:3px 8px; border-radius:6px;
+  background:var(--bg2,#f0f0f0); border-left:2px solid #FF8A00;
+  font-style:italic; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+}
+.rzm-badge {
+  flex-shrink: 0;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 20px;
+}
+.rzm-badge-upcoming { background: #FF8A0020; color: #FF8A00; }
+.rzm-badge-confirmed { background: #22c55e20; color: #22c55e; }
+.rzm-badge-cancelled { background: #ef444420; color: #ef4444; }
+.rzm-badge-completed { background: #6366f120; color: #6366f1; }
+
+/* Primary button */
+.rzm-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
+  background: linear-gradient(135deg,#FF8A00,#FFB800);
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  padding: 13px 20px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity .2s, transform .1s;
+}
+.rzm-btn-primary:active { opacity: .85; transform: scale(.98); }
+
+.rzm-btn-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background: transparent;
+  color: #FF8A00;
+  border: 1.5px solid #FF8A00;
+  border-radius: 12px;
+  padding: 10px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background .2s;
+}
+.rzm-btn-outline:active { background: #FF8A0015; }
+
+.rzm-btn-ghost {
+  background: none;
+  border: none;
+  color: var(--text2);
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: background .2s, color .2s;
+}
+.rzm-btn-ghost:hover { background: var(--border); color: var(--text); }
+
+/* Event type cards grid */
+#rzm-events-dynamic { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 260px)); gap: 14px; padding: 4px 0; }
+.rzm-event-card {
+  background: var(--card);
+  border: 1.5px solid var(--border);
+  border-radius: 16px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  position: relative;
+  transition: box-shadow .18s, border-color .18s;
+}
+.rzm-event-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,.08); border-color: #FF8A00; }
+.rzm-event-card-top { display: flex; align-items: center; gap: 10px; }
+.rzm-event-dot {
+  width: 38px; height: 38px;
+  border-radius: 12px;
+  flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; color: #fff;
+}
+.rzm-event-info { flex: 1; min-width: 0; }
+.rzm-event-name { font-size: 14px; font-weight: 700; color: var(--text); line-height: 1.3; }
+.rzm-event-meta { font-size: 11px; color: var(--text2); margin-top: 3px; }
+.rzm-event-actions { display: flex; align-items: center; gap: 4px; position: absolute; top: 10px; right: 10px; }
+
+/* Toggle switch */
+.rzm-toggle { position: relative; width: 40px; height: 22px; flex-shrink: 0; }
+.rzm-toggle input { opacity: 0; width: 0; height: 0; }
+.rzm-toggle-slider {
+  position: absolute;
+  inset: 0;
+  background: var(--border);
+  border-radius: 11px;
+  cursor: pointer;
+  transition: background .25s;
+}
+.rzm-toggle-slider::before {
+  content: '';
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  left: 3px;
+  top: 3px;
+  background: #fff;
+  border-radius: 50%;
+  transition: transform .25s;
+  box-shadow: 0 1px 4px rgba(0,0,0,.25);
+}
+.rzm-toggle input:checked + .rzm-toggle-slider { background: #FF8A00; }
+.rzm-toggle input:checked + .rzm-toggle-slider::before { transform: translateX(18px); }
+
+/* Availability */
+.rzm-day-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+}
+.rzm-day-row:last-child { border-bottom: none; }
+.rzm-day-name {
+  width: 38px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  flex-shrink: 0;
+}
+.rzm-time-range {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex: 1;
+}
+.rzm-time-input {
+  flex: 1;
+  background: var(--bg);
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  padding: 7px 8px;
+  font-size: 13px;
+  color: var(--text);
+  outline: none;
+  text-align: center;
+  min-width: 0;
+}
+.rzm-time-input:focus { border-color: #FF8A00; }
+.rzm-time-sep { font-size: 12px; color: var(--text2); flex-shrink: 0; }
+.rzm-day-row.disabled .rzm-time-range { opacity: .35; pointer-events: none; }
+
+/* Blocked dates */
+.rzm-blocked-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  background: var(--bg);
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  margin-bottom: 8px;
+}
+.rzm-blocked-date { font-size: 13px; font-weight: 600; color: var(--text); }
+.rzm-blocked-reason { font-size: 11px; color: var(--text2); margin-top: 2px; }
+
+/* Booking cards */
+.rzm-booking-card {
+  background: var(--card);
+  border: 1.5px solid var(--border);
+  border-radius: 16px;
+  padding: 16px;
+  margin-bottom: 12px;
+}
+.rzm-booking-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 10px; }
+.rzm-booking-name { font-size: 15px; font-weight: 700; color: var(--text); }
+.rzm-booking-email { font-size: 12px; color: var(--text2); margin-top: 2px; }
+.rzm-booking-details {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.rzm-booking-detail { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--text2); }
+.rzm-booking-detail strong { color: var(--text); }
+.rzm-booking-actions { display: flex; gap: 8px; }
+.rzm-btn-sm {
+  flex: 1;
+  padding: 8px 12px;
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: opacity .2s;
+}
+.rzm-btn-sm:active { opacity: .8; }
+.rzm-btn-complete { background: #22c55e; color: #fff; }
+.rzm-btn-cancel { background: var(--bg); color: #ef4444; border: 1.5px solid #ef4444; }
+
+/* Sub-tabs */
+.rzm-subtabs {
+  display: flex;
+  background: var(--bg);
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  padding: 3px;
+  margin-bottom: 14px;
+  gap: 2px;
+}
+.rzm-subtab {
+  flex: 1;
+  text-align: center;
+  padding: 8px 4px;
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: 9px;
+  cursor: pointer;
+  color: var(--text2);
+  background: none;
+  border: none;
+  transition: all .2s;
+}
+.rzm-subtab.active { background: linear-gradient(135deg,#FF8A00,#FFB800); color: #fff; }
+
+/* Settings */
+.rzm-form-group { margin-bottom: 16px; }
+.rzm-label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text2);
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: .4px;
+}
+.rzm-input {
+  width: 100%;
+  background: var(--bg);
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  padding: 11px 12px;
+  font-size: 14px;
+  color: var(--text);
+  outline: none;
+  box-sizing: border-box;
+  transition: border-color .2s;
+}
+.rzm-input:focus { border-color: #FF8A00; }
+.rzm-input-prefix {
+  display: flex;
+  align-items: center;
+  background: var(--bg);
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  transition: border-color .2s;
+}
+.rzm-input-prefix:focus-within { border-color: #FF8A00; }
+.rzm-prefix-text {
+  background: var(--border);
+  padding: 11px 10px;
+  font-size: 12px;
+  color: var(--text2);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.rzm-prefix-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  padding: 11px 12px;
+  font-size: 14px;
+  color: var(--text);
+  outline: none;
+  min-width: 0;
+}
+.rzm-select {
+  width: 100%;
+  background: var(--bg);
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  padding: 11px 12px;
+  font-size: 14px;
+  color: var(--text);
+  outline: none;
+  box-sizing: border-box;
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+}
+.rzm-select:focus { border-color: #FF8A00; }
+.rzm-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.rzm-chip {
+  padding: 7px 14px;
+  border-radius: 20px;
+  border: 1.5px solid var(--border);
+  background: var(--bg);
+  font-size: 13px;
+  color: var(--text2);
+  cursor: pointer;
+  transition: all .2s;
+}
+.rzm-chip.selected {
+  background: #FF8A0020;
+  border-color: #FF8A00;
+  color: #FF8A00;
+  font-weight: 600;
+}
+.rzm-textarea {
+  width: 100%;
+  background: var(--bg);
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  padding: 11px 12px;
+  font-size: 14px;
+  color: var(--text);
+  outline: none;
+  resize: vertical;
+  min-height: 90px;
+  font-family: inherit;
+  box-sizing: border-box;
+}
+.rzm-textarea:focus { border-color: #FF8A00; }
+
+/* Color picker */
+.rzm-colors { display: flex; gap: 10px; flex-wrap: wrap; }
+.rzm-color-opt {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 3px solid transparent;
+  transition: border-color .2s, transform .15s;
+}
+.rzm-color-opt.selected { border-color: var(--text); transform: scale(1.15); }
+
+/* Section divider */
+.rzm-divider {
+  height: 1px;
+  background: var(--border);
+  margin: 18px 0;
+}
+
+/* Empty state */
+.rzm-empty {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--text2);
+}
+.rzm-empty-icon { font-size: 48px; margin-bottom: 12px; }
+.rzm-empty-title { font-size: 16px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+.rzm-empty-msg { font-size: 13px; line-height: 1.6; }
+
+/* Settings row with toggle */
+.rzm-setting-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border);
+}
+.rzm-setting-row:last-child { border-bottom: none; }
+.rzm-setting-label { font-size: 14px; font-weight: 600; color: var(--text); }
+.rzm-setting-desc { font-size: 12px; color: var(--text2); margin-top: 2px; }
+
+/* ── Premium Settings UI ─────────────────────────────── */
+.rzm-settings-section {
+  background: var(--card);
+  border: 1.5px solid var(--border);
+  border-radius: 20px;
+  padding: 18px;
+  margin-bottom: 12px;
+}
+.rzm-settings-section-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+.rzm-settings-section-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 4px 12px rgba(0,0,0,.15);
+}
+.rzm-settings-section-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.2;
+}
+.rzm-settings-section-sub {
+  font-size: 11px;
+  color: var(--text2);
+  margin-top: 2px;
+}
+.rzm-settings-field {
+  margin-bottom: 16px;
+}
+.rzm-settings-field-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text2);
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  margin-bottom: 8px;
+}
+.rzm-slug-wrapper {
+  display: flex;
+  align-items: center;
+  background: var(--bg);
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: border-color .2s;
+}
+.rzm-slug-wrapper:focus-within { border-color: #FF8A00; }
+.rzm-slug-prefix {
+  padding: 11px 10px 11px 14px;
+  font-size: 12px;
+  color: var(--text2);
+  white-space: nowrap;
+  background: transparent;
+  border-right: 1.5px solid var(--border);
+  flex-shrink: 0;
+}
+.rzm-slug-field {
+  flex: 1;
+  padding: 11px 14px;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-size: 14px;
+  font-weight: 600;
+  color: #FF8A00;
+  font-family: inherit;
+}
+.rzm-slug-field::placeholder { color: var(--text2); font-weight: 400; }
+.rzm-hint {
+  font-size: 11px;
+  color: var(--text2);
+  margin-top: 6px;
+  padding-left: 2px;
+}
+.rzm-select-premium {
+  width: 100%;
+  padding: 11px 14px;
+  background: var(--bg);
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  color: var(--text);
+  font-size: 13px;
+  font-family: inherit;
+  outline: none;
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23888'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 20px;
+  padding-right: 36px;
+  transition: border-color .2s;
+}
+.rzm-select-premium:focus { border-color: #FF8A00; }
+.rzm-chips-premium {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.rzm-chip-premium {
+  padding: 7px 14px;
+  border-radius: 50px;
+  border: 1.5px solid var(--border);
+  background: var(--bg);
+  color: var(--text2);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all .18s;
+  font-family: inherit;
+  white-space: nowrap;
+}
+.rzm-chip-premium.selected {
+  background: linear-gradient(135deg,#FF8A00,#FFB800);
+  border-color: transparent;
+  color: #fff;
+  box-shadow: 0 3px 10px rgba(255,138,0,.35);
+}
+.rzm-chip-premium:not(.selected):hover {
+  border-color: #FF8A00;
+  color: #FF8A00;
+}
+.rzm-number-input {
+  width: 100%;
+  padding: 11px 14px;
+  background: var(--bg);
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 600;
+  font-family: inherit;
+  outline: none;
+  transition: border-color .2s;
+}
+.rzm-number-input:focus { border-color: #FF8A00; }
+.rzm-textarea-premium {
+  width: 100%;
+  padding: 12px 14px;
+  background: var(--bg);
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  color: var(--text);
+  font-size: 13px;
+  font-family: inherit;
+  outline: none;
+  resize: vertical;
+  min-height: 90px;
+  line-height: 1.6;
+  transition: border-color .2s;
+}
+.rzm-textarea-premium:focus { border-color: #FF8A00; }
+.rzm-textarea-premium::placeholder { color: var(--text2); }
+.rzm-settings-toggle-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--card);
+  border: 1.5px solid var(--border);
+  border-radius: 20px;
+  padding: 16px 18px;
+  margin-bottom: 16px;
+}
+.rzm-settings-toggle-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 4px 12px rgba(0,0,0,.15);
+}
+.rzm-settings-toggle-label { font-size: 14px; font-weight: 700; color: var(--text); }
+.rzm-settings-toggle-desc { font-size: 11px; color: var(--text2); margin-top: 2px; }
+.rzm-save-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 15px;
+  background: linear-gradient(135deg,#FF8A00,#FFB800);
+  color: #fff;
+  border: none;
+  border-radius: 16px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: inherit;
+  box-shadow: 0 6px 20px rgba(255,138,0,.35);
+  transition: opacity .2s, transform .1s, box-shadow .2s;
+}
+.rzm-save-btn:active { opacity: .88; transform: scale(.98); box-shadow: 0 3px 10px rgba(255,138,0,.25); }
+
+/* Modal overlay */
+.rzm-modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(0,0,0,.55);
+  align-items: center;
+  justify-content: center;
+}
+.rzm-modal-overlay.open { display: flex; }
+.rzm-modal {
+  background: var(--card);
+  border-radius: 20px;
+  width: 560px;
+  height: 560px;
+  max-width: calc(100vw - 32px);
+  max-height: calc(100vh - 40px);
+  overflow-y: auto;
+  padding: 24px 28px 28px;
+  animation: rzm-popup-in .22s ease;
+  box-shadow: 0 20px 60px rgba(0,0,0,.18);
+}
+@keyframes rzm-popup-in {
+  from { opacity: 0; transform: scale(.95) translateY(10px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+@keyframes rzm-slide-up {
+  from { transform: translateY(100%); }
+  to   { transform: translateY(0); }
+}
+@media(max-width:600px){
+  .rzm-modal { border-radius: 20px 20px 0 0; margin: 0; max-width:100%; align-self:flex-end; }
+  .rzm-modal-overlay { align-items: flex-end; }
+}
+.rzm-modal-handle { display: none; }
+.rzm-modal-title {
+  font-size: 17px;
+  font-weight: 800;
+  color: var(--text);
+  margin-bottom: 18px;
+  text-align: center;
+}
+.rzm-modal-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: var(--bg);
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  font-size: 16px;
+  cursor: pointer;
+  color: var(--text2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Cancel confirmation */
+.rzm-cancel-confirm {
+  display: none;
+  background: var(--bg);
+  border: 1.5px solid #ef4444;
+  border-radius: 12px;
+  padding: 12px;
+  margin-top: 10px;
+}
+.rzm-cancel-confirm.open { display: block; }
+.rzm-cancel-title { font-size: 13px; font-weight: 600; color: #ef4444; margin-bottom: 8px; }
+.rzm-cancel-actions { display: flex; gap: 8px; margin-top: 10px; }
+
+/* Prayer block info */
+.rzm-info-box {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  background: #FF8A0010;
+  border: 1px solid #FF8A0040;
+  border-radius: 10px;
+  padding: 10px 12px;
+  margin-bottom: 12px;
+}
+.rzm-info-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+.rzm-info-text { font-size: 12px; color: var(--text); line-height: 1.5; }
+
+/* Scrollbar */
+.rzm-modal::-webkit-scrollbar { width: 4px; }
+.rzm-modal::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+</style>
+
+<!-- ══ HEADER ══ -->
+<div class="rzm-header">
+  <div class="rzm-header-top">
+    <div class="rzm-brand">
+      <div class="rzm-brand-icon">📅</div>
+      <div>
+        <div class="rzm-brand-name">Riz<span>Meet</span></div>
+      </div>
+    </div>
+    <label class="rzm-toggle" title="RizMeet চালু/বন্ধ">
+      <input type="checkbox" id="rzm-master-toggle" checked onchange="rzMeetSaveSettings()">
+      <span class="rzm-toggle-slider"></span>
+    </label>
+  </div>
+
+  <div class="rzm-tabs" role="tablist">
+    <button class="rzm-tab active" onclick="rzMeetTabSwitch('dashboard')" id="rzm-tab-dashboard">
+      <span class="rzm-tab-icon"><svg viewBox="0 0 24 24"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg></span>
+      ড্যাশবোর্ড
+    </button>
+    <button class="rzm-tab" onclick="rzMeetTabSwitch('events')" id="rzm-tab-events">
+      <span class="rzm-tab-icon"><svg viewBox="0 0 24 24"><path d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"/></svg></span>
+      ইভেন্ট
+    </button>
+    <button class="rzm-tab" onclick="rzMeetTabSwitch('availability')" id="rzm-tab-availability">
+      <span class="rzm-tab-icon"><svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67V7z"/></svg></span>
+      সময়সূচি
+    </button>
+    <button class="rzm-tab" onclick="rzMeetTabSwitch('bookings')" id="rzm-tab-bookings">
+      <span class="rzm-tab-icon"><svg viewBox="0 0 24 24"><path d="M19 3h-4.18C14.4 1.84 13.3 1 12 1c-1.3 0-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm2 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg></span>
+      বুকিং
+    </button>
+    <button class="rzm-tab" onclick="rzMeetTabSwitch('settings')" id="rzm-tab-settings">
+      <span class="rzm-tab-icon"><svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></span>
+      সেটিংস
+    </button>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════
+     TAB 1 — DASHBOARD
+══════════════════════════════════════ -->
+<div class="rzm-panel active" id="rzm-panel-dashboard">
+
+  <!-- Stats -->
+  <div class="rzm-stats">
+    <div class="rzm-stat">
+      <div class="rzm-stat-val" id="rzm-stat-total">0</div>
+      <div class="rzm-stat-label">মোট বুকিং</div>
+    </div>
+    <div class="rzm-stat">
+      <div class="rzm-stat-val" id="rzm-stat-week">0</div>
+      <div class="rzm-stat-label">এই সপ্তাহ</div>
+    </div>
+    <div class="rzm-stat">
+      <div class="rzm-stat-val" id="rzm-stat-today">0</div>
+      <div class="rzm-stat-label">আজকে</div>
+    </div>
+  </div>
+
+  <!-- Booking link -->
+  <div class="rzm-card">
+    <div class="rzm-card-title">আপনার বুকিং লিংক</div>
+    <div class="rzm-link-row">
+      <div class="rzm-link-url" id="rzm-share-url">rizers.app/meet/username</div>
+      <button class="rzm-copy-btn" onclick="rzMeetCopyLink()">কপি করুন</button>
+    </div>
+    <div style="font-size:12px;color:var(--text2);line-height:1.5">
+      এই লিংক শেয়ার করুন — যে কেউ আপনার সাথে মিটিং বুক করতে পারবেন।
+    </div>
+  </div>
+
+  <!-- Upcoming meetings + quick action row -->
+  <div class="rzm-dash-bottom">
+    <div class="rzm-card rzm-upcoming-card">
+      <div class="rzm-card-title-row">
+        <span class="rzm-card-title">আসন্ন মিটিং</span>
+        <button class="rzm-link-btn" onclick="rzMeetTabSwitch('bookings')">সব দেখুন →</button>
+      </div>
+      <div id="rzm-upcoming-list">
+        <div class="rzm-empty" id="rzm-upcoming-empty">
+          <div class="rzm-empty-icon">📭</div>
+          <div class="rzm-empty-title">কোনো আসন্ন মিটিং নেই</div>
+          <div class="rzm-empty-msg">বুকিং লিংক শেয়ার করুন।</div>
+        </div>
+        <template id="rzm-meeting-tpl"></template>
+      </div>
+    </div>
+
+    <!-- Quick action -->
+    <div style="display:flex;justify-content:flex-end;margin-top:4px">
+    <button class="rzm-btn-sm" onclick="rzMeetTabSwitch('events');rzMeetOpenEventModal(null)"
+      style="background:linear-gradient(135deg,#FF8A00,#FFB800);color:#fff;border:none;border-radius:10px;padding:7px 14px;font-size:12px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:5px">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+      নতুন Event Type
+    </button>
+  </div>
+  </div><!-- end rzm-dash-bottom -->
+
+</div>
+
+
+<!-- ══════════════════════════════════════
+     TAB 2 — EVENT TYPES
+══════════════════════════════════════ -->
+<div class="rzm-panel" id="rzm-panel-events">
+
+  <div id="rzm-events-list">
+    <!-- Empty state -->
+    <div class="rzm-empty" id="rzm-events-empty" style="display:none">
+      <div class="rzm-empty-icon">📝</div>
+      <div class="rzm-empty-title">কোনো ইভেন্ট টাইপ নেই</div>
+      <div class="rzm-empty-msg">নিচের বোতাম থেকে আপনার প্রথম ইভেন্ট তৈরি করুন।<br>যেমন: ১:১ কনসালটেশন, মেন্টরিং সেশন ইত্যাদি।</div>
+    </div>
+
+    <!-- Sample event cards (JS replaces/appends real ones) -->
+    <div class="rzm-event-card" id="rzm-evt-sample-1" style="display:none">
+      <div class="rzm-event-dot" style="background:#FF8A00"></div>
+      <div class="rzm-event-info">
+        <div class="rzm-event-name">১:১ কনসালটেশন</div>
+        <div class="rzm-event-meta">৩০ মিনিট · বিনামূল্যে · ভিডিও কল</div>
+      </div>
+      <div class="rzm-event-actions">
+        <label class="rzm-toggle">
+          <input type="checkbox" checked>
+          <span class="rzm-toggle-slider"></span>
+        </label>
+        <button class="rzm-btn-ghost" onclick="rzMeetOpenEventModal('sample-1')" title="সম্পাদনা">✏️</button>
+        <button class="rzm-btn-ghost" onclick="rzMeetDeleteEvent('sample-1')" title="মুছুন" style="color:#ef4444">🗑️</button>
+      </div>
+    </div>
+    <!-- JS populates #rzm-events-list with real cards -->
+    <div id="rzm-events-dynamic"></div>
+  </div>
+
+  <div style="height:12px"></div>
+  <button onclick="rzMeetOpenEventModal(null)" style="display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,#FF8A00,#FFB800);color:#fff;border:none;border-radius:10px;padding:8px 16px;font-size:13px;font-weight:600;cursor:pointer">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+    নতুন ইভেন্ট
+  </button>
+
+</div>
+
+
+<!-- ══════════════════════════════════════
+     TAB 3 — AVAILABILITY
+══════════════════════════════════════ -->
+<div class="rzm-panel" id="rzm-panel-availability">
+
+  <div class="rzm-info-box">
+    <span class="rzm-info-icon">🕌</span>
+    <div class="rzm-info-text">নামাজের সময় স্বয়ংক্রিয়ভাবে ব্লক করুন — কোনো মিটিং সেই সময়ে বুক হবে না।</div>
+  </div>
+
+  <!-- Prayer auto-block -->
+  <div class="rzm-card">
+    <div class="rzm-setting-row" style="padding-top:0">
+      <div>
+        <div class="rzm-setting-label">নামাজের সময় অটো-ব্লক</div>
+        <div class="rzm-setting-desc">ফজর · যোহর · আসর · মাগরিব · এশা</div>
+      </div>
+      <label class="rzm-toggle">
+        <input type="checkbox" id="rzm-prayer-block" checked onchange="rzMeetSaveAvailability()">
+        <span class="rzm-toggle-slider"></span>
+      </label>
+    </div>
+  </div>
+
+  <!-- Weekly schedule -->
+  <div class="rzm-card">
+    <div class="rzm-card-title">সাপ্তাহিক সময়সূচি</div>
+
+    <div id="rzm-days-list">
+      <!-- Sun -->
+      <div class="rzm-day-row" id="rzm-day-0">
+        <div class="rzm-day-name">রবি</div>
+        <label class="rzm-toggle">
+          <input type="checkbox" onchange="rzMeetDayToggle(this,0)">
+          <span class="rzm-toggle-slider"></span>
+        </label>
+        <div class="rzm-time-range">
+          <input type="time" class="rzm-time-input" value="09:00" id="rzm-start-0">
+          <span class="rzm-time-sep">—</span>
+          <input type="time" class="rzm-time-input" value="17:00" id="rzm-end-0">
+        </div>
+      </div>
+      <!-- Mon -->
+      <div class="rzm-day-row" id="rzm-day-1">
+        <div class="rzm-day-name">সোম</div>
+        <label class="rzm-toggle">
+          <input type="checkbox" checked onchange="rzMeetDayToggle(this,1)">
+          <span class="rzm-toggle-slider"></span>
+        </label>
+        <div class="rzm-time-range">
+          <input type="time" class="rzm-time-input" value="09:00" id="rzm-start-1">
+          <span class="rzm-time-sep">—</span>
+          <input type="time" class="rzm-time-input" value="17:00" id="rzm-end-1">
+        </div>
+      </div>
+      <!-- Tue -->
+      <div class="rzm-day-row" id="rzm-day-2">
+        <div class="rzm-day-name">মঙ্গল</div>
+        <label class="rzm-toggle">
+          <input type="checkbox" checked onchange="rzMeetDayToggle(this,2)">
+          <span class="rzm-toggle-slider"></span>
+        </label>
+        <div class="rzm-time-range">
+          <input type="time" class="rzm-time-input" value="09:00" id="rzm-start-2">
+          <span class="rzm-time-sep">—</span>
+          <input type="time" class="rzm-time-input" value="17:00" id="rzm-end-2">
+        </div>
+      </div>
+      <!-- Wed -->
+      <div class="rzm-day-row" id="rzm-day-3">
+        <div class="rzm-day-name">বুধ</div>
+        <label class="rzm-toggle">
+          <input type="checkbox" checked onchange="rzMeetDayToggle(this,3)">
+          <span class="rzm-toggle-slider"></span>
+        </label>
+        <div class="rzm-time-range">
+          <input type="time" class="rzm-time-input" value="09:00" id="rzm-start-3">
+          <span class="rzm-time-sep">—</span>
+          <input type="time" class="rzm-time-input" value="17:00" id="rzm-end-3">
+        </div>
+      </div>
+      <!-- Thu -->
+      <div class="rzm-day-row" id="rzm-day-4">
+        <div class="rzm-day-name">বৃহঃ</div>
+        <label class="rzm-toggle">
+          <input type="checkbox" checked onchange="rzMeetDayToggle(this,4)">
+          <span class="rzm-toggle-slider"></span>
+        </label>
+        <div class="rzm-time-range">
+          <input type="time" class="rzm-time-input" value="09:00" id="rzm-start-4">
+          <span class="rzm-time-sep">—</span>
+          <input type="time" class="rzm-time-input" value="17:00" id="rzm-end-4">
+        </div>
+      </div>
+      <!-- Fri -->
+      <div class="rzm-day-row disabled" id="rzm-day-5">
+        <div class="rzm-day-name">শুক্র</div>
+        <label class="rzm-toggle">
+          <input type="checkbox" onchange="rzMeetDayToggle(this,5)">
+          <span class="rzm-toggle-slider"></span>
+        </label>
+        <div class="rzm-time-range">
+          <input type="time" class="rzm-time-input" value="14:00" id="rzm-start-5">
+          <span class="rzm-time-sep">—</span>
+          <input type="time" class="rzm-time-input" value="17:00" id="rzm-end-5">
+        </div>
+      </div>
+      <!-- Sat -->
+      <div class="rzm-day-row disabled" id="rzm-day-6">
+        <div class="rzm-day-name">শনি</div>
+        <label class="rzm-toggle">
+          <input type="checkbox" onchange="rzMeetDayToggle(this,6)">
+          <span class="rzm-toggle-slider"></span>
+        </label>
+        <div class="rzm-time-range">
+          <input type="time" class="rzm-time-input" value="09:00" id="rzm-start-6">
+          <span class="rzm-time-sep">—</span>
+          <input type="time" class="rzm-time-input" value="17:00" id="rzm-end-6">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Blocked dates -->
+  <div class="rzm-card">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+      <div class="rzm-card-title" style="margin-bottom:0">ব্লক করা তারিখ</div>
+      <button class="rzm-btn-outline" style="padding:6px 12px;font-size:12px" onclick="document.getElementById('rzm-blocked-modal').classList.add('open')">+ যোগ করুন</button>
+    </div>
+    <div id="rzm-blocked-list">
+      <div class="rzm-empty" id="rzm-blocked-empty" style="padding:20px">
+        <div class="rzm-empty-icon" style="font-size:28px">🚫</div>
+        <div class="rzm-empty-msg" style="font-size:12px">কোনো ব্লক তারিখ নেই। ছুটির দিন বা অনুপলব্ধ তারিখ যোগ করুন।</div>
+      </div>
+      <div id="rzm-blocked-dynamic"></div>
+    </div>
+  </div>
+
+  <button class="rzm-btn-primary" onclick="rzMeetSaveAvailability()">
+    💾 সময়সূচি সংরক্ষণ করুন
+  </button>
+
+</div>
+
+
+<!-- ══════════════════════════════════════
+     TAB 4 — BOOKINGS
+══════════════════════════════════════ -->
+<div class="rzm-panel" id="rzm-panel-bookings">
+
+  <div class="rzm-subtabs">
+    <button class="rzm-subtab active" onclick="rzMeetBookingSubtab(this,'upcoming')" id="rzm-subtab-upcoming">আসন্ন</button>
+    <button class="rzm-subtab" onclick="rzMeetBookingSubtab(this,'past')" id="rzm-subtab-past">অতীত</button>
+    <button class="rzm-subtab" onclick="rzMeetBookingSubtab(this,'cancelled')" id="rzm-subtab-cancelled">বাতিল</button>
+  </div>
+
+  <!-- Upcoming sub-panel -->
+  <div id="rzm-bookings-upcoming">
+    <div class="rzm-empty" id="rzm-bk-upcoming-empty">
+      <div class="rzm-empty-icon">📅</div>
+      <div class="rzm-empty-title">কোনো আসন্ন বুকিং নেই</div>
+      <div class="rzm-empty-msg">আপনার বুকিং লিংক শেয়ার করুন এবং নতুন মিটিং নিশ্চিত করুন।</div>
+    </div>
+    <div id="rzm-bk-upcoming-list"></div>
+  </div>
+
+  <!-- Past sub-panel -->
+  <div id="rzm-bookings-past" style="display:none">
+    <div class="rzm-empty" id="rzm-bk-past-empty">
+      <div class="rzm-empty-icon">✅</div>
+      <div class="rzm-empty-title">কোনো সম্পন্ন মিটিং নেই</div>
+      <div class="rzm-empty-msg">সম্পন্ন মিটিংগুলো এখানে দেখাবে।</div>
+    </div>
+    <div id="rzm-bk-past-list"></div>
+  </div>
+
+  <!-- Cancelled sub-panel -->
+  <div id="rzm-bookings-cancelled" style="display:none">
+    <div class="rzm-empty" id="rzm-bk-cancelled-empty">
+      <div class="rzm-empty-icon">🚫</div>
+      <div class="rzm-empty-title">কোনো বাতিল বুকিং নেই</div>
+      <div class="rzm-empty-msg">বাতিল মিটিংগুলো এখানে দেখাবে।</div>
+    </div>
+    <div id="rzm-bk-cancelled-list"></div>
+  </div>
+
+  <!-- Sample booking card template -->
+  <template id="rzm-booking-card-tpl">
+    <div class="rzm-booking-card" data-booking-id>
+      <div class="rzm-booking-header">
+        <div>
+          <div class="rzm-booking-name" data-name></div>
+          <div class="rzm-booking-email" data-email></div>
+        </div>
+        <span class="rzm-badge" data-status></span>
+      </div>
+      <div class="rzm-booking-details">
+        <div class="rzm-booking-detail">📋 <span data-event-type></span></div>
+        <div class="rzm-booking-detail">⏱️ <span data-duration></span></div>
+        <div class="rzm-booking-detail">📅 <span data-date></span></div>
+        <div class="rzm-booking-detail">📍 <span data-location></span></div>
+      </div>
+      <div class="rzm-booking-actions" data-actions></div>
+      <!-- Cancel confirm box (hidden by default) -->
+      <div class="rzm-cancel-confirm" data-cancel-confirm>
+        <div class="rzm-cancel-title">⚠️ বুকিং বাতিল করার কারণ লিখুন</div>
+        <textarea class="rzm-textarea" style="min-height:60px;font-size:13px" placeholder="যেমন: জরুরি কাজ পড়েছে, সময় পরিবর্তন প্রয়োজন..." data-cancel-reason></textarea>
+        <div class="rzm-cancel-actions">
+          <button class="rzm-btn-sm rzm-btn-cancel" style="border-radius:8px" onclick="this.closest('.rzm-cancel-confirm').classList.remove('open')">না, রাখুন</button>
+          <button class="rzm-btn-sm rzm-btn-complete" style="background:#ef4444;border-radius:8px" data-confirm-cancel>হ্যাঁ, বাতিল করুন</button>
+        </div>
+      </div>
+    </div>
+  </template>
+
+</div>
+
+
+<!-- ══════════════════════════════════════
+     TAB 5 — SETTINGS
+══════════════════════════════════════ -->
+<div class="rzm-panel" id="rzm-panel-settings">
+
+  <!-- Booking URL -->
+  <div class="rzm-settings-section">
+    <div class="rzm-settings-section-header">
+      <div class="rzm-settings-section-icon" style="background:linear-gradient(135deg,#FF8A00,#FFB800)">
+        <svg viewBox="0 0 24 24" style="width:16px;height:16px;fill:#fff"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
+      </div>
+      <div>
+        <div class="rzm-settings-section-title">বুকিং লিঙ্ক</div>
+        <div class="rzm-settings-section-sub">আপনার পার্সোনালাইজড URL</div>
+      </div>
+    </div>
+    <div class="rzm-slug-wrapper">
+      <span class="rzm-slug-prefix">rizers.app/meet/</span>
+      <input type="text" class="rzm-slug-field" id="rzm-slug-input" placeholder="username" value="">
+    </div>
+    <div class="rzm-hint">শুধু ইংরেজি অক্ষর, সংখ্যা ও হাইফেন (-)</div>
+  </div>
+
+  <!-- Scheduling Rules -->
+  <div class="rzm-settings-section">
+    <div class="rzm-settings-section-header">
+      <div class="rzm-settings-section-icon" style="background:linear-gradient(135deg,#6366F1,#8B5CF6)">
+        <svg viewBox="0 0 24 24" style="width:16px;height:16px;fill:#fff"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67V7z"/></svg>
+      </div>
+      <div>
+        <div class="rzm-settings-section-title">শিডিউলিং নিয়ম</div>
+        <div class="rzm-settings-section-sub">সময় ও বুকিং নিয়ন্ত্রণ</div>
+      </div>
+    </div>
+
+    <div class="rzm-settings-field">
+      <div class="rzm-settings-field-label">
+        <svg viewBox="0 0 24 24" style="width:14px;height:14px;fill:var(--text2);flex-shrink:0"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+        টাইমজোন
+      </div>
+      <select class="rzm-select-premium" id="rzm-timezone">
+        <option value="Asia/Dhaka" selected>🇧🇩 Asia/Dhaka (বাংলাদেশ)</option>
+        <option value="Asia/Kolkata">🇮🇳 Asia/Kolkata (ভারত)</option>
+        <option value="Asia/Dubai">🇦🇪 Asia/Dubai</option>
+        <option value="Europe/London">🇬🇧 Europe/London</option>
+        <option value="America/New_York">🇺🇸 America/New_York</option>
+        <option value="UTC">🌐 UTC</option>
+      </select>
+    </div>
+
+    <div class="rzm-settings-field">
+      <div class="rzm-settings-field-label">
+        <svg viewBox="0 0 24 24" style="width:14px;height:14px;fill:var(--text2);flex-shrink:0"><path d="M13 2.05v2.02c3.95.49 7 3.85 7 7.93 0 3.21-1.81 6-4.72 7.72L13 17v5h5l-1.22-1.22C19.91 19.07 22 15.76 22 12c0-5.18-3.95-9.45-9-9.95zM11 2.05C5.95 2.55 2 6.82 2 12c0 3.76 2.09 7.07 5.22 8.78L6 22h5V2.05zM11 17H9.78C8.1 16.16 7 14.21 7 12c0-2.61 1.67-4.83 4-5.65V17z"/></svg>
+        মিটিংয়ের মাঝে বিরতি
+      </div>
+      <div class="rzm-chips-premium" id="rzm-buffer-chips">
+        <button class="rzm-chip-premium selected" data-val="0" onclick="rzMeetSelectChip('buffer',this)">নেই</button>
+        <button class="rzm-chip-premium" data-val="5" onclick="rzMeetSelectChip('buffer',this)">৫ মিনিট</button>
+        <button class="rzm-chip-premium" data-val="10" onclick="rzMeetSelectChip('buffer',this)">১০ মিনিট</button>
+        <button class="rzm-chip-premium" data-val="15" onclick="rzMeetSelectChip('buffer',this)">১৫ মিনিট</button>
+        <button class="rzm-chip-premium" data-val="30" onclick="rzMeetSelectChip('buffer',this)">৩০ মিনিট</button>
+      </div>
+    </div>
+
+    <div class="rzm-settings-field">
+      <div class="rzm-settings-field-label">
+        <svg viewBox="0 0 24 24" style="width:14px;height:14px;fill:var(--text2);flex-shrink:0"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+        প্রতিদিন সর্বোচ্চ মিটিং
+      </div>
+      <input type="number" class="rzm-number-input" id="rzm-max-per-day" min="1" max="20" value="5">
+    </div>
+
+    <div class="rzm-settings-field">
+      <div class="rzm-settings-field-label">
+        <svg viewBox="0 0 24 24" style="width:14px;height:14px;fill:var(--text2);flex-shrink:0"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+        সর্বনিম্ন আগাম নোটিশ
+      </div>
+      <div class="rzm-chips-premium" id="rzm-notice-chips">
+        <button class="rzm-chip-premium" data-val="1" onclick="rzMeetSelectChip('notice',this)">১ ঘণ্টা</button>
+        <button class="rzm-chip-premium selected" data-val="2" onclick="rzMeetSelectChip('notice',this)">২ ঘণ্টা</button>
+        <button class="rzm-chip-premium" data-val="4" onclick="rzMeetSelectChip('notice',this)">৪ ঘণ্টা</button>
+        <button class="rzm-chip-premium" data-val="24" onclick="rzMeetSelectChip('notice',this)">২৪ ঘণ্টা</button>
+        <button class="rzm-chip-premium" data-val="48" onclick="rzMeetSelectChip('notice',this)">৪৮ ঘণ্টা</button>
+      </div>
+    </div>
+
+    <div class="rzm-settings-field" style="margin-bottom:0">
+      <div class="rzm-settings-field-label">
+        <svg viewBox="0 0 24 24" style="width:14px;height:14px;fill:var(--text2);flex-shrink:0"><path d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"/></svg>
+        কতদিন পর্যন্ত বুক করা যাবে
+      </div>
+      <div class="rzm-chips-premium" id="rzm-horizon-chips">
+        <button class="rzm-chip-premium" data-val="7" onclick="rzMeetSelectChip('horizon',this)">৭ দিন</button>
+        <button class="rzm-chip-premium" data-val="14" onclick="rzMeetSelectChip('horizon',this)">১৪ দিন</button>
+        <button class="rzm-chip-premium selected" data-val="30" onclick="rzMeetSelectChip('horizon',this)">৩০ দিন</button>
+        <button class="rzm-chip-premium" data-val="60" onclick="rzMeetSelectChip('horizon',this)">৬০ দিন</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Welcome message -->
+  <div class="rzm-settings-section">
+    <div class="rzm-settings-section-header">
+      <div class="rzm-settings-section-icon" style="background:linear-gradient(135deg,#22C55E,#16A34A)">
+        <svg viewBox="0 0 24 24" style="width:16px;height:16px;fill:#fff"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/></svg>
+      </div>
+      <div>
+        <div class="rzm-settings-section-title">স্বাগত বার্তা</div>
+        <div class="rzm-settings-section-sub">বুকিং পেজে দেখাবে</div>
+      </div>
+    </div>
+    <textarea class="rzm-textarea-premium" id="rzm-welcome-msg" placeholder="আস-সালামু আলাইকুম! আমার সাথে মিটিং বুক করার জন্য ধন্যবাদ।&#10;আপনার সাথে কথা বলতে অপেক্ষায় আছি।"></textarea>
+  </div>
+
+  <!-- Status toggle -->
+  <div class="rzm-settings-toggle-card">
+    <div class="rzm-settings-toggle-icon" style="background:linear-gradient(135deg,#FF8A00,#FFB800)">
+      <svg viewBox="0 0 24 24" style="width:16px;height:16px;fill:#fff"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 4l5 2.18V11c0 3.5-2.33 6.79-5 7.93-2.67-1.14-5-4.43-5-7.93V7.18L12 5z"/></svg>
+    </div>
+    <div style="flex:1">
+      <div class="rzm-settings-toggle-label">RizMeet সক্রিয়</div>
+      <div class="rzm-settings-toggle-desc">বন্ধ করলে কেউ বুকিং দিতে পারবে না</div>
+    </div>
+    <label class="rzm-toggle">
+      <input type="checkbox" id="rzm-master-toggle-2" checked onchange="document.getElementById('rzm-master-toggle').checked=this.checked">
+      <span class="rzm-toggle-slider"></span>
+    </label>
+  </div>
+
+  <button class="rzm-save-btn" onclick="rzMeetSaveSettings()">
+    <svg viewBox="0 0 24 24" style="width:18px;height:18px;fill:#fff"><path d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z"/></svg>
+    সেটিংস সংরক্ষণ করুন
+  </button>
+
+</div>
+
+
+<!-- ══════════════════════════════════════
+     MODAL: Event Type Create / Edit
+══════════════════════════════════════ -->
+<div class="rzm-modal-overlay" id="rzm-event-modal" onclick="if(event.target===this)this.classList.remove('open')">
+  <div class="rzm-modal" role="dialog" aria-labelledby="rzm-event-modal-title">
+    <div class="rzm-modal-handle"></div>
+    <div class="rzm-modal-title" id="rzm-event-modal-title">নতুন ইভেন্ট টাইপ</div>
+
+    <input type="hidden" id="rzm-evt-id">
+
+    <div class="rzm-form-group">
+      <label class="rzm-label" for="rzm-evt-name">ইভেন্টের নাম *</label>
+      <input type="text" class="rzm-input" id="rzm-evt-name" placeholder="যেমন: ১:১ কনসালটেশন">
+    </div>
+
+    <div class="rzm-form-group">
+      <label class="rzm-label" for="rzm-evt-desc">বিবরণ</label>
+      <textarea class="rzm-textarea" id="rzm-evt-desc" style="min-height:70px" placeholder="এই মিটিংয়ে কী আলোচনা হবে তা সংক্ষেপে লিখুন..."></textarea>
+    </div>
+
+    <div class="rzm-form-group">
+      <label class="rzm-label">সময়কাল *</label>
+      <div class="rzm-chips" id="rzm-evt-dur-chips">
+        <button class="rzm-chip" data-val="15" onclick="rzMeetSelectChip('evt-dur',this)">১৫ মিনিট</button>
+        <button class="rzm-chip selected" data-val="30" onclick="rzMeetSelectChip('evt-dur',this)">৩০ মিনিট</button>
+        <button class="rzm-chip" data-val="45" onclick="rzMeetSelectChip('evt-dur',this)">৪৫ মিনিট</button>
+        <button class="rzm-chip" data-val="60" onclick="rzMeetSelectChip('evt-dur',this)">১ ঘণ্টা</button>
+        <button class="rzm-chip" data-val="90" onclick="rzMeetSelectChip('evt-dur',this)">৯০ মিনিট</button>
+      </div>
+    </div>
+
+    <div class="rzm-form-group">
+      <label class="rzm-label">রঙ</label>
+      <div class="rzm-colors">
+        <div class="rzm-color-opt selected" style="background:#FF8A00" data-color="#FF8A00" onclick="rzMeetSelectColor(this)"></div>
+        <div class="rzm-color-opt" style="background:#6366f1" data-color="#6366f1" onclick="rzMeetSelectColor(this)"></div>
+        <div class="rzm-color-opt" style="background:#22c55e" data-color="#22c55e" onclick="rzMeetSelectColor(this)"></div>
+        <div class="rzm-color-opt" style="background:#ef4444" data-color="#ef4444" onclick="rzMeetSelectColor(this)"></div>
+        <div class="rzm-color-opt" style="background:#3b82f6" data-color="#3b82f6" onclick="rzMeetSelectColor(this)"></div>
+        <div class="rzm-color-opt" style="background:#a855f7" data-color="#a855f7" onclick="rzMeetSelectColor(this)"></div>
+      </div>
+      <input type="hidden" id="rzm-evt-color" value="#FF8A00">
+    </div>
+
+    <div class="rzm-form-group">
+      <label class="rzm-label" for="rzm-evt-price">মূল্য (৳) — ০ = Free Booking</label>
+      <input type="number" class="rzm-input" id="rzm-evt-price" min="0" placeholder="০" value="0">
+    </div>
+
+    <div class="rzm-form-group">
+      <label class="rzm-label">মিটিং মাধ্যম *</label>
+      <div class="rzm-chips" id="rzm-evt-loc-chips">
+        <button class="rzm-chip selected" data-val="video" onclick="rzMeetSelectChip('evt-loc',this);rzMeetLocType('video')">📹 ভিডিও কল</button>
+        <button class="rzm-chip" data-val="phone" onclick="rzMeetSelectChip('evt-loc',this);rzMeetLocType('phone')">📞 ফোন</button>
+        <button class="rzm-chip" data-val="inperson" onclick="rzMeetSelectChip('evt-loc',this);rzMeetLocType('inperson')">🏢 সরাসরি</button>
+      </div>
+    </div>
+
+    <div class="rzm-form-group" id="rzm-evt-loc-val-group">
+      <label class="rzm-label" id="rzm-evt-loc-label" for="rzm-evt-loc-val">মিটিং লিংক</label>
+      <input type="text" class="rzm-input" id="rzm-evt-loc-val" placeholder="https://meet.google.com/...">
+    </div>
+
+    <div class="rzm-form-group">
+      <div class="rzm-setting-row" style="padding-top:0;padding-bottom:0">
+        <div>
+          <div class="rzm-setting-label">ইভেন্ট সক্রিয়</div>
+          <div class="rzm-setting-desc">বন্ধ করলে এই ইভেন্টে বুকিং নেওয়া হবে না।</div>
+        </div>
+        <label class="rzm-toggle">
+          <input type="checkbox" id="rzm-evt-active" checked>
+          <span class="rzm-toggle-slider"></span>
+        </label>
+      </div>
+    </div>
+
+    <div style="display:flex;gap:10px;margin-top:8px">
+      <button class="rzm-btn-outline" style="flex:1" onclick="document.getElementById('rzm-event-modal').classList.remove('open')">বাতিল</button>
+      <button class="rzm-btn-primary" style="flex:2" onclick="rzMeetSaveEvent()">✅ সংরক্ষণ করুন</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════
+     MODAL: Add Blocked Date
+══════════════════════════════════════ -->
+<div class="rzm-modal-overlay" id="rzm-blocked-modal" onclick="if(event.target===this)this.classList.remove('open')">
+  <div class="rzm-modal" role="dialog" aria-labelledby="rzm-blocked-modal-title">
+    <div class="rzm-modal-handle"></div>
+    <div class="rzm-modal-title" id="rzm-blocked-modal-title">তারিখ ব্লক করুন</div>
+
+    <div class="rzm-form-group">
+      <label class="rzm-label" for="rzm-blocked-date">তারিখ *</label>
+      <input type="date" class="rzm-input" id="rzm-blocked-date">
+    </div>
+
+    <div class="rzm-form-group">
+      <label class="rzm-label" for="rzm-blocked-reason">কারণ</label>
+      <input type="text" class="rzm-input" id="rzm-blocked-reason-input" placeholder="যেমন: ঈদের ছুটি, পারিবারিক অনুষ্ঠান...">
+    </div>
+
+    <div style="display:flex;gap:10px;margin-top:8px">
+      <button class="rzm-btn-outline" style="flex:1" onclick="document.getElementById('rzm-blocked-modal').classList.remove('open')">বাতিল</button>
+      <button class="rzm-btn-primary" style="flex:2" onclick="rzMeetAddBlockedDate()">✅ ব্লক করুন</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══ Inline JS helpers (non-data logic) ══ -->
+<script>
+(function(){
+
+  /* Tab switching */
+  window.rzMeetTabSwitch = function(tab) {
+    document.querySelectorAll('#rizmeet-page .rzm-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('#rizmeet-page .rzm-panel').forEach(p => p.classList.remove('active'));
+    var btn = document.getElementById('rzm-tab-' + tab);
+    var panel = document.getElementById('rzm-panel-' + tab);
+    if (btn) btn.classList.add('active');
+    if (panel) panel.classList.add('active');
+  };
+
+  /* Chip selector helper */
+  window.rzMeetSelectChip = function(group, el) {
+    var parent = el.closest('.rzm-chips') || document.getElementById('rzm-' + group + '-chips');
+    if (!parent) return;
+    parent.querySelectorAll('.rzm-chip').forEach(c => c.classList.remove('selected'));
+    el.classList.add('selected');
+  };
+
+  /* Color picker */
+  window.rzMeetSelectColor = function(el) {
+    el.closest('.rzm-colors').querySelectorAll('.rzm-color-opt').forEach(c => c.classList.remove('selected'));
+    el.classList.add('selected');
+    document.getElementById('rzm-evt-color').value = el.dataset.color;
+  };
+
+  /* Location type label */
+  window.rzMeetLocType = function(type) {
+    var label = document.getElementById('rzm-evt-loc-label');
+    var inp = document.getElementById('rzm-evt-loc-val');
+    if (type === 'video') { label.textContent = 'মিটিং লিংক'; inp.placeholder = 'https://meet.google.com/...'; }
+    else if (type === 'phone') { label.textContent = 'ফোন নম্বর'; inp.placeholder = '+৮৮০১৭...'; }
+    else { label.textContent = 'ঠিকানা'; inp.placeholder = 'যেমন: ঢাকা অফিস, মিরপুর-১২'; }
+  };
+
+  /* Day toggle */
+  window.rzMeetDayToggle = function(cb, idx) {
+    var row = document.getElementById('rzm-day-' + idx);
+    if (row) row.classList.toggle('disabled', !cb.checked);
+  };
+
+  /* Open event modal */
+  window.rzMeetOpenEventModal = function(id) {
+    var modal = document.getElementById('rzm-event-modal');
+    var title = document.getElementById('rzm-event-modal-title');
+    document.getElementById('rzm-evt-id').value = id || '';
+    title.textContent = id ? 'ইভেন্ট সম্পাদনা' : 'নতুন ইভেন্ট টাইপ';
+    /* Reset form if new */
+    if (!id) {
+      document.getElementById('rzm-evt-name').value = '';
+      document.getElementById('rzm-evt-desc').value = '';
+      document.getElementById('rzm-evt-price').value = '0';
+      document.getElementById('rzm-evt-loc-val').value = '';
+      document.getElementById('rzm-evt-active').checked = true;
+      document.getElementById('rzm-evt-color').value = '#FF8A00';
+      document.querySelectorAll('#rzm-event-modal .rzm-color-opt').forEach(function(c){ c.classList.toggle('selected', c.dataset.color === '#FF8A00'); });
+      document.querySelectorAll('#rzm-evt-dur-chips .rzm-chip').forEach(function(c){ c.classList.toggle('selected', c.dataset.val === '30'); });
+      document.querySelectorAll('#rzm-evt-loc-chips .rzm-chip').forEach(function(c){ c.classList.toggle('selected', c.dataset.val === 'video'); });
+      rzMeetLocType('video');
+    }
+    modal.classList.add('open');
+  };
+
+  /* Add blocked date */
+  window.rzMeetAddBlockedDate = function() {
+    var dateVal = document.getElementById('rzm-blocked-date').value;
+    var reasonVal = document.getElementById('rzm-blocked-reason-input').value.trim();
+    if (!dateVal) { alert('তারিখ নির্বাচন করুন।'); return; }
+    /* Delegate to app.js for persistence; here just close modal */
+    document.getElementById('rzm-blocked-modal').classList.remove('open');
+    document.getElementById('rzm-blocked-date').value = '';
+    document.getElementById('rzm-blocked-reason-input').value = '';
+    if (typeof rzMeetAddBlocked === 'function') rzMeetAddBlocked(dateVal, reasonVal);
+  };
+
+  /* Booking subtab */
+  window.rzMeetBookingSubtab = function(btn, type) {
+    document.querySelectorAll('#rzm-panel-bookings .rzm-subtab').forEach(t => t.classList.remove('active'));
+    btn.classList.add('active');
+    ['upcoming','past','cancelled'].forEach(function(k){
+      var el = document.getElementById('rzm-bookings-' + k);
+      if (el) el.style.display = (k === type) ? 'block' : 'none';
+    });
+  };
+
+  /* Cancel booking UI toggle */
+  window.rzMeetShowCancelConfirm = function(id) {
+    var card = document.querySelector('[data-booking-id="' + id + '"]');
+    if (card) {
+      var box = card.querySelector('.rzm-cancel-confirm');
+      if (box) box.classList.toggle('open');
+    }
+  };
+
+  /* Stub: rzMeetInit is called from app.js; expose helpers app.js needs */
+  window._rzMeetHelpers = {
+    renderMeetingItem: function(container, data) {
+      /* data: {initial, name, type, datetime, status} */
+      var statusClass = {upcoming:'rzm-badge-upcoming', confirmed:'rzm-badge-confirmed', cancelled:'rzm-badge-cancelled', completed:'rzm-badge-completed'}[data.status] || 'rzm-badge-upcoming';
+      var statusText = {upcoming:'আসন্ন', confirmed:'নিশ্চিত', cancelled:'বাতিল', completed:'সম্পন্ন'}[data.status] || 'আসন্ন';
+      var el = document.createElement('div');
+      el.className = 'rzm-meeting-item';
+      el.innerHTML = '<div class="rzm-meeting-avatar">' + (data.initial || '?') + '</div>'
+        + '<div class="rzm-meeting-info">'
+        + '<div class="rzm-meeting-name">' + data.name + '</div>'
+        + '<div class="rzm-meeting-meta">' + data.type + '</div>'
+        + '<div class="rzm-meeting-meta">' + data.datetime + '</div>'
+        + '</div>'
+        + '<span class="rzm-badge ' + statusClass + '">' + statusText + '</span>';
+      container.appendChild(el);
+    },
+    renderBookingCard: function(container, data, mode) {
+      /* mode: upcoming|past|cancelled */
+      var statusClass = {upcoming:'rzm-badge-upcoming', confirmed:'rzm-badge-confirmed', cancelled:'rzm-badge-cancelled', completed:'rzm-badge-completed'}[data.status] || 'rzm-badge-upcoming';
+      var statusText = {upcoming:'আসন্ন', confirmed:'নিশ্চিত', cancelled:'বাতিল', completed:'সম্পন্ন'}[data.status] || 'আসন্ন';
+      var actionsHtml = '';
+      if (mode === 'upcoming') {
+        actionsHtml = '<button class="rzm-btn-sm rzm-btn-complete" onclick="rzMeetCompleteBooking(\'' + data.id + '\')">✅ সম্পন্ন</button>'
+                    + '<button class="rzm-btn-sm rzm-btn-cancel" onclick="rzMeetShowCancelConfirm(\'' + data.id + '\')">❌ বাতিল</button>';
+      }
+      var el = document.createElement('div');
+      el.className = 'rzm-booking-card';
+      el.dataset.bookingId = data.id;
+      el.innerHTML = '<div class="rzm-booking-header">'
+        + '<div><div class="rzm-booking-name">' + data.name + '</div><div class="rzm-booking-email">' + (data.email || '') + '</div></div>'
+        + '<span class="rzm-badge ' + statusClass + '">' + statusText + '</span></div>'
+        + '<div class="rzm-booking-details">'
+        + '<div class="rzm-booking-detail">📋 ' + (data.eventType || '') + '</div>'
+        + '<div class="rzm-booking-detail">⏱️ ' + (data.duration || '') + '</div>'
+        + '<div class="rzm-booking-detail">📅 ' + (data.date || '') + '</div>'
+        + '<div class="rzm-booking-detail">📍 ' + (data.location || '') + '</div>'
+        + '</div>'
+        + (actionsHtml ? '<div class="rzm-booking-actions">' + actionsHtml + '</div>' : '')
+        + (mode === 'upcoming' ? '<div class="rzm-cancel-confirm"><div class="rzm-cancel-title">⚠️ বুকিং বাতিল করার কারণ লিখুন</div><textarea class="rzm-textarea" style="min-height:60px;font-size:13px" placeholder="যেমন: জরুরি কাজ পড়েছে..."></textarea><div class="rzm-cancel-actions"><button class="rzm-btn-sm rzm-btn-cancel" style="border-radius:8px" onclick="this.closest(\'.rzm-cancel-confirm\').classList.remove(\'open\')">না, রাখুন</button><button class="rzm-btn-sm" style="background:#ef4444;color:#fff;border-radius:8px;flex:1" onclick="rzMeetCancelBooking(\'' + data.id + '\')">হ্যাঁ, বাতিল করুন</button></div></div>' : '');
+      container.appendChild(el);
+    },
+    renderEventCard: function(container, data) {
+      /* data: {id, name, duration, price, color, active, locType} */
+      var priceText = (!data.price || data.price === 0) ? 'Free Booking' : '৳' + data.price;
+      var locText = {video:'ভিডিও কল', phone:'ফোন', inperson:'সরাসরি'}[data.locType] || '';
+      var el = document.createElement('div');
+      el.className = 'rzm-event-card';
+      el.dataset.eventId = data.id;
+      el.innerHTML = '<div class="rzm-event-dot" style="background:' + (data.color || '#FF8A00') + '"></div>'
+        + '<div class="rzm-event-info"><div class="rzm-event-name">' + data.name + '</div>'
+        + '<div class="rzm-event-meta">' + data.duration + ' মিনিট · ' + priceText + (locText ? ' · ' + locText : '') + '</div></div>'
+        + '<div class="rzm-event-actions">'
+        + '<label class="rzm-toggle"><input type="checkbox"' + (data.active ? ' checked' : '') + '><span class="rzm-toggle-slider"></span></label>'
+        + '<button class="rzm-btn-ghost" onclick="rzMeetOpenEventModal(\'' + data.id + '\')" title="সম্পাদনা">✏️</button>'
+        + '<button class="rzm-btn-ghost" onclick="rzMeetDeleteEvent(\'' + data.id + '\')" title="মুছুন" style="color:#ef4444">🗑️</button>'
+        + '</div>';
+      container.appendChild(el);
+    },
+    renderBlockedDate: function(container, data) {
+      /* data: {id, date, reason} */
+      var el = document.createElement('div');
+      el.className = 'rzm-blocked-item';
+      el.dataset.blockedId = data.id;
+      el.innerHTML = '<div><div class="rzm-blocked-date">' + data.date + '</div>'
+        + (data.reason ? '<div class="rzm-blocked-reason">' + data.reason + '</div>' : '') + '</div>'
+        + '<button class="rzm-btn-ghost" onclick="this.closest(\'.rzm-blocked-item\').remove();rzMeetSaveAvailability()" style="color:#ef4444" title="মুছুন">🗑️</button>';
+      container.appendChild(el);
+    }
+  };
+
+})();
+</script>
+
+</div>

@@ -1,0 +1,349 @@
+<div id="screentime-page" class="app-page" style="display:none">
+
+<!-- ── Kids Wrap ─────────────────────────────────────────────────── -->
+<div id="screentime-kids-wrap">
+<div class="content">
+
+  <!-- Kid Tabs -->
+  <div id="sct-kid-tabs" style="display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none;margin-bottom:16px"></div>
+
+  <!-- Header Card: Used vs Limit -->
+  <div style="background:linear-gradient(135deg,#FF8A00,#FFB800);border-radius:20px;padding:20px;margin-bottom:14px;color:#fff;position:relative;overflow:hidden">
+    <div style="position:absolute;right:-20px;top:-20px;width:100px;height:100px;background:rgba(255,255,255,.1);border-radius:50%"></div>
+    <div style="position:absolute;right:20px;bottom:-30px;width:70px;height:70px;background:rgba(255,255,255,.07);border-radius:50%"></div>
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;opacity:.85;margin-bottom:8px">আজকের Screen Time</div>
+    <div style="display:flex;align-items:flex-end;gap:8px;margin-bottom:6px">
+      <div id="sct-used-display" style="font-size:42px;font-weight:800;font-family:monospace;line-height:1">0</div>
+      <div style="font-size:16px;font-weight:700;padding-bottom:6px;opacity:.9">মিনিট</div>
+      <div style="margin-left:auto;text-align:right;padding-bottom:4px">
+        <div style="font-size:11px;opacity:.75">সীমা</div>
+        <div id="sct-limit-display" style="font-size:18px;font-weight:700">120 মিনিট</div>
+      </div>
+    </div>
+    <!-- Progress bar -->
+    <div style="height:8px;background:rgba(255,255,255,.25);border-radius:6px;overflow:hidden">
+      <div id="sct-header-bar" style="height:100%;width:0%;background:#fff;border-radius:6px;transition:.5s"></div>
+    </div>
+    <div style="display:flex;justify-content:space-between;margin-top:5px">
+      <div id="sct-pct-lbl" style="font-size:11px;opacity:.8">0% ব্যবহার</div>
+      <div id="sct-status-lbl" style="font-size:11px;opacity:.8">সীমার মধ্যে আছো</div>
+    </div>
+  </div>
+
+  <!-- Live Timer Card -->
+  <div style="background:var(--card,#fff);border-radius:18px;padding:20px;border:1.5px solid var(--border,#f0f0f0);margin-bottom:14px;text-align:center">
+    <div style="font-size:11px;font-weight:700;color:var(--text2,#888);letter-spacing:1px;margin-bottom:10px">LIVE TIMER</div>
+    <div id="sct-clock" style="font-size:48px;font-weight:800;font-family:monospace;letter-spacing:3px;color:var(--text,#1f2937);margin-bottom:4px">00:00:00</div>
+    <div id="sct-clock-lbl" style="font-size:12px;color:var(--text2,#888);margin-bottom:18px">টাইমার বন্ধ</div>
+    <div style="display:flex;gap:10px;justify-content:center">
+      <button onclick="rzSctToggle()" id="sct-btn" style="padding:12px 32px;background:linear-gradient(135deg,#FF8A00,#FFB800);color:#fff;border:none;border-radius:12px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;min-width:140px;box-shadow:0 4px 14px rgba(255,138,0,.3)">শুরু করুন</button>
+      <button onclick="rzSctReset()" style="padding:12px 20px;background:var(--bg,#f9fafb);color:var(--text2,#888);border:1.5px solid var(--border,#e5e7eb);border-radius:12px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit">Reset</button>
+    </div>
+  </div>
+
+  <!-- Daily Limit Setting -->
+  <div style="background:var(--card,#fff);border-radius:18px;padding:20px;border:1.5px solid var(--border,#f0f0f0);margin-bottom:14px">
+    <div style="font-size:14px;font-weight:700;color:var(--text,#1f2937);margin-bottom:14px">দৈনিক সীমা নির্ধারণ</div>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+      <span style="font-size:13px;color:var(--text2,#888);font-weight:600">সর্বোচ্চ screen time:</span>
+      <div style="display:flex;align-items:center;gap:12px">
+        <button onclick="rzSctLimitChange(-15)" style="width:36px;height:36px;border-radius:50%;border:2px solid #FF8A00;background:#fff;font-size:20px;cursor:pointer;color:#FF8A00;font-weight:700;line-height:1;display:flex;align-items:center;justify-content:center">&#8722;</button>
+        <div id="sct-limit-lbl" style="font-size:20px;font-weight:800;color:#FF8A00;min-width:100px;text-align:center">2 ঘণ্টা</div>
+        <button onclick="rzSctLimitChange(15)" style="width:36px;height:36px;border-radius:50%;border:2px solid #FF8A00;background:#fff;font-size:20px;cursor:pointer;color:#FF8A00;font-weight:700;line-height:1;display:flex;align-items:center;justify-content:center">&#43;</button>
+      </div>
+    </div>
+    <div style="display:flex;justify-content:space-between;margin-bottom:6px">
+      <span style="font-size:12px;font-weight:600;color:var(--text2,#888)">আজকের ব্যবহার</span>
+      <span id="sct-pct" style="font-size:12px;font-weight:700;color:#FF8A00">0%</span>
+    </div>
+    <div style="height:10px;background:var(--border,#f0f0f0);border-radius:8px;overflow:hidden">
+      <div id="sct-bar" style="height:100%;width:0%;border-radius:8px;transition:.5s;background:linear-gradient(90deg,#FF8A00,#FFB800)"></div>
+    </div>
+    <div id="sct-status" style="font-size:12px;font-weight:700;text-align:center;color:#16a34a;margin-top:8px">সীমার মধ্যে আছো &#10003;</div>
+  </div>
+
+  <!-- Log App Usage -->
+  <div style="background:var(--card,#fff);border-radius:18px;padding:20px;border:1.5px solid var(--border,#f0f0f0);margin-bottom:14px">
+    <div style="font-size:14px;font-weight:700;color:var(--text,#1f2937);margin-bottom:14px">App ব্যবহার Log করো</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px">
+      <div>
+        <label style="font-size:12px;font-weight:600;color:var(--text2,#888);display:block;margin-bottom:4px">App / Activity</label>
+        <input id="sct-app" type="text" placeholder="যেমন: YouTube" style="width:100%;border:1.5px solid var(--border,#e5e7eb);border-radius:10px;padding:9px 12px;font-size:13px;font-family:inherit;outline:none;background:var(--bg,#f9fafb);color:var(--text,#1f2937);box-sizing:border-box"/>
+      </div>
+      <div>
+        <label style="font-size:12px;font-weight:600;color:var(--text2,#888);display:block;margin-bottom:4px">মিনিট</label>
+        <input id="sct-mins" type="number" min="1" placeholder="মিনিট" style="width:100%;border:1.5px solid var(--border,#e5e7eb);border-radius:10px;padding:9px 12px;font-size:13px;font-family:inherit;outline:none;background:var(--bg,#f9fafb);color:var(--text,#1f2937);box-sizing:border-box"/>
+      </div>
+    </div>
+    <button onclick="rzSctLogApp()" style="width:100%;padding:12px;background:linear-gradient(135deg,#FF8A00,#FFB800);color:#fff;border:none;border-radius:12px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;box-shadow:0 3px 10px rgba(255,138,0,.25)">Log করুন</button>
+    <div id="sct-app-list" style="margin-top:14px;display:flex;flex-direction:column;gap:8px"></div>
+  </div>
+
+  <!-- Weekly Chart -->
+  <div style="background:var(--card,#fff);border-radius:18px;padding:20px;border:1.5px solid var(--border,#f0f0f0);margin-bottom:14px">
+    <div style="font-size:14px;font-weight:700;color:var(--text,#1f2937);margin-bottom:16px">সাপ্তাহিক রিপোর্ট</div>
+    <div id="sct-chart" style="display:grid;grid-template-columns:repeat(7,1fr);gap:6px;align-items:flex-end;height:90px;margin-bottom:10px"></div>
+    <div id="sct-chart-labels" style="display:grid;grid-template-columns:repeat(7,1fr);gap:6px;text-align:center"></div>
+    <div style="display:flex;gap:14px;font-size:11px;color:var(--text2,#888);margin-top:8px;flex-wrap:wrap">
+      <span style="display:flex;align-items:center;gap:4px"><span style="width:10px;height:10px;background:linear-gradient(135deg,#FF8A00,#FFB800);border-radius:2px;display:inline-block"></span>সীমার মধ্যে</span>
+      <span style="display:flex;align-items:center;gap:4px"><span style="width:10px;height:10px;background:#EF4444;border-radius:2px;display:inline-block"></span>সীমা পেরিয়ে</span>
+    </div>
+  </div>
+
+  <!-- Achievements -->
+  <div style="background:var(--card,#fff);border-radius:18px;padding:20px;border:1.5px solid var(--border,#f0f0f0);margin-bottom:14px">
+    <div style="font-size:14px;font-weight:700;color:var(--text,#1f2937);margin-bottom:14px">অর্জন</div>
+    <div id="sct-achievements" style="display:grid;grid-template-columns:1fr 1fr;gap:10px"></div>
+  </div>
+
+  <!-- Smart Insight -->
+  <div id="sct-insight" style="background:linear-gradient(135deg,rgba(255,138,0,.08),rgba(255,184,0,.05));border:1.5px solid rgba(255,138,0,.2);border-radius:18px;padding:18px;margin-bottom:14px;display:flex;align-items:flex-start;gap:12px">
+    <div style="width:36px;height:36px;background:linear-gradient(135deg,#FF8A00,#FFB800);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+    </div>
+    <div>
+      <div style="font-size:13px;font-weight:700;color:#FF8A00;margin-bottom:4px">Smart Insight</div>
+      <div id="sct-insight-text" style="font-size:13px;color:var(--text,#1f2937);line-height:1.6">Screen time ট্র্যাক করতে শুরু করো!</div>
+    </div>
+  </div>
+
+  <!-- Tips -->
+  <div style="background:var(--card,#fff);border-radius:18px;padding:20px;border:1.5px solid var(--border,#f0f0f0);margin-bottom:20px">
+    <div style="font-size:14px;font-weight:700;color:var(--text,#1f2937);margin-bottom:14px">Screen Time কমানোর উপায়</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+      <div style="background:linear-gradient(135deg,rgba(255,138,0,.08),rgba(255,184,0,.05));border-radius:12px;padding:12px;display:flex;gap:8px;align-items:flex-start">
+        <div style="width:28px;height:28px;background:linear-gradient(135deg,#FF8A00,#FFB800);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <div style="font-size:12px;line-height:1.5;color:var(--text,#1f2937)">দেখার আগে timer set করো</div>
+      </div>
+      <div style="background:linear-gradient(135deg,rgba(255,138,0,.08),rgba(255,184,0,.05));border-radius:12px;padding:12px;display:flex;gap:8px;align-items:flex-start">
+        <div style="width:28px;height:28px;background:linear-gradient(135deg,#FF8A00,#FFB800);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        </div>
+        <div style="font-size:12px;line-height:1.5;color:var(--text,#1f2937)">রাত ৯টার পর screen বন্ধ রাখো</div>
+      </div>
+      <div style="background:linear-gradient(135deg,rgba(255,138,0,.08),rgba(255,184,0,.05));border-radius:12px;padding:12px;display:flex;gap:8px;align-items:flex-start">
+        <div style="width:28px;height:28px;background:linear-gradient(135deg,#FF8A00,#FFB800);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        </div>
+        <div style="font-size:12px;line-height:1.5;color:var(--text,#1f2937)">শুধু শিক্ষামূলক content দেখাতে দাও</div>
+      </div>
+      <div style="background:linear-gradient(135deg,rgba(255,138,0,.08),rgba(255,184,0,.05));border-radius:12px;padding:12px;display:flex;gap:8px;align-items:flex-start">
+        <div style="width:28px;height:28px;background:linear-gradient(135deg,#FF8A00,#FFB800);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+        </div>
+        <div style="font-size:12px;line-height:1.5;color:var(--text,#1f2937)">Screen বন্ধ করে কুরআন পড়ো</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div><!-- end screentime-kids-wrap -->
+
+<!-- ── Adult Wrap ─────────────────────────────────────────────────── -->
+<div id="screentime-adult-wrap" style="display:none">
+<div class="rz-page-with-banner">
+
+  <div class="rz-page-content" style="padding:16px 16px 100px">
+
+    <!-- ══ 1. HERO: Dark Ring Command Center ══════════════════════ -->
+    <div style="background:linear-gradient(135deg,#0f172a,#1a2744);border-radius:24px;padding:22px;margin-bottom:14px;color:#fff;position:relative;overflow:hidden">
+      <div style="position:absolute;right:-40px;top:-40px;width:150px;height:150px;background:rgba(255,138,0,0.07);border-radius:50%"></div>
+      <div style="position:absolute;left:-20px;bottom:-40px;width:100px;height:100px;background:rgba(59,130,246,0.06);border-radius:50%"></div>
+
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+        <div style="font-size:10px;font-weight:700;letter-spacing:1.8px;color:rgba(255,255,255,0.4)">DIGITAL WELLNESS</div>
+        <div id="ast-focus-badge" style="font-size:10px;font-weight:700;padding:4px 10px;border-radius:50px;background:rgba(34,197,94,0.15);color:#22C55E;border:1px solid rgba(34,197,94,0.3)">Excellent</div>
+      </div>
+
+      <!-- Ring + Stats row -->
+      <div style="display:flex;align-items:center;gap:18px;margin-bottom:16px">
+
+        <!-- SVG Ring -->
+        <div style="position:relative;flex-shrink:0;width:130px;height:130px">
+          <svg width="130" height="130" viewBox="0 0 140 140" style="display:block">
+            <circle cx="70" cy="70" r="55" fill="none" stroke="rgba(255,255,255,0.07)" stroke-width="14"/>
+            <circle id="ast-ring-fill" cx="70" cy="70" r="55" fill="none" stroke="#FF8A00" stroke-width="14"
+              stroke-linecap="round" stroke-dasharray="345.6" stroke-dashoffset="345.6"
+              transform="rotate(-90 70 70)" style="transition:stroke-dashoffset 1s ease,stroke .4s"/>
+          </svg>
+          <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;pointer-events:none">
+            <div id="ast-ring-mins" style="font-size:26px;font-weight:900;font-family:monospace;color:#fff;line-height:1">0</div>
+            <div style="font-size:9px;color:rgba(255,255,255,0.4);font-weight:700;letter-spacing:1px;margin-top:2px">MINS</div>
+          </div>
+        </div>
+
+        <!-- Stats beside ring -->
+        <div style="flex:1;display:flex;flex-direction:column;gap:10px">
+          <!-- Focus Score -->
+          <div>
+            <div style="font-size:9px;color:rgba(255,255,255,0.4);font-weight:700;letter-spacing:1px;margin-bottom:2px">FOCUS SCORE</div>
+            <div style="display:flex;align-items:baseline;gap:4px">
+              <div id="ast-focus-score" style="font-size:40px;font-weight:900;color:#22C55E;line-height:1;font-family:monospace">100</div>
+              <div style="font-size:13px;color:rgba(255,255,255,0.3);font-weight:600">/100</div>
+            </div>
+          </div>
+          <!-- Limit + Remaining mini cards -->
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
+            <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:8px 10px">
+              <div style="font-size:8px;color:rgba(255,255,255,0.35);font-weight:700;letter-spacing:.8px;margin-bottom:3px">LIMIT</div>
+              <div id="ast-limit-display" style="font-size:14px;font-weight:800;color:#fff">2h 0m</div>
+            </div>
+            <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:8px 10px">
+              <div style="font-size:8px;color:rgba(255,255,255,0.35);font-weight:700;letter-spacing:.8px;margin-bottom:3px">LEFT</div>
+              <div id="ast-remaining" style="font-size:14px;font-weight:800;color:#22C55E">2h 0m</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Limit control row -->
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 14px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:14px">
+        <span style="font-size:12px;color:rgba(255,255,255,0.5);font-weight:600">Daily Limit</span>
+        <div style="display:flex;align-items:center;gap:10px">
+          <button onclick="rzAstLimitChange(-15)" style="width:30px;height:30px;border-radius:50%;border:1.5px solid rgba(255,138,0,0.5);background:transparent;color:#FF8A00;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-weight:700;line-height:1">&#8722;</button>
+          <span id="ast-limit-lbl" style="font-size:15px;font-weight:800;color:#FF8A00;min-width:70px;text-align:center">120 min</span>
+          <button onclick="rzAstLimitChange(15)" style="width:30px;height:30px;border-radius:50%;border:1.5px solid rgba(255,138,0,0.5);background:transparent;color:#FF8A00;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-weight:700;line-height:1">&#43;</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ 2. LOG A SESSION ════════════════════════════════════════ -->
+    <div style="background:var(--card,#fff);border-radius:20px;padding:18px;border:1.5px solid var(--border,#e5e7eb);margin-bottom:14px">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#FF8A00" stroke-width="2.2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M12 8v8m-4-4h8"/></svg>
+        <span style="font-size:14px;font-weight:800;color:var(--text,#1f2937)">Log a Screen Session</span>
+      </div>
+
+      <!-- Category pills -->
+      <div style="font-size:10px;font-weight:700;color:var(--text2,#888);letter-spacing:.8px;margin-bottom:8px">CATEGORY</div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px" id="ast-cat-pills">
+        <button onclick="rzAstSelectCat('Social')" class="ast-cat-btn" data-cat="Social" style="padding:5px 12px;border-radius:50px;border:1.5px solid #3B82F6;background:#3B82F6;color:#fff;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;white-space:nowrap">Social</button>
+        <button onclick="rzAstSelectCat('Work')" class="ast-cat-btn" data-cat="Work" style="padding:5px 12px;border-radius:50px;border:1.5px solid var(--border,#e5e7eb);background:transparent;color:var(--text2,#888);font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;white-space:nowrap">Work</button>
+        <button onclick="rzAstSelectCat('Learning')" class="ast-cat-btn" data-cat="Learning" style="padding:5px 12px;border-radius:50px;border:1.5px solid var(--border,#e5e7eb);background:transparent;color:var(--text2,#888);font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;white-space:nowrap">Learning</button>
+        <button onclick="rzAstSelectCat('Entertainment')" class="ast-cat-btn" data-cat="Entertainment" style="padding:5px 12px;border-radius:50px;border:1.5px solid var(--border,#e5e7eb);background:transparent;color:var(--text2,#888);font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;white-space:nowrap">Entertainment</button>
+        <button onclick="rzAstSelectCat('News')" class="ast-cat-btn" data-cat="News" style="padding:5px 12px;border-radius:50px;border:1.5px solid var(--border,#e5e7eb);background:transparent;color:var(--text2,#888);font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;white-space:nowrap">News</button>
+        <button onclick="rzAstSelectCat('Other')" class="ast-cat-btn" data-cat="Other" style="padding:5px 12px;border-radius:50px;border:1.5px solid var(--border,#e5e7eb);background:transparent;color:var(--text2,#888);font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;white-space:nowrap">Other</button>
+      </div>
+
+      <!-- Inputs -->
+      <div style="display:grid;grid-template-columns:1fr 80px;gap:8px;margin-bottom:8px">
+        <div>
+          <div style="font-size:10px;font-weight:700;color:var(--text2,#888);letter-spacing:.8px;margin-bottom:5px">APP / PLATFORM</div>
+          <input id="ast-input-app" type="text" placeholder="e.g. YouTube, Instagram…" style="width:100%;box-sizing:border-box;border:1.5px solid var(--border,#e5e7eb);border-radius:11px;padding:10px 12px;font-size:13px;font-family:inherit;outline:none;background:var(--bg,#f9fafb);color:var(--text,#1f2937)"/>
+        </div>
+        <div>
+          <div style="font-size:10px;font-weight:700;color:var(--text2,#888);letter-spacing:.8px;margin-bottom:5px">MINUTES</div>
+          <input id="ast-input-mins" type="number" min="1" placeholder="30" style="width:100%;box-sizing:border-box;border:1.5px solid var(--border,#e5e7eb);border-radius:11px;padding:10px 12px;font-size:13px;font-family:inherit;outline:none;background:var(--bg,#f9fafb);color:var(--text,#1f2937)"/>
+        </div>
+      </div>
+      <input id="ast-input-note" type="text" placeholder="Optional note…" style="width:100%;box-sizing:border-box;border:1.5px solid var(--border,#e5e7eb);border-radius:11px;padding:10px 12px;font-size:12px;font-family:inherit;outline:none;background:var(--bg,#f9fafb);color:var(--text,#1f2937);margin-bottom:10px"/>
+      <button onclick="rzAstAddSession()" style="width:100%;padding:13px;border-radius:13px;border:none;background:linear-gradient(135deg,#FF8A00,#FFB800);color:#fff;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;box-shadow:0 4px 14px rgba(255,138,0,.28)">+ Log Session</button>
+
+      <!-- Today's sessions -->
+      <div id="ast-session-list" style="margin-top:12px;display:flex;flex-direction:column;gap:6px"></div>
+    </div>
+
+    <!-- ══ 3. 7-DAY PATTERN ════════════════════════════════════════ -->
+    <div style="background:var(--card,#fff);border-radius:20px;padding:18px;border:1.5px solid var(--border,#e5e7eb);margin-bottom:14px">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
+        <div style="display:flex;align-items:center;gap:8px">
+          <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="#FF8A00" stroke-width="2.2" stroke-linecap="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          <span style="font-size:13px;font-weight:800;color:var(--text,#1f2937)">7-Day Pattern</span>
+        </div>
+        <div id="ast-week-avg" style="font-size:11px;font-weight:700;color:var(--text2,#888)">avg: —</div>
+      </div>
+      <div style="font-size:11px;color:var(--text2,#888);margin-bottom:14px">Daily screen time vs your limit</div>
+      <div id="ast-sparkline" style="display:flex;gap:6px;align-items:flex-end;justify-content:space-between;height:80px"></div>
+      <div style="display:flex;gap:14px;margin-top:10px;flex-wrap:wrap">
+        <span style="display:flex;align-items:center;gap:4px;font-size:10px;color:var(--text2,#888)"><span style="width:8px;height:8px;background:#22C55E;border-radius:2px;display:inline-block"></span>Under limit</span>
+        <span style="display:flex;align-items:center;gap:4px;font-size:10px;color:var(--text2,#888)"><span style="width:8px;height:8px;background:#F59E0B;border-radius:2px;display:inline-block"></span>Nearing limit</span>
+        <span style="display:flex;align-items:center;gap:4px;font-size:10px;color:var(--text2,#888)"><span style="width:8px;height:8px;background:#EF4444;border-radius:2px;display:inline-block"></span>Over limit</span>
+      </div>
+    </div>
+
+    <!-- ══ 4. CATEGORY BREAKDOWN ══════════════════════════════════ -->
+    <div style="background:var(--card,#fff);border-radius:20px;padding:18px;border:1.5px solid var(--border,#e5e7eb);margin-bottom:14px">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
+        <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="#FF8A00" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        <span style="font-size:13px;font-weight:800;color:var(--text,#1f2937)">Today by Category</span>
+      </div>
+      <div style="font-size:11px;color:var(--text2,#888);margin-bottom:14px">Where your screen time goes</div>
+      <div id="ast-cat-breakdown"></div>
+    </div>
+
+    <!-- ══ 5. MINDFUL STREAK ══════════════════════════════════════ -->
+    <div style="background:linear-gradient(135deg,rgba(139,92,246,0.08),rgba(59,130,246,0.05));border:1.5px solid rgba(139,92,246,0.2);border-radius:20px;padding:18px;margin-bottom:14px;display:flex;align-items:center;gap:16px">
+      <div style="width:56px;height:56px;border-radius:16px;background:linear-gradient(135deg,#8B5CF6,#6366F1);display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 4px 14px rgba(139,92,246,0.3)">
+        <div id="ast-detox-streak" style="font-size:22px;font-weight:900;color:#fff;font-family:monospace;line-height:1">0</div>
+        <div style="font-size:7px;color:rgba(255,255,255,0.7);font-weight:700;letter-spacing:.5px">DAYS</div>
+      </div>
+      <div style="flex:1;min-width:0">
+        <div style="font-size:13px;font-weight:800;color:#8B5CF6;margin-bottom:3px">Mindful Streak</div>
+        <div id="ast-detox-msg" style="font-size:12px;color:var(--text2,#888);line-height:1.5">Use ≤50% of your limit to start a mindful streak</div>
+      </div>
+    </div>
+
+    <!-- ══ 6. SMART INSIGHT ═══════════════════════════════════════ -->
+    <div style="background:linear-gradient(135deg,rgba(255,138,0,0.06),rgba(255,184,0,0.03));border:1.5px solid rgba(255,138,0,0.18);border-radius:20px;padding:18px;margin-bottom:14px;display:flex;align-items:flex-start;gap:12px">
+      <div style="width:38px;height:38px;background:linear-gradient(135deg,#FF8A00,#FFB800);border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 4px 12px rgba(255,138,0,0.25)">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      </div>
+      <div>
+        <div style="font-size:12px;font-weight:800;color:#FF8A00;letter-spacing:.5px;margin-bottom:5px">DIGITAL WELLNESS INSIGHT</div>
+        <div id="ast-insight-text" style="font-size:13px;color:var(--text,#1f2937);line-height:1.65">Start logging your screen sessions to get personalized insights.</div>
+      </div>
+    </div>
+
+    <!-- Mobile donation card -->
+    <div class="rz-donation-mobile-card" style="margin-bottom:14px">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
+        <div style="width:42px;height:42px;border-radius:13px;background:linear-gradient(135deg,rgba(255,138,0,0.15),rgba(255,184,0,0.1));border:1px solid rgba(255,138,0,0.3);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#FF8A00" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" fill="rgba(255,138,0,0.12)"/></svg>
+        </div>
+        <div>
+          <div style="font-size:13px;font-weight:800;color:var(--text,#1f2937)">Rizers কে Support করুন</div>
+          <div style="font-size:11px;color:var(--text2,#888);margin-top:2px">মাত্র ৳৯৯/মাসে • সম্পূর্ণ স্বেচ্ছায়</div>
+        </div>
+      </div>
+      <a href="#" onclick="rzGoToPayment();return false;" style="display:block;width:100%;background:linear-gradient(135deg,#FF8A00,#FFB800);color:#090B12;font-size:13px;font-weight:800;text-align:center;padding:13px;border-radius:12px;text-decoration:none;box-shadow:0 4px 14px rgba(255,138,0,0.35);box-sizing:border-box">🤲 ৳৯৯/মাসে Support করুন</a>
+    </div>
+
+  </div><!-- end rz-page-content -->
+
+  <!-- Desktop Sidebar -->
+  <div class="rz-donation-sidebar">
+    <div class="rz-dsb-inner">
+      <div style="text-align:center;margin-bottom:20px">
+        <div style="width:58px;height:58px;border-radius:18px;background:linear-gradient(135deg,rgba(255,138,0,0.15),rgba(255,184,0,0.1));border:1px solid rgba(255,138,0,0.3);display:flex;align-items:center;justify-content:center;margin:0 auto 12px">
+          <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="#FF8A00" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" fill="rgba(255,138,0,0.12)"/></svg>
+        </div>
+        <div style="font-size:12px;font-weight:800;color:#FF8A00;letter-spacing:1px;text-transform:uppercase">Rizers কে Support করুন</div>
+      </div>
+      <div style="background:rgba(255,138,0,0.06);border:1px solid rgba(255,138,0,0.15);border-radius:14px;padding:16px;margin-bottom:16px">
+        <div style="font-size:15px;font-weight:700;color:var(--text,#1f2937);line-height:1.6;margin-bottom:10px">"তোমার ছোট সাহায্য হাজারজনের digital wellbeing ও মনোযোগ ঠিক রাখতে সাহায্য করতে পারে।"</div>
+        <div style="font-size:12.5px;color:var(--text2,#888);line-height:1.7">Rizers ব্যবহার করে প্রতিদিন হাজারো মানুষ screen time ম্যানেজ করছে। তুমি চাইলে এই যাত্রার অংশ হতে পারো।</div>
+      </div>
+      <div style="margin-bottom:16px">
+        <div style="font-size:12px;font-weight:700;color:var(--text2,#888);margin-bottom:10px;text-transform:uppercase;letter-spacing:.8px">মাত্র ৳৯৯/মাসে</div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div style="display:flex;align-items:center;gap:10px"><div style="width:7px;height:7px;border-radius:50%;background:#FF8A00;flex-shrink:0"></div><span style="font-size:13.5px;color:var(--text,#1f2937)">১ কাপ চায়ের দাম</span></div>
+          <div style="display:flex;align-items:center;gap:10px"><div style="width:7px;height:7px;border-radius:50%;background:#22C55E;flex-shrink:0"></div><span style="font-size:13.5px;color:var(--text,#1f2937)">হাজারজনের AI partner চালু থাকে</span></div>
+          <div style="display:flex;align-items:center;gap:10px"><div style="width:7px;height:7px;border-radius:50%;background:#3B82F6;flex-shrink:0"></div><span style="font-size:13.5px;color:var(--text,#1f2937)">সব feature সম্পূর্ণ free থাকে</span></div>
+        </div>
+      </div>
+      <div style="height:1px;background:var(--border,#e5e7eb);margin-bottom:16px"></div>
+      <div style="margin-bottom:20px;flex:1">
+        <div style="font-size:13px;color:var(--text2,#888);line-height:1.8;font-style:italic">"যে ব্যক্তি কোনো ভালো কাজে সহায়তা করে, সে যেন সেই কাজ নিজেই করলো।"</div>
+        <div style="font-size:11.5px;color:#FF8A00;font-weight:700;margin-top:6px">— বুখারী ও মুসলিম</div>
+      </div>
+      <a href="#" onclick="rzGoToPayment();return false;" style="display:block;width:100%;background:linear-gradient(135deg,#FF8A00,#FFB800);color:#090B12;font-size:14px;font-weight:800;text-align:center;padding:15px;border-radius:13px;text-decoration:none;box-shadow:0 4px 16px rgba(255,138,0,0.4);box-sizing:border-box">🤲 ৳৯৯/মাসে Support করুন</a>
+      <div style="text-align:center;margin-top:12px;font-size:11px;color:var(--text2,#888)">সম্পূর্ণ স্বেচ্ছায় • যেকোনো সময় বাতিল করুন</div>
+    </div>
+  </div>
+
+</div><!-- end rz-page-with-banner -->
+</div><!-- end screentime-adult-wrap -->
+
+</div><!-- end screentime-page -->

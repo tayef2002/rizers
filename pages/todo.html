@@ -1,0 +1,388 @@
+<!-- To Do Page -->
+<div id="todo-page" class="page-div app-page">
+
+<!-- KIDS MODE -->
+<div id="td-kids-wrap" style="display:none;padding:20px">
+  <div style="text-align:center;padding:40px 20px">
+    <div style="font-size:48px;margin-bottom:12px">📝</div>
+    <h2 style="font-size:20px;font-weight:800;color:var(--text,#1a1a2e);margin-bottom:8px">কাজের তালিকা</h2>
+    <p style="font-size:13px;color:var(--text2,#888)">এই ফিচারটি প্রাপ্তবয়স্কদের জন্য। অ্যাডভান্সড Task Manager।</p>
+  </div>
+  <div style="max-width:400px;margin:0 auto;background:linear-gradient(135deg,#6366F1,#8B5CF6);border-radius:20px;padding:24px;color:#fff">
+    <div style="font-size:13px;font-weight:700;opacity:.8;margin-bottom:8px">🌟 Rizers-এর সাথে থাকুন</div>
+    <div style="font-size:18px;font-weight:900;margin-bottom:8px">আপনার সাপোর্টই আমাদের শক্তি</div>
+    <p style="font-size:12px;opacity:.85;margin-bottom:16px">Rizers-কে সাহায্য করুন আরও ভালো কন্টেন্ট তৈরি করতে।</p>
+    <button onclick="showPage('subscription')" style="background:#F59E0B;color:#000;border:none;padding:10px 20px;border-radius:10px;font-weight:800;font-size:13px;cursor:pointer;width:100%">সাপোর্ট করুন →</button>
+  </div>
+</div>
+
+<!-- ADULT MODE -->
+<div id="td-adult-wrap" style="display:none">
+  <div class="rz-page-with-banner" style="display:flex;gap:0;min-height:calc(100vh - 60px)">
+
+    <!-- MAIN CONTENT -->
+    <div class="rz-page-content" style="flex:1;padding:20px 24px 40px;min-width:0">
+
+      <!-- HERO CARD -->
+      <div style="background:linear-gradient(135deg,#0A0F1E 0%,#1E1B4B 50%,#312E81 100%);border-radius:20px;padding:24px;margin-bottom:20px;position:relative;overflow:hidden;border:1px solid rgba(99,102,241,.2)">
+        <div style="position:absolute;top:-40px;right:-40px;width:180px;height:180px;background:radial-gradient(circle,rgba(99,102,241,.15),transparent 70%);border-radius:50%"></div>
+        <div style="position:absolute;bottom:-30px;left:20%;width:120px;height:120px;background:radial-gradient(circle,rgba(245,158,11,.08),transparent 70%);border-radius:50%"></div>
+        <div style="display:flex;align-items:flex-start;gap:20px;position:relative;flex-wrap:wrap">
+          <!-- Completion ring -->
+          <div style="flex-shrink:0;position:relative;width:90px;height:90px">
+            <svg width="90" height="90" viewBox="0 0 90 90">
+              <circle cx="45" cy="45" r="38" fill="none" stroke="rgba(255,255,255,.08)" stroke-width="7"/>
+              <circle id="td-hero-ring" cx="45" cy="45" r="38" fill="none" stroke="url(#tdRingGrad)" stroke-width="7" stroke-linecap="round" stroke-dasharray="238.8" stroke-dashoffset="238.8" transform="rotate(-90 45 45)" style="transition:stroke-dashoffset .8s ease"/>
+              <defs><linearGradient id="tdRingGrad" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#6366F1"/><stop offset="100%" stop-color="#F59E0B"/></linearGradient></defs>
+            </svg>
+            <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center">
+              <div id="td-hero-pct" style="font-size:16px;font-weight:900;color:#fff">0%</div>
+              <div style="font-size:8px;color:rgba(255,255,255,.5);font-weight:600">সম্পন্ন</div>
+            </div>
+          </div>
+          <!-- Focus info -->
+          <div style="flex:1;min-width:160px">
+            <div style="font-size:10px;font-weight:700;color:#818CF8;letter-spacing:1.5px;margin-bottom:6px">🎯 আজকের ফোকাস</div>
+            <div id="td-hero-focus" style="font-size:16px;font-weight:900;color:#fff;margin-bottom:6px;line-height:1.3">কোনো কাজ নেই — নতুন কাজ যোগ করুন!</div>
+            <div id="td-hero-deadline" style="font-size:11px;color:rgba(255,255,255,.5)"></div>
+          </div>
+          <!-- Stat tiles -->
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:8px 12px;text-align:center;min-width:54px">
+              <div id="td-stat-today" style="font-size:18px;font-weight:900;color:#F59E0B">0</div>
+              <div style="font-size:9px;color:rgba(255,255,255,.4);font-weight:600">আজ</div>
+            </div>
+            <div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:8px 12px;text-align:center;min-width:54px">
+              <div id="td-stat-done" style="font-size:18px;font-weight:900;color:#10B981">0</div>
+              <div style="font-size:9px;color:rgba(255,255,255,.4);font-weight:600">সম্পন্ন</div>
+            </div>
+            <div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:8px 12px;text-align:center;min-width:54px">
+              <div id="td-stat-overdue" style="font-size:18px;font-weight:900;color:#EF4444">0</div>
+              <div style="font-size:9px;color:rgba(255,255,255,.4);font-weight:600">মেয়াদ শেষ</div>
+            </div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:16px;margin-top:16px;padding-top:16px;border-top:1px solid rgba(255,255,255,.06);flex-wrap:wrap">
+          <div style="display:flex;align-items:center;gap:5px"><span style="font-size:11px;color:rgba(255,255,255,.4)">🔴 জরুরি:</span><span id="td-ct-urgent" style="font-size:11px;font-weight:700;color:#EF4444">0</span></div>
+          <div style="display:flex;align-items:center;gap:5px"><span style="font-size:11px;color:rgba(255,255,255,.4)">🔥 স্ট্রিক:</span><span id="td-ct-streak" style="font-size:11px;font-weight:700;color:#F59E0B">0 দিন</span></div>
+          <div style="display:flex;align-items:center;gap:5px"><span style="font-size:11px;color:rgba(255,255,255,.4)">✅ মোট:</span><span id="td-ct-total" style="font-size:11px;font-weight:700;color:#10B981">0</span></div>
+          <div style="margin-left:auto">
+            <button onclick="tdOpenModal()" style="background:linear-gradient(135deg,#6366F1,#8B5CF6);color:#fff;border:none;padding:8px 18px;border-radius:10px;font-weight:800;font-size:12px;cursor:pointer">+ নতুন কাজ</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- POMODORO BAR (shown when active) -->
+      <div id="td-pomo-bar" style="display:none;background:linear-gradient(135deg,#EF4444,#F59E0B);border-radius:14px;padding:12px 16px;margin-bottom:16px;align-items:center;gap:12px">
+        <div style="font-size:16px">🍅</div>
+        <div style="flex:1">
+          <div id="td-pomo-task" style="font-size:11px;font-weight:800;color:#fff;margin-bottom:2px">ফোকাস মোড</div>
+          <div id="td-pomo-time" style="font-size:22px;font-weight:900;color:#fff;font-family:monospace;letter-spacing:2px">25:00</div>
+        </div>
+        <div style="display:flex;gap:8px">
+          <button id="td-pomo-toggle" onclick="tdPomoToggle()" style="background:rgba(255,255,255,.2);color:#fff;border:none;padding:8px 14px;border-radius:10px;font-weight:800;font-size:12px;cursor:pointer">▶ শুরু</button>
+          <button onclick="tdPomoStop()" style="background:rgba(0,0,0,.2);color:#fff;border:none;padding:8px 14px;border-radius:10px;font-weight:800;font-size:12px;cursor:pointer">✕</button>
+        </div>
+        <div style="text-align:right;flex-shrink:0">
+          <div id="td-pomo-count" style="font-size:10px;color:rgba(255,255,255,.7)">🍅 0 সেশন</div>
+          <div style="font-size:9px;color:rgba(255,255,255,.5)">২৫ মিনিট ফোকাস</div>
+        </div>
+      </div>
+
+      <!-- QUICK ADD BAR -->
+      <div style="background:var(--bg2,#f3f4f6);border:2px solid var(--border,#e5e7eb);border-radius:14px;padding:4px 4px 4px 16px;display:flex;align-items:center;gap:8px;margin-bottom:16px;transition:.2s" id="td-quick-wrap">
+        <span style="font-size:16px">⚡</span>
+        <input id="td-quick-input" type="text" placeholder="দ্রুত কাজ যোগ করুন... (Enter চাপুন)" style="flex:1;border:none;background:transparent;font-size:13px;color:var(--text,#1a1a2e);outline:none;font-weight:600;min-width:0" onkeydown="if(event.key==='Enter')tdQuickAdd()" onfocus="document.getElementById('td-quick-wrap').style.borderColor='#6366F1'" onblur="document.getElementById('td-quick-wrap').style.borderColor='var(--border,#e5e7eb)'"/>
+        <select id="td-quick-priority" style="border:none;background:var(--bg,#fff);border-radius:8px;padding:6px 8px;font-size:11px;font-weight:700;cursor:pointer;color:var(--text,#1a1a2e);flex-shrink:0">
+          <option value="normal">🟢 সাধারণ</option>
+          <option value="high">🟡 গুরুত্বপূর্ণ</option>
+          <option value="urgent">🔴 জরুরি</option>
+        </select>
+        <button onclick="tdQuickAdd()" style="background:linear-gradient(135deg,#6366F1,#8B5CF6);color:#fff;border:none;padding:8px 14px;border-radius:10px;font-weight:800;font-size:12px;cursor:pointer;flex-shrink:0">যোগ</button>
+      </div>
+
+      <!-- VIEW TABS + FILTERS -->
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:16px;flex-wrap:wrap">
+        <div style="display:flex;gap:3px;background:var(--bg2,#f3f4f6);border-radius:12px;padding:4px">
+          <button id="tdv-list" onclick="tdSetView('list')" style="padding:7px 12px;border-radius:9px;border:none;font-size:11px;font-weight:700;cursor:pointer;background:#6366F1;color:#fff;white-space:nowrap">📋 তালিকা</button>
+          <button id="tdv-kanban" onclick="tdSetView('kanban')" style="padding:7px 12px;border-radius:9px;border:none;font-size:11px;font-weight:700;cursor:pointer;background:transparent;color:var(--text2,#888);white-space:nowrap">🗂️ Kanban</button>
+          <button id="tdv-matrix" onclick="tdSetView('matrix')" style="padding:7px 12px;border-radius:9px;border:none;font-size:11px;font-weight:700;cursor:pointer;background:transparent;color:var(--text2,#888);white-space:nowrap">🎯 Matrix</button>
+          <button id="tdv-timeline" onclick="tdSetView('timeline')" style="padding:7px 12px;border-radius:9px;border:none;font-size:11px;font-weight:700;cursor:pointer;background:transparent;color:var(--text2,#888);white-space:nowrap">📅 Timeline</button>
+        </div>
+        <div style="display:flex;gap:5px;flex-wrap:wrap">
+          <button id="tdf-all" onclick="tdSetFilter('all')" style="padding:5px 11px;border-radius:20px;border:1.5px solid #6366F1;background:#6366F1;color:#fff;font-size:11px;font-weight:700;cursor:pointer">সব</button>
+          <button id="tdf-today" onclick="tdSetFilter('today')" style="padding:5px 11px;border-radius:20px;border:1.5px solid var(--border,#e5e7eb);background:transparent;color:var(--text2,#888);font-size:11px;font-weight:700;cursor:pointer">আজ</button>
+          <button id="tdf-overdue" onclick="tdSetFilter('overdue')" style="padding:5px 11px;border-radius:20px;border:1.5px solid var(--border,#e5e7eb);background:transparent;color:var(--text2,#888);font-size:11px;font-weight:700;cursor:pointer">মেয়াদ শেষ</button>
+          <button id="tdf-done" onclick="tdSetFilter('done')" style="padding:5px 11px;border-radius:20px;border:1.5px solid var(--border,#e5e7eb);background:transparent;color:var(--text2,#888);font-size:11px;font-weight:700;cursor:pointer">সম্পন্ন</button>
+        </div>
+      </div>
+
+      <!-- LIST VIEW -->
+      <div id="td-view-list">
+        <div id="td-project-chips" style="display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap"></div>
+        <div id="td-task-list"></div>
+      </div>
+
+      <!-- KANBAN VIEW -->
+      <div id="td-view-kanban" style="display:none">
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px">
+          <div>
+            <div style="font-size:10px;font-weight:800;color:var(--text2,#888);letter-spacing:1px;margin-bottom:10px;display:flex;align-items:center;gap:5px"><span style="width:7px;height:7px;border-radius:50%;background:#94A3B8;display:inline-block"></span>BACKLOG <span id="kc-backlog" style="background:var(--bg2,#f3f4f6);border-radius:8px;padding:1px 5px;font-size:9px">0</span></div>
+            <div id="kboard-backlog" style="min-height:160px;display:flex;flex-direction:column;gap:6px"></div>
+          </div>
+          <div>
+            <div style="font-size:10px;font-weight:800;color:#F59E0B;letter-spacing:1px;margin-bottom:10px;display:flex;align-items:center;gap:5px"><span style="width:7px;height:7px;border-radius:50%;background:#F59E0B;display:inline-block"></span>চলছে <span id="kc-inprogress" style="background:rgba(245,158,11,.12);border-radius:8px;padding:1px 5px;font-size:9px;color:#F59E0B">0</span></div>
+            <div id="kboard-inprogress" style="min-height:160px;display:flex;flex-direction:column;gap:6px"></div>
+          </div>
+          <div>
+            <div style="font-size:10px;font-weight:800;color:#6366F1;letter-spacing:1px;margin-bottom:10px;display:flex;align-items:center;gap:5px"><span style="width:7px;height:7px;border-radius:50%;background:#6366F1;display:inline-block"></span>রিভিউ <span id="kc-review" style="background:rgba(99,102,241,.1);border-radius:8px;padding:1px 5px;font-size:9px;color:#6366F1">0</span></div>
+            <div id="kboard-review" style="min-height:160px;display:flex;flex-direction:column;gap:6px"></div>
+          </div>
+          <div>
+            <div style="font-size:10px;font-weight:800;color:#10B981;letter-spacing:1px;margin-bottom:10px;display:flex;align-items:center;gap:5px"><span style="width:7px;height:7px;border-radius:50%;background:#10B981;display:inline-block"></span>সম্পন্ন <span id="kc-done" style="background:rgba(16,185,129,.1);border-radius:8px;padding:1px 5px;font-size:9px;color:#10B981">0</span></div>
+            <div id="kboard-done" style="min-height:160px;display:flex;flex-direction:column;gap:6px"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MATRIX VIEW -->
+      <div id="td-view-matrix" style="display:none">
+        <div style="text-align:center;margin-bottom:10px;font-size:11px;font-weight:700;color:var(--text2,#888)">আইজেনহাওয়ার ম্যাট্রিক্স — গুরুত্ব ও জরুরিত্ব অনুযায়ী কাজ সাজান</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+          <div style="background:rgba(239,68,68,.06);border:1.5px solid rgba(239,68,68,.2);border-radius:14px;padding:14px">
+            <div style="font-size:11px;font-weight:800;color:#EF4444;margin-bottom:3px">🔴 Q1 — এখনই করুন</div>
+            <div style="font-size:9px;color:var(--text2,#888);margin-bottom:8px">জরুরি + গুরুত্বপূর্ণ</div>
+            <div id="mq-q1" style="display:flex;flex-direction:column;gap:5px;min-height:60px"></div>
+          </div>
+          <div style="background:rgba(99,102,241,.06);border:1.5px solid rgba(99,102,241,.2);border-radius:14px;padding:14px">
+            <div style="font-size:11px;font-weight:800;color:#6366F1;margin-bottom:3px">🔵 Q2 — পরিকল্পনা করুন</div>
+            <div style="font-size:9px;color:var(--text2,#888);margin-bottom:8px">গুরুত্বপূর্ণ + কম জরুরি</div>
+            <div id="mq-q2" style="display:flex;flex-direction:column;gap:5px;min-height:60px"></div>
+          </div>
+          <div style="background:rgba(245,158,11,.06);border:1.5px solid rgba(245,158,11,.2);border-radius:14px;padding:14px">
+            <div style="font-size:11px;font-weight:800;color:#F59E0B;margin-bottom:3px">🟡 Q3 — পরে করুন</div>
+            <div style="font-size:9px;color:var(--text2,#888);margin-bottom:8px">জরুরি + কম গুরুত্বপূর্ণ</div>
+            <div id="mq-q3" style="display:flex;flex-direction:column;gap:5px;min-height:60px"></div>
+          </div>
+          <div style="background:rgba(148,163,184,.06);border:1.5px solid rgba(148,163,184,.2);border-radius:14px;padding:14px">
+            <div style="font-size:11px;font-weight:800;color:#94A3B8;margin-bottom:3px">⚪ Q4 — বাদ দিন</div>
+            <div style="font-size:9px;color:var(--text2,#888);margin-bottom:8px">কম জরুরি + কম গুরুত্বপূর্ণ</div>
+            <div id="mq-q4" style="display:flex;flex-direction:column;gap:5px;min-height:60px"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TIMELINE VIEW -->
+      <div id="td-view-timeline" style="display:none">
+        <div id="td-timeline-grid"></div>
+      </div>
+
+      <!-- PROJECTS PANEL -->
+      <div style="margin-top:20px;background:var(--bg2,#f3f4f6);border-radius:16px;padding:16px">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+          <div style="font-size:13px;font-weight:800;color:var(--text,#1a1a2e)">📁 প্রজেক্টসমূহ</div>
+          <button onclick="tdAddProject()" style="background:#6366F1;color:#fff;border:none;padding:5px 12px;border-radius:8px;font-size:11px;font-weight:700;cursor:pointer">+ নতুন</button>
+        </div>
+        <div id="td-projects-list" style="display:flex;flex-direction:column;gap:8px"></div>
+      </div>
+
+      <!-- HEATMAP -->
+      <div style="margin-top:14px;background:var(--bg2,#f3f4f6);border-radius:16px;padding:16px">
+        <div style="font-size:13px;font-weight:800;color:var(--text,#1a1a2e);margin-bottom:12px">📊 সাপ্তাহিক সম্পন্নতা</div>
+        <div id="td-heatmap" style="display:flex;gap:3px;flex-wrap:wrap"></div>
+        <div style="display:flex;align-items:center;gap:6px;margin-top:8px">
+          <span style="font-size:10px;color:var(--text2,#888)">কম</span>
+          <div style="display:flex;gap:2px">
+            <div style="width:9px;height:9px;border-radius:2px;background:var(--border,#e5e7eb)"></div>
+            <div style="width:9px;height:9px;border-radius:2px;background:rgba(99,102,241,.3)"></div>
+            <div style="width:9px;height:9px;border-radius:2px;background:rgba(99,102,241,.6)"></div>
+            <div style="width:9px;height:9px;border-radius:2px;background:#6366F1"></div>
+          </div>
+          <span style="font-size:10px;color:var(--text2,#888)">বেশি</span>
+        </div>
+      </div>
+
+      <!-- ISLAMIC TIME BLOCKS -->
+      <div style="margin-top:14px;background:linear-gradient(135deg,#0A0F1E,#1E1B4B);border-radius:16px;padding:16px">
+        <div style="font-size:13px;font-weight:800;color:#fff;margin-bottom:12px">🕌 নামাজের সময় অনুযায়ী কাজের ব্লক</div>
+        <div id="td-islamic-blocks" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:8px"></div>
+      </div>
+
+    </div><!-- end page-content -->
+
+    <!-- DESKTOP DONATION SIDEBAR -->
+    <div class="rz-donation-sidebar" style="width:260px;flex-shrink:0;background:var(--bg2,#f3f4f6);border-left:1px solid var(--border,#e5e7eb);padding:20px;overflow-y:auto">
+      <div style="background:linear-gradient(135deg,#6366F1,#8B5CF6);border-radius:16px;padding:20px;color:#fff;margin-bottom:16px">
+        <div style="font-size:10px;font-weight:700;opacity:.7;margin-bottom:6px;letter-spacing:1px">RIZERS PREMIUM</div>
+        <div style="font-size:16px;font-weight:900;margin-bottom:8px">আমাদের সাথে থাকুন</div>
+        <p style="font-size:11px;opacity:.85;line-height:1.5;margin-bottom:14px">"যে ব্যক্তি আল্লাহর পথে ব্যয় করে, তার উপমা একটি বীজের মতো।"<br><span style="opacity:.6">— সূরা বাকারা: ২৬১</span></p>
+        <ul style="list-style:none;padding:0;margin:0 0 14px;display:flex;flex-direction:column;gap:6px">
+          <li style="font-size:11px;display:flex;align-items:center;gap:6px"><span style="color:#F59E0B">✓</span> স্মার্ট Task Priority</li>
+          <li style="font-size:11px;display:flex;align-items:center;gap:6px"><span style="color:#F59E0B">✓</span> Kanban + Matrix View</li>
+          <li style="font-size:11px;display:flex;align-items:center;gap:6px"><span style="color:#F59E0B">✓</span> Pomodoro Timer</li>
+          <li style="font-size:11px;display:flex;align-items:center;gap:6px"><span style="color:#F59E0B">✓</span> Islamic Time Blocks</li>
+          <li style="font-size:11px;display:flex;align-items:center;gap:6px"><span style="color:#F59E0B">✓</span> সম্পূর্ণ বাংলায়</li>
+        </ul>
+        <button onclick="showPage('subscription')" style="background:#F59E0B;color:#000;border:none;padding:10px;border-radius:10px;font-weight:900;font-size:12px;cursor:pointer;width:100%">সাপোর্ট করুন →</button>
+      </div>
+      <div style="background:var(--bg,#fff);border-radius:14px;padding:14px;border:1px solid var(--border,#e5e7eb)">
+        <div style="font-size:11px;font-weight:800;color:var(--text,#1a1a2e);margin-bottom:10px">📈 আজকের অগ্রগতি</div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <div><div style="display:flex;justify-content:space-between;margin-bottom:3px"><span style="font-size:11px;color:var(--text2,#888)">সম্পন্নতা</span><span id="td-sb-pct" style="font-size:11px;font-weight:700;color:#6366F1">0%</span></div><div style="background:var(--bg2,#f3f4f6);height:4px;border-radius:4px"><div id="td-sb-bar" style="height:4px;border-radius:4px;background:linear-gradient(90deg,#6366F1,#8B5CF6);width:0%;transition:.5s"></div></div></div>
+          <div style="display:flex;justify-content:space-between"><span style="font-size:11px;color:var(--text2,#888)">🔥 স্ট্রিক</span><span id="td-sb-streak" style="font-size:11px;font-weight:700;color:#F59E0B">0 দিন</span></div>
+          <div style="display:flex;justify-content:space-between"><span style="font-size:11px;color:var(--text2,#888)">🍅 ফোকাস</span><span id="td-sb-focus" style="font-size:11px;font-weight:700;color:#10B981">0 মিনিট</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div><!-- end adult wrap -->
+
+<!-- MOBILE DONATION -->
+<div id="td-mob-donation" style="display:none;margin:16px;background:linear-gradient(135deg,#6366F1,#8B5CF6);border-radius:16px;padding:20px;color:#fff">
+  <div style="font-size:14px;font-weight:900;margin-bottom:6px">🌟 Rizers সাপোর্ট করুন</div>
+  <p style="font-size:11px;opacity:.85;margin-bottom:12px">আপনার সহযোগিতায় আমরা আরও ভালো ফিচার তৈরি করতে পারব।</p>
+  <button onclick="showPage('subscription')" style="background:#F59E0B;color:#000;border:none;padding:9px 18px;border-radius:10px;font-weight:800;font-size:12px;cursor:pointer">সাপোর্ট করুন →</button>
+</div>
+
+<!-- TASK MODAL -->
+<div id="td-task-modal" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.6);backdrop-filter:blur(4px);align-items:center;justify-content:center;padding:16px">
+  <div style="background:var(--bg,#fff);border-radius:20px;width:100%;max-width:540px;max-height:92vh;overflow-y:auto;box-shadow:0 25px 80px rgba(0,0,0,.3)">
+    <div style="background:linear-gradient(135deg,#0A0F1E,#1E1B4B);border-radius:20px 20px 0 0;padding:20px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:1">
+      <div style="font-size:15px;font-weight:900;color:#fff" id="td-modal-title">✏️ নতুন কাজ</div>
+      <button onclick="tdCloseModal()" style="background:rgba(255,255,255,.1);color:#fff;border:none;width:30px;height:30px;border-radius:8px;cursor:pointer;font-size:14px">✕</button>
+    </div>
+    <div style="padding:20px 24px;display:flex;flex-direction:column;gap:14px">
+      <input type="hidden" id="td-modal-id"/>
+      <div>
+        <label style="font-size:11px;font-weight:700;color:var(--text2,#888);display:block;margin-bottom:5px">কাজের শিরোনাম *</label>
+        <input id="td-m-title" type="text" placeholder="কী করতে হবে?" style="width:100%;box-sizing:border-box;padding:10px 14px;border:2px solid var(--border,#e5e7eb);border-radius:10px;font-size:13px;color:var(--text,#1a1a2e);background:var(--bg2,#f3f4f6);outline:none;font-weight:600"/>
+      </div>
+      <div>
+        <label style="font-size:11px;font-weight:700;color:var(--text2,#888);display:block;margin-bottom:5px">বিস্তারিত (ঐচ্ছিক)</label>
+        <textarea id="td-m-desc" placeholder="কীভাবে করবেন?" rows="2" style="width:100%;box-sizing:border-box;padding:10px 14px;border:2px solid var(--border,#e5e7eb);border-radius:10px;font-size:13px;color:var(--text,#1a1a2e);background:var(--bg2,#f3f4f6);outline:none;resize:none;font-family:inherit"></textarea>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+        <div>
+          <label style="font-size:11px;font-weight:700;color:var(--text2,#888);display:block;margin-bottom:5px">অগ্রাধিকার</label>
+          <select id="td-m-priority" style="width:100%;padding:9px 12px;border:2px solid var(--border,#e5e7eb);border-radius:10px;font-size:12px;font-weight:700;background:var(--bg2,#f3f4f6);color:var(--text,#1a1a2e);cursor:pointer">
+            <option value="urgent">🔴 জরুরি</option>
+            <option value="high">🟡 গুরুত্বপূর্ণ</option>
+            <option value="normal" selected>🟢 সাধারণ</option>
+            <option value="low">⚪ কম</option>
+          </select>
+        </div>
+        <div>
+          <label style="font-size:11px;font-weight:700;color:var(--text2,#888);display:block;margin-bottom:5px">শক্তির স্তর</label>
+          <select id="td-m-energy" style="width:100%;padding:9px 12px;border:2px solid var(--border,#e5e7eb);border-radius:10px;font-size:12px;font-weight:700;background:var(--bg2,#f3f4f6);color:var(--text,#1a1a2e);cursor:pointer">
+            <option value="high">⚡ বেশি শক্তি</option>
+            <option value="medium" selected>🔋 মাঝারি</option>
+            <option value="low">😴 কম শক্তি</option>
+          </select>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+        <div>
+          <label style="font-size:11px;font-weight:700;color:var(--text2,#888);display:block;margin-bottom:5px">শেষ তারিখ</label>
+          <input id="td-m-due" type="date" style="width:100%;box-sizing:border-box;padding:9px 12px;border:2px solid var(--border,#e5e7eb);border-radius:10px;font-size:12px;background:var(--bg2,#f3f4f6);color:var(--text,#1a1a2e);cursor:pointer"/>
+        </div>
+        <div>
+          <label style="font-size:11px;font-weight:700;color:var(--text2,#888);display:block;margin-bottom:5px">🕌 নামাজের সময়</label>
+          <select id="td-m-islamic" style="width:100%;padding:9px 12px;border:2px solid var(--border,#e5e7eb);border-radius:10px;font-size:12px;font-weight:700;background:var(--bg2,#f3f4f6);color:var(--text,#1a1a2e);cursor:pointer">
+            <option value="">যেকোনো সময়</option>
+            <option value="fajr">🌅 ফজর</option>
+            <option value="duhr">☀️ যোহর</option>
+            <option value="asr">🌤️ আসর</option>
+            <option value="maghrib">🌆 মাগরিব</option>
+            <option value="isha">🌙 ইশা</option>
+            <option value="tahajjud">⭐ তাহাজ্জুদ</option>
+          </select>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+        <div>
+          <label style="font-size:11px;font-weight:700;color:var(--text2,#888);display:block;margin-bottom:5px">প্রজেক্ট</label>
+          <select id="td-m-project" style="width:100%;padding:9px 12px;border:2px solid var(--border,#e5e7eb);border-radius:10px;font-size:12px;background:var(--bg2,#f3f4f6);color:var(--text,#1a1a2e);cursor:pointer">
+            <option value="">কোনো প্রজেক্ট নেই</option>
+          </select>
+        </div>
+        <div>
+          <label style="font-size:11px;font-weight:700;color:var(--text2,#888);display:block;margin-bottom:5px">অবস্থা</label>
+          <select id="td-m-status" style="width:100%;padding:9px 12px;border:2px solid var(--border,#e5e7eb);border-radius:10px;font-size:12px;font-weight:700;background:var(--bg2,#f3f4f6);color:var(--text,#1a1a2e);cursor:pointer">
+            <option value="backlog">⬜ Backlog</option>
+            <option value="inprogress">🟡 চলছে</option>
+            <option value="review">🔵 রিভিউ</option>
+            <option value="done">✅ সম্পন্ন</option>
+          </select>
+        </div>
+      </div>
+      <div>
+        <label style="font-size:11px;font-weight:700;color:var(--text2,#888);display:block;margin-bottom:5px">🍅 পোমোদোরো অনুমান</label>
+        <div style="display:flex;gap:5px">
+          <button onclick="tdSetPomo(1)" id="tdp-1" style="flex:1;padding:7px 4px;border:1.5px solid var(--border,#e5e7eb);border-radius:8px;background:transparent;cursor:pointer;font-size:10px;font-weight:700;color:var(--text,#1a1a2e)">🍅×1</button>
+          <button onclick="tdSetPomo(2)" id="tdp-2" style="flex:1;padding:7px 4px;border:1.5px solid var(--border,#e5e7eb);border-radius:8px;background:transparent;cursor:pointer;font-size:10px;font-weight:700;color:var(--text,#1a1a2e)">🍅×2</button>
+          <button onclick="tdSetPomo(3)" id="tdp-3" style="flex:1;padding:7px 4px;border:1.5px solid var(--border,#e5e7eb);border-radius:8px;background:transparent;cursor:pointer;font-size:10px;font-weight:700;color:var(--text,#1a1a2e)">🍅×3</button>
+          <button onclick="tdSetPomo(4)" id="tdp-4" style="flex:1;padding:7px 4px;border:1.5px solid var(--border,#e5e7eb);border-radius:8px;background:transparent;cursor:pointer;font-size:10px;font-weight:700;color:var(--text,#1a1a2e)">🍅×4</button>
+          <button onclick="tdSetPomo(5)" id="tdp-5" style="flex:1;padding:7px 4px;border:1.5px solid var(--border,#e5e7eb);border-radius:8px;background:transparent;cursor:pointer;font-size:10px;font-weight:700;color:var(--text,#1a1a2e)">🍅×5+</button>
+        </div>
+        <input type="hidden" id="td-m-pomos" value="1"/>
+      </div>
+      <div>
+        <label style="font-size:11px;font-weight:700;color:var(--text2,#888);display:block;margin-bottom:5px">✅ উপ-কাজ (সাব-টাস্ক)</label>
+        <div id="td-subtasks-list" style="display:flex;flex-direction:column;gap:5px;margin-bottom:6px"></div>
+        <div style="display:flex;gap:6px">
+          <input id="td-subtask-inp" type="text" placeholder="উপ-কাজ যোগ করুন..." style="flex:1;padding:8px 12px;border:1.5px solid var(--border,#e5e7eb);border-radius:8px;font-size:12px;background:var(--bg2,#f3f4f6);color:var(--text,#1a1a2e);outline:none" onkeydown="if(event.key==='Enter'){tdAddSubtask();event.preventDefault();}"/>
+          <button onclick="tdAddSubtask()" style="background:#6366F1;color:#fff;border:none;padding:8px 14px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer">+</button>
+        </div>
+      </div>
+      <div>
+        <label style="font-size:11px;font-weight:700;color:var(--text2,#888);display:block;margin-bottom:5px">🏷️ ট্যাগ</label>
+        <div style="display:flex;gap:5px;flex-wrap:wrap" id="td-tag-chips">
+          <button onclick="tdToggleTag('কাজ')" class="td-tag-btn" data-tag="কাজ" style="padding:4px 10px;border-radius:20px;border:1.5px solid var(--border,#e5e7eb);background:transparent;font-size:11px;cursor:pointer;font-weight:600;color:var(--text2,#888)">কাজ</button>
+          <button onclick="tdToggleTag('পরিবার')" class="td-tag-btn" data-tag="পরিবার" style="padding:4px 10px;border-radius:20px;border:1.5px solid var(--border,#e5e7eb);background:transparent;font-size:11px;cursor:pointer;font-weight:600;color:var(--text2,#888)">পরিবার</button>
+          <button onclick="tdToggleTag('স্বাস্থ্য')" class="td-tag-btn" data-tag="স্বাস্থ্য" style="padding:4px 10px;border-radius:20px;border:1.5px solid var(--border,#e5e7eb);background:transparent;font-size:11px;cursor:pointer;font-weight:600;color:var(--text2,#888)">স্বাস্থ্য</button>
+          <button onclick="tdToggleTag('পড়াশোনা')" class="td-tag-btn" data-tag="পড়াশোনা" style="padding:4px 10px;border-radius:20px;border:1.5px solid var(--border,#e5e7eb);background:transparent;font-size:11px;cursor:pointer;font-weight:600;color:var(--text2,#888)">পড়াশোনা</button>
+          <button onclick="tdToggleTag('ইসলাম')" class="td-tag-btn" data-tag="ইসলাম" style="padding:4px 10px;border-radius:20px;border:1.5px solid var(--border,#e5e7eb);background:transparent;font-size:11px;cursor:pointer;font-weight:600;color:var(--text2,#888)">ইসলাম</button>
+          <button onclick="tdToggleTag('ব্যবসা')" class="td-tag-btn" data-tag="ব্যবসা" style="padding:4px 10px;border-radius:20px;border:1.5px solid var(--border,#e5e7eb);background:transparent;font-size:11px;cursor:pointer;font-weight:600;color:var(--text2,#888)">ব্যবসা</button>
+        </div>
+        <input type="hidden" id="td-m-tags" value="[]"/>
+      </div>
+      <div>
+        <label style="font-size:11px;font-weight:700;color:var(--text2,#888);display:block;margin-bottom:5px">🔄 পুনরাবৃত্তি</label>
+        <select id="td-m-recur" style="width:100%;padding:9px 12px;border:2px solid var(--border,#e5e7eb);border-radius:10px;font-size:12px;background:var(--bg2,#f3f4f6);color:var(--text,#1a1a2e);cursor:pointer">
+          <option value="">কোনো পুনরাবৃত্তি নেই</option>
+          <option value="daily">প্রতিদিন</option>
+          <option value="weekly">প্রতি সপ্তাহ</option>
+          <option value="monthly">প্রতি মাস</option>
+        </select>
+      </div>
+    </div>
+    <div style="padding:0 24px 20px;display:flex;gap:10px;justify-content:flex-end">
+      <button onclick="tdCloseModal()" style="padding:10px 20px;border-radius:10px;border:1.5px solid var(--border,#e5e7eb);background:transparent;font-size:13px;font-weight:700;cursor:pointer;color:var(--text2,#888)">বাতিল</button>
+      <button onclick="tdSaveTask()" style="padding:10px 24px;border-radius:10px;border:none;background:linear-gradient(135deg,#6366F1,#8B5CF6);color:#fff;font-size:13px;font-weight:800;cursor:pointer">সংরক্ষণ করুন ✓</button>
+    </div>
+  </div>
+</div>
+
+<!-- ADD PROJECT MODAL -->
+<div id="td-project-modal" style="display:none;position:fixed;inset:0;z-index:10000;background:rgba(0,0,0,.6);align-items:center;justify-content:center;padding:16px">
+  <div style="background:var(--bg,#fff);border-radius:16px;padding:24px;width:100%;max-width:340px;box-shadow:0 20px 60px rgba(0,0,0,.3)">
+    <div style="font-size:14px;font-weight:800;color:var(--text,#1a1a2e);margin-bottom:14px">📁 নতুন প্রজেক্ট</div>
+    <input id="td-proj-name" type="text" placeholder="প্রজেক্টের নাম" style="width:100%;box-sizing:border-box;padding:10px 14px;border:2px solid var(--border,#e5e7eb);border-radius:10px;font-size:13px;margin-bottom:12px;background:var(--bg2,#f3f4f6);color:var(--text,#1a1a2e);outline:none"/>
+    <div style="display:flex;gap:8px;margin-bottom:16px">
+      <div onclick="tdSelProjColor('#6366F1',this)" style="width:26px;height:26px;border-radius:50%;background:#6366F1;cursor:pointer;border:3px solid #6366F1;box-sizing:border-box"></div>
+      <div onclick="tdSelProjColor('#EF4444',this)" style="width:26px;height:26px;border-radius:50%;background:#EF4444;cursor:pointer;border:3px solid transparent;box-sizing:border-box"></div>
+      <div onclick="tdSelProjColor('#10B981',this)" style="width:26px;height:26px;border-radius:50%;background:#10B981;cursor:pointer;border:3px solid transparent;box-sizing:border-box"></div>
+      <div onclick="tdSelProjColor('#F59E0B',this)" style="width:26px;height:26px;border-radius:50%;background:#F59E0B;cursor:pointer;border:3px solid transparent;box-sizing:border-box"></div>
+      <div onclick="tdSelProjColor('#EC4899',this)" style="width:26px;height:26px;border-radius:50%;background:#EC4899;cursor:pointer;border:3px solid transparent;box-sizing:border-box"></div>
+      <div onclick="tdSelProjColor('#06B6D4',this)" style="width:26px;height:26px;border-radius:50%;background:#06B6D4;cursor:pointer;border:3px solid transparent;box-sizing:border-box"></div>
+    </div>
+    <input type="hidden" id="td-proj-color" value="#6366F1"/>
+    <div style="display:flex;gap:8px;justify-content:flex-end">
+      <button onclick="document.getElementById('td-project-modal').style.display='none'" style="padding:8px 16px;border-radius:8px;border:1px solid var(--border,#e5e7eb);background:transparent;font-size:12px;font-weight:700;cursor:pointer;color:var(--text2,#888)">বাতিল</button>
+      <button onclick="tdSaveProject()" style="padding:8px 20px;border-radius:8px;border:none;background:#6366F1;color:#fff;font-size:12px;font-weight:800;cursor:pointer">তৈরি করুন</button>
+    </div>
+  </div>
+</div>
+
+</div><!-- end todo-page -->

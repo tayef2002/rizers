@@ -1,0 +1,217 @@
+<div id="gift-page" class="app-page" style="display:none">
+
+<!-- DARK HERO -->
+<div style="background:radial-gradient(ellipse at 50% -10%,rgba(255,138,0,.28) 0%,transparent 65%),#090B12;margin:-56px 0 0;padding:72px 16px 44px;position:relative;overflow:hidden">
+  <div style="position:absolute;top:-50px;right:-50px;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,rgba(255,184,0,.08) 0%,transparent 70%)"></div>
+  <div style="font-size:11px;font-weight:600;letter-spacing:.8px;color:rgba(255,138,0,.75);text-transform:uppercase;margin-bottom:12px">Gift Subscription</div>
+  <div style="font-size:26px;font-weight:800;color:#fff;line-height:1.2;margin-bottom:8px">সেরা উপহার যেটা<br>সত্যিই কাজে লাগে</div>
+  <div style="font-size:13px;color:rgba(255,255,255,.45);line-height:1.7;margin-bottom:20px">কাপড় ভুলে যায়, মোবাইল পুরনো হয়।<br>কিন্তু একটা ভালো অভ্যাস? সারাজীবন থাকে।</div>
+
+  <!-- Stats row -->
+  <div style="display:flex;gap:10px">
+    <div style="flex:1;background:rgba(255,255,255,.06);border:1px solid rgba(255,138,0,.15);border-radius:12px;padding:12px;text-align:center">
+      <div style="font-size:20px;font-weight:800;color:#FF8A00" id="gift-stat-today">47</div>
+      <div style="font-size:10px;color:rgba(255,255,255,.4);margin-top:2px">আজ gift গেছে</div>
+    </div>
+    <div style="flex:1;background:rgba(255,255,255,.06);border:1px solid rgba(255,138,0,.15);border-radius:12px;padding:12px;text-align:center">
+      <div style="font-size:20px;font-weight:800;color:#FF8A00">৳৩</div>
+      <div style="font-size:10px;color:rgba(255,255,255,.4);margin-top:2px">প্রতিদিনের দাম</div>
+    </div>
+    <div style="flex:1;background:rgba(255,255,255,.06);border:1px solid rgba(255,138,0,.15);border-radius:12px;padding:12px;text-align:center">
+      <div style="font-size:20px;font-weight:800;color:#FF8A00" id="gift-stat-total">2.4k</div>
+      <div style="font-size:10px;color:rgba(255,255,255,.4);margin-top:2px">মোট gifts</div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE CONTENT -->
+<div style="padding:0 16px 100px">
+
+  <!-- REYS GIFT BANNER -->
+  <div style="background:linear-gradient(135deg,rgba(255,138,0,.12),rgba(255,184,0,.08));border:1px solid rgba(255,138,0,.25);border-radius:16px;padding:16px;margin-top:16px;margin-bottom:16px" id="gift-reys-banner">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+      <div style="width:36px;height:36px;border-radius:10px;background:rgba(255,138,0,.15);border:1px solid rgba(255,138,0,.3);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">⭐</div>
+      <div>
+        <div style="font-size:13px;font-weight:700;color:var(--text,#1a1a2e)">Reys দিয়েও Gift করতে পারো</div>
+        <div style="font-size:11px;color:var(--text-muted,#888)">তোমার earned Reys কাউকে দাও</div>
+      </div>
+    </div>
+    <div style="font-size:12px;color:var(--text-muted,#888);line-height:1.6;margin-bottom:10px">তোমার ভালো অভ্যাসের reward — তাদের ভালো শুরুর কারণ হয়ে যাক।</div>
+    <div style="display:flex;align-items:center;justify-content:space-between;background:rgba(255,138,0,.08);border-radius:10px;padding:8px 12px">
+      <div style="font-size:12px;color:var(--text,#1a1a2e)">তোমার Reys ব্যালেন্স</div>
+      <div style="font-size:15px;font-weight:700;color:#FF8A00" id="gift-reys-bal">⭐ <span id="gift-reys-count">0</span> Reys</div>
+    </div>
+    <div style="font-size:11px;color:rgba(255,138,0,.6);margin-top:6px;text-align:center">১০ দিন = ৩০০ Reys &nbsp;·&nbsp; ১ মাস = ৯৯০ Reys</div>
+  </div>
+
+  <!-- PLAN SELECT -->
+  <div style="background:var(--card,#fff);border-radius:18px;border:1px solid var(--border,#f0f0f0);padding:20px;margin-bottom:14px">
+    <div style="font-size:13px;font-weight:700;color:var(--text,#1a1a2e);margin-bottom:14px">কতদিনের জন্য gift করতে চাও?</div>
+
+    <!-- 10 day plan -->
+    <div id="gift-plan-10" onclick="giftSelectPlan(10,30,'১০ দিন')" style="display:flex;align-items:center;gap:12px;padding:14px 16px;border-radius:14px;border:2px solid var(--border,#f0f0f0);cursor:pointer;margin-bottom:10px;transition:.15s">
+      <div id="gift-check-10" style="width:22px;height:22px;border-radius:50%;border:2px solid var(--border,#ddd);flex-shrink:0;transition:.15s"></div>
+      <div style="flex:1">
+        <div style="font-size:14px;font-weight:700;color:var(--text,#1a1a2e)">১০ দিন</div>
+        <div style="font-size:11px;color:var(--text-muted,#888);margin-top:2px">প্রতিদিন মাত্র ৳৩ — habit তৈরির শুরু</div>
+        <div style="font-size:11px;color:#FF8A00;margin-top:3px;font-weight:600">অথবা ৩০০ Reys দিয়ে</div>
+      </div>
+      <div style="text-align:right">
+        <div style="font-size:20px;font-weight:800;color:var(--text,#1a1a2e)">৳৩০</div>
+        <div style="font-size:10px;color:var(--text-muted,#888)">৳৩/দিন</div>
+      </div>
+    </div>
+
+    <!-- 1 month plan -->
+    <div id="gift-plan-30" onclick="giftSelectPlan(30,99,'১ মাস')" style="display:flex;align-items:center;gap:12px;padding:14px 16px;border-radius:14px;border:2px solid #FF8A00;background:rgba(255,138,0,.04);cursor:pointer;position:relative;transition:.15s">
+      <div style="position:absolute;top:-10px;right:14px;background:#FF8A00;color:#fff;font-size:9px;font-weight:700;padding:3px 10px;border-radius:50px;letter-spacing:.3px">সবচেয়ে জনপ্রিয়</div>
+      <div id="gift-check-30" style="width:22px;height:22px;border-radius:50%;background:#FF8A00;border:2px solid #FF8A00;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div style="flex:1">
+        <div style="font-size:14px;font-weight:700;color:#FF8A00">১ মাস</div>
+        <div style="font-size:11px;color:var(--text-muted,#888);margin-top:2px">৩০ দিনে তৈরি হয় সত্যিকারের অভ্যাস</div>
+        <div style="font-size:11px;color:#FF8A00;margin-top:3px;font-weight:600">অথবা ৯৯০ Reys দিয়ে</div>
+      </div>
+      <div style="text-align:right">
+        <div style="font-size:20px;font-weight:800;color:#FF8A00">৳৯৯</div>
+        <div style="font-size:10px;color:var(--text-muted,#888)">৳৩.৩/দিন</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GIFT CARD PREVIEW -->
+  <div style="background:#090B12;border-radius:18px;border:1px solid rgba(255,138,0,.2);padding:20px;margin-bottom:14px;position:relative;overflow:hidden">
+    <div style="position:absolute;top:-30px;right:-30px;width:120px;height:120px;border-radius:50%;background:radial-gradient(circle,rgba(255,138,0,.1) 0%,transparent 70%)"></div>
+    <div style="font-size:11px;color:rgba(255,138,0,.6);font-weight:600;letter-spacing:.5px;margin-bottom:12px">GIFT CARD PREVIEW</div>
+    <div style="font-size:11px;color:rgba(255,255,255,.4);margin-bottom:6px">From: <span id="gift-from-name" style="color:rgba(255,255,255,.7)">তুমি</span></div>
+    <div style="font-size:16px;font-weight:700;color:#fff;margin-bottom:6px">আস-সালামু আলাইকুম <span id="gift-preview-name" style="color:#FF8A00">বন্ধু</span>!</div>
+    <div style="font-size:12px;color:rgba(255,255,255,.55);line-height:1.7;margin-bottom:14px" id="gift-preview-msg">তোমাকে Rizers এর <span id="gift-preview-plan" style="color:#FFB800;font-weight:600">১ মাস</span> gift করলাম। প্রতিদিন ভালো অভ্যাস গড়ো — আমি তোমার ভালো চাই।</div>
+    <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(255,138,0,.15);border:1px solid rgba(255,138,0,.3);border-radius:10px;padding:8px 14px">
+      <span style="font-size:16px">🎁</span>
+      <div>
+        <div style="font-size:11px;color:#FFB800;font-weight:600">Rizers — <span id="gift-badge-plan">১ মাস</span> Subscription</div>
+        <div style="font-size:10px;color:rgba(255,255,255,.35)">Activate করো: rizers.app/activate</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RECIPIENT FORM -->
+  <div style="background:var(--card,#fff);border-radius:18px;border:1px solid var(--border,#f0f0f0);padding:20px;margin-bottom:14px">
+    <div style="font-size:13px;font-weight:700;color:var(--text,#1a1a2e);margin-bottom:14px">যাকে gift করবে</div>
+
+    <div style="margin-bottom:12px">
+      <div style="font-size:11px;font-weight:600;color:var(--text-muted,#888);margin-bottom:5px">তার নাম</div>
+      <input id="gift-name" type="text" placeholder="যেমন: বন্ধু রাফিয়া" oninput="giftUpdatePreview()" style="width:100%;border:1.5px solid var(--border,#e5e7eb);border-radius:10px;padding:10px 13px;font-size:13px;font-family:inherit;outline:none;color:var(--text,#1a1a2e);background:var(--card,#fff);box-sizing:border-box"/>
+    </div>
+
+    <div style="margin-bottom:12px">
+      <div style="font-size:11px;font-weight:600;color:var(--text-muted,#888);margin-bottom:5px">WhatsApp নম্বর</div>
+      <input id="gift-phone" type="tel" placeholder="01XXXXXXXXX" style="width:100%;border:1.5px solid var(--border,#e5e7eb);border-radius:10px;padding:10px 13px;font-size:13px;font-family:inherit;outline:none;color:var(--text,#1a1a2e);background:var(--card,#fff);box-sizing:border-box"/>
+    </div>
+
+    <!-- Message templates -->
+    <div style="font-size:11px;font-weight:600;color:var(--text-muted,#888);margin-bottom:8px">Message বেছে নাও</div>
+    <div style="display:flex;flex-direction:column;gap:7px" id="gift-msg-list">
+      <div class="gift-msg-item" onclick="giftSelectMsg(0)" style="border:1.5px solid #FF8A00;background:rgba(255,138,0,.04);border-radius:10px;padding:10px 12px;cursor:pointer">
+        <div style="font-size:10px;color:#FF8A00;font-weight:600;margin-bottom:3px">বন্ধুকে</div>
+        <div style="font-size:12px;color:var(--text,#555);line-height:1.5">"ভাই, তোমার জন্য Rizers gift করলাম। প্রতিদিন একটু better হওয়ার চেষ্টা করি — একসাথে।"</div>
+      </div>
+      <div class="gift-msg-item" onclick="giftSelectMsg(1)" style="border:1.5px solid var(--border,#eee);border-radius:10px;padding:10px 12px;cursor:pointer">
+        <div style="font-size:10px;color:#FF8A00;font-weight:600;margin-bottom:3px">মা-বাবাকে</div>
+        <div style="font-size:12px;color:var(--text,#555);line-height:1.5">"আব্বু/আম্মু, এই app দিয়ে প্রতিদিন নিজেকে একটু ভালো রাখতে পারবেন। ভালোবাসা দিয়ে gift করলাম।"</div>
+      </div>
+      <div class="gift-msg-item" onclick="giftSelectMsg(2)" style="border:1.5px solid var(--border,#eee);border-radius:10px;padding:10px 12px;cursor:pointer">
+        <div style="font-size:10px;color:#FF8A00;font-weight:600;margin-bottom:3px">বিশেষ দিনে</div>
+        <div style="font-size:12px;color:var(--text,#555);line-height:1.5">"তোমাকে সবচেয়ে কাজের উপহারটাই দিতে চেয়েছিলাম — প্রতিদিনের একটু ভালো হওয়ার সুযোগ।"</div>
+      </div>
+      <div class="gift-msg-item" onclick="giftSelectMsg(3)" style="border:1.5px solid var(--border,#eee);border-radius:10px;padding:10px 12px;cursor:pointer">
+        <div style="font-size:10px;color:#FF8A00;font-weight:600;margin-bottom:3px">সন্তানকে</div>
+        <div style="font-size:12px;color:var(--text,#555);line-height:1.5">"তোমার জন্য Rizers gift করলাম। ভালো অভ্যাস আর প্রতিদিনের শেখা — এটাই তোমার জন্য সেরা।"</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WHAT THEY GET -->
+  <div style="background:var(--card,#fff);border-radius:18px;border:1px solid var(--border,#f0f0f0);padding:20px;margin-bottom:14px">
+    <div style="font-size:13px;font-weight:700;color:var(--text,#1a1a2e);margin-bottom:14px">Gift receive করার পর পাবে...</div>
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <div style="display:flex;align-items:center;gap:12px">
+        <div style="width:36px;height:36px;border-radius:10px;background:rgba(255,138,0,.08);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0">📊</div>
+        <div><div style="font-size:13px;font-weight:600;color:var(--text,#1a1a2e)">Daily Discipline Score</div><div style="font-size:11px;color:var(--text-muted,#888);margin-top:1px">প্রতিদিনের progress দেখো</div></div>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px">
+        <div style="width:36px;height:36px;border-radius:10px;background:rgba(255,138,0,.08);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0">🤖</div>
+        <div><div style="font-size:13px;font-weight:600;color:var(--text,#1a1a2e)">AI Daily Plan</div><div style="font-size:11px;color:var(--text-muted,#888);margin-top:1px">পার্সোনালাইজড daily schedule</div></div>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px">
+        <div style="width:36px;height:36px;border-radius:10px;background:rgba(255,138,0,.08);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0">✅</div>
+        <div><div style="font-size:13px;font-weight:600;color:var(--text,#1a1a2e)">Habit Tracker</div><div style="font-size:11px;color:var(--text-muted,#888);margin-top:1px">২০+ ভালো অভ্যাস track করো</div></div>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px">
+        <div style="width:36px;height:36px;border-radius:10px;background:rgba(255,138,0,.08);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0">🔥</div>
+        <div><div style="font-size:13px;font-weight:600;color:var(--text,#1a1a2e)">Streak System + Daily Challenge</div><div style="font-size:11px;color:var(--text-muted,#888);margin-top:1px">প্রতিদিন নতুন goal</div></div>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px">
+        <div style="width:36px;height:36px;border-radius:10px;background:rgba(255,138,0,.08);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0">👥</div>
+        <div><div style="font-size:13px;font-weight:600;color:var(--text,#1a1a2e)">Community</div><div style="font-size:11px;color:var(--text-muted,#888);margin-top:1px">একই পথে হাজারজন</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAYMENT SECTION -->
+  <div style="background:var(--card,#fff);border-radius:18px;border:1px solid var(--border,#f0f0f0);padding:20px;margin-bottom:14px">
+    <div style="font-size:13px;font-weight:700;color:var(--text,#1a1a2e);margin-bottom:14px">bKash এ Payment করো</div>
+    <div style="background:#fce7f3;border-radius:12px;padding:14px;margin-bottom:12px;display:flex;align-items:center;gap:12px">
+      <div style="font-size:28px">📱</div>
+      <div style="flex:1">
+        <div style="font-size:11px;color:#888;font-weight:600;margin-bottom:2px">bKash নম্বর</div>
+        <div style="font-size:18px;font-weight:800;color:#E2136E;letter-spacing:1px">01XXXXXXXXX</div>
+      </div>
+      <button onclick="navigator.clipboard&&navigator.clipboard.writeText('01XXXXXXXXX').then(function(){var b=this;b.textContent='Copied!';setTimeout(function(){b.textContent='Copy'},1500)}).bind(this)" style="padding:8px 14px;background:#E2136E;color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit">Copy</button>
+    </div>
+    <div style="font-size:11px;color:var(--text-muted,#888);background:var(--bg,#f9fafb);border-radius:10px;padding:10px 12px;margin-bottom:12px;line-height:1.7">
+      ১. উপরের bKash নম্বরে <strong id="gift-pay-amt" style="color:var(--text,#1a1a2e)">৳৯৯</strong> Send Money করো<br>
+      ২. Transaction ID নিচে দাও<br>
+      ৩. আমরা ২৪ ঘণ্টার মধ্যে Gift activate করবো
+    </div>
+    <div style="display:flex;gap:8px">
+      <input id="gift-txn" type="text" placeholder="Transaction ID" style="flex:1;border:1.5px solid var(--border,#e5e7eb);border-radius:10px;padding:10px 13px;font-size:13px;font-family:inherit;outline:none;color:var(--text,#1a1a2e);background:var(--card,#fff)"/>
+      <button onclick="giftSubmit()" style="padding:10px 18px;background:#FF8A00;color:#fff;border:none;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit">Submit</button>
+    </div>
+    <div id="gift-txn-msg" style="font-size:11px;color:var(--text-muted,#888);margin-top:6px">Payment করার পর transaction ID submit করো</div>
+  </div>
+
+  <!-- SOCIAL PROOF -->
+  <div style="background:rgba(16,185,129,.06);border:1px solid rgba(16,185,129,.2);border-radius:14px;padding:14px 16px;margin-bottom:14px;display:flex;align-items:center;gap:12px">
+    <div style="display:flex" id="gift-proof-avs"></div>
+    <div style="font-size:12px;color:var(--text,#1a1a2e);line-height:1.5" id="gift-proof-txt"><strong>আজকে ৪৭ জন</strong> তাদের প্রিয়জনকে Rizers gift করেছে।</div>
+  </div>
+
+  <!-- PRIMARY CTA — WhatsApp -->
+  <button onclick="giftSendWhatsApp()" style="width:100%;background:linear-gradient(135deg,#25D366,#1aa64f);border:none;color:#fff;padding:16px;border-radius:16px;font-size:15px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:10px;cursor:pointer;font-family:inherit;margin-bottom:10px">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413z"/><path d="M11.998 2C6.476 2 2 6.477 2 12.001a9.946 9.946 0 001.388 5.134L2 22l4.988-1.308A9.953 9.953 0 0011.998 22C17.52 22 22 17.523 22 12c0-5.522-4.48-10-10.002-10z"/></svg>
+    WhatsApp এ Gift পাঠাও
+  </button>
+
+  <!-- SECONDARY CTAs -->
+  <div style="display:flex;gap:8px;margin-bottom:14px">
+    <button onclick="giftSendReys()" id="gift-reys-btn" style="flex:1;border:1.5px solid rgba(255,138,0,.4);background:rgba(255,138,0,.06);color:#FF8A00;padding:11px 8px;border-radius:12px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit">⭐ Reys দিয়ে Gift</button>
+    <button onclick="giftCopyLink()" style="flex:1;border:1.5px solid var(--border,#eee);background:var(--card,#fff);color:var(--text,#555);padding:11px 8px;border-radius:12px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit">🔗 Link Copy</button>
+  </div>
+
+  <!-- POST-GIFT VIRAL (hidden, shows after submit) -->
+  <div id="gift-viral-box" style="display:none;background:#090B12;border-radius:14px;padding:16px;margin-bottom:14px;border:1px solid rgba(255,138,0,.15)">
+    <div style="font-size:12px;color:rgba(255,255,255,.5);margin-bottom:8px">বন্ধুরাও জানুক?</div>
+    <div style="font-size:12px;color:rgba(255,255,255,.75);background:rgba(255,255,255,.05);border-radius:8px;padding:10px 12px;line-height:1.7;margin-bottom:10px" id="gift-viral-txt">আজকে প্রিয়জনকে Rizers gift করলাম। তুমিও দাও: rizers.app/gift — মাত্র ৳৩০ থেকে শুরু।</div>
+    <button onclick="giftShareStory()" style="width:100%;background:rgba(37,211,102,.15);border:1px solid rgba(37,211,102,.3);color:#25D366;padding:10px;border-radius:10px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit">WhatsApp Story তে শেয়ার করো ↗</button>
+  </div>
+
+  <!-- RECENT GIFTERS -->
+  <div style="background:var(--card,#fff);border-radius:18px;border:1px solid var(--border,#f0f0f0);padding:20px;margin-bottom:20px">
+    <div style="font-size:13px;font-weight:700;color:var(--text,#1a1a2e);margin-bottom:14px">সম্প্রতি Gift দিয়েছে</div>
+    <div id="gift-recent-list"></div>
+  </div>
+
+</div>
+</div>

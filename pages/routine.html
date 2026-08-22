@@ -1,0 +1,273 @@
+<div id="routine-page" class="app-page" style="display:none">
+
+<div class="rz-page-with-banner">
+
+<!-- Desktop Donation Sidebar (first in DOM so sticky works from page top — matches Namaz pattern) -->
+<div class="rz-donation-sidebar">
+  <div class="rz-dsb-inner">
+    <div style="text-align:center;margin-bottom:20px">
+      <div style="width:58px;height:58px;border-radius:18px;background:linear-gradient(135deg,rgba(255,138,0,0.15),rgba(255,184,0,0.1));border:1px solid rgba(255,138,0,0.3);display:flex;align-items:center;justify-content:center;margin:0 auto 12px">
+        <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="#FF8A00" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" fill="rgba(255,138,0,0.12)"/></svg>
+      </div>
+      <div style="font-size:12px;font-weight:800;color:#FF8A00;letter-spacing:1px;text-transform:uppercase">Rizers কে Support করুন</div>
+    </div>
+    <div style="background:rgba(255,138,0,0.06);border:1px solid rgba(255,138,0,0.15);border-radius:14px;padding:16px;margin-bottom:16px">
+      <div style="font-size:15px;font-weight:700;color:var(--text,#1f2937);line-height:1.6;margin-bottom:10px">"তোমার ছোট সাহায্য হাজারজনের Daily Routine গড়ে তুলতে সাহায্য করতে পারে।"</div>
+      <div style="font-size:12.5px;color:var(--text2,#888);line-height:1.7">Rizers ব্যবহার করে প্রতিদিন হাজারো মানুষ তাদের রুটিন ঠিক রাখছে। তুমি চাইলে এই যাত্রার অংশ হতে পারো।</div>
+    </div>
+    <div style="margin-bottom:16px">
+      <div style="font-size:12px;font-weight:700;color:var(--text2,#888);margin-bottom:10px;text-transform:uppercase;letter-spacing:.8px">মাত্র ৳৯৯/মাসে</div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <div style="display:flex;align-items:center;gap:10px"><div style="width:7px;height:7px;border-radius:50%;background:#FF8A00;flex-shrink:0"></div><span style="font-size:13.5px;color:var(--text,#1f2937)">১ কাপ চায়ের দাম</span></div>
+        <div style="display:flex;align-items:center;gap:10px"><div style="width:7px;height:7px;border-radius:50%;background:#22C55E;flex-shrink:0"></div><span style="font-size:13.5px;color:var(--text,#1f2937)">হাজারজনের AI partner চালু থাকে</span></div>
+        <div style="display:flex;align-items:center;gap:10px"><div style="width:7px;height:7px;border-radius:50%;background:#3B82F6;flex-shrink:0"></div><span style="font-size:13.5px;color:var(--text,#1f2937)">সব feature সম্পূর্ণ free থাকে</span></div>
+      </div>
+    </div>
+    <div style="height:1px;background:var(--border,#e5e7eb);margin-bottom:16px"></div>
+    <div style="margin-bottom:20px;flex:1">
+      <div style="font-size:13px;color:var(--text2,#888);line-height:1.8;font-style:italic">"যে ব্যক্তি কোনো ভালো কাজে সহায়তা করে, সে যেন সেই কাজ নিজেই করলো।"</div>
+      <div style="font-size:11.5px;color:#FF8A00;font-weight:700;margin-top:6px">— বুখারী ও মুসলিম</div>
+    </div>
+    <a href="#" onclick="rzGoToPayment();return false;" style="display:block;width:100%;background:linear-gradient(135deg,#FF8A00,#FFB800);color:#090B12;font-size:14px;font-weight:800;text-align:center;padding:15px;border-radius:13px;text-decoration:none;box-shadow:0 4px 16px rgba(255,138,0,0.4);box-sizing:border-box">🤲 ৳৯৯/মাসে Support করুন</a>
+    <div style="text-align:center;margin-top:12px;font-size:11px;color:var(--text2,#888)">সম্পূর্ণ স্বেচ্ছায় • যেকোনো সময় বাতিল করুন</div>
+  </div>
+</div>
+
+<!-- Page Content -->
+<div class="rz-page-content">
+
+<!-- ═══ KIDS DAILY ROUTINE ═══ -->
+<div id="routine-kids-wrap">
+<div style="padding:16px 16px 80px 16px">
+
+  <!-- Header -->
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:18px">
+    <div>
+      <h1 style="font-size:20px;font-weight:700;color:var(--text,#1a1a2e);display:flex;align-items:center;gap:8px;margin:0">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FF8A00" stroke-width="1.5" style="flex-shrink:0"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        Daily Routine
+      </h1>
+      <p id="rt-date-label" style="color:var(--text2,#666);font-size:13px;margin-top:4px;margin-bottom:0"></p>
+    </div>
+    <div id="rt-counter-box" style="background:rgba(255,138,0,.1);border:1.5px solid rgba(255,138,0,.25);border-radius:14px;padding:10px 16px;text-align:center;min-width:72px;transition:.3s">
+      <div id="rt-done-count" style="font-size:20px;font-weight:700;color:#FF8A00">0/0</div>
+      <div style="font-size:10px;color:var(--text2,#666);font-weight:600">আজ সম্পন্ন</div>
+    </div>
+  </div>
+
+  <!-- Progress bar -->
+  <div style="background:var(--card,#fff);border-radius:16px;padding:16px 18px;border:1px solid var(--border,#f0f0f0);margin-bottom:14px">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+      <span style="font-size:13px;font-weight:600;color:var(--text,#444)">আজকের অগ্রগতি</span>
+      <span id="rt-pct" style="font-size:13px;font-weight:700;color:#FF8A00">0%</span>
+    </div>
+    <div style="height:10px;background:var(--border,#f0f0f0);border-radius:10px;overflow:hidden">
+      <div id="rt-bar" style="height:100%;width:0%;background:linear-gradient(90deg,#FF8A00,#FFB800);border-radius:10px;transition:.4s ease"></div>
+    </div>
+  </div>
+
+  <!-- Template selector -->
+  <div style="background:var(--card,#fff);border-radius:18px;padding:18px;border:1px solid var(--border,#f0f0f0);margin-bottom:14px">
+    <h3 style="font-size:14px;font-weight:700;color:var(--text,#1a1a2e);margin:0 0 12px;display:flex;align-items:center;gap:7px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FF8A00" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg> Template বেছে নিন</h3>
+    <div id="rt-tpl-btns" style="display:flex;gap:8px;flex-wrap:wrap"></div>
+  </div>
+
+  <!-- Add task -->
+  <div style="background:var(--card,#fff);border-radius:18px;padding:18px;border:1px solid var(--border,#f0f0f0);margin-bottom:14px">
+    <h3 style="font-size:14px;font-weight:700;color:var(--text,#1a1a2e);margin:0 0 14px">+ নতুন কাজ যোগ করুন</h3>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px">
+      <div>
+        <label style="font-size:12px;font-weight:600;color:var(--text2,#666);display:block;margin-bottom:4px">সময়</label>
+        <input id="rt-time" type="time" value="07:00" style="width:100%;border:1.5px solid var(--border,#e5e7eb);border-radius:10px;padding:8px 10px;font-size:13px;font-family:inherit;outline:none;background:var(--card,#fff);color:var(--text,#1a1a2e);box-sizing:border-box"/>
+      </div>
+      <div>
+        <label style="font-size:12px;font-weight:600;color:var(--text2,#666);display:block;margin-bottom:4px">কাজের নাম</label>
+        <input id="rt-task-name" type="text" placeholder="যেমন: ফজর নামাজ" style="width:100%;border:1.5px solid var(--border,#e5e7eb);border-radius:10px;padding:8px 10px;font-size:13px;font-family:inherit;outline:none;background:var(--card,#fff);color:var(--text,#1a1a2e);box-sizing:border-box"/>
+      </div>
+    </div>
+    <div id="rt-icon-row" style="display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap"></div>
+    <button onclick="rtAddTask()" style="width:100%;padding:12px;background:linear-gradient(135deg,#FF8A00,#FFB800);color:#090B12;border:none;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit">+ Routine এ যোগ করুন</button>
+  </div>
+
+  <!-- Routine list -->
+  <div style="background:var(--card,#fff);border-radius:18px;padding:18px;border:1px solid var(--border,#f0f0f0);margin-bottom:20px">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
+      <h3 style="font-size:14px;font-weight:700;color:var(--text,#1a1a2e);margin:0;display:flex;align-items:center;gap:7px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FF8A00" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg> আজকের Routine</h3>
+      <button onclick="rtClearAll()" style="font-size:12px;color:#EF4444;background:none;border:none;cursor:pointer;font-family:inherit;padding:4px 8px">সব মুছুন</button>
+    </div>
+    <div id="rt-list"></div>
+  </div>
+
+</div>
+</div><!-- /routine-kids-wrap -->
+
+
+<!-- ═══ ADULT DAILY ROUTINE ═══ -->
+<div id="routine-adult-wrap" style="display:none;padding:16px 16px 100px">
+
+  <!-- Page Header -->
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+    <div style="display:flex;align-items:center;gap:12px">
+      <div style="width:46px;height:46px;border-radius:15px;background:linear-gradient(135deg,#FF8A00,#FFB800);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#090B12" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      </div>
+      <div>
+        <div style="font-size:19px;font-weight:800;color:var(--text,#1a1a2e)">Daily Routine</div>
+        <div id="art-date-label" style="font-size:12px;color:var(--text2,#888);margin-top:1px"></div>
+      </div>
+    </div>
+    <div id="art-counter-badge" style="background:rgba(255,138,0,.1);border:1.5px solid rgba(255,138,0,.25);border-radius:14px;padding:10px 14px;text-align:center;min-width:66px;transition:.3s">
+      <div id="art-done-count" style="font-size:18px;font-weight:800;color:#FF8A00">0/0</div>
+      <div style="font-size:10px;color:var(--text2,#888);font-weight:600">সম্পন্ন</div>
+    </div>
+  </div>
+
+  <!-- Hero Card: Completion Ring + Stats -->
+  <div style="background:linear-gradient(135deg,#0D1117 0%,#1a1d2e 50%,#0f1923 100%);border-radius:22px;padding:20px 22px;margin-bottom:16px;position:relative;overflow:hidden">
+    <div style="position:absolute;top:-20px;right:-20px;width:120px;height:120px;border-radius:50%;background:rgba(255,138,0,.06)"></div>
+    <div style="position:absolute;bottom:-30px;left:10px;width:80px;height:80px;border-radius:50%;background:rgba(255,184,0,.04)"></div>
+    <div style="display:flex;align-items:center;justify-content:space-between;position:relative">
+      <div>
+        <div style="font-size:12px;color:rgba(255,255,255,.5);font-weight:600;margin-bottom:4px">আজকের Routine Score</div>
+        <div id="art-score-pct" style="font-size:40px;font-weight:900;color:#fff;line-height:1">0%</div>
+        <div style="display:flex;gap:14px;margin-top:14px">
+          <div>
+            <div id="art-hero-streak" style="font-size:16px;font-weight:800;color:#FF8A00">0🔥</div>
+            <div style="font-size:10px;color:rgba(255,255,255,.4);font-weight:600">Streak</div>
+          </div>
+          <div style="width:1px;background:rgba(255,255,255,.1)"></div>
+          <div>
+            <div id="art-hero-next" style="font-size:13px;font-weight:700;color:#FFB800;max-width:130px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">—</div>
+            <div style="font-size:10px;color:rgba(255,255,255,.4);font-weight:600">পরবর্তী কাজ</div>
+          </div>
+        </div>
+      </div>
+      <!-- Completion Ring SVG -->
+      <svg width="88" height="88" viewBox="0 0 88 88" style="flex-shrink:0">
+        <circle cx="44" cy="44" r="36" fill="none" stroke="rgba(255,255,255,.1)" stroke-width="8"/>
+        <circle id="art-ring-circle" cx="44" cy="44" r="36" fill="none" stroke="url(#artGrad)" stroke-width="8"
+          stroke-linecap="round" stroke-dasharray="226.2" stroke-dashoffset="226.2"
+          transform="rotate(-90 44 44)" style="transition:.5s ease"/>
+        <defs>
+          <linearGradient id="artGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#FF8A00"/>
+            <stop offset="100%" stop-color="#FFB800"/>
+          </linearGradient>
+        </defs>
+        <text x="44" y="49" text-anchor="middle" fill="rgba(255,255,255,.7)" font-size="11" font-weight="700" font-family="inherit">সম্পন্ন</text>
+      </svg>
+    </div>
+  </div>
+
+  <!-- Timeline -->
+  <div style="background:var(--card,#fff);border-radius:20px;padding:18px;border:1.5px solid var(--border,#e5e7eb);margin-bottom:14px">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+      <h3 style="font-size:15px;font-weight:800;color:var(--text,#1a1a2e);margin:0;display:flex;align-items:center;gap:7px">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FF8A00" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        আজকের Timeline
+      </h3>
+      <button onclick="rzArtOpenAddSheet()" style="background:linear-gradient(135deg,#FF8A00,#FFB800);border:none;border-radius:10px;padding:7px 13px;font-size:12px;font-weight:700;color:#090B12;cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:4px">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        যোগ করুন
+      </button>
+    </div>
+    <div id="art-timeline"></div>
+    <div id="art-tl-empty" style="display:none;flex-direction:column;align-items:center;padding:28px 0;gap:10px">
+      <div style="font-size:36px">📅</div>
+      <div style="font-size:14px;font-weight:700;color:var(--text,#1a1a2e)">কোনো কাজ নেই</div>
+      <div style="font-size:12px;color:var(--text2,#888);text-align:center">একটি Template বেছে নিন অথবা নিজে কাজ যোগ করুন</div>
+    </div>
+  </div>
+
+  <!-- Adult Templates -->
+  <div style="background:var(--card,#fff);border-radius:20px;padding:18px;border:1.5px solid var(--border,#e5e7eb);margin-bottom:14px">
+    <h3 style="font-size:14px;font-weight:800;color:var(--text,#1a1a2e);margin:0 0 13px;display:flex;align-items:center;gap:7px">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#FF8A00" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
+      Template বেছে নিন
+    </h3>
+    <div id="art-tpl-grid" style="display:flex;flex-wrap:wrap;gap:8px"></div>
+  </div>
+
+  <!-- 7-Day Consistency Strip -->
+  <div style="background:var(--card,#fff);border-radius:20px;padding:18px;border:1.5px solid var(--border,#e5e7eb);margin-bottom:14px">
+    <h3 style="font-size:14px;font-weight:800;color:var(--text,#1a1a2e);margin:0 0 14px;display:flex;align-items:center;gap:7px">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#FF8A00" stroke-width="2" stroke-linecap="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+      সাপ্তাহিক Consistency
+    </h3>
+    <div id="art-week-strip" style="display:flex;gap:4px;justify-content:space-between"></div>
+    <div style="display:flex;gap:12px;margin-top:12px;justify-content:center">
+      <div style="display:flex;align-items:center;gap:5px"><div style="width:10px;height:10px;border-radius:50%;background:#22C55E"></div><span style="font-size:10px;color:var(--text2,#888)">≥80%</span></div>
+      <div style="display:flex;align-items:center;gap:5px"><div style="width:10px;height:10px;border-radius:50%;background:#FF8A00"></div><span style="font-size:10px;color:var(--text2,#888)">≥40%</span></div>
+      <div style="display:flex;align-items:center;gap:5px"><div style="width:10px;height:10px;border-radius:50%;background:#FFB800"></div><span style="font-size:10px;color:var(--text2,#888)">&gt;0%</span></div>
+    </div>
+  </div>
+
+  <!-- Mobile Donation Card -->
+  <div class="rz-donation-mobile-card" style="margin-bottom:14px">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
+      <div style="width:42px;height:42px;border-radius:13px;background:linear-gradient(135deg,rgba(255,138,0,0.15),rgba(255,184,0,0.1));border:1px solid rgba(255,138,0,0.3);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#FF8A00" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" fill="rgba(255,138,0,0.12)"/></svg>
+      </div>
+      <div>
+        <div style="font-size:13px;font-weight:800;color:var(--text,#1f2937)">Rizers কে Support করুন</div>
+        <div style="font-size:11px;color:var(--text2,#888);margin-top:2px">মাত্র ৳৯৯/মাসে • সম্পূর্ণ স্বেচ্ছায়</div>
+      </div>
+    </div>
+    <a href="#" onclick="rzGoToPayment();return false;" style="display:block;width:100%;background:linear-gradient(135deg,#FF8A00,#FFB800);color:#090B12;font-size:13px;font-weight:800;text-align:center;padding:13px;border-radius:12px;text-decoration:none;box-shadow:0 4px 14px rgba(255,138,0,0.35);box-sizing:border-box">🤲 ৳৯৯/মাসে Support করুন</a>
+  </div>
+
+</div><!-- /routine-adult-wrap -->
+
+</div><!-- /rz-page-content -->
+
+</div><!-- /rz-page-with-banner -->
+
+<!-- Add Task Bottom Sheet Overlay -->
+<div id="art-sheet-overlay" onclick="rzArtCloseAddSheet()" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:9000;backdrop-filter:blur(2px)"></div>
+
+<!-- Add Task Bottom Sheet -->
+<div id="art-add-sheet" style="display:none;position:fixed;bottom:0;left:0;right:0;background:var(--card,#fff);border-radius:24px 24px 0 0;padding:22px 20px 32px;z-index:9001;transform:translateY(100%);transition:transform .3s cubic-bezier(.4,0,.2,1);max-width:600px;margin:0 auto">
+  <div style="width:36px;height:4px;background:var(--border,#e5e7eb);border-radius:2px;margin:0 auto 20px"></div>
+  <div id="art-sheet-title" style="font-size:16px;font-weight:800;color:var(--text,#1a1a2e);margin-bottom:18px;display:flex;align-items:center;gap:8px">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FF8A00" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+    নতুন কাজ যোগ করুন
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px">
+    <div>
+      <label style="font-size:12px;font-weight:600;color:var(--text2,#666);display:block;margin-bottom:5px">সময়</label>
+      <input id="art-sheet-time" type="time" value="07:00" style="width:100%;border:1.5px solid var(--border,#e5e7eb);border-radius:12px;padding:10px 12px;font-size:14px;font-family:inherit;outline:none;background:var(--card,#fff);color:var(--text,#1a1a2e);box-sizing:border-box"/>
+    </div>
+    <div>
+      <label style="font-size:12px;font-weight:600;color:var(--text2,#666);display:block;margin-bottom:5px">কাজের নাম</label>
+      <input id="art-sheet-name" type="text" placeholder="যেমন: ফজর নামাজ" onkeydown="if(event.key==='Enter')rzArtSaveAdd()" style="width:100%;border:1.5px solid var(--border,#e5e7eb);border-radius:12px;padding:10px 12px;font-size:14px;font-family:inherit;outline:none;background:var(--card,#fff);color:var(--text,#1a1a2e);box-sizing:border-box"/>
+    </div>
+  </div>
+  <div style="margin-bottom:16px">
+    <label style="font-size:12px;font-weight:600;color:var(--text2,#666);display:block;margin-bottom:8px">Icon বেছে নিন</label>
+    <div id="art-sheet-icon-row" style="display:flex;gap:6px;flex-wrap:wrap"></div>
+  </div>
+  <button id="art-sheet-btn" onclick="rzArtSaveAdd()" style="width:100%;padding:14px;background:linear-gradient(135deg,#FF8A00,#FFB800);color:#090B12;border:none;border-radius:14px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit">+ Routine এ যোগ করুন ✓</button>
+</div>
+
+<!-- Edit Task Modal (Kids) -->
+<div id="rt-edit-modal" onclick="if(event.target===this)rtCloseEdit()" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.6);align-items:flex-end;justify-content:center">
+  <div style="background:var(--card,#fff);border-radius:20px 20px 0 0;padding:24px 20px;width:100%;max-width:480px">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px">
+      <div style="font-size:16px;font-weight:700;color:var(--text,#1a1a2e)">Task সম্পাদনা করুন</div>
+      <button onclick="rtCloseEdit()" style="background:none;border:none;cursor:pointer;color:var(--text2,#666);font-size:24px;line-height:1;padding:0">×</button>
+    </div>
+    <input type="hidden" id="rt-edit-id"/>
+    <div style="margin-bottom:12px">
+      <label style="font-size:12px;font-weight:600;color:var(--text2,#666);display:block;margin-bottom:4px">সময়</label>
+      <input id="rt-edit-time" type="time" style="width:100%;border:1.5px solid var(--border,#e5e7eb);border-radius:10px;padding:9px 12px;font-size:14px;font-family:inherit;outline:none;background:var(--card,#fff);color:var(--text,#1a1a2e);box-sizing:border-box"/>
+    </div>
+    <div style="margin-bottom:12px">
+      <label style="font-size:12px;font-weight:600;color:var(--text2,#666);display:block;margin-bottom:4px">কাজের নাম</label>
+      <input id="rt-edit-name" type="text" style="width:100%;border:1.5px solid var(--border,#e5e7eb);border-radius:10px;padding:9px 12px;font-size:14px;font-family:inherit;outline:none;background:var(--card,#fff);color:var(--text,#1a1a2e);box-sizing:border-box"/>
+    </div>
+    <div id="rt-edit-icon-row" style="display:flex;gap:6px;margin-bottom:20px;flex-wrap:wrap"></div>
+    <button onclick="rtSaveEdit()" style="width:100%;padding:13px;background:linear-gradient(135deg,#FF8A00,#FFB800);color:#090B12;border:none;border-radius:12px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit">সংরক্ষণ করুন ✓</button>
+  </div>
+</div>
+
+</div>

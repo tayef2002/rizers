@@ -1,0 +1,829 @@
+<div id="profile-page" class="app-page" style="display:none;padding-top:0;background:var(--bg)">
+
+<style>
+/* ── Profile Desktop Layout ── */
+/* Mobile: avatar top, name-block below (block layout) */
+#pf-av-name-wrap{display:block;padding:0 12px}
+#pf-avatar-row{display:inline-block}
+#pf-name-block{padding-top:8px;padding-bottom:4px}
+
+@media(min-width:768px){
+  #pf-mobile-tabs-wrap{padding:0!important}
+  #pf-cover{height:340px!important}
+  /* Info block: centered with max-width like FB */
+  #pf-info-block{max-width:1150px;margin:0 auto;padding:40px 16px 36px!important}
+  #pf-avatar{width:168px!important;height:168px!important;font-size:64px!important;margin-top:0px!important;border-width:4px!important}
+  #pf-av-cam-btn{width:36px!important;height:36px!important;bottom:6px!important;right:6px!important}
+  #pf-name{font-size:32px!important}
+  /* Desktop: avatar + name + action buttons all in one row */
+  #pf-av-name-wrap{display:flex!important;align-items:flex-end;gap:16px;padding:0}
+  #pf-avatar-row{display:block;margin-top:0;flex-shrink:0}
+  #pf-avatar{margin-top:-84px!important}
+  #pf-name-block{flex:1;padding-top:6px;padding-bottom:8px}
+  /* Action buttons: right-aligned, same row as avatar+name */
+  #pf-action-btns-row{flex-shrink:0;align-self:flex-end;padding:0 0 12px;width:auto;margin-bottom:0!important}
+  #pf-own-actions>button:first-child,#pf-own-actions>button:nth-child(2),
+  #pf-visitor-actions>button:first-child,#pf-visitor-actions>button:nth-child(2){flex:none!important}
+  /* Hide "R A M Fellow Risers" row on desktop */
+  #pf-risers-mini-row{display:none!important}
+  /* Tabs: same centering as info block */
+  #pf-tabs-wrap{padding:0}
+  #pf-tabs-inner{display:flex;max-width:1150px;margin:0 auto;padding:0 16px}
+  /* Desktop cols: same centering */
+  #pf-desktop-cols{display:grid!important;grid-template-columns:360px 1fr;gap:16px;max-width:1150px!important;margin:16px auto 0!important;padding:0 16px 24px}
+  #pf-left-col{display:block!important;position:sticky;top:8px;align-self:start}
+  #pf-right-col{display:block!important}
+  #pf-about-content{display:none!important}
+  /* Desktop "Personal details" edit toggle: #pf-about-content gets reparented into
+     #pf-personal-detail-card on demand (see pfDesktopEditToggle) — needs a selector at
+     least as specific as the plain-ID rule above to override its display:none. */
+  #pf-about-content.pf-about-desktop-mode{display:block!important;margin-top:8px}
+  #pf-about-content.pf-about-desktop-mode>div:first-child{background:none!important;padding:12px 0 16px!important;border-bottom:1px solid var(--border)!important}
+  #pf-about-content.pf-about-desktop-mode>div:nth-child(2){background:none!important;padding:12px 0 0!important;border-bottom:none!important}
+  #pf-composer-box,#pf-posts-feed{display:block!important}
+  #pf-cover-cam-btn{top:16px!important;right:16px!important;width:42px!important;height:42px!important}
+  #pf-visitor-back{top:16px!important;left:16px!important}
+  #pf-stats-row{margin-bottom:14px!important}
+  #pf-risers-content,#pf-achievements-content{max-width:1150px;margin:0 auto;padding:0 16px 24px}
+}
+@media(max-width:767px){
+  #pf-desktop-cols{display:none!important}
+  #pf-left-col,#pf-right-col{display:none!important}
+}
+.pf-tab-btn{padding:14px 18px 12px;border:none;border-bottom:3px solid transparent;background:none;color:var(--sub-text);font-size:15px;font-weight:600;cursor:pointer;white-space:nowrap;font-family:inherit;flex-shrink:0;transition:color .15s,border-color .15s}
+.pf-tab-btn.active{color:#FFB800;border-bottom-color:#FFB800;font-weight:700}
+.pf-tab-btn:hover:not(.active){color:var(--text);background:rgba(128,128,128,.08)}
+.pf-detail-card{background:var(--card);border-radius:10px;padding:14px 16px;border:1px solid var(--border);margin-bottom:12px}
+.pf-detail-card-title{font-size:20px;font-weight:700;color:var(--text);margin-bottom:12px}
+.visitor-mode #pf-composer-box{display:none!important}
+.visitor-mode #pf-composer-box-d{display:none!important}
+.visitor-mode #pfe-score-card{display:none!important}
+</style>
+
+<!-- ── Cover Photo ─────────────────────────────────────────── -->
+<div id="pf-cover" style="position:relative;height:190px;background:linear-gradient(135deg,#090B12 0%,#1a1200 60%,#FFB800 100%);overflow:hidden">
+  <div style="position:absolute;inset:0;background:repeating-linear-gradient(135deg,transparent,transparent 30px,rgba(255,255,255,.04) 30px,rgba(255,255,255,.04) 60px)"></div>
+  <button id="pf-visitor-back" onclick="pfGoBack()" style="display:none;position:absolute;top:10px;left:10px;z-index:10;align-items:center;gap:6px;background:rgba(0,0,0,.48);border:none;border-radius:50px;padding:7px 14px 7px 10px;color:#fff;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)">
+    <svg viewBox="0 0 24 24" style="width:17px;height:17px;fill:none;stroke:#fff;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+    <span id="pf-visitor-back-name"></span>
+  </button>
+  <!-- Cover headline — big bold line + small subline, centered. Defaults to template[0]
+       client-side (no DB write needed) until the owner picks a template or writes custom text. -->
+  <div id="pf-cover-text" style="position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);text-align:center;padding:0 24px;pointer-events:none">
+    <div id="pf-cover-headline" style="font-size:34px;font-weight:800;color:#fff;text-shadow:0 2px 10px rgba(0,0,0,.55);line-height:1.15;font-family:'Barlow Condensed','Hind Siliguri',sans-serif;text-transform:uppercase;letter-spacing:.5px"></div>
+    <div id="pf-cover-subtext" style="font-size:15px;font-weight:500;color:rgba(255,255,255,.9);margin-top:10px;text-shadow:0 1px 6px rgba(0,0,0,.55);font-family:'Space Grotesk','Hind Siliguri',sans-serif;letter-spacing:.3px"></div>
+  </div>
+  <div id="pf-cover-btns" style="position:absolute;top:10px;right:10px;display:flex;align-items:center;gap:8px">
+    <!-- These three stay hidden until the toggle (pencil) button below is tapped — collapses
+         the cover controls down to a single icon instead of three always-visible buttons. -->
+    <div id="pf-cover-subbtns" style="display:none;align-items:center;gap:8px">
+      <button id="pf-cover-template-btn" onclick="pfOpenCoverTemplates()" title="Template বেছে নাও" style="width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.92);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 1px 3px rgba(0,0,0,.2)">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#1a1a1a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+      </button>
+      <button id="pf-cover-text-btn" onclick="pfOpenCoverTextEditor()" title="নিজের লেখা বসাও" style="width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.92);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 1px 3px rgba(0,0,0,.2)">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#1a1a1a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg>
+      </button>
+      <button id="pf-cover-cam-btn" title="Cover ছবি বদলাও" style="width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.92);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 1px 3px rgba(0,0,0,.2)">
+        <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="#1a1a1a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+      </button>
+    </div>
+    <button id="pf-cover-menu-toggle" onclick="pfToggleCoverMenu()" title="Cover customize করো" style="width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.92);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 1px 3px rgba(0,0,0,.25);flex-shrink:0">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#1a1a1a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5z"/></svg>
+    </button>
+  </div>
+</div>
+
+<!-- Cover template picker — 5 preset headline/subtext pairs, tap one to apply + save. -->
+<div id="pf-cover-tpl-modal" style="display:none;position:fixed;inset:0;z-index:400;background:rgba(0,0,0,.55);align-items:center;justify-content:center;padding:20px">
+  <div style="background:var(--card);border-radius:16px;padding:20px;max-width:380px;width:100%;max-height:80vh;overflow-y:auto">
+    <div style="font-size:16px;font-weight:800;color:var(--text);margin-bottom:14px;font-family:'Hind Siliguri',sans-serif">Cover Template বেছে নাও</div>
+    <div id="pf-cover-tpl-list" style="display:flex;flex-direction:column;gap:10px"></div>
+    <button onclick="pfCloseCoverTemplates()" style="margin-top:14px;width:100%;padding:10px;background:var(--border);color:var(--text);border:none;border-radius:8px;font-weight:700;cursor:pointer;font-family:'Hind Siliguri',sans-serif">বন্ধ করো</button>
+  </div>
+</div>
+
+<!-- Cover custom text editor -->
+<div id="pf-cover-edit-modal" style="display:none;position:fixed;inset:0;z-index:400;background:rgba(0,0,0,.55);align-items:center;justify-content:center;padding:20px">
+  <div style="background:var(--card);border-radius:16px;padding:20px;max-width:380px;width:100%">
+    <div style="font-size:16px;font-weight:800;color:var(--text);margin-bottom:14px;font-family:'Hind Siliguri',sans-serif">নিজের Cover Text লিখো</div>
+    <label style="font-size:12px;font-weight:700;color:var(--text2);font-family:'Hind Siliguri',sans-serif">বড় লাইন (headline)</label>
+    <input id="pf-cover-edit-headline" maxlength="40" placeholder="যেমন: Rising, Not Resting." style="width:100%;padding:10px 12px;margin:6px 0 12px;background:var(--bg);border:1px solid var(--border);border-radius:8px;font-size:14px;color:var(--text);box-sizing:border-box;font-family:'Hind Siliguri',sans-serif">
+    <label style="font-size:12px;font-weight:700;color:var(--text2);font-family:'Hind Siliguri',sans-serif">ছোট লাইন (subtext)</label>
+    <input id="pf-cover-edit-subtext" maxlength="60" placeholder="যেমন: Small steps, big change." style="width:100%;padding:10px 12px;margin:6px 0 16px;background:var(--bg);border:1px solid var(--border);border-radius:8px;font-size:14px;color:var(--text);box-sizing:border-box;font-family:'Hind Siliguri',sans-serif">
+    <div style="display:flex;gap:8px">
+      <button onclick="pfSaveCoverText()" style="flex:1;padding:10px;background:linear-gradient(90deg,#FF8A00,#FFB800);color:#fff;border:none;border-radius:8px;font-weight:700;cursor:pointer;font-family:'Hind Siliguri',sans-serif">Save</button>
+      <button onclick="pfCloseCoverTextEditor()" style="flex:1;padding:10px;background:var(--border);color:var(--text);border:none;border-radius:8px;font-weight:700;cursor:pointer;font-family:'Hind Siliguri',sans-serif">বাতিল</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── Profile Info Block ──────────────────────────────────── -->
+<div style="background:var(--card);border-bottom:1px solid var(--border)">
+<div id="pf-info-block" style="padding:0 12px">
+
+  <!-- Wrapper: block on mobile (avatar top, info below), flex on desktop (avatar left, info right) -->
+  <div id="pf-av-name-wrap">
+
+    <!-- Avatar -->
+    <div id="pf-avatar-row" style="position:relative;flex-shrink:0">
+      <div id="pf-avatar" style="width:90px;height:90px;border-radius:50%;background:linear-gradient(135deg,#FF8A00,#FFB800);display:flex;align-items:center;justify-content:center;font-size:36px;font-weight:800;color:#090B12;font-family:'Barlow Condensed',sans-serif;border:3px solid var(--card);margin-top:-46px">T</div>
+      <button id="pf-av-cam-btn" onclick="pfAvDirectGallery()" style="position:absolute;bottom:4px;right:2px;width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#FF8A00,#FFB800);border:2px solid var(--card);display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0;box-shadow:0 2px 6px rgba(255,138,0,.4)">
+        <svg viewBox="0 0 24 24" style="width:14px;height:14px;fill:none;stroke:#fff;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round"><path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"/><circle cx="12" cy="13" r="4"/></svg>
+      </button>
+    </div>
+
+    <!-- Name + stats + bio (single copy, used by both mobile and desktop via CSS) -->
+    <div id="pf-name-block">
+      <div style="display:flex;align-items:center;gap:4px;flex-wrap:wrap;margin-bottom:3px">
+        <span id="pf-name" style="font-size:20px;font-weight:700;color:var(--text);font-family:'Bahnschrift','DIN Alternate','Franklin Gothic Medium',sans-serif">Rizer</span>
+        <div id="pf-badge-wrap" oncontextmenu="return false" ondragstart="return false" style="display:inline-flex;align-items:center;flex-shrink:0;margin-top:2px;-webkit-user-select:none;user-select:none">
+          <img id="pf-verified-badge" src="Transparent%20Verified%20Baadge-02.svg" draggable="false" style="height:24px;object-fit:contain;display:block;-webkit-user-drag:none;pointer-events:none" alt="">
+        </div>
+      </div>
+      <div id="pf-stats-row" style="font-size:12px;color:var(--sub-text);margin-bottom:8px;display:flex;align-items:center;gap:0;flex-wrap:wrap">
+        <span id="pf-risers-stat" onclick="pfOpenRisersList()" style="cursor:pointer;display:inline-flex;align-items:center;gap:3px"><span id="pf-risers-count" style="font-weight:700;color:var(--text)">0</span>&nbsp;<span id="pf-risers-label">Risers</span></span>
+        <span style="margin:0 6px">&nbsp;·&nbsp;</span>
+        <span><span id="pf-posts-count" style="font-weight:700;color:var(--text)">0</span> posts</span>
+        <span id="pf-degree-badge" style="display:none;margin-left:8px;font-size:11px;font-weight:700;color:#FF8A00;background:rgba(255,138,0,.12);padding:2px 7px;border-radius:20px"></span>
+        <span id="pf-rising-days" style="display:none;margin-left:6px;font-size:11px;color:var(--sub-text)"></span>
+      </div>
+      <div id="pf-bio" style="font-size:14px;color:var(--text);line-height:1.5;margin-bottom:8px">তাওয়াক্কালতু আলাল্লাহ</div>
+      <div style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:8px">
+        <div style="display:flex;align-items:center;gap:4px;font-size:12px;color:var(--sub-text)">
+          <svg viewBox="0 0 24 24" style="width:14px;height:14px;fill:var(--sub-text)"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+          <span id="pf-location">Bangladesh</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:4px;font-size:12px;color:var(--sub-text)">
+          <svg viewBox="0 0 24 24" style="width:14px;height:14px;fill:var(--sub-text)"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+          <span id="pf-username">@rizer</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:4px;font-size:12px;color:var(--sub-text)">
+          <svg viewBox="0 0 24 24" style="width:14px;height:14px;fill:var(--sub-text)"><path d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"/></svg>
+          <span id="pf-joined">Joined 2024</span>
+        </div>
+      </div>
+      <div id="pf-risers-mini-row" style="display:flex;align-items:center;gap:8px;margin-bottom:12px">
+        <div style="display:flex">
+          <div style="width:22px;height:22px;border-radius:50%;background:#FFB800;border:2px solid var(--card);display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:800;color:#090B12;margin-right:-6px;z-index:3">R</div>
+          <div style="width:22px;height:22px;border-radius:50%;background:#FF8A00;border:2px solid var(--card);display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:800;color:#090B12;margin-right:-6px;z-index:2">A</div>
+          <div style="width:22px;height:22px;border-radius:50%;background:#FFC933;border:2px solid var(--card);display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:800;color:#090B12;z-index:1">M</div>
+        </div>
+        <span style="font-size:12px;color:var(--sub-text)">Fellow Risers</span>
+      </div>
+    </div>
+
+    <!-- Action buttons (right side on desktop, below on mobile) -->
+    <div id="pf-action-btns-row" style="padding-bottom:12px">
+    <!-- Own profile -->
+    <div id="pf-own-actions" style="display:flex;gap:8px">
+      <button onclick="showPage('dashboard')" style="flex:1;display:flex;align-items:center;justify-content:center;gap:7px;padding:9px 16px;background:linear-gradient(90deg,#FF8A00,#FFB800);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit">
+        <svg viewBox="0 0 24 24" style="width:16px;height:16px;fill:#fff"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg>
+        Dashboard
+      </button>
+      <button onclick="pfOpenEditProfile()" style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:9px 16px;background:var(--border);color:var(--text);border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit">
+        <svg viewBox="0 0 24 24" style="width:16px;height:16px;fill:var(--text)"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
+        Edit
+      </button>
+      <button id="pf-own-rizmeet-btn" onclick="showPage('rizmeet')" title="RizMeet" style="display:none;width:42px;height:42px;border-radius:8px;background:linear-gradient(135deg,#FF8A00,#FFB800);border:none;cursor:pointer;align-items:center;justify-content:center;flex-shrink:0">
+        <svg viewBox="0 0 24 24" style="width:18px;height:18px;fill:#fff"><path d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"/></svg>
+      </button>
+      <button id="pf-dropdown-btn" style="width:42px;height:42px;border-radius:8px;background:var(--border);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+        <svg viewBox="0 0 24 24" style="width:18px;height:18px;fill:var(--text)"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg>
+      </button>
+    </div>
+    <!-- Visitor profile -->
+    <div id="pf-visitor-actions" style="display:none;gap:8px;flex-direction:column">
+      <div style="display:flex;gap:8px">
+        <button id="pf-add-rizer-btn" onclick="pfRiseTogether()" style="flex:2;display:flex;align-items:center;justify-content:center;gap:6px;padding:9px 12px;background:linear-gradient(90deg,#FF8A00,#FFB800);color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s;white-space:nowrap;overflow:hidden;min-width:0">
+          <svg id="pf-rise-btn-icon" viewBox="0 0 24 24" style="width:15px;height:15px;fill:#fff;flex-shrink:0"><path d="M15 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm-9-2V7H4v3H1v2h3v3h2v-3h3v-2H6zm9 4c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+          <span id="pf-rise-btn-txt">Connect Rizer</span>
+        </button>
+        <button onclick="rzOpenKnokz(_pfVisitingUserId||undefined)" style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:9px 12px;background:var(--border);color:var(--text);border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit">
+          <svg viewBox="0 0 24 24" style="width:16px;height:16px;fill:none;stroke:var(--text);stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="M8 10h.01M12 10h.01M16 10h.01"/></svg>
+          Knokz
+        </button>
+        <button id="pf-visitor-rizmeet-btn" onclick="pfOpenRizMeet()" title="Book a meeting" style="display:none;width:42px;height:42px;border-radius:8px;background:linear-gradient(135deg,#FF8A00,#FFB800);border:none;cursor:pointer;align-items:center;justify-content:center;flex-shrink:0">
+          <svg viewBox="0 0 24 24" style="width:18px;height:18px;fill:#fff"><path d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"/></svg>
+        </button>
+        <button style="width:42px;height:42px;border-radius:8px;background:var(--border);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+          <svg viewBox="0 0 24 24" style="width:18px;height:18px;fill:var(--text)"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg>
+        </button>
+      </div>
+      <!-- Mutual Risers row -->
+      <div id="pf-mutual-row" style="display:none;align-items:center;gap:8px;padding:2px 0">
+        <div id="pf-mutual-avatars" style="display:flex"></div>
+        <span id="pf-mutual-txt" style="font-size:12px;color:var(--sub-text)"></span>
+      </div>
+    </div>
+    </div><!-- /pf-action-btns-row -->
+
+  </div><!-- /pf-av-name-wrap -->
+
+</div><!-- /pf-info-block -->
+</div>
+
+<!-- ── Tabs ──────────────────────────────── -->
+<div style="background:var(--card);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:9" id="pf-tabs-wrap">
+  <div id="pf-tabs-inner" style="overflow-x:auto;-webkit-overflow-scrolling:touch;display:flex">
+    <button class="pf-tab-btn active" onclick="pfTab('about',this)" id="pftab-about">About</button>
+    <button class="pf-tab-btn" onclick="pfTab('risers',this)" id="pftab-risers">Risers</button>
+    <button class="pf-tab-btn" onclick="pfTab('achievements',this)" id="pftab-achievements">Achievements</button>
+  </div>
+</div>
+
+<!-- ── MOBILE: tab content (same as before) ────────────────── -->
+<div id="pf-mobile-tabs-wrap" style="padding:0 0 90px">
+
+  <!-- ABOUT TAB – mobile only -->
+  <div id="pf-about-content">
+    <div id="pfe-score-card" style="position:relative;overflow:hidden;background:var(--card);padding:16px;border-bottom:1px solid var(--border)">
+      <div style="position:absolute;top:-46px;right:-46px;width:150px;height:150px;border-radius:50%;background:radial-gradient(circle,rgba(255,138,0,.20),transparent 70%);pointer-events:none"></div>
+      <div style="display:flex;align-items:center;gap:14px;position:relative">
+        <div style="position:relative;width:66px;height:66px;flex-shrink:0">
+          <svg width="66" height="66" viewBox="0 0 66 66" style="transform:rotate(-90deg)">
+            <defs>
+              <linearGradient id="pfeScGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#FF8A00"/>
+                <stop offset="100%" stop-color="#FFC400"/>
+              </linearGradient>
+            </defs>
+            <circle cx="33" cy="33" r="27" fill="none" stroke="var(--border)" stroke-width="6"/>
+            <circle id="pfe-sc-ring" cx="33" cy="33" r="27" fill="none" stroke="url(#pfeScGrad)" stroke-width="6" stroke-linecap="round" style="transition:stroke-dashoffset .6s cubic-bezier(.4,0,.2,1)"/>
+          </svg>
+          <div id="pfe-sc-ring-label" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:800;color:var(--text)"></div>
+        </div>
+        <div style="flex:1;min-width:0">
+          <div id="pfe-sc-title" style="font-size:14.5px;font-weight:800;color:var(--text)"></div>
+          <div id="pfe-sc-sub" style="font-size:12px;color:var(--sub-text);line-height:1.4;margin-top:3px"></div>
+        </div>
+      </div>
+      <div id="pfe-sc-chips" style="display:flex;gap:6px;margin-top:14px;position:relative"></div>
+      <button id="pfe-sc-cta" onclick="pfScrollToPersonalDetails()" style="width:100%;margin-top:12px;padding:10px;border:none;border-radius:12px;font-size:13px;font-weight:700;cursor:pointer;position:relative"></button>
+    </div>
+    <div id="pf-about-details-block" style="background:var(--card);padding:14px 16px 0;border-bottom:1px solid var(--border)">
+      <div style="font-size:16px;font-weight:700;color:var(--text);margin-bottom:14px">Personal Details</div>
+      <div style="display:flex;flex-direction:column;gap:0">
+
+        <div id="pf-row-username" style="display:flex;flex-direction:column;gap:0">
+          <div style="display:flex;align-items:center;gap:12px;padding:5px 0">
+            <svg viewBox="0 0 24 24" style="width:20px;height:20px;fill:none;stroke:#8a93a3;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+            <div style="flex:1;min-width:0"><span id="pf-about-username" style="font-size:14px;font-weight:600;color:var(--text);display:block;line-height:1.2">Not set</span><span style="font-size:11px;color:var(--sub-text);display:block">Username</span></div>
+            <button class="pf-row-edbtn" onclick="pfInlineEdit('username')"><svg viewBox="0 0 24 24" style="width:13px;height:13px;fill:currentColor"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg></button>
+          </div>
+          <div id="pf-ie-username" class="pf-ie-panel">
+            <div class="un-wrap"><span class="un-at">@</span><input id="pf-ieinp-username" class="un-inp" type="text" placeholder="username" autocomplete="off" maxlength="20" oninput="unCheckUsername(this.value)"></div>
+            <div id="un-status" class="un-status"></div>
+            <div style="font-size:11px;color:var(--sub-text);margin-top:2px">Letters, numbers, _ and . only · Min 3 chars</div>
+            <div class="pf-ie-acts"><button class="pf-ie-save" id="un-save-btn" onclick="pfInlineSave('username')" disabled>✓ Save</button><button class="pf-ie-cancel" onclick="pfInlineCancel('username')">Cancel</button></div>
+          </div>
+        </div>
+
+        <div id="pf-row-cat" style="display:flex;flex-direction:column;gap:0">
+          <div style="display:flex;align-items:center;gap:12px;padding:5px 0">
+            <svg viewBox="0 0 24 24" style="width:20px;height:20px;fill:none;stroke:#FF8A00;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/><circle cx="7" cy="7" r="1" fill="#FF8A00"/></svg>
+            <div style="flex:1;min-width:0"><div id="pf-about-cat" style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:2px"></div><span style="font-size:11px;color:var(--sub-text);display:block">Profile Category</span></div>
+            <button class="pf-row-edbtn" onclick="pfInlineEdit('category')"><svg viewBox="0 0 24 24" style="width:13px;height:13px;fill:currentColor"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg></button>
+          </div>
+          <div id="pf-ie-category" class="pf-ie-panel">
+            <div class="cat-picker">
+              <div class="cat-inp-row" onclick="document.getElementById('cat-search-inp').focus()">
+                <div id="cat-chips-row" style="display:contents"></div>
+                <input id="cat-search-inp" class="cat-search-inp" type="text" placeholder="Search categories…" autocomplete="off" oninput="pfCatSearch(this.value)">
+                <span class="cat-search-ic-r"><svg viewBox="0 0 24 24" style="width:16px;height:16px;fill:currentColor"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg></span>
+              </div>
+              <div style="font-size:11px;font-weight:700;color:var(--sub-text);text-transform:uppercase;letter-spacing:.6px;margin-bottom:8px">Popular categories</div>
+              <div id="cat-results-grid" class="cat-results-grid"></div>
+            </div>
+            <div class="pf-ie-acts" style="margin-top:10px"><button class="pf-ie-save" onclick="pfInlineSave('category')">✓ Save</button><button class="pf-ie-cancel" onclick="pfInlineCancel('category')">Cancel</button></div>
+          </div>
+        </div>
+
+        <div id="pf-row-city" style="display:flex;flex-direction:column;gap:0">
+          <div style="display:flex;align-items:center;gap:12px;padding:5px 0">
+            <svg viewBox="0 0 24 24" style="width:20px;height:20px;fill:none;stroke:#8a93a3;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+            <div style="flex:1;min-width:0"><span id="pf-about-loc" style="font-size:14px;font-weight:600;color:var(--text);display:block;line-height:1.2">Lives in Bangladesh</span><span style="font-size:11px;color:var(--sub-text);display:block">Current City</span></div>
+            <button class="pf-row-edbtn" onclick="pfInlineEdit('city')"><svg viewBox="0 0 24 24" style="width:13px;height:13px;fill:currentColor"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg></button>
+          </div>
+          <div id="pf-ie-city" class="pf-ie-panel">
+            <div class="loc-inp-wrap"><span class="loc-inp-ic"><svg viewBox="0 0 24 24" style="width:15px;height:15px;fill:currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg></span><input id="loc-inp-city" class="loc-inp pf-ie-inp" type="text" placeholder="Search your city or area…" autocomplete="off" oninput="locSearch(this.value,'city')" onfocus="if(this.value)locSearch(this.value,'city')" onblur="setTimeout(function(){locHide('city')},220)"><div id="loc-dd-city" class="loc-dd"></div></div>
+            <div class="pf-ie-acts"><button class="pf-ie-save" onclick="pfInlineSave('city')">✓ Save</button><button class="pf-ie-cancel" onclick="pfInlineCancel('city')">Cancel</button></div>
+          </div>
+        </div>
+
+        <div id="pf-row-hometown" style="display:flex;flex-direction:column;gap:0">
+          <div style="display:flex;align-items:center;gap:12px;padding:5px 0">
+            <svg viewBox="0 0 24 24" style="width:20px;height:20px;fill:none;stroke:#8a93a3;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0"><path d="M3 12L12 3l9 9"/><path d="M9 21V12h6v9"/><path d="M3 21h18"/></svg>
+            <div style="flex:1;min-width:0"><span id="pf-about-hometown" style="font-size:14px;font-weight:600;color:var(--text);display:block;line-height:1.2">Bangladesh</span><span style="font-size:11px;color:var(--sub-text);display:block">Hometown</span></div>
+            <button class="pf-row-edbtn" onclick="pfInlineEdit('hometown')"><svg viewBox="0 0 24 24" style="width:13px;height:13px;fill:currentColor"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg></button>
+          </div>
+          <div id="pf-ie-hometown" class="pf-ie-panel">
+            <div class="loc-inp-wrap"><span class="loc-inp-ic"><svg viewBox="0 0 24 24" style="width:15px;height:15px;fill:currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg></span><input id="loc-inp-hometown" class="loc-inp pf-ie-inp" type="text" placeholder="Search your hometown…" autocomplete="off" oninput="locSearch(this.value,'hometown')" onfocus="if(this.value)locSearch(this.value,'hometown')" onblur="setTimeout(function(){locHide('hometown')},220)"><div id="loc-dd-hometown" class="loc-dd"></div></div>
+            <div class="pf-ie-acts"><button class="pf-ie-save" onclick="pfInlineSave('hometown')">✓ Save</button><button class="pf-ie-cancel" onclick="pfInlineCancel('hometown')">Cancel</button></div>
+          </div>
+        </div>
+
+        <div id="pf-row-rel" style="display:flex;flex-direction:column;gap:0">
+          <div style="display:flex;align-items:center;gap:12px;padding:5px 0">
+            <svg viewBox="0 0 24 24" style="width:20px;height:20px;fill:none;stroke:#EF4444;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+            <div style="flex:1;min-width:0"><span id="pf-about-rel" style="font-size:14px;font-weight:600;color:var(--text);display:block;line-height:1.2">In a relationship 🔒</span><span style="font-size:11px;color:var(--sub-text);display:block">Relationship</span></div>
+            <button class="pf-row-edbtn" onclick="pfInlineEdit('relationship')"><svg viewBox="0 0 24 24" style="width:13px;height:13px;fill:currentColor"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg></button>
+          </div>
+          <div id="pf-ie-relationship" class="pf-ie-panel">
+            <select class="pf-ie-sel"><option value="">Prefer not to say</option><option value="Single">Single</option><option value="In a relationship">In a relationship</option><option value="Married">Married</option><option value="Divorced">Divorced</option><option value="Widowed">Widowed</option></select>
+            <div class="pf-ie-acts"><button class="pf-ie-save" onclick="pfInlineSave('relationship')">✓ Save</button><button class="pf-ie-cancel" onclick="pfInlineCancel('relationship')">Cancel</button></div>
+          </div>
+        </div>
+
+        <div id="pf-row-joined" style="display:flex;align-items:center;gap:12px;padding:5px 0">
+          <svg viewBox="0 0 24 24" style="width:20px;height:20px;fill:none;stroke:#8a93a3;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+          <div style="flex:1;min-width:0"><span id="pf-about-joined" style="font-size:14px;font-weight:600;color:var(--text);display:block;line-height:1.2">Joined Rizers 2024</span><span style="font-size:11px;color:var(--sub-text);display:block">Member Since</span></div>
+        </div>
+      </div>
+
+      <div id="pf-about-more" style="overflow:hidden;max-height:0;transition:max-height .38s cubic-bezier(.4,0,.2,1)">
+        <div style="display:flex;flex-direction:column;gap:14px;padding-top:14px">
+
+          <div id="pf-row-birthday" style="display:flex;flex-direction:column;gap:0">
+            <div style="display:flex;align-items:center;gap:12px;padding:5px 0">
+              <svg viewBox="0 0 24 24" style="width:20px;height:20px;fill:none;stroke:#8a93a3;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0"><path d="M20 21v-1a4 4 0 00-4-4H8a4 4 0 00-4 4v1"/><path d="M12 3c0 0 0 3-3 3s3 3 3 3 3-3 3-3-3 0-3-3z"/><path d="M4 15s0-2 2-2 2 2 2 2 0-2 2-2 2 2 2 2 0-2 2-2 2 2 2 2"/></svg>
+              <div style="flex:1;min-width:0"><span id="pf-about-birthday" style="font-size:14px;font-weight:600;color:var(--text);display:block;line-height:1.2">Not added yet</span><span style="font-size:11px;color:var(--sub-text);display:block">Birthday</span></div>
+              <button class="pf-row-edbtn" onclick="pfInlineEdit('birthday')"><svg viewBox="0 0 24 24" style="width:13px;height:13px;fill:currentColor"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg></button>
+            </div>
+            <div id="pf-ie-birthday" class="pf-ie-panel"><input class="pf-ie-inp" type="date"><div class="pf-ie-acts"><button class="pf-ie-save" onclick="pfInlineSave('birthday')">✓ Save</button><button class="pf-ie-cancel" onclick="pfInlineCancel('birthday')">Cancel</button></div></div>
+          </div>
+
+          <div id="pf-row-gender" style="display:flex;flex-direction:column;gap:0">
+            <div style="display:flex;align-items:center;gap:12px;padding:5px 0">
+              <svg viewBox="0 0 24 24" style="width:20px;height:20px;fill:none;stroke:#8a93a3;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+              <div style="flex:1;min-width:0"><span id="pf-about-gender" style="font-size:14px;font-weight:600;color:var(--text);display:block;line-height:1.2">Not added yet</span><span style="font-size:11px;color:var(--sub-text);display:block">Gender</span></div>
+              <button class="pf-row-edbtn" onclick="pfInlineEdit('gender')"><svg viewBox="0 0 24 24" style="width:13px;height:13px;fill:currentColor"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg></button>
+            </div>
+            <div id="pf-ie-gender" class="pf-ie-panel"><select class="pf-ie-sel"><option value="">Prefer not to say</option><option value="Male">Male</option><option value="Female">Female</option><option value="Other">Other</option></select><div class="pf-ie-acts"><button class="pf-ie-save" onclick="pfInlineSave('gender')">✓ Save</button><button class="pf-ie-cancel" onclick="pfInlineCancel('gender')">Cancel</button></div></div>
+          </div>
+
+          <div id="pf-row-work" style="display:flex;flex-direction:column;gap:0">
+            <div style="display:flex;align-items:center;gap:12px;padding:5px 0">
+              <svg viewBox="0 0 24 24" style="width:20px;height:20px;fill:none;stroke:#8a93a3;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/></svg>
+              <div style="flex:1;min-width:0"><span id="pf-about-work" style="font-size:14px;font-weight:600;color:var(--text);display:block;line-height:1.2">Not added yet</span><span style="font-size:11px;color:var(--sub-text);display:block">Work</span></div>
+              <button class="pf-row-edbtn" onclick="pfInlineEdit('work')"><svg viewBox="0 0 24 24" style="width:13px;height:13px;fill:currentColor"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg></button>
+            </div>
+            <div id="pf-ie-work" class="pf-ie-panel">
+              <div class="wk-field-wrap"><label class="wk-label">Position / Role</label><div style="position:relative"><input id="pf-ieinp-work" class="pf-ie-inp" type="text" placeholder="e.g. Software Engineer" autocomplete="off" oninput="wkPosInput(this.value)" onfocus="wkPosInput(this.value)" onblur="setTimeout(wkPosHide,180)"><div id="wk-pos-dd" class="wk-pos-dd"></div></div></div>
+              <div class="wk-field-wrap"><label class="wk-label">Company / Organization</label><input id="pf-ieinp-company" class="pf-ie-inp" type="text" placeholder="e.g. Google, Fiverr, Self-employed"></div>
+              <div class="pf-ie-acts"><button class="pf-ie-save" onclick="pfInlineSave('work')">✓ Save</button><button class="pf-ie-cancel" onclick="pfInlineCancel('work')">Cancel</button></div>
+            </div>
+          </div>
+
+          <div id="pf-row-edu" style="display:flex;flex-direction:column;gap:0">
+            <div style="display:flex;align-items:center;gap:12px;padding:5px 0">
+              <svg viewBox="0 0 24 24" style="width:20px;height:20px;fill:none;stroke:#8a93a3;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0"><path d="M22 10v6M2 10l10-5 10 5-10 5-10-5z"/><path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5"/></svg>
+              <div style="flex:1;min-width:0"><span id="pf-about-edu" style="font-size:14px;font-weight:600;color:var(--text);display:block;line-height:1.2">Not added yet</span><span style="font-size:11px;color:var(--sub-text);display:block">Education</span></div>
+              <button class="pf-row-edbtn" onclick="pfInlineEdit('education')"><svg viewBox="0 0 24 24" style="width:13px;height:13px;fill:currentColor"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg></button>
+            </div>
+            <div id="pf-ie-education" class="pf-ie-panel"><input class="pf-ie-inp" type="text" placeholder="e.g. University of Dhaka"><div class="pf-ie-acts"><button class="pf-ie-save" onclick="pfInlineSave('education')">✓ Save</button><button class="pf-ie-cancel" onclick="pfInlineCancel('education')">Cancel</button></div></div>
+          </div>
+
+          <div id="pf-row-goals" style="display:flex;flex-direction:column;gap:0">
+            <div style="display:flex;align-items:center;gap:12px;padding:5px 0">
+              <svg viewBox="0 0 24 24" style="width:20px;height:20px;fill:none;stroke:#FF8A00;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+              <div style="flex:1;min-width:0"><span id="pf-about-goals" style="font-size:14px;font-weight:600;color:var(--text);display:block;line-height:1.2">Not added yet</span><span style="font-size:11px;color:var(--sub-text);display:block">Goal / Niyyah</span></div>
+              <button class="pf-row-edbtn" onclick="pfInlineEdit('goals')"><svg viewBox="0 0 24 24" style="width:13px;height:13px;fill:currentColor"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg></button>
+            </div>
+            <div id="pf-ie-goals" class="pf-ie-panel"><textarea class="pf-ie-textarea" placeholder="Share your niyyah…"></textarea><div class="pf-ie-acts"><button class="pf-ie-save" onclick="pfInlineSave('goals')">✓ Save</button><button class="pf-ie-cancel" onclick="pfInlineCancel('goals')">Cancel</button></div></div>
+          </div>
+
+          <div id="pf-row-madhhab" style="display:flex;flex-direction:column;gap:0">
+            <div style="display:flex;align-items:center;gap:12px;padding:5px 0">
+              <svg viewBox="0 0 24 24" style="width:20px;height:20px;fill:none;stroke:#8a93a3;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0"><path d="M21 12.79A9 9 0 1111.21 3a7 7 0 009.79 9.79z"/></svg>
+              <div style="flex:1;min-width:0"><span id="pf-about-madhhab" style="font-size:14px;font-weight:600;color:var(--text);display:block;line-height:1.2">Not added yet</span><span style="font-size:11px;color:var(--sub-text);display:block">Madhhab</span></div>
+              <button class="pf-row-edbtn" onclick="pfInlineEdit('madhhab')"><svg viewBox="0 0 24 24" style="width:13px;height:13px;fill:currentColor"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg></button>
+            </div>
+            <div id="pf-ie-madhhab" class="pf-ie-panel"><select class="pf-ie-sel"><option value="">Not specified</option><option value="Hanafi">Hanafi</option><option value="Maliki">Maliki</option><option value="Shafi'i">Shafi'i</option><option value="Hanbali">Hanbali</option></select><div class="pf-ie-acts"><button class="pf-ie-save" onclick="pfInlineSave('madhhab')">✓ Save</button><button class="pf-ie-cancel" onclick="pfInlineCancel('madhhab')">Cancel</button></div></div>
+          </div>
+
+          <div id="pf-row-quran" style="display:flex;flex-direction:column;gap:0">
+            <div style="display:flex;align-items:center;gap:12px;padding:5px 0">
+              <svg viewBox="0 0 24 24" style="width:20px;height:20px;fill:none;stroke:#8a93a3;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+              <div style="flex:1;min-width:0"><span id="pf-about-quran" style="font-size:14px;font-weight:600;color:var(--text);display:block;line-height:1.2">Not added yet</span><span style="font-size:11px;color:var(--sub-text);display:block">Daily Quran Goal</span></div>
+              <button class="pf-row-edbtn" onclick="pfInlineEdit('quran_goal')"><svg viewBox="0 0 24 24" style="width:13px;height:13px;fill:currentColor"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg></button>
+            </div>
+            <div id="pf-ie-quran_goal" class="pf-ie-panel"><input class="pf-ie-inp" type="number" min="1" max="604" placeholder="e.g. 5"><div class="pf-ie-acts"><button class="pf-ie-save" onclick="pfInlineSave('quran_goal')">✓ Save</button><button class="pf-ie-cancel" onclick="pfInlineCancel('quran_goal')">Cancel</button></div></div>
+          </div>
+
+          <div id="pf-row-website" style="display:flex;flex-direction:column;gap:0">
+            <div style="display:flex;align-items:center;gap:12px;padding:5px 0">
+              <svg viewBox="0 0 24 24" style="width:20px;height:20px;fill:none;stroke:#8a93a3;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+              <div style="flex:1;min-width:0"><span id="pf-about-website" style="font-size:14px;font-weight:600;color:var(--text);display:block;line-height:1.2">Not added yet</span><span style="font-size:11px;color:var(--sub-text);display:block">Website</span></div>
+              <button class="pf-row-edbtn" onclick="pfInlineEdit('website')"><svg viewBox="0 0 24 24" style="width:13px;height:13px;fill:currentColor"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg></button>
+            </div>
+            <div id="pf-ie-website" class="pf-ie-panel"><input class="pf-ie-inp" type="url" placeholder="https://yoursite.com"><div class="pf-ie-acts"><button class="pf-ie-save" onclick="pfInlineSave('website')">✓ Save</button><button class="pf-ie-cancel" onclick="pfInlineCancel('website')">Cancel</button></div></div>
+          </div>
+
+          <div id="pf-row-youtube" style="display:flex;flex-direction:column;gap:0">
+            <div style="display:flex;align-items:center;gap:12px;padding:5px 0">
+              <svg viewBox="0 0 24 24" style="width:20px;height:20px;fill:none;stroke:#FF0000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0"><path d="M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 001.46 6.42 29 29 0 001 12a29 29 0 00.46 5.58 2.78 2.78 0 001.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 001.95-1.96A29 29 0 0023 12a29 29 0 00-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="#FF0000" stroke="none"/></svg>
+              <div style="flex:1;min-width:0"><span id="pf-about-youtube" style="font-size:14px;font-weight:600;color:var(--text);display:block;line-height:1.2">Not added yet</span><span style="font-size:11px;color:var(--sub-text);display:block">YouTube</span></div>
+              <button class="pf-row-edbtn" onclick="pfInlineEdit('youtube')"><svg viewBox="0 0 24 24" style="width:13px;height:13px;fill:currentColor"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg></button>
+            </div>
+            <div id="pf-ie-youtube" class="pf-ie-panel"><div class="un-wrap"><span class="un-at">@</span><input id="pf-ieinp-youtube" class="un-inp" type="text" placeholder="username" autocomplete="off" oninput="this.value=this.value.replace(/^@+/,'')"></div><div style="font-size:11px;color:var(--sub-text);margin-top:5px">youtube.com/@username</div><div class="pf-ie-acts"><button class="pf-ie-save" onclick="pfInlineSave('youtube')">✓ Save</button><button class="pf-ie-cancel" onclick="pfInlineCancel('youtube')">Cancel</button></div></div>
+          </div>
+
+          <div id="pf-row-instagram" style="display:flex;flex-direction:column;gap:0">
+            <div style="display:flex;align-items:center;gap:12px;padding:5px 0">
+              <svg viewBox="0 0 24 24" style="width:20px;height:20px;fill:none;stroke:url(#ig-grad2);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0"><defs><linearGradient id="ig-grad2" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stop-color="#f09433"/><stop offset="50%" stop-color="#dc2743"/><stop offset="100%" stop-color="#bc1888"/></linearGradient></defs><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="#dc2743" stroke="none"/></svg>
+              <div style="flex:1;min-width:0"><span id="pf-about-instagram" style="font-size:14px;font-weight:600;color:var(--text);display:block;line-height:1.2">Not added yet</span><span style="font-size:11px;color:var(--sub-text);display:block">Instagram</span></div>
+              <button class="pf-row-edbtn" onclick="pfInlineEdit('instagram')"><svg viewBox="0 0 24 24" style="width:13px;height:13px;fill:currentColor"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg></button>
+            </div>
+            <div id="pf-ie-instagram" class="pf-ie-panel"><div class="un-wrap"><span class="un-at">@</span><input id="pf-ieinp-instagram" class="un-inp" type="text" placeholder="username" autocomplete="off" oninput="this.value=this.value.replace(/^@+/,'')"></div><div style="font-size:11px;color:var(--sub-text);margin-top:5px">instagram.com/username</div><div class="pf-ie-acts"><button class="pf-ie-save" onclick="pfInlineSave('instagram')">✓ Save</button><button class="pf-ie-cancel" onclick="pfInlineCancel('instagram')">Cancel</button></div></div>
+          </div>
+
+          <div id="pf-row-whatsapp" style="display:flex;flex-direction:column;gap:0">
+            <div style="display:flex;align-items:center;gap:12px;padding:5px 0">
+              <svg viewBox="0 0 24 24" style="width:20px;height:20px;fill:none;stroke:#25D366;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
+              <div style="flex:1;min-width:0"><span id="pf-about-whatsapp" style="font-size:14px;font-weight:600;color:var(--text);display:block;line-height:1.2">Not added yet</span><span style="font-size:11px;color:var(--sub-text);display:block">WhatsApp</span></div>
+              <button class="pf-row-edbtn" onclick="pfInlineEdit('whatsapp')"><svg viewBox="0 0 24 24" style="width:13px;height:13px;fill:currentColor"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg></button>
+            </div>
+            <div id="pf-ie-whatsapp" class="pf-ie-panel"><div class="wa-row"><select id="wa-cc-sel" class="pf-ie-sel wa-cc-sel"></select><input id="pf-ieinp-whatsapp" class="pf-ie-inp wa-num-inp" type="tel" placeholder="Phone number"></div><div class="pf-ie-acts"><button class="pf-ie-save" onclick="pfInlineSave('whatsapp')">✓ Save</button><button class="pf-ie-cancel" onclick="pfInlineCancel('whatsapp')">Cancel</button></div></div>
+          </div>
+
+          <div id="pf-row-email" style="display:flex;flex-direction:column;gap:0">
+            <div style="display:flex;align-items:center;gap:12px;padding:5px 0">
+              <svg viewBox="0 0 24 24" style="width:20px;height:20px;fill:none;stroke:#8a93a3;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              <div style="flex:1;min-width:0"><span id="pf-about-email" style="font-size:14px;font-weight:600;color:var(--text);display:block;line-height:1.2">Not added yet</span><span style="font-size:11px;color:var(--sub-text);display:block">Email</span></div>
+              <button class="pf-row-edbtn" onclick="pfInlineEdit('email')"><svg viewBox="0 0 24 24" style="width:13px;height:13px;fill:currentColor"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg></button>
+            </div>
+            <div id="pf-ie-email" class="pf-ie-panel"><input class="pf-ie-inp" type="email" placeholder="your@email.com"><div class="pf-ie-acts"><button class="pf-ie-save" onclick="pfInlineSave('email')">✓ Save</button><button class="pf-ie-cancel" onclick="pfInlineCancel('email')">Cancel</button></div></div>
+          </div>
+
+          <div id="pf-row-phone" style="display:flex;flex-direction:column;gap:0">
+            <div style="display:flex;align-items:center;gap:12px;padding:5px 0">
+              <svg viewBox="0 0 24 24" style="width:20px;height:20px;fill:none;stroke:#8a93a3;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 014.5 12 19.79 19.79 0 011.42 4.18 2 2 0 013.4 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L7.91 9.91a16 16 0 006.18 6.18l1.27-.77a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+              <div style="flex:1;min-width:0"><span id="pf-about-phone" style="font-size:14px;font-weight:600;color:var(--text);display:block;line-height:1.2">Not added yet</span><span style="font-size:11px;color:var(--sub-text);display:block">Phone 🔒</span></div>
+              <button class="pf-row-edbtn" onclick="pfInlineEdit('phone')"><svg viewBox="0 0 24 24" style="width:13px;height:13px;fill:currentColor"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg></button>
+            </div>
+            <div id="pf-ie-phone" class="pf-ie-panel"><input class="pf-ie-inp" type="tel" placeholder="+880..."><div class="pf-ie-acts"><button class="pf-ie-save" onclick="pfInlineSave('phone')">✓ Save</button><button class="pf-ie-cancel" onclick="pfInlineCancel('phone')">Cancel</button></div></div>
+          </div>
+
+        </div>
+      </div>
+
+      <button id="pf-more-btn" onclick="pfToggleMoreDetails()" style="display:flex;align-items:center;gap:6px;margin:10px 16px 0;padding:0;border:none;background:none;font-size:14px;font-weight:600;color:#FF8A00;cursor:pointer;font-family:inherit">
+        <span id="pf-more-btn-txt">See more details</span>
+        <svg id="pf-more-chevron" viewBox="0 0 24 24" style="width:16px;height:16px;fill:currentColor;transition:transform .35s cubic-bezier(.4,0,.2,1)"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"/></svg>
+      </button>
+    </div>
+
+    <div style="height:1px;background:var(--border)"></div>
+
+    <!-- Mobile composer + posts -->
+    <div id="pf-composer-box" style="background:var(--card);border-bottom:1px solid var(--border);margin-bottom:8px">
+      <div style="display:flex;gap:10px;align-items:center;padding:10px 14px">
+        <div id="pf-composer-av" style="width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,#FF8A00,#FFB800);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:800;color:#090B12;font-family:'Barlow Condensed',sans-serif;flex-shrink:0">T</div>
+        <div onclick="pfOpenComposerFromProfile()" style="flex:1;background:var(--bg);border-radius:22px;padding:9px 16px;font-size:14px;color:var(--sub-text);cursor:pointer;border:1px solid var(--border)">What's on your mind?</div>
+      </div>
+      <div style="display:flex;border-top:1px solid var(--border)">
+        <button onclick="pfOpenPhotoFromProfile()" style="flex:1;display:flex;align-items:center;justify-content:center;gap:5px;padding:8px 4px;background:none;border:none;cursor:pointer;font-size:13px;font-weight:600;color:var(--sub-text);font-family:inherit">
+          <svg viewBox="0 0 24 24" style="width:17px;height:17px;fill:#FF8A00"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
+          Photo
+        </button>
+        <button onclick="pfOpenComposerFromProfile()" style="flex:1;display:flex;align-items:center;justify-content:center;gap:5px;padding:8px 4px;background:none;border:none;cursor:pointer;font-size:13px;font-weight:600;color:var(--sub-text);font-family:inherit">
+          <svg viewBox="0 0 24 24" style="width:17px;height:17px;fill:#FF8A00"><circle cx="12" cy="12" r="10"/><polygon points="10,8 16,12 10,16" fill="white"/></svg>
+          Reel
+        </button>
+        <button onclick="pfOpenVoiceFromProfile()" style="flex:1;display:flex;align-items:center;justify-content:center;gap:5px;padding:8px 4px;background:none;border:none;cursor:pointer;font-size:13px;font-weight:600;color:var(--sub-text);font-family:inherit">
+          <svg viewBox="0 0 24 24" style="width:17px;height:17px;fill:#FF8A00"><path d="M12 14a3 3 0 0 0 3-3V5a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3zm5-3a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.93V21H8v2h8v-2h-3v-3.07A7 7 0 0 0 19 11h-2z"/></svg>
+          Voice
+        </button>
+      </div>
+    </div>
+
+    <div id="pf-posts-feed" style="display:flex;flex-direction:column;gap:0;margin-bottom:8px">
+      <div style="background:var(--card);padding:16px;text-align:center;color:var(--sub-text);font-size:13px">
+        <div style="font-size:32px;margin-bottom:8px">📝</div>
+        <div style="font-weight:600;margin-bottom:4px">No posts yet</div>
+        <div style="font-size:12px">Share your first post!</div>
+        <button onclick="pfOpenComposerFromProfile()" style="margin-top:12px;padding:8px 20px;background:linear-gradient(90deg,#FF8A00,#FFB800);color:#090B12;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit">Create Post</button>
+      </div>
+    </div>
+
+  </div><!-- /pf-about-content -->
+
+  <!-- RISERS TAB -->
+  <div id="pf-risers-content" style="display:none;padding:12px">
+    <div style="background:var(--card);border-radius:12px;padding:16px;border:1px solid var(--border)">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+        <div>
+          <div style="font-size:15px;font-weight:700;color:var(--text)">Fellow Risers</div>
+          <div id="pf-risers-tab-sub" style="font-size:12px;color:var(--sub-text)">Loading...</div>
+        </div>
+      </div>
+      <div id="pf-risers-list" style="display:flex;flex-direction:column;gap:2px"></div>
+    </div>
+  </div>
+
+  <!-- ACHIEVEMENTS TAB -->
+  <div id="pf-achievements-content" style="display:none;padding:12px">
+    <div style="background:var(--card);border-radius:12px;padding:16px;border:1px solid var(--border);margin-bottom:10px">
+      <div style="font-size:15px;font-weight:700;color:var(--text);margin-bottom:14px">🏆 Badges & Achievements</div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px" id="pf-badges-grid">
+        <div style="text-align:center;padding:14px 8px;background:linear-gradient(135deg,#1a1200,#2a1e00);border-radius:10px;border:1px solid rgba(255,184,0,.3)"><div style="font-size:28px">🔥</div><div style="font-size:10px;font-weight:700;color:#FFB800;margin-top:4px">Streak Starter</div></div>
+        <div style="text-align:center;padding:14px 8px;background:linear-gradient(135deg,#FFB800,#FFC933);border-radius:10px;border:1px solid #FFB800"><div style="font-size:28px">⭐</div><div style="font-size:10px;font-weight:700;color:#090B12;margin-top:4px">First Post</div></div>
+        <div style="text-align:center;padding:14px 8px;background:var(--bg);border-radius:10px;border:1px dashed var(--border);opacity:.5"><div style="font-size:28px">🏅</div><div style="font-size:10px;font-weight:600;color:var(--sub-text);margin-top:4px">Locked</div></div>
+        <div style="text-align:center;padding:14px 8px;background:var(--bg);border-radius:10px;border:1px dashed var(--border);opacity:.5"><div style="font-size:28px">🎯</div><div style="font-size:10px;font-weight:600;color:var(--sub-text);margin-top:4px">Locked</div></div>
+        <div style="text-align:center;padding:14px 8px;background:var(--bg);border-radius:10px;border:1px dashed var(--border);opacity:.5"><div style="font-size:28px">💎</div><div style="font-size:10px;font-weight:600;color:var(--sub-text);margin-top:4px">Locked</div></div>
+        <div style="text-align:center;padding:14px 8px;background:var(--bg);border-radius:10px;border:1px dashed var(--border);opacity:.5"><div style="font-size:28px">👑</div><div style="font-size:10px;font-weight:600;color:var(--sub-text);margin-top:4px">Locked</div></div>
+      </div>
+      <button onclick="showPage('rewards')" style="margin-top:14px;width:100%;padding:9px;border:1px solid #FFB800;background:var(--bg);border-radius:8px;font-size:13px;font-weight:700;color:#FFB800;cursor:pointer;font-family:inherit">সব Badges দেখো →</button>
+    </div>
+    <div style="background:var(--card);border-radius:12px;padding:16px;border:1px solid var(--border)">
+      <div style="font-size:15px;font-weight:700;color:var(--text);margin-bottom:14px">🎯 Active Challenges</div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <div style="display:flex;align-items:center;gap:12px;padding:10px;background:var(--bg);border-radius:10px">
+          <div style="font-size:24px">🌅</div>
+          <div style="flex:1"><div style="font-size:13px;font-weight:700;color:var(--text)">Fajr Challenge</div><div style="font-size:11px;color:var(--sub-text);margin-top:2px">30 দিনের challenge</div><div style="height:4px;background:var(--border);border-radius:4px;margin-top:6px;overflow:hidden"><div style="height:100%;width:40%;background:linear-gradient(90deg,#FF8A00,#FFB800);border-radius:4px"></div></div></div>
+          <div style="font-size:12px;font-weight:700;color:#FFB800">40%</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;padding:10px;background:var(--bg);border-radius:10px">
+          <div style="font-size:24px">📖</div>
+          <div style="flex:1"><div style="font-size:13px;font-weight:700;color:var(--text)">Quran Reading</div><div style="font-size:11px;color:var(--sub-text);margin-top:2px">Daily আয়াত</div><div style="height:4px;background:var(--border);border-radius:4px;margin-top:6px;overflow:hidden"><div style="height:100%;width:65%;background:#FF8A00;border-radius:4px"></div></div></div>
+          <div style="font-size:12px;font-weight:700;color:#FF8A00">65%</div>
+        </div>
+      </div>
+      <button onclick="showPage('habits')" style="margin-top:14px;width:100%;padding:9px;border:1px solid #FFB800;background:var(--bg);border-radius:8px;font-size:13px;font-weight:700;color:#FFB800;cursor:pointer;font-family:inherit">সব Challenges দেখো →</button>
+    </div>
+  </div>
+
+</div><!-- /mobile tab content -->
+
+<!-- ── DESKTOP: Two-column layout (hidden on mobile) ────────── -->
+<div id="pf-desktop-cols" style="display:none">
+
+  <!-- LEFT COLUMN — FB style -->
+  <div id="pf-left-col">
+
+    <!-- Personal details card -->
+    <div class="pf-detail-card" id="pf-personal-detail-card">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+        <span style="font-size:20px;font-weight:700;color:var(--text)">Personal details</span>
+        <button onclick="pfDesktopEditToggle()" id="pf-personal-detail-editbtn" style="width:32px;height:32px;border-radius:50%;background:var(--bg);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+          <svg viewBox="0 0 24 24" style="width:16px;height:16px;fill:var(--text)"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
+        </button>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:0">
+        <div style="display:flex;align-items:center;gap:12px;padding:8px 0">
+          <svg viewBox="0 0 24 24" style="width:20px;height:20px;fill:none;stroke:var(--sub-text);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+          <span id="pf-d-loc" style="font-size:15px;color:var(--text)">Lives in Bangladesh</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;padding:8px 0">
+          <svg viewBox="0 0 24 24" style="width:20px;height:20px;fill:none;stroke:#EF4444;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+          <span id="pf-d-rel" style="font-size:15px;color:var(--text)">In a relationship</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;padding:8px 0">
+          <svg viewBox="0 0 24 24" style="width:20px;height:20px;fill:none;stroke:var(--sub-text);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+          <span id="pf-d-joined" style="font-size:15px;color:var(--text)">Joined Rizers 2024</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;padding:8px 0">
+          <svg viewBox="0 0 24 24" style="width:20px;height:20px;fill:none;stroke:var(--sub-text);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+          <span id="pf-d-username" style="font-size:15px;color:var(--text)">Not set</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;padding:8px 0">
+          <svg viewBox="0 0 24 24" style="width:20px;height:20px;fill:none;stroke:#FF8A00;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+          <span id="pf-d-goals" style="font-size:15px;color:var(--text)">Not added yet</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Work card -->
+    <div class="pf-detail-card">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+        <span style="font-size:20px;font-weight:700;color:var(--text)">Work</span>
+        <button onclick="pfTab('about',document.getElementById('pftab-about'))" style="width:32px;height:32px;border-radius:50%;background:var(--bg);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+          <svg viewBox="0 0 24 24" style="width:16px;height:16px;fill:var(--text)"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
+        </button>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;padding:4px 0">
+        <div style="width:40px;height:40px;border-radius:8px;background:linear-gradient(135deg,#FF8A00,#FFB800);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+          <svg viewBox="0 0 24 24" style="width:20px;height:20px;fill:#090B12"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/></svg>
+        </div>
+        <div>
+          <div id="pf-d-work" style="font-size:15px;font-weight:600;color:var(--text)">Not added yet</div>
+          <div style="font-size:13px;color:var(--sub-text)">Work / Profession</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Fellow Risers card -->
+    <div class="pf-detail-card">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+        <span style="font-size:20px;font-weight:700;color:var(--text)">Fellow Risers</span>
+        <a onclick="pfTab('risers',document.getElementById('pftab-risers'))" style="font-size:14px;color:#FF8A00;font-weight:600;cursor:pointer">See all</a>
+      </div>
+      <div id="pf-risers-grid-d" style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+        <div style="text-align:center;padding:16px 8px;background:var(--bg);border-radius:10px;grid-column:span 2">
+          <div style="font-size:24px;margin-bottom:6px">🤝</div>
+          <div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:8px">Risers আসছে শীঘ্রই</div>
+          <button onclick="rzTab('community')" style="padding:6px 16px;background:linear-gradient(90deg,#FF8A00,#FFB800);color:#090B12;border:none;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit">Rise Feed</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Achievements card -->
+    <div class="pf-detail-card">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+        <span style="font-size:20px;font-weight:700;color:var(--text)">Achievements</span>
+        <a onclick="showPage('rewards')" style="font-size:14px;color:#FF8A00;font-weight:600;cursor:pointer">See all</a>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px">
+        <div style="text-align:center;padding:12px 6px;background:linear-gradient(135deg,#1a1200,#2a1e00);border-radius:10px;border:1px solid rgba(255,184,0,.3)"><div style="font-size:26px">🔥</div><div style="font-size:10px;font-weight:700;color:#FFB800;margin-top:4px">Streak Starter</div></div>
+        <div style="text-align:center;padding:12px 6px;background:linear-gradient(135deg,#FFB800,#FFC933);border-radius:10px"><div style="font-size:26px">⭐</div><div style="font-size:10px;font-weight:700;color:#090B12;margin-top:4px">First Post</div></div>
+        <div style="text-align:center;padding:12px 6px;background:var(--bg);border-radius:10px;border:1px dashed var(--border);opacity:.5"><div style="font-size:26px">🏅</div><div style="font-size:10px;font-weight:600;color:var(--sub-text);margin-top:4px">Locked</div></div>
+      </div>
+    </div>
+
+  </div><!-- /pf-left-col -->
+
+  <!-- RIGHT COLUMN — FB style -->
+  <div id="pf-right-col">
+
+    <!-- Composer card — FB style -->
+    <div id="pf-composer-box-d" style="background:var(--card);border-radius:10px;border:1px solid var(--border);margin-bottom:12px;overflow:hidden">
+      <div style="display:flex;gap:10px;align-items:center;padding:12px 16px">
+        <div id="pf-composer-av-d" style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#FF8A00,#FFB800);display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:800;color:#090B12;font-family:'Barlow Condensed',sans-serif;flex-shrink:0">T</div>
+        <div onclick="pfOpenComposerFromProfile()" style="flex:1;background:var(--bg);border-radius:22px;padding:10px 18px;font-size:15px;color:var(--sub-text);cursor:pointer;border:1px solid var(--border)">What's on your mind?</div>
+      </div>
+      <div style="display:flex;border-top:1px solid var(--border)">
+        <button onclick="pfOpenVoiceFromProfile()" style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:10px 4px;background:none;border:none;cursor:pointer;font-size:13px;font-weight:600;color:var(--sub-text);font-family:inherit;border-right:1px solid var(--border)">
+          <svg viewBox="0 0 24 24" style="width:18px;height:18px;fill:#FF8A00"><path d="M12 14a3 3 0 0 0 3-3V5a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3zm5-3a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.93V21H8v2h8v-2h-3v-3.07A7 7 0 0 0 19 11h-2z"/></svg>
+          Voice
+        </button>
+        <button onclick="pfOpenPhotoFromProfile()" style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:10px 4px;background:none;border:none;cursor:pointer;font-size:13px;font-weight:600;color:var(--sub-text);font-family:inherit;border-right:1px solid var(--border)">
+          <svg viewBox="0 0 24 24" style="width:18px;height:18px;fill:#45BD62"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
+          Photo/video
+        </button>
+        <button onclick="pfOpenComposerFromProfile()" style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:10px 4px;background:none;border:none;cursor:pointer;font-size:13px;font-weight:600;color:var(--sub-text);font-family:inherit">
+          <svg viewBox="0 0 24 24" style="width:18px;height:18px;fill:#F02849"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg>
+          Reel
+        </button>
+      </div>
+    </div>
+
+    <!-- Posts feed — pfLoadPosts()/pfLoadVisitorPosts() replace this with real posts once they
+         run, same as mobile's pf-posts-feed. It ships with the same static placeholder mobile
+         has (not an empty div) because pfLoadPosts() only runs once per signed-in user — if
+         that one run happens before this fragment is even inserted (profile.html is fetched
+         lazily), it never fires again and an empty container would just stay empty forever. -->
+    <div id="pf-posts-feed-d" style="display:flex;flex-direction:column;gap:0">
+      <div style="background:var(--card);padding:24px;text-align:center;color:var(--sub-text);font-size:13px">
+        <div style="font-size:36px;margin-bottom:8px">📝</div>
+        <div style="font-weight:700;font-size:14px;color:var(--text);margin-bottom:4px">No posts yet</div>
+        <div style="font-size:12px">Share your first post!</div>
+        <button onclick="pfOpenComposerFromProfile()" style="margin-top:14px;padding:9px 22px;background:linear-gradient(90deg,#FF8A00,#FFB800);color:#090B12;border:none;border-radius:50px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit">Create Post</button>
+      </div>
+    </div>
+
+  </div><!-- /pf-right-col -->
+
+</div><!-- /pf-desktop-cols -->
+
+<script>
+/* Sync desktop detail cards with the live profile data */
+(function(){
+  function syncDesktop(){
+    var map={
+      'pf-d-username':'pf-about-username',
+      'pf-d-loc':'pf-about-loc',
+      'pf-d-rel':'pf-about-rel',
+      'pf-d-joined':'pf-about-joined',
+      'pf-d-goals':'pf-about-goals',
+      'pf-d-work':'pf-about-work'
+    };
+    Object.keys(map).forEach(function(dst){
+      var src=document.getElementById(map[dst]);
+      var el=document.getElementById(dst);
+      if(src&&el) el.textContent=src.textContent;
+    });
+    /* Sync avatar — copy image if present, else initial */
+    var av=document.getElementById('pf-avatar');
+    var avd=document.getElementById('pf-composer-av-d');
+    if(av&&avd){
+      avd.innerHTML=av.innerHTML;
+      avd.style.background=av.style.background;
+      avd.style.fontSize=av.style.fontSize;
+    }
+  }
+  function initLeftColSticky(){
+    var lc=document.getElementById('pf-left-col');
+    var pg=document.getElementById('profile-page');
+    if(!lc||!pg||window.innerWidth<768) return;
+    var pgTop=pg.getBoundingClientRect().top;
+    var topVal=Math.max(8, window.innerHeight-pgTop-lc.offsetHeight-16);
+    lc.style.top=topVal+'px';
+  }
+  /* Run after profile loads */
+  setTimeout(syncDesktop, 1200);
+  setTimeout(initLeftColSticky, 1400);
+  document.addEventListener('rzProfileLoaded', function(){ syncDesktop(); setTimeout(initLeftColSticky,200); });
+})();
+/* pfOpenEditProfile fallback */
+if(typeof pfOpenEditProfile==='undefined'){
+  window.pfOpenEditProfile=function(){ pfTab('about', document.getElementById('pftab-about')); }
+}
+</script>
+
+<!-- ══ Rise Together Modal ══════════════════════════════════ -->
+<div id="pf-rise-modal" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.6);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);align-items:flex-end;justify-content:center" onclick="if(event.target===this)pfCloseRiseModal()">
+  <div id="pf-rise-modal-box" style="background:var(--card);border-radius:20px 20px 0 0;width:100%;max-width:480px;padding:24px 20px 32px;transform:translateY(100%);transition:transform .35s cubic-bezier(.32,1.1,.6,1)">
+
+    <!-- Handle bar -->
+    <div style="width:40px;height:4px;background:var(--border);border-radius:4px;margin:0 auto 20px"></div>
+
+    <!-- Header -->
+    <div style="text-align:center;margin-bottom:20px">
+      <div style="font-size:36px;margin-bottom:8px">⚡</div>
+      <div style="font-size:18px;font-weight:800;color:var(--text);font-family:'Bahnschrift','DIN Alternate',sans-serif">Rise Together!</div>
+      <div id="pf-rise-modal-sub" style="font-size:13px;color:var(--sub-text);margin-top:4px">একসাথে grow করার সিদ্ধান্ত নিচ্ছ</div>
+    </div>
+
+    <!-- Profile preview -->
+    <div id="pf-rise-preview" style="display:flex;align-items:center;gap:12px;background:var(--bg);border-radius:12px;padding:12px;margin-bottom:16px">
+      <div id="pf-rise-prev-av" style="width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#FF8A00,#FFB800);display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;color:#090B12;flex-shrink:0">?</div>
+      <div>
+        <div id="pf-rise-prev-name" style="font-size:14px;font-weight:700;color:var(--text)">Loading...</div>
+        <div id="pf-rise-prev-meta" style="font-size:12px;color:var(--sub-text);margin-top:2px"></div>
+      </div>
+      <div style="margin-left:auto;font-size:20px">🤝</div>
+    </div>
+
+    <!-- Optional note -->
+    <div style="margin-bottom:16px">
+      <div style="font-size:12px;font-weight:600;color:var(--sub-text);margin-bottom:6px;text-transform:uppercase;letter-spacing:.5px">একটা note লিখো (optional)</div>
+      <textarea id="pf-rise-note" placeholder="তোমার কোন post দেখে inspire হলাম..." maxlength="150" style="width:100%;box-sizing:border-box;background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:10px 12px;font-size:14px;color:var(--text);font-family:inherit;resize:none;height:72px;outline:none;line-height:1.5" onfocus="this.style.borderColor='#FFB800'" onblur="this.style.borderColor='var(--border)'"></textarea>
+      <div style="text-align:right;font-size:11px;color:var(--sub-text);margin-top:3px"><span id="pf-rise-note-len">0</span>/150</div>
+    </div>
+
+    <!-- Send button -->
+    <button id="pf-rise-send-btn" onclick="pfSendRiseRequest()" style="width:100%;padding:14px;background:linear-gradient(90deg,#FF8A00,#FFB800);color:#fff;border:none;border-radius:12px;font-size:15px;font-weight:800;cursor:pointer;font-family:inherit;letter-spacing:.3px">
+      ⚡ Rise Request পাঠাও
+    </button>
+    <button onclick="pfCloseRiseModal()" style="width:100%;padding:10px;background:none;border:none;font-size:14px;color:var(--sub-text);cursor:pointer;font-family:inherit;margin-top:6px">বাদ দাও</button>
+  </div>
+</div>
+
+<!-- ══ Bond Formed Card ══════════════════════════════════════ -->
+<div id="pf-bond-card" style="display:none;position:fixed;inset:0;z-index:10000;background:rgba(0,0,0,.65);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);align-items:center;justify-content:center;padding:16px">
+  <div class="rz-bond-box">
+    <!-- Gold top bar -->
+    <div style="height:4px;background:linear-gradient(90deg,#FF8A00,#FFB800,#FF8A00);border-radius:20px 20px 0 0;margin:-28px -24px 24px;"></div>
+    <!-- Icon -->
+    <div style="width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#FF8A00,#FFB800);display:flex;align-items:center;justify-content:center;margin:0 auto 12px;box-shadow:0 4px 20px rgba(255,138,0,.35)">
+      <svg viewBox="0 0 24 24" style="width:28px;height:28px;fill:#fff"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+    </div>
+    <div style="font-size:20px;font-weight:800;background:linear-gradient(90deg,#FF8A00,#FFB800);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-family:'Bahnschrift','DIN Alternate',sans-serif;margin-bottom:4px">Rizer Bond Formed!</div>
+    <div style="font-size:12px;color:var(--sub-text);margin-bottom:20px;letter-spacing:.3px">তোমরা এখন একসাথে Rising ⚡</div>
+    <!-- Avatars -->
+    <div id="pf-bond-avatars" style="display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:14px">
+      <div style="text-align:center">
+        <div id="pf-bond-av1" style="width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,#FF8A00,#FFB800);display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:800;color:#090B12;border:3px solid var(--border);overflow:hidden;margin:0 auto 6px">T</div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:4px">
+        <div style="width:36px;height:2px;background:linear-gradient(90deg,#FF8A00,#FFB800);border-radius:2px"></div>
+        <div style="width:8px;height:8px;border-radius:50%;background:#FFB800"></div>
+        <div style="width:36px;height:2px;background:linear-gradient(90deg,#FFB800,#FF8A00);border-radius:2px"></div>
+      </div>
+      <div style="text-align:center">
+        <div id="pf-bond-av2" style="width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,#8B5CF6,#3B82F6);display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:800;color:#fff;border:3px solid var(--border);overflow:hidden;margin:0 auto 6px">?</div>
+      </div>
+    </div>
+    <div id="pf-bond-names" style="font-size:15px;font-weight:700;color:var(--text);margin-bottom:6px"></div>
+    <div style="font-size:13px;color:var(--sub-text);line-height:1.6;margin-bottom:22px">একে অপরের journey দেখতে পাবে 🚀</div>
+    <button onclick="pfCloseBondCard()" style="width:100%;padding:13px;background:linear-gradient(90deg,#FF8A00,#FFB800);color:#fff;border:none;border-radius:12px;font-size:15px;font-weight:800;cursor:pointer;font-family:inherit;letter-spacing:.3px">চমৎকার! 🎉</button>
+  </div>
+</div>
+
+<style>
+@keyframes rzBondPop{from{transform:scale(.75);opacity:0}to{transform:scale(1);opacity:1}}
+.rz-bond-box{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:28px 24px;
+  max-width:320px;
+  width:100%;
+  text-align:center;
+  animation:rzBondPop .4s cubic-bezier(.32,1.1,.6,1);
+  box-shadow:0 20px 60px rgba(0,0,0,.3),0 0 0 1px rgba(255,184,0,.15);
+  position:relative;
+  overflow:hidden;
+}
+.rz-bond-box::before{
+  content:'';
+  position:absolute;
+  top:-60px;left:50%;
+  transform:translateX(-50%);
+  width:200px;height:200px;
+  background:radial-gradient(circle,rgba(255,184,0,.08) 0%,transparent 70%);
+  pointer-events:none;
+}
+</style>
+
+</div><!-- /profile-page -->

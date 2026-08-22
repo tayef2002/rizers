@@ -1,0 +1,29 @@
+<div id="creatorclaim-page" class="app-page" style="display:none;background:var(--bg)">
+
+  <div id="creatorclaim-anim" style="opacity:0;transform:translateY(14px);transition:opacity .3s ease,transform .3s ease">
+
+  <div style="display:flex;align-items:center;gap:10px;padding:16px 16px 8px">
+    <button onclick="showPage('creatorinfo')" style="background:none;border:none;cursor:pointer;padding:4px;display:flex" aria-label="Back">
+      <svg viewBox="0 0 24 24" style="width:20px;height:20px;fill:none;stroke:var(--text);stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+    </button>
+  </div>
+
+  <div style="max-width:520px;margin:0 auto;padding:8px 24px 48px;font-family:'Hind Siliguri',sans-serif">
+
+    <h1 id="cc-t-heading" style="font-size:20px;font-weight:800;color:var(--text);line-height:1.4;margin:12px 0 10px"></h1>
+    <p id="cc-t-body" style="font-size:14px;color:var(--text2);line-height:1.7;margin-bottom:24px"></p>
+
+    <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:10px">
+      <input id="cc-drivelink" type="url" placeholder="Google Drive video link" style="width:100%;padding:12px 14px;background:var(--card);border:1px solid var(--border);border-radius:8px;font-size:14px;color:var(--text);font-family:'Hind Siliguri',sans-serif;box-sizing:border-box">
+    </div>
+    <div id="cc-error" style="display:none;color:#E24B4A;font-size:13px;margin-bottom:10px;font-family:'Hind Siliguri',sans-serif"></div>
+
+    <button id="cc-submit-btn" onclick="_rzSubmitClaim()" style="width:100%;padding:14px;background:linear-gradient(90deg,#FF8A00,#FFB800);color:#fff;border:none;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;font-family:'Hind Siliguri',sans-serif;margin-bottom:16px"></button>
+
+    <p id="cc-t-note" style="font-size:13.5px;color:var(--text2);line-height:1.7;text-align:center"></p>
+
+  </div>
+
+  </div><!-- /creatorclaim-anim -->
+
+</div>

@@ -1,0 +1,268 @@
+<div id="quran-page" class="app-page" style="display:none">
+
+<!-- ═══════════════════════════════════════
+     DONATION BANNER LAYOUT WRAPPER
+═══════════════════════════════════════ -->
+<div class="rz-page-with-banner">
+
+<!-- ── LEFT: Donation Sidebar (Desktop only) ── -->
+<div class="rz-donation-sidebar">
+  <div class="rz-dsb-inner">
+
+    <!-- Top: Heart icon -->
+    <div style="text-align:center;margin-bottom:20px">
+      <div style="width:58px;height:58px;border-radius:18px;background:linear-gradient(135deg,rgba(255,138,0,0.15),rgba(255,184,0,0.1));border:1px solid rgba(255,138,0,0.3);display:flex;align-items:center;justify-content:center;margin:0 auto 12px">
+        <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="#FF8A00" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" fill="rgba(255,138,0,0.12)"/></svg>
+      </div>
+      <div style="font-size:12px;font-weight:800;color:#FF8A00;letter-spacing:1px;text-transform:uppercase">Rizers কে Support করুন</div>
+    </div>
+
+    <!-- Emotional message -->
+    <div style="background:rgba(255,138,0,0.06);border:1px solid rgba(255,138,0,0.15);border-radius:14px;padding:16px;margin-bottom:16px">
+      <div style="font-size:15px;font-weight:700;color:var(--text,#1f2937);line-height:1.6;margin-bottom:10px">"তোমার ছোট সাহায্য হাজারজনের ইবাদত সহজ করে দিতে পারে।"</div>
+      <div style="font-size:12.5px;color:var(--text2,#888);line-height:1.7">Rizers ব্যবহার করে প্রতিদিন হাজারো মানুষ নামাজ, ঘুম আর কোরআন ঠিক করছে। তুমি চাইলে এই যাত্রার অংশ হতে পারো।</div>
+    </div>
+
+    <!-- Logical: price comparison -->
+    <div style="margin-bottom:16px">
+      <div style="font-size:12px;font-weight:700;color:var(--text2,#888);margin-bottom:10px;text-transform:uppercase;letter-spacing:.8px">মাত্র ৳৯৯/মাসে</div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <div style="display:flex;align-items:center;gap:10px">
+          <div style="width:7px;height:7px;border-radius:50%;background:#FF8A00;flex-shrink:0"></div>
+          <span style="font-size:13.5px;color:var(--text,#1f2937)">১ কাপ চায়ের দাম</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px">
+          <div style="width:7px;height:7px;border-radius:50%;background:#22C55E;flex-shrink:0"></div>
+          <span style="font-size:13.5px;color:var(--text,#1f2937)">হাজারজনের AI partner চালু থাকে</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px">
+          <div style="width:7px;height:7px;border-radius:50%;background:#3B82F6;flex-shrink:0"></div>
+          <span style="font-size:13.5px;color:var(--text,#1f2937)">সব feature সম্পূর্ণ free থাকে</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Divider -->
+    <div style="height:1px;background:var(--border,#e5e7eb);margin-bottom:16px"></div>
+
+    <!-- Hadith -->
+    <div style="margin-bottom:20px;flex:1">
+      <div style="font-size:13px;color:var(--text2,#888);line-height:1.8;font-style:italic">"যে ব্যক্তি কোনো ভালো কাজে সহায়তা করে, সে যেন সেই কাজ নিজেই করলো।"</div>
+      <div style="font-size:11.5px;color:#FF8A00;font-weight:700;margin-top:6px">— বুখারী ও মুসলিম</div>
+    </div>
+
+    <!-- CTA Button -->
+    <a href="#" onclick="rzOpenDonation();return false;" style="display:block;width:100%;background:linear-gradient(135deg,#FF8A00,#FFB800);color:#090B12;font-size:14px;font-weight:800;text-align:center;padding:15px;border-radius:13px;text-decoration:none;box-shadow:0 4px 16px rgba(255,138,0,0.4);transition:.2s;letter-spacing:.3px;box-sizing:border-box">🤲 ৳৯৯/মাসে Support করুন</a>
+
+    <!-- No pressure -->
+    <div style="text-align:center;margin-top:12px;font-size:11px;color:var(--text2,#888)">সম্পূর্ণ স্বেচ্ছায় • যেকোনো সময় বাতিল করুন</div>
+
+  </div>
+</div>
+<!-- ── END Donation Sidebar ── -->
+
+<!-- ── RIGHT: Page Content ── -->
+<div class="rz-page-content">
+
+<!-- ═══════════════════════════════════════
+     KIDS WRAP
+═══════════════════════════════════════ -->
+<div id="quran-kids-wrap" style="display:none">
+<div class="content">
+
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+    <div style="display:flex;align-items:center;gap:9px">
+      <div style="width:38px;height:38px;border-radius:12px;background:linear-gradient(135deg,#FF8A00,#FFB800);display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 3px 10px rgba(255,138,0,.3)">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#090B12" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+      </div>
+      <div>
+        <div style="font-size:20px;font-weight:800;color:var(--text,#1f2937)">কুরআন Tracker</div>
+        <div style="font-size:11px;color:var(--text2,#888)">সুরা মুখস্থ ও অনুশীলন</div>
+      </div>
+    </div>
+    <div style="text-align:right">
+      <div id="q-memorized-count" style="font-size:22px;font-weight:800;color:#22c55e">০/২০</div>
+      <div style="font-size:10px;color:var(--text2,#888)">মুখস্থ সুরা</div>
+    </div>
+  </div>
+
+  <div class="kid-tabs" id="quran-kid-tabs" style="margin-bottom:12px"></div>
+
+  <div style="background:var(--card,#fff);border-radius:14px;padding:14px 16px;margin-bottom:14px;box-shadow:0 1px 4px rgba(0,0,0,.06)">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+      <span style="font-size:12px;font-weight:600;color:var(--text2,#888)">সামগ্রিক অগ্রগতি</span>
+      <span id="q-pct" style="font-size:13px;font-weight:800;color:#22c55e">০%</span>
+    </div>
+    <div style="height:8px;background:var(--bg,#f3f4f6);border-radius:10px;overflow:hidden">
+      <div id="q-bar" style="height:100%;width:0%;background:linear-gradient(90deg,#22c55e,#4ade80);border-radius:10px;transition:.4s"></div>
+    </div>
+    <div style="display:flex;gap:14px;margin-top:10px">
+      <div style="display:flex;align-items:center;gap:4px"><div style="width:8px;height:8px;border-radius:50%;background:#22c55e;flex-shrink:0"></div><span style="font-size:11px;color:var(--text2,#888)">মুখস্থ</span></div>
+      <div style="display:flex;align-items:center;gap:4px"><div style="width:8px;height:8px;border-radius:50%;background:#FF8A00;flex-shrink:0"></div><span style="font-size:11px;color:var(--text2,#888)">শিখছি</span></div>
+      <div style="display:flex;align-items:center;gap:4px"><div style="width:8px;height:8px;border-radius:50%;background:var(--border,#e5e7eb);flex-shrink:0"></div><span style="font-size:11px;color:var(--text2,#888)">শেখা হয়নি</span></div>
+    </div>
+  </div>
+
+  <div id="q-today-surah" style="margin-bottom:14px"></div>
+
+  <div style="display:flex;gap:8px;margin-bottom:12px">
+    <button id="q-cat-juz" onclick="rzQuranFilter('juz')" style="padding:6px 16px;border-radius:20px;border:1.5px solid #FF8A00;background:rgba(255,138,0,0.1);color:#FF8A00;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit">সহজ সুরা</button>
+    <button id="q-cat-all" onclick="rzQuranFilter('all')" style="padding:6px 16px;border-radius:20px;border:1.5px solid var(--border,#e5e7eb);background:transparent;color:var(--text2,#888);font-size:12px;font-weight:600;cursor:pointer;font-family:inherit">সব সুরা</button>
+  </div>
+
+  <div id="quran-grid" style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:16px"></div>
+  <div id="q-milestones"></div>
+
+</div>
+</div><!-- end quran-kids-wrap -->
+
+
+<!-- ═══════════════════════════════════════
+     ADULT WRAP
+═══════════════════════════════════════ -->
+<div id="quran-adult-wrap" style="display:none;padding:16px 16px 100px 16px">
+
+  <!-- ── Page Title ── -->
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
+    <div style="width:38px;height:38px;border-radius:12px;background:linear-gradient(135deg,#22C55E,#4ADE80);display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 3px 10px rgba(34,197,94,0.3)">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+    </div>
+    <div>
+      <div style="font-size:20px;font-weight:800;color:var(--text)">কুরআন Tracker</div>
+      <div style="font-size:11px;color:var(--text2)">তেলাওয়াত ও হিফয ট্র্যাক করুন</div>
+    </div>
+  </div>
+
+  <!-- ── Hero Card ── -->
+  <div style="background:linear-gradient(135deg,#0D1117 0%,#1a1d2e 60%,#0f1923 100%);border-radius:22px;padding:22px 22px 20px 22px;margin-bottom:18px;border:1px solid rgba(34,197,94,0.2);position:relative;overflow:hidden">
+    <div style="position:absolute;top:-30px;right:-30px;width:140px;height:140px;background:radial-gradient(circle,rgba(34,197,94,0.15) 0%,transparent 70%);pointer-events:none"></div>
+    <div style="position:absolute;bottom:-20px;left:20px;width:90px;height:90px;background:radial-gradient(circle,rgba(74,222,128,0.08) 0%,transparent 70%);pointer-events:none"></div>
+
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:16px">
+      <!-- Left: label + date + motivation + stats -->
+      <div style="flex:1;min-width:0">
+        <div style="font-size:10px;font-weight:800;color:#22C55E;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:6px">কুরআন ট্র্যাকার</div>
+        <div id="aquran-date" style="font-size:clamp(14px,4vw,18px);font-weight:800;color:rgba(255,255,255,0.95);margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis"></div>
+        <div id="aquran-motivation" style="font-size:11.5px;color:rgba(255,255,255,0.5);margin-bottom:16px"></div>
+        <div style="display:flex;gap:18px;flex-wrap:wrap">
+          <div>
+            <div id="aquran-streak" style="font-size:clamp(16px,4vw,20px);font-weight:900;color:#22C55E;line-height:1">০</div>
+            <div style="font-size:10px;color:rgba(255,255,255,0.45);margin-top:2px">Streak</div>
+          </div>
+          <div style="width:1px;background:rgba(255,255,255,0.1);align-self:stretch"></div>
+          <div>
+            <div id="aquran-memorized" style="font-size:clamp(16px,4vw,20px);font-weight:900;color:#4ADE80;line-height:1">০</div>
+            <div style="font-size:10px;color:rgba(255,255,255,0.45);margin-top:2px">মুখস্থ সুরা</div>
+          </div>
+          <div style="width:1px;background:rgba(255,255,255,0.1);align-self:stretch"></div>
+          <div>
+            <div id="aquran-today-pages" style="font-size:clamp(16px,4vw,20px);font-weight:900;color:#FFB800;line-height:1">০</div>
+            <div style="font-size:10px;color:rgba(255,255,255,0.45);margin-top:2px">আজ পৃষ্ঠা</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: ring -->
+      <div style="flex-shrink:0;position:relative;width:84px;height:84px">
+        <svg viewBox="0 0 84 84" width="84" height="84" style="display:block">
+          <defs>
+            <linearGradient id="aquranGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#22C55E"/>
+              <stop offset="100%" stop-color="#4ADE80"/>
+            </linearGradient>
+          </defs>
+          <circle cx="42" cy="42" r="34" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="7"/>
+          <circle id="aquran-ring" cx="42" cy="42" r="34" fill="none" stroke="url(#aquranGrad)" stroke-width="7" stroke-linecap="round"
+            stroke-dasharray="213.6" stroke-dashoffset="213.6"
+            transform="rotate(-90 42 42)" style="transition:stroke-dashoffset .7s cubic-bezier(.4,0,.2,1)"/>
+        </svg>
+        <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1px">
+          <div id="aquran-pct" style="font-size:17px;font-weight:900;color:#4ADE80;line-height:1">০%</div>
+          <div style="font-size:8.5px;color:rgba(255,255,255,0.4)">মুখস্থ</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Daily Tilawat Tracker ── -->
+  <div style="background:var(--card);border-radius:18px;padding:20px 18px;margin-bottom:16px;border:1px solid var(--border)">
+    <!-- Header -->
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px">
+      <div style="font-size:13px;font-weight:800;color:var(--text)">আজকের তেলাওয়াত</div>
+      <div id="aquran-goal-badge" onclick="rzSetQuranGoal()" style="font-size:10px;font-weight:700;color:#22C55E;background:rgba(34,197,94,0.1);padding:4px 12px;border-radius:20px;cursor:pointer;border:1px solid rgba(34,197,94,0.2)">লক্ষ্য: ২ পৃ/দিন ✎</div>
+    </div>
+
+    <!-- Stepper -->
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px">
+      <button onclick="rzDecAdultTilawat()" style="width:56px;height:56px;border-radius:16px;border:2px solid var(--border);background:var(--bg);color:var(--text2);font-size:26px;font-weight:300;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:.15s;line-height:1" id="aquran-dec-btn">−</button>
+      <div style="flex:1;text-align:center">
+        <div id="aquran-pages-big" style="font-size:52px;font-weight:900;color:#22C55E;line-height:1;transition:.2s">০</div>
+        <div style="font-size:11px;color:var(--text2);margin-top:4px">পৃষ্ঠা পড়েছি আজ</div>
+      </div>
+      <button onclick="rzLogAdultTilawat(1)" style="width:56px;height:56px;border-radius:16px;border:2px solid #22C55E;background:rgba(34,197,94,0.1);color:#22C55E;font-size:26px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:.15s;line-height:1">+</button>
+    </div>
+
+    <!-- Goal progress bar -->
+    <div style="height:8px;background:var(--border);border-radius:10px;overflow:hidden;margin-bottom:8px">
+      <div id="aquran-goal-bar" style="height:100%;width:0%;background:linear-gradient(90deg,#22C55E,#4ADE80);border-radius:10px;transition:.5s"></div>
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:center">
+      <div id="aquran-goal-txt" style="font-size:11px;color:var(--text2)">আজ পড়া শুরু করুন</div>
+      <div style="font-size:11px;font-weight:700;color:#22C55E" id="aquran-goal-pct">০%</div>
+    </div>
+  </div>
+
+  <!-- ── Weekly Chart ── -->
+  <div id="aquran-weekly" style="background:var(--card);border:1.5px solid var(--border);border-radius:20px;padding:18px 16px;margin-bottom:16px"></div>
+
+  <!-- ── Surah Section ── -->
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+    <div style="font-size:14px;font-weight:800;color:var(--text)">সুরা মুখস্থ</div>
+    <div id="aquran-mem-badge" style="font-size:11px;font-weight:700;color:#22C55E;background:rgba(34,197,94,0.1);padding:3px 10px;border-radius:20px">০/৪৩</div>
+  </div>
+
+  <!-- Category filter tabs -->
+  <div style="display:flex;gap:8px;margin-bottom:14px;overflow-x:auto;padding-bottom:4px;-ms-overflow-style:none;scrollbar-width:none">
+    <button id="aquran-cat-juz30" onclick="rzAdultQuranFilter('juz30')" style="padding:7px 16px;border-radius:20px;border:1.5px solid #22C55E;background:rgba(34,197,94,0.1);color:#22C55E;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;white-space:nowrap;flex-shrink:0">জুয ৩০</button>
+    <button id="aquran-cat-key" onclick="rzAdultQuranFilter('key')" style="padding:7px 16px;border-radius:20px;border:1.5px solid var(--border);background:transparent;color:var(--text2);font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;white-space:nowrap;flex-shrink:0">গুরুত্বপূর্ণ</button>
+    <button id="aquran-cat-all" onclick="rzAdultQuranFilter('all')" style="padding:7px 16px;border-radius:20px;border:1.5px solid var(--border);background:transparent;color:var(--text2);font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;white-space:nowrap;flex-shrink:0">সব সুরা</button>
+  </div>
+
+  <!-- Surah Grid -->
+  <div id="aquran-grid" style="display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:18px"></div>
+
+  <!-- Milestones -->
+  <div id="aquran-milestones" style="margin-bottom:16px"></div>
+
+  <!-- Quran Verse Card -->
+  <div style="background:linear-gradient(135deg,#0D1117,#1a1d2e);border-radius:20px;padding:22px 18px;border:1px solid rgba(34,197,94,0.22);margin-bottom:6px">
+    <div style="font-size:10px;color:#22C55E;font-weight:800;letter-spacing:1px;text-transform:uppercase;margin-bottom:12px;display:flex;align-items:center;gap:7px">
+      <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="#22C55E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+      কুরআনের গুরুত্ব
+    </div>
+    <div class="rz-quran-font" style="font-size:clamp(18px,4vw,26px);font-weight:700;color:#4ADE80;direction:rtl;text-align:right;margin-bottom:10px;line-height:2">وَرَتِّلِ الْقُرْآنَ تَرْتِيلًا</div>
+    <div style="font-size:13.5px;color:rgba(255,255,255,0.9);font-weight:600;margin-bottom:6px">"এবং কুরআন ধীরে ধীরে সুস্পষ্টভাবে পড়ো।"</div>
+    <div style="font-size:11px;color:rgba(255,255,255,0.45)">— সুরা আল-মুয্‌যাম্মিল: ৪</div>
+  </div>
+
+
+<!-- ── Mobile Donation Card ── -->
+<div class="rz-donation-mobile-card">
+  <div style="display:flex;align-items:center;gap:12px">
+    <div style="width:40px;height:40px;border-radius:12px;background:linear-gradient(135deg,#FF8A00,#FFB800);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#090B12" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" fill="rgba(9,11,18,0.15)"/></svg>
+    </div>
+    <div style="flex:1;min-width:0">
+      <div style="font-size:13px;font-weight:800;color:var(--text,#1f2937);line-height:1.3">Rizers কে টিকিয়ে রাখুন</div>
+      <div style="font-size:11px;color:var(--text2,#888);margin-top:2px">মাত্র ৳৯৯/মাস • সম্পূর্ণ স্বেচ্ছায়</div>
+    </div>
+    <a href="#" onclick="rzOpenDonation();return false;" style="flex-shrink:0;background:linear-gradient(135deg,#FF8A00,#FFB800);color:#090B12;font-size:11px;font-weight:800;padding:8px 14px;border-radius:10px;text-decoration:none;white-space:nowrap;box-shadow:0 3px 10px rgba(255,138,0,0.3)">🤲 Support</a>
+  </div>
+</div>
+
+</div><!-- end quran-adult-wrap -->
+
+</div><!-- end rz-page-content -->
+</div><!-- end rz-page-with-banner -->
+
+</div><!-- end quran-page -->
