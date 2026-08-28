@@ -1,0 +1,3 @@
+.env
+scripts/youtube-sync/.env
+node_modules/

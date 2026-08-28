@@ -1,0 +1,413 @@
+<div id="study-page" class="app-page" style="display:none">
+
+<!-- ═══ KIDS WRAP ════════════════════════════════════════════════ -->
+<div id="study-kids-wrap">
+<div class="content" style="padding-bottom:80px">
+
+  <!-- Header -->
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px">
+    <div style="display:flex;align-items:center;gap:10px">
+      <div style="width:44px;height:44px;border-radius:14px;background:linear-gradient(135deg,#FF8A00,#FFB800);display:flex;align-items:center;justify-content:center;color:#fff;flex-shrink:0">
+        <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      </div>
+      <div>
+        <h1 style="font-size:20px;font-weight:800;color:var(--text,#1f2937);margin:0">Study Timer</h1>
+        <p style="color:var(--text2,#888);font-size:12px;margin:2px 0 0">Pomodoro Technique</p>
+      </div>
+    </div>
+    <div style="background:rgba(255,138,0,0.1);border:1.5px solid rgba(255,138,0,0.3);border-radius:12px;padding:6px 14px;text-align:center;min-width:58px">
+      <div style="font-size:17px;font-weight:800;color:#FF8A00;line-height:1" id="st-xp-total">0</div>
+      <div style="font-size:9px;color:var(--text2,#888);margin-top:2px">Total XP</div>
+    </div>
+  </div>
+
+  <div id="study-kid-tabs" style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px"></div>
+
+  <div style="background:var(--card,#fff);border-radius:20px;padding:20px 16px;border:1px solid var(--border,#e5e7eb);text-align:center;margin-bottom:12px">
+    <div style="display:flex;gap:6px;justify-content:center;margin-bottom:20px;flex-wrap:wrap">
+      <button onclick="rzStudySetMode('study')" id="mode-study" style="padding:7px 14px;border-radius:50px;border:none;background:#FF8A00;color:#fff;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:5px">
+        <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+        পড়াশোনা</button>
+      <button onclick="rzStudySetMode('short')" id="mode-short" style="padding:7px 14px;border-radius:50px;border:none;background:var(--bg,#f9fafb);color:var(--text2,#888);font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:5px">
+        <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+        Short Break</button>
+      <button onclick="rzStudySetMode('long')" id="mode-long" style="padding:7px 14px;border-radius:50px;border:none;background:var(--bg,#f9fafb);color:var(--text2,#888);font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:5px">
+        <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        Long Break</button>
+    </div>
+    <div id="st-break-card" style="display:none;background:linear-gradient(135deg,rgba(255,138,0,0.08),rgba(255,184,0,0.04));border-radius:14px;padding:12px 14px;margin-bottom:16px;text-align:left">
+      <div style="font-size:11px;font-weight:700;color:#FF8A00;margin-bottom:4px">Break এ করো</div>
+      <div id="st-break-text" style="font-size:13px;color:var(--text,#1f2937);line-height:1.5"></div>
+    </div>
+    <div style="position:relative;width:180px;height:180px;margin:0 auto 16px">
+      <svg width="180" height="180" viewBox="0 0 180 180">
+        <circle cx="90" cy="90" r="78" fill="none" stroke="var(--border,#e5e7eb)" stroke-width="10"/>
+        <circle id="st-circle" cx="90" cy="90" r="78" fill="none" stroke="#FF8A00" stroke-width="10"
+          stroke-dasharray="490" stroke-dashoffset="0" stroke-linecap="round"
+          transform="rotate(-90 90 90)" style="transition:stroke-dashoffset .5s"/>
+      </svg>
+      <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;width:130px">
+        <div id="st-time" style="font-size:38px;font-weight:800;color:var(--text,#1f2937);line-height:1;font-family:'Barlow Condensed','Space Grotesk',sans-serif;letter-spacing:1px">25:00</div>
+        <div id="st-label" style="font-size:11px;color:var(--text2,#888);margin-top:4px">পড়াশোনা</div>
+        <div id="st-xp-earn" style="font-size:10px;font-weight:700;color:#FF8A00;margin-top:3px">+10 XP</div>
+      </div>
+    </div>
+    <div style="display:flex;gap:12px;justify-content:center;margin-bottom:16px;align-items:center">
+      <button onclick="rzStudyReset()" style="width:48px;height:48px;border-radius:50%;border:2px solid var(--border,#e5e7eb);background:var(--card,#fff);color:var(--text2,#888);cursor:pointer;display:flex;align-items:center;justify-content:center">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.62"/></svg>
+      </button>
+      <button onclick="rzStudyToggle()" id="st-play-btn" style="width:64px;height:64px;border-radius:50%;border:none;background:linear-gradient(135deg,#FF8A00,#FFB800);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(255,138,0,.35)">
+        <svg id="st-play-icon" viewBox="0 0 24 24" width="26" height="26" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+      </button>
+      <button onclick="rzStudySkip()" style="width:48px;height:48px;border-radius:50%;border:2px solid var(--border,#e5e7eb);background:var(--card,#fff);color:var(--text2,#888);cursor:pointer;display:flex;align-items:center;justify-content:center">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" stroke="currentColor" stroke-width="1"><polygon points="5 4 15 12 5 20 5 4"/><rect x="18" y="4" width="2" height="16" rx="1"/></svg>
+      </button>
+    </div>
+    <div>
+      <div id="study-subj-chips" style="display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin-bottom:8px"></div>
+      <input id="st-subject" type="text" placeholder="অন্য বিষয়..." oninput="rzStudyClearChips()" style="width:100%;max-width:260px;border:1.5px solid var(--border,#e5e7eb);border-radius:10px;padding:8px 12px;font-size:13px;font-family:inherit;outline:none;background:var(--bg,#f9fafb);color:var(--text,#1f2937)"/>
+    </div>
+  </div>
+
+  <div style="background:var(--card,#fff);border-radius:16px;padding:14px 16px;border:1px solid var(--border,#e5e7eb);margin-bottom:12px">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+      <div style="font-size:13px;font-weight:700;color:var(--text,#1f2937)">আজকের লক্ষ্য</div>
+      <div style="display:flex;align-items:center;gap:8px">
+        <button onclick="rzStudyChangeGoal(-1)" style="width:26px;height:26px;border-radius:50%;border:1.5px solid var(--border,#e5e7eb);background:var(--card,#fff);color:var(--text,#1f2937);font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-weight:700;line-height:1">−</button>
+        <span id="st-goal-display" style="font-size:13px;font-weight:800;color:#FF8A00;min-width:90px;text-align:center">৪ Pomodoro</span>
+        <button onclick="rzStudyChangeGoal(1)" style="width:26px;height:26px;border-radius:50%;border:1.5px solid var(--border,#e5e7eb);background:var(--card,#fff);color:var(--text,#1f2937);font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-weight:700;line-height:1">+</button>
+      </div>
+    </div>
+    <div style="background:var(--border,#e5e7eb);border-radius:6px;height:6px;overflow:hidden">
+      <div id="st-goal-bar" style="background:linear-gradient(90deg,#FF8A00,#FFB800);height:100%;width:0%;border-radius:6px;transition:width .6s ease"></div>
+    </div>
+    <div id="st-goal-text" style="font-size:10px;color:var(--text2,#888);margin-top:5px;text-align:right">০ / ৪ Pomodoro সম্পন্ন</div>
+  </div>
+
+  <div id="st-stats" style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px"></div>
+
+  <div style="background:var(--card,#fff);border-radius:18px;padding:16px;border:1px solid var(--border,#e5e7eb);margin-bottom:12px">
+    <div style="display:flex;align-items:center;gap:6px;margin-bottom:12px">
+      <span style="color:#FF8A00;display:flex"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></span>
+      <span style="font-size:13px;font-weight:700;color:var(--text,#1f2937)">৭ দিনের পড়াশোনা</span>
+    </div>
+    <div id="st-weekly-chart"></div>
+  </div>
+
+  <div id="st-insight" style="margin-bottom:12px"></div>
+
+  <div style="background:var(--card,#fff);border-radius:18px;padding:16px;border:1px solid var(--border,#e5e7eb);margin-bottom:12px">
+    <div style="display:flex;align-items:center;gap:6px;margin-bottom:12px">
+      <span style="color:#FFB800;display:flex"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 2h12v6a6 6 0 0 1-12 0V2z"/><path d="M6 7H2V5h4"/><path d="M18 7h4V5h-4"/><line x1="12" y1="14" x2="12" y2="19"/><rect x="7" y="19" width="10" height="2" rx="1"/></svg></span>
+      <span style="font-size:13px;font-weight:700;color:var(--text,#1f2937)">Achievements</span>
+    </div>
+    <div id="st-achievements" style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px"></div>
+  </div>
+
+</div>
+</div><!-- end study-kids-wrap -->
+
+
+<!-- ═══ ADULT WRAP ════════════════════════════════════════════════ -->
+<div id="study-adult-wrap" style="display:none">
+<div class="rz-page-with-banner">
+
+  <!-- ── Main Content ─────────────────────────────────────────── -->
+  <div class="rz-page-content" style="padding:16px 16px 100px">
+
+    <!-- Hero Dark Card -->
+    <div id="ast-hero-card" style="background:linear-gradient(135deg,#0D1117 0%,#1a1d2e 60%,#0f1923 100%);border-radius:22px;padding:22px 22px 20px;margin-bottom:16px;border:1px solid rgba(255,138,0,0.18);position:relative;overflow:hidden">
+      <div style="position:absolute;top:-30px;right:-30px;width:140px;height:140px;background:radial-gradient(circle,rgba(255,138,0,0.18) 0%,transparent 70%);pointer-events:none"></div>
+      <div style="position:absolute;bottom:-20px;left:20px;width:90px;height:90px;background:radial-gradient(circle,rgba(99,102,241,0.12) 0%,transparent 70%);pointer-events:none"></div>
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:16px">
+        <div style="flex:1;min-width:0">
+          <div style="font-size:10px;font-weight:800;color:#FF8A00;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:6px">Today's Focus</div>
+          <div style="font-size:clamp(18px,4vw,26px);font-weight:900;color:rgba(255,255,255,0.95);margin-bottom:3px;line-height:1.1" id="ast-hero-time">— min</div>
+          <div style="font-size:11px;color:rgba(255,255,255,0.45);margin-bottom:18px" id="ast-hero-sub">Start your first session</div>
+          <div style="display:flex;gap:16px;flex-wrap:wrap">
+            <div>
+              <div id="ast-hero-sessions" style="font-size:clamp(16px,4vw,20px);font-weight:900;color:#FF8A00;line-height:1">0</div>
+              <div style="font-size:10px;color:rgba(255,255,255,0.45);margin-top:2px">Sessions</div>
+            </div>
+            <div style="width:1px;background:rgba(255,255,255,0.1);align-self:stretch"></div>
+            <div>
+              <div id="ast-hero-streak" style="font-size:clamp(16px,4vw,20px);font-weight:900;color:#FFB800;line-height:1">0</div>
+              <div style="font-size:10px;color:rgba(255,255,255,0.45);margin-top:2px">Day Streak</div>
+            </div>
+            <div style="width:1px;background:rgba(255,255,255,0.1);align-self:stretch"></div>
+            <div>
+              <div id="ast-hero-goal" style="font-size:clamp(16px,4vw,20px);font-weight:900;color:#22C55E;line-height:1">0/4</div>
+              <div style="font-size:10px;color:rgba(255,255,255,0.45);margin-top:2px">Goal</div>
+            </div>
+          </div>
+        </div>
+        <!-- Score Ring -->
+        <div style="flex-shrink:0;position:relative;width:84px;height:84px">
+          <svg viewBox="0 0 84 84" width="84" height="84" style="display:block">
+            <defs>
+              <linearGradient id="astGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#FF8A00"/>
+                <stop offset="100%" stop-color="#6366F1"/>
+              </linearGradient>
+            </defs>
+            <circle cx="42" cy="42" r="34" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="7"/>
+            <circle id="ast-score-ring" cx="42" cy="42" r="34" fill="none" stroke="url(#astGrad)" stroke-width="7" stroke-linecap="round"
+              stroke-dasharray="213.6" stroke-dashoffset="213.6"
+              transform="rotate(-90 42 42)" style="transition:stroke-dashoffset .7s cubic-bezier(.4,0,.2,1)"/>
+          </svg>
+          <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1px">
+            <div id="ast-score-num" style="font-size:17px;font-weight:900;color:#FF8A00;line-height:1">—</div>
+            <div style="font-size:8.5px;color:rgba(255,255,255,0.4)">Score</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Timer Card -->
+    <div style="background:var(--card,#fff);border-radius:22px;padding:20px 18px;border:1.5px solid var(--border,#e5e7eb);margin-bottom:14px">
+
+      <!-- Mode Tabs -->
+      <div style="display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;margin-bottom:20px;-webkit-overflow-scrolling:touch;scrollbar-width:none">
+        <button onclick="rzAstSetMode('focus')" id="ast-mode-focus" style="padding:7px 14px;border-radius:50px;border:none;background:#FF8A00;color:#fff;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;white-space:nowrap;flex-shrink:0">⚡ Focus</button>
+        <button onclick="rzAstSetMode('deep')" id="ast-mode-deep" style="padding:7px 14px;border-radius:50px;border:none;background:var(--bg,#f9fafb);color:var(--text2,#888);font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;white-space:nowrap;flex-shrink:0">🧠 Deep Work</button>
+        <button onclick="rzAstSetMode('flow')" id="ast-mode-flow" style="padding:7px 14px;border-radius:50px;border:none;background:var(--bg,#f9fafb);color:var(--text2,#888);font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;white-space:nowrap;flex-shrink:0">🌊 Flow</button>
+        <button onclick="rzAstSetMode('short')" id="ast-mode-short" style="padding:7px 14px;border-radius:50px;border:none;background:var(--bg,#f9fafb);color:var(--text2,#888);font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;white-space:nowrap;flex-shrink:0">☕ Short Break</button>
+        <button onclick="rzAstSetMode('long')" id="ast-mode-long" style="padding:7px 14px;border-radius:50px;border:none;background:var(--bg,#f9fafb);color:var(--text2,#888);font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;white-space:nowrap;flex-shrink:0">🌙 Long Break</button>
+      </div>
+
+      <!-- Break Tip -->
+      <div id="ast-break-tip" style="display:none;background:linear-gradient(135deg,rgba(34,197,94,0.08),rgba(59,130,246,0.04));border-radius:14px;padding:12px 14px;margin-bottom:16px;border-left:3px solid #22C55E">
+        <div style="font-size:10px;font-weight:800;color:#22C55E;letter-spacing:.6px;text-transform:uppercase;margin-bottom:3px">Break Suggestion</div>
+        <div id="ast-break-text" style="font-size:13px;color:var(--text,#1f2937);line-height:1.5"></div>
+      </div>
+
+      <!-- Timer Circle -->
+      <div style="position:relative;width:200px;height:200px;margin:0 auto 20px">
+        <svg width="200" height="200" viewBox="0 0 200 200" style="display:block">
+          <defs>
+            <linearGradient id="astTimerGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#FF8A00"/>
+              <stop offset="100%" stop-color="#FFB800"/>
+            </linearGradient>
+          </defs>
+          <circle cx="100" cy="100" r="86" fill="none" stroke="var(--border,#e5e7eb)" stroke-width="10"/>
+          <circle id="ast-circle" cx="100" cy="100" r="86" fill="none" stroke="url(#astTimerGrad)" stroke-width="10"
+            stroke-dasharray="540.35" stroke-dashoffset="0" stroke-linecap="round"
+            transform="rotate(-90 100 100)" style="transition:stroke-dashoffset .5s,stroke .3s"/>
+        </svg>
+        <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;width:150px">
+          <div id="ast-time" style="font-size:44px;font-weight:900;color:var(--text,#1f2937);line-height:1;font-family:'Barlow Condensed','Space Grotesk',sans-serif;letter-spacing:2px">25:00</div>
+          <div id="ast-label" style="font-size:12px;color:var(--text2,#888);margin-top:5px;font-weight:600">Focus</div>
+          <div id="ast-xp-earn" style="font-size:11px;font-weight:700;color:#FF8A00;margin-top:4px">+10 XP</div>
+        </div>
+      </div>
+
+      <!-- Controls -->
+      <div style="display:flex;gap:16px;justify-content:center;margin-bottom:20px;align-items:center">
+        <button onclick="rzAstReset()" style="width:50px;height:50px;border-radius:50%;border:2px solid var(--border,#e5e7eb);background:var(--card,#fff);color:var(--text2,#888);cursor:pointer;display:flex;align-items:center;justify-content:center">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.62"/></svg>
+        </button>
+        <button onclick="rzAstToggle()" id="ast-play-btn" style="width:70px;height:70px;border-radius:50%;border:none;background:linear-gradient(135deg,#FF8A00,#FFB800);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 20px rgba(255,138,0,.4)">
+          <svg id="ast-play-icon" viewBox="0 0 24 24" width="28" height="28" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        </button>
+        <button onclick="rzAstSkip()" style="width:50px;height:50px;border-radius:50%;border:2px solid var(--border,#e5e7eb);background:var(--card,#fff);color:var(--text2,#888);cursor:pointer;display:flex;align-items:center;justify-content:center">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" stroke="currentColor" stroke-width="1"><polygon points="5 4 15 12 5 20 5 4"/><rect x="18" y="4" width="2" height="16" rx="1"/></svg>
+        </button>
+      </div>
+
+      <!-- Subject Chips -->
+      <div style="margin-bottom:12px">
+        <div style="font-size:10px;font-weight:700;color:var(--text2,#888);letter-spacing:.5px;text-transform:uppercase;margin-bottom:8px">What are you working on?</div>
+        <div id="ast-subj-chips" style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px"></div>
+        <input id="ast-subject-input" type="text" placeholder="Custom topic..." oninput="rzAstClearChips()" style="width:100%;border:1.5px solid var(--border,#e5e7eb);border-radius:10px;padding:8px 12px;font-size:13px;font-family:inherit;outline:none;background:var(--bg,#f9fafb);color:var(--text,#1f2937);box-sizing:border-box"/>
+      </div>
+
+      <!-- Session Note -->
+      <div>
+        <div style="font-size:10px;font-weight:700;color:var(--text2,#888);letter-spacing:.5px;text-transform:uppercase;margin-bottom:6px">Session Note <span style="font-weight:400;font-style:italic">(optional)</span></div>
+        <textarea id="ast-session-note" placeholder="What will you accomplish this session?" style="width:100%;border:1.5px solid var(--border,#e5e7eb);border-radius:10px;padding:9px 12px;font-size:13px;font-family:inherit;outline:none;background:var(--bg,#f9fafb);color:var(--text,#1f2937);resize:none;height:60px;box-sizing:border-box;line-height:1.5"></textarea>
+      </div>
+    </div>
+
+    <!-- Daily Goal Card -->
+    <div style="background:var(--card,#fff);border-radius:18px;padding:16px;border:1.5px solid var(--border,#e5e7eb);margin-bottom:14px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+        <div>
+          <div style="font-size:13px;font-weight:800;color:var(--text,#1f2937)">Daily Goal</div>
+          <div style="font-size:11px;color:var(--text2,#888);margin-top:1px">Focus sessions per day</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px">
+          <button onclick="rzAstChangeGoal(-1)" style="width:30px;height:30px;border-radius:50%;border:1.5px solid var(--border,#e5e7eb);background:var(--card,#fff);color:var(--text,#1f2937);font-size:17px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-weight:700">−</button>
+          <span id="ast-goal-display" style="font-size:15px;font-weight:900;color:#FF8A00;min-width:80px;text-align:center">4 sessions</span>
+          <button onclick="rzAstChangeGoal(1)" style="width:30px;height:30px;border-radius:50%;border:2px solid #FF8A00;background:rgba(255,138,0,0.1);color:#FF8A00;font-size:17px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-weight:700">+</button>
+        </div>
+      </div>
+      <div style="background:var(--border,#e5e7eb);border-radius:8px;height:8px;overflow:hidden">
+        <div id="ast-goal-bar" style="background:linear-gradient(90deg,#FF8A00,#FFB800);height:100%;width:0%;border-radius:8px;transition:width .6s ease"></div>
+      </div>
+      <div id="ast-goal-text" style="font-size:11px;color:var(--text2,#888);margin-top:6px;text-align:right">0 / 4 sessions done</div>
+    </div>
+
+    <!-- Stats Row -->
+    <div id="ast-stats" style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px"></div>
+
+    <!-- 14-Day Heatmap -->
+    <div style="background:var(--card,#fff);border-radius:18px;padding:16px;border:1.5px solid var(--border,#e5e7eb);margin-bottom:14px">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+        <div style="display:flex;align-items:center;gap:7px">
+          <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="#FF8A00" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          <span style="font-size:13px;font-weight:800;color:var(--text,#1f2937)">14-Day Focus Map</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:4px">
+          <div style="width:8px;height:8px;border-radius:2px;background:var(--border,#e5e7eb)"></div>
+          <div style="width:8px;height:8px;border-radius:2px;background:rgba(255,138,0,0.3)"></div>
+          <div style="width:8px;height:8px;border-radius:2px;background:rgba(255,138,0,0.6)"></div>
+          <div style="width:8px;height:8px;border-radius:2px;background:#FF8A00"></div>
+          <span style="font-size:9px;color:var(--text2,#888);margin-left:2px">less → more</span>
+        </div>
+      </div>
+      <div id="ast-heatmap" style="display:grid;grid-template-columns:repeat(14,1fr);gap:4px"></div>
+      <div style="display:flex;justify-content:space-between;margin-top:6px">
+        <span style="font-size:9px;color:var(--text2,#888)">14 days ago</span>
+        <span style="font-size:9px;color:var(--text2,#888)">Today</span>
+      </div>
+    </div>
+
+    <!-- Insight -->
+    <div id="ast-insight" style="margin-bottom:14px"></div>
+
+    <!-- Timer Settings -->
+    <div style="background:var(--card,#fff);border-radius:18px;padding:16px;border:1.5px solid var(--border,#e5e7eb);margin-bottom:14px">
+      <div style="display:flex;align-items:center;gap:7px;margin-bottom:14px">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="var(--text2,#888)" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        <span style="font-size:13px;font-weight:800;color:var(--text,#1f2937)">Timer Settings</span>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:10px">
+        <div style="text-align:center">
+          <div style="font-size:10px;color:var(--text2,#888);margin-bottom:6px;font-weight:600">Focus</div>
+          <div style="display:flex;align-items:center;justify-content:center;gap:5px">
+            <button onclick="rzAstChangeDur('focus',-5)" style="width:24px;height:24px;border-radius:50%;border:1.5px solid var(--border,#e5e7eb);background:var(--card,#fff);cursor:pointer;font-size:14px;font-weight:700;color:var(--text,#1f2937);line-height:1">-</button>
+            <span id="ast-dur-focus" style="font-weight:800;color:#FF8A00;font-size:15px;min-width:28px;text-align:center">25</span>
+            <button onclick="rzAstChangeDur('focus',5)" style="width:24px;height:24px;border-radius:50%;border:1.5px solid var(--border,#e5e7eb);background:var(--card,#fff);cursor:pointer;font-size:14px;font-weight:700;color:var(--text,#1f2937);line-height:1">+</button>
+          </div>
+          <div style="font-size:9px;color:var(--text2,#888);margin-top:2px">min</div>
+        </div>
+        <div style="text-align:center">
+          <div style="font-size:10px;color:var(--text2,#888);margin-bottom:6px;font-weight:600">Deep Work</div>
+          <div style="display:flex;align-items:center;justify-content:center;gap:5px">
+            <button onclick="rzAstChangeDur('deep',-5)" style="width:24px;height:24px;border-radius:50%;border:1.5px solid var(--border,#e5e7eb);background:var(--card,#fff);cursor:pointer;font-size:14px;font-weight:700;color:var(--text,#1f2937);line-height:1">-</button>
+            <span id="ast-dur-deep" style="font-weight:800;color:#6366F1;font-size:15px;min-width:28px;text-align:center">90</span>
+            <button onclick="rzAstChangeDur('deep',5)" style="width:24px;height:24px;border-radius:50%;border:1.5px solid var(--border,#e5e7eb);background:var(--card,#fff);cursor:pointer;font-size:14px;font-weight:700;color:var(--text,#1f2937);line-height:1">+</button>
+          </div>
+          <div style="font-size:9px;color:var(--text2,#888);margin-top:2px">min</div>
+        </div>
+        <div style="text-align:center">
+          <div style="font-size:10px;color:var(--text2,#888);margin-bottom:6px;font-weight:600">Flow</div>
+          <div style="display:flex;align-items:center;justify-content:center;gap:5px">
+            <button onclick="rzAstChangeDur('flow',-5)" style="width:24px;height:24px;border-radius:50%;border:1.5px solid var(--border,#e5e7eb);background:var(--card,#fff);cursor:pointer;font-size:14px;font-weight:700;color:var(--text,#1f2937);line-height:1">-</button>
+            <span id="ast-dur-flow" style="font-weight:800;color:#8B5CF6;font-size:15px;min-width:28px;text-align:center">45</span>
+            <button onclick="rzAstChangeDur('flow',5)" style="width:24px;height:24px;border-radius:50%;border:1.5px solid var(--border,#e5e7eb);background:var(--card,#fff);cursor:pointer;font-size:14px;font-weight:700;color:var(--text,#1f2937);line-height:1">+</button>
+          </div>
+          <div style="font-size:9px;color:var(--text2,#888);margin-top:2px">min</div>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+        <div style="text-align:center">
+          <div style="font-size:10px;color:var(--text2,#888);margin-bottom:6px;font-weight:600">Short Break</div>
+          <div style="display:flex;align-items:center;justify-content:center;gap:5px">
+            <button onclick="rzAstChangeDur('short',-1)" style="width:24px;height:24px;border-radius:50%;border:1.5px solid var(--border,#e5e7eb);background:var(--card,#fff);cursor:pointer;font-size:14px;font-weight:700;color:var(--text,#1f2937);line-height:1">-</button>
+            <span id="ast-dur-short" style="font-weight:800;color:#22C55E;font-size:15px;min-width:28px;text-align:center">5</span>
+            <button onclick="rzAstChangeDur('short',1)" style="width:24px;height:24px;border-radius:50%;border:1.5px solid var(--border,#e5e7eb);background:var(--card,#fff);cursor:pointer;font-size:14px;font-weight:700;color:var(--text,#1f2937);line-height:1">+</button>
+          </div>
+          <div style="font-size:9px;color:var(--text2,#888);margin-top:2px">min</div>
+        </div>
+        <div style="text-align:center">
+          <div style="font-size:10px;color:var(--text2,#888);margin-bottom:6px;font-weight:600">Long Break</div>
+          <div style="display:flex;align-items:center;justify-content:center;gap:5px">
+            <button onclick="rzAstChangeDur('long',-5)" style="width:24px;height:24px;border-radius:50%;border:1.5px solid var(--border,#e5e7eb);background:var(--card,#fff);cursor:pointer;font-size:14px;font-weight:700;color:var(--text,#1f2937);line-height:1">-</button>
+            <span id="ast-dur-long" style="font-weight:800;color:#3B82F6;font-size:15px;min-width:28px;text-align:center">15</span>
+            <button onclick="rzAstChangeDur('long',5)" style="width:24px;height:24px;border-radius:50%;border:1.5px solid var(--border,#e5e7eb);background:var(--card,#fff);cursor:pointer;font-size:14px;font-weight:700;color:var(--text,#1f2937);line-height:1">+</button>
+          </div>
+          <div style="font-size:9px;color:var(--text2,#888);margin-top:2px">min</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Focus Tips -->
+    <div style="background:linear-gradient(135deg,#090B12,#1a1a2e);border-radius:18px;padding:18px;color:#fff;margin-bottom:14px">
+      <div style="display:flex;align-items:center;gap:7px;margin-bottom:14px">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#FFB800" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <span style="font-size:13px;font-weight:800">Deep Work Tips</span>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+        <div style="background:rgba(255,255,255,.07);border-radius:10px;padding:11px;display:flex;gap:8px;align-items:flex-start">
+          <span style="font-size:16px;flex-shrink:0">📵</span>
+          <div style="font-size:11px;line-height:1.5;color:rgba(255,255,255,.8)">ফোন দূরে রাখো — Session চলাকালে notification বন্ধ রাখো</div>
+        </div>
+        <div style="background:rgba(255,255,255,.07);border-radius:10px;padding:11px;display:flex;gap:8px;align-items:flex-start">
+          <span style="font-size:16px;flex-shrink:0">🎯</span>
+          <div style="font-size:11px;line-height:1.5;color:rgba(255,255,255,.8)">প্রতিটা Session শুরুর আগে একটা নির্দিষ্ট লক্ষ্য ঠিক করো</div>
+        </div>
+        <div style="background:rgba(255,255,255,.07);border-radius:10px;padding:11px;display:flex;gap:8px;align-items:flex-start">
+          <span style="font-size:16px;flex-shrink:0">🧠</span>
+          <div style="font-size:11px;line-height:1.5;color:rgba(255,255,255,.8)">Deep Work: ৯০ মিনিটের block মস্তিষ্কের স্বাভাবিক ছন্দের সাথে মেলে</div>
+        </div>
+        <div style="background:rgba(255,255,255,.07);border-radius:10px;padding:11px;display:flex;gap:8px;align-items:flex-start">
+          <span style="font-size:16px;flex-shrink:0">💧</span>
+          <div style="font-size:11px;line-height:1.5;color:rgba(255,255,255,.8)">Break এ পানি পান করো — মস্তিষ্ক ভালো রাখতে পানি জরুরি</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Donation Card -->
+    <div class="rz-donation-mobile-card">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+        <div style="width:38px;height:38px;border-radius:12px;background:linear-gradient(135deg,rgba(255,138,0,0.15),rgba(255,184,0,0.1));border:1px solid rgba(255,138,0,0.3);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#FF8A00" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" fill="rgba(255,138,0,0.12)"/></svg>
+        </div>
+        <div>
+          <div style="font-size:13px;font-weight:800;color:#FF8A00">Rizers কে Support করুন</div>
+          <div style="font-size:11px;color:var(--text2,#888)">মাত্র ১ কাপ চায়ের দামে</div>
+        </div>
+      </div>
+      <div style="font-size:12px;color:var(--text2,#888);line-height:1.6;margin-bottom:10px">তোমার ছোট সাহায্য হাজারজনের পড়াশোনার রুটিন ঠিক রাখতে সাহায্য করে।</div>
+      <a href="#" onclick="rzOpenDonation();return false;" style="display:block;width:100%;background:linear-gradient(135deg,#FF8A00,#FFB800);color:#090B12;font-size:13px;font-weight:800;text-align:center;padding:11px;border-radius:12px;text-decoration:none;box-sizing:border-box">🤲 Support করুন</a>
+    </div>
+
+  </div><!-- end rz-page-content -->
+
+  <!-- ── Donation Sidebar ─────────────────────────────────────── -->
+  <div class="rz-donation-sidebar">
+    <div class="rz-dsb-inner">
+      <div style="text-align:center;margin-bottom:20px">
+        <div style="width:58px;height:58px;border-radius:18px;background:linear-gradient(135deg,rgba(255,138,0,0.15),rgba(255,184,0,0.1));border:1px solid rgba(255,138,0,0.3);display:flex;align-items:center;justify-content:center;margin:0 auto 12px">
+          <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="#FF8A00" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" fill="rgba(255,138,0,0.12)"/></svg>
+        </div>
+        <div style="font-size:12px;font-weight:800;color:#FF8A00;letter-spacing:1px;text-transform:uppercase">Rizers কে Support করুন</div>
+      </div>
+      <div style="background:rgba(255,138,0,0.06);border:1px solid rgba(255,138,0,0.15);border-radius:14px;padding:16px;margin-bottom:16px">
+        <div style="font-size:15px;font-weight:700;color:var(--text,#1f2937);line-height:1.6;margin-bottom:10px">"তোমার ছোট সাহায্য হাজারজনের পড়াশোনা ও মনোযোগ ঠিক রাখতে সাহায্য করতে পারে।"</div>
+        <div style="font-size:12.5px;color:var(--text2,#888);line-height:1.7">Rizers ব্যবহার করে প্রতিদিন হাজারো মানুষ পড়ার রুটিন ঠিক করছে। তুমি চাইলে এই যাত্রার অংশ হতে পারো।</div>
+      </div>
+      <div style="margin-bottom:16px">
+        <div style="font-size:12px;font-weight:700;color:var(--text2,#888);margin-bottom:10px;text-transform:uppercase;letter-spacing:.8px">মাত্র ৳৯৯/মাসে</div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div style="display:flex;align-items:center;gap:10px"><div style="width:7px;height:7px;border-radius:50%;background:#FF8A00;flex-shrink:0"></div><span style="font-size:13.5px;color:var(--text,#1f2937)">১ কাপ চায়ের দাম</span></div>
+          <div style="display:flex;align-items:center;gap:10px"><div style="width:7px;height:7px;border-radius:50%;background:#22C55E;flex-shrink:0"></div><span style="font-size:13.5px;color:var(--text,#1f2937)">হাজারজনের AI partner চালু থাকে</span></div>
+          <div style="display:flex;align-items:center;gap:10px"><div style="width:7px;height:7px;border-radius:50%;background:#3B82F6;flex-shrink:0"></div><span style="font-size:13.5px;color:var(--text,#1f2937)">সব feature সম্পূর্ণ free থাকে</span></div>
+        </div>
+      </div>
+      <div style="height:1px;background:var(--border,#e5e7eb);margin-bottom:16px"></div>
+      <div style="margin-bottom:20px;flex:1">
+        <div style="font-size:13px;color:var(--text2,#888);line-height:1.8;font-style:italic">"যে ব্যক্তি কোনো ভালো কাজে সহায়তা করে, সে যেন সেই কাজ নিজেই করলো।"</div>
+        <div style="font-size:11.5px;color:#FF8A00;font-weight:700;margin-top:6px">— বুখারী ও মুসলিম</div>
+      </div>
+      <a href="#" onclick="rzGoToPayment();return false;" style="display:block;width:100%;background:linear-gradient(135deg,#FF8A00,#FFB800);color:#090B12;font-size:14px;font-weight:800;text-align:center;padding:15px;border-radius:13px;text-decoration:none;box-shadow:0 4px 16px rgba(255,138,0,0.4);box-sizing:border-box">🤲 ৳৯৯/মাসে Support করুন</a>
+      <div style="text-align:center;margin-top:12px;font-size:11px;color:var(--text2,#888)">সম্পূর্ণ স্বেচ্ছায় • যেকোনো সময় বাতিল করুন</div>
+    </div>
+  </div>
+
+</div><!-- end rz-page-with-banner -->
+</div><!-- end study-adult-wrap -->
+
+</div><!-- end study-page -->

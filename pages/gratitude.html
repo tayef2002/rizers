@@ -1,0 +1,402 @@
+<div id="gratitude-page" class="app-page" style="display:none;overflow-x:hidden">
+
+<!-- ══ KIDS WRAP ══ -->
+<div id="gr-kids-wrap">
+<div class="rz-page-with-banner">
+
+<div class="rz-donation-sidebar">
+  <div class="rz-dsb-inner">
+    <div style="text-align:center;margin-bottom:14px">
+      <div style="width:44px;height:44px;background:linear-gradient(135deg,#FF8A00,#FFB800);border-radius:14px;display:inline-flex;align-items:center;justify-content:center;margin-bottom:10px">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#090B12" stroke-width="2" stroke-linecap="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+      </div>
+      <div style="font-size:15px;font-weight:800;color:var(--text,#1a1a2e);line-height:1.3">Rizers কে<br>Support করুন</div>
+    </div>
+    <div style="background:linear-gradient(135deg,rgba(255,138,0,.08),rgba(139,92,246,.08));border-radius:12px;padding:12px;margin-bottom:14px;border:1px solid rgba(255,138,0,.15)">
+      <div style="font-size:11px;font-style:italic;color:var(--text2,#666);line-height:1.6;text-align:center">"তোমার শুকরিয়া বাড়িয়ে দেবে তোমার নেয়ামত — এটাই আল্লাহর প্রতিশ্রুতি।"</div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:14px">
+      <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text2,#666)">
+        <div style="width:20px;height:20px;background:rgba(16,185,129,.12);border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+        সম্পূর্ণ বিজ্ঞাপনমুক্ত
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text2,#666)">
+        <div style="width:20px;height:20px;background:rgba(59,130,246,.12);border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#3B82F6" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+        নতুন features সবার আগে
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text2,#666)">
+        <div style="width:20px;height:20px;background:rgba(255,138,0,.12);border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#FF8A00" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+        Journal unlimited
+      </div>
+    </div>
+    <div style="background:rgba(255,138,0,.06);border-radius:10px;padding:10px 12px;margin-bottom:14px;border:1px solid rgba(255,138,0,.1)">
+      <div style="font-size:10px;font-weight:700;color:#FF8A00;margin-bottom:4px">হাদিস</div>
+      <div style="font-size:11px;color:var(--text2,#666);line-height:1.5;font-style:italic">"যে মানুষের শুকর করে না, সে আল্লাহরও শুকর করে না।" — তিরমিযি</div>
+    </div>
+    <a href="#" onclick="rzGoToPayment();return false;" style="display:block;width:100%;padding:12px;background:linear-gradient(135deg,#FF8A00,#FFB800);color:#090B12;border:none;border-radius:12px;font-size:13px;font-weight:800;cursor:pointer;font-family:inherit;text-align:center;text-decoration:none;box-sizing:border-box">❤️ Support করুন</a>
+  </div>
+</div>
+
+<div class="rz-page-content">
+<div style="padding:16px 16px 80px 16px">
+
+  <!-- Header -->
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:18px">
+    <div>
+      <h1 style="font-size:20px;font-weight:700;color:var(--text,#1a1a2e);display:flex;align-items:center;gap:8px;margin:0">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FF8A00" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+        Gratitude Journal
+      </h1>
+      <p style="color:var(--text2,#666);font-size:13px;margin-top:4px;margin-bottom:0">প্রতিদিন আল্লাহর নিয়ামতের শুকর করি</p>
+    </div>
+    <div id="gr-streak-box" style="background:rgba(255,138,0,.1);border:1.5px solid rgba(255,138,0,.25);border-radius:14px;padding:10px 14px;text-align:center;min-width:64px">
+      <div style="display:flex;align-items:center;justify-content:center;gap:4px">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="#FF8A00" stroke="none"><path d="M12 2C8.5 7 6 10 6 14a6 6 0 0012 0c0-4-2.5-7-6-12z"/></svg>
+        <span id="gr-streak" style="font-size:20px;font-weight:700;color:#FF8A00">0</span>
+      </div>
+      <div style="font-size:10px;color:var(--text2,#666);font-weight:600">দিন streak</div>
+    </div>
+  </div>
+
+  <!-- Kid tabs -->
+  <div id="gr-kid-tabs" style="display:none;overflow-x:auto;padding-bottom:8px;margin-bottom:14px;scrollbar-width:none;white-space:nowrap"></div>
+
+  <!-- Streak Calendar -->
+  <div style="background:var(--card,#fff);border-radius:16px;padding:14px 16px;border:1px solid var(--border,#f0f0f0);margin-bottom:14px">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+      <span style="font-size:13px;font-weight:600;color:var(--text,#444)">এই সপ্তাহের শুকর</span>
+      <span id="gr-week-count" style="font-size:12px;font-weight:700;color:#FF8A00">0/7</span>
+    </div>
+    <div id="gr-streak-cal" style="display:grid;grid-template-columns:repeat(7,1fr);gap:6px"></div>
+  </div>
+
+  <!-- Today Entry -->
+  <div style="background:linear-gradient(160deg,#12142a 0%,#1c1f3a 50%,#16192e 100%);border-radius:22px;padding:20px;margin-bottom:14px;color:#fff;border:1px solid rgba(255,138,0,.15)">
+    <div id="gr-ayat-wrap" style="background:linear-gradient(135deg,rgba(255,138,0,.1),rgba(255,184,0,.07));border-radius:14px;padding:14px;margin-bottom:16px;border:1px solid rgba(255,138,0,.2);border-left:3px solid #FF8A00">
+      <div id="gr-ayat-ar" style="font-size:15px;font-family:serif;text-align:right;line-height:1.8;color:#FFB800;margin-bottom:8px;direction:rtl"></div>
+      <div id="gr-ayat-bn" style="font-size:12px;color:rgba(255,255,255,.75);line-height:1.6"></div>
+      <div id="gr-ayat-src" style="font-size:10px;color:#FF8A00;font-weight:700;margin-top:6px"></div>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FF8A00" stroke-width="1.5" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      <span id="gr-date" style="font-size:12px;color:rgba(255,255,255,.5);font-weight:500"></span>
+      <span id="gr-today-badge" style="margin-left:auto;background:linear-gradient(135deg,rgba(255,138,0,.25),rgba(255,184,0,.15));border:1px solid rgba(255,138,0,.3);border-radius:50px;padding:4px 12px;font-size:11px;color:#FFB800;font-weight:700">আজকের প্রতিফলন</span>
+    </div>
+    <div style="background:rgba(255,255,255,.04);border:1.5px solid rgba(255,138,0,.2);border-radius:14px;padding:16px;margin-bottom:14px" onclick="document.getElementById('gr-today-input').focus()">
+      <div style="display:flex;align-items:center;gap:6px;margin-bottom:10px">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#FF8A00" stroke-width="2" stroke-linecap="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+        <span style="font-size:12px;color:#FF8A00;font-weight:600">আজ আমি কৃতজ্ঞ কারণ...</span>
+      </div>
+      <textarea id="gr-today-input" placeholder="যেমন: আমার সুস্থ পরিবার আছে, আমি আল্লাহর রহমতে খেতে পারছি..." rows="4" style="width:100%;background:transparent;border:none;outline:none;color:rgba(255,255,255,.9);font-size:13px;font-family:inherit;resize:none;line-height:1.7;box-sizing:border-box" onfocus="this.parentElement.style.borderColor='rgba(255,138,0,.5)'" onblur="this.parentElement.style.borderColor='rgba(255,138,0,.2)'"></textarea>
+    </div>
+    <div style="margin-bottom:16px">
+      <div style="font-size:11px;color:rgba(255,255,255,.4);font-weight:600;margin-bottom:9px">Tag বেছে নিন</div>
+      <div id="gr-tag-row" style="display:flex;gap:7px;flex-wrap:wrap"></div>
+    </div>
+    <button onclick="grSaveToday()" id="gr-save-btn" style="width:100%;padding:14px;background:linear-gradient(135deg,#FF8A00,#FFB800);color:#090B12;border:none;border-radius:13px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 4px 20px rgba(255,138,0,.35)">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+      শুকর লিখুন
+    </button>
+  </div>
+
+  <!-- Mood -->
+  <div style="background:var(--card,#fff);border-radius:18px;padding:18px;border:1px solid var(--border,#f0f0f0);margin-bottom:14px">
+    <h3 style="font-size:14px;font-weight:700;color:var(--text,#1a1a2e);margin:0 0 14px;display:flex;align-items:center;gap:7px">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#FF8A00" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+      আজকের মুড কেমন?
+    </h3>
+    <div id="gr-mood-row" style="display:flex;gap:8px;flex-wrap:wrap"></div>
+  </div>
+
+  <!-- Stats -->
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px">
+    <div style="background:var(--card,#fff);border-radius:14px;padding:14px;border:1px solid var(--border,#f0f0f0);text-align:center">
+      <div id="gr-total" style="font-size:22px;font-weight:700;color:#FF8A00">0</div>
+      <div style="font-size:11px;color:var(--text2,#888);margin-top:3px">মোট entry</div>
+    </div>
+    <div style="background:var(--card,#fff);border-radius:14px;padding:14px;border:1px solid var(--border,#f0f0f0);text-align:center">
+      <div id="gr-this-week" style="font-size:22px;font-weight:700;color:#FFB800">0</div>
+      <div style="font-size:11px;color:var(--text2,#888);margin-top:3px">এই সপ্তাহ</div>
+    </div>
+    <div style="background:var(--card,#fff);border-radius:14px;padding:14px;border:1px solid var(--border,#f0f0f0);text-align:center">
+      <div id="gr-streak2" style="font-size:22px;font-weight:700;color:#ef4444">0</div>
+      <div style="font-size:11px;color:var(--text2,#888);margin-top:3px">দিন streak</div>
+    </div>
+  </div>
+
+  <!-- Mood Trend -->
+  <div style="background:var(--card,#fff);border-radius:18px;padding:18px;border:1px solid var(--border,#f0f0f0);margin-bottom:14px">
+    <h3 style="font-size:14px;font-weight:700;color:var(--text,#1a1a2e);margin:0 0 14px;display:flex;align-items:center;gap:7px">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#FF8A00" stroke-width="1.5" stroke-linecap="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+      সপ্তাহের মুড Trend
+    </h3>
+    <div id="gr-mood-trend" style="display:grid;grid-template-columns:repeat(7,1fr);gap:6px;align-items:flex-end;height:60px"></div>
+    <div id="gr-mood-trend-labels" style="display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-top:6px"></div>
+  </div>
+
+  <!-- Journal Entries -->
+  <div style="background:var(--card,#fff);border-radius:18px;padding:18px;border:1px solid var(--border,#f0f0f0);margin-bottom:14px">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
+      <h3 style="font-size:14px;font-weight:700;color:var(--text,#1a1a2e);margin:0;display:flex;align-items:center;gap:7px">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#FF8A00" stroke-width="1.5" stroke-linecap="round"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+        আমার Journal
+      </h3>
+      <span id="gr-entry-count" style="font-size:11px;color:#FF8A00;font-weight:700"></span>
+    </div>
+    <div id="gr-entries"></div>
+  </div>
+
+  <!-- Mobile donation card -->
+  <div class="rz-donation-mobile-card">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+      <div style="width:36px;height:36px;background:linear-gradient(135deg,#FF8A00,#FFB800);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#090B12" stroke-width="2" stroke-linecap="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+      </div>
+      <div>
+        <div style="font-size:14px;font-weight:800;color:var(--text,#1a1a2e)">Rizers কে Support করুন</div>
+        <div style="font-size:11px;color:var(--text2,#888)">বিজ্ঞাপনমুক্ত রাখতে সাহায্য করুন</div>
+      </div>
+    </div>
+    <a href="#" onclick="rzOpenDonation();return false;" style="display:block;text-align:center;padding:11px;background:linear-gradient(135deg,#FF8A00,#FFB800);color:#090B12;border-radius:10px;font-size:13px;font-weight:800;text-decoration:none">❤️ Support করুন</a>
+  </div>
+
+</div>
+</div><!-- rz-page-content -->
+</div><!-- rz-page-with-banner -->
+</div><!-- gr-kids-wrap -->
+
+
+<!-- ══ ADULT WRAP ══ -->
+<div id="gr-adult-wrap" style="display:none">
+<div class="rz-page-with-banner">
+
+<!-- Donation Sidebar -->
+<div class="rz-donation-sidebar">
+  <div class="rz-dsb-inner">
+    <div style="text-align:center;margin-bottom:14px">
+      <div style="width:44px;height:44px;background:linear-gradient(135deg,#FF8A00,#FFB800);border-radius:14px;display:inline-flex;align-items:center;justify-content:center;margin-bottom:10px">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#090B12" stroke-width="2" stroke-linecap="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+      </div>
+      <div style="font-size:15px;font-weight:800;color:var(--text,#1a1a2e);line-height:1.3">Rizers কে<br>Support করুন</div>
+    </div>
+    <div style="background:linear-gradient(135deg,rgba(255,138,0,.08),rgba(139,92,246,.08));border-radius:12px;padding:12px;margin-bottom:14px;border:1px solid rgba(255,138,0,.15)">
+      <div style="font-size:11px;font-style:italic;color:var(--text2,#666);line-height:1.6;text-align:center">"তোমার শুকরিয়া বাড়িয়ে দেবে তোমার নেয়ামত — এটাই আল্লাহর প্রতিশ্রুতি।"</div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:14px">
+      <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text2,#666)">
+        <div style="width:20px;height:20px;background:rgba(16,185,129,.12);border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+        সম্পূর্ণ বিজ্ঞাপনমুক্ত
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text2,#666)">
+        <div style="width:20px;height:20px;background:rgba(59,130,246,.12);border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#3B82F6" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+        নতুন features সবার আগে
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text2,#666)">
+        <div style="width:20px;height:20px;background:rgba(255,138,0,.12);border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#FF8A00" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+        Journal unlimited
+      </div>
+    </div>
+    <div style="background:rgba(255,138,0,.06);border-radius:10px;padding:10px 12px;margin-bottom:14px;border:1px solid rgba(255,138,0,.1)">
+      <div style="font-size:10px;font-weight:700;color:#FF8A00;margin-bottom:4px">হাদিস</div>
+      <div style="font-size:11px;color:var(--text2,#666);line-height:1.5;font-style:italic">"যে মানুষের শুকর করে না, সে আল্লাহরও শুকর করে না।" — তিরমিযি</div>
+    </div>
+    <a href="#" onclick="rzGoToPayment();return false;" style="display:block;width:100%;padding:12px;background:linear-gradient(135deg,#FF8A00,#FFB800);color:#090B12;border:none;border-radius:12px;font-size:13px;font-weight:800;cursor:pointer;font-family:inherit;text-align:center;text-decoration:none;box-sizing:border-box">❤️ Support করুন</a>
+  </div>
+</div>
+
+<!-- Page Content -->
+<div class="rz-page-content">
+<div style="padding:16px 16px 100px">
+
+  <!-- ── Hero: Gratitude Jar + Stats ── -->
+  <div style="background:linear-gradient(135deg,#0f0c29 0%,#1a0a3d 50%,#0d1020 100%);border-radius:24px;padding:24px;margin-bottom:18px;position:relative;overflow:hidden">
+    <div style="position:absolute;top:-40px;right:-40px;width:180px;height:180px;background:rgba(255,138,0,.04);border-radius:50%;pointer-events:none"></div>
+    <div style="position:absolute;bottom:-30px;left:-30px;width:120px;height:120px;background:rgba(139,92,246,.06);border-radius:50%;pointer-events:none"></div>
+
+    <div style="display:flex;align-items:center;gap:24px;position:relative;flex-wrap:wrap">
+      <!-- Jar -->
+      <div style="flex-shrink:0;display:flex;flex-direction:column;align-items:center;gap:8px">
+        <svg id="gra-jar-svg" viewBox="0 0 100 150" width="80" height="120" style="overflow:visible">
+          <defs>
+            <clipPath id="gra-jar-clip">
+              <path d="M22,42 L22,118 Q22,132 36,132 L64,132 Q78,132 78,118 L78,42 Z"/>
+            </clipPath>
+            <linearGradient id="gra-fill-grad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#FFD700" stop-opacity="0.9"/>
+              <stop offset="100%" stop-color="#FF6B00" stop-opacity="1"/>
+            </linearGradient>
+            <linearGradient id="gra-shine" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="rgba(255,255,255,0.15)"/>
+              <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
+            </linearGradient>
+          </defs>
+          <!-- Fill (JS animates y and height) -->
+          <rect id="gra-jar-fill" x="22" y="132" width="56" height="0" fill="url(#gra-fill-grad)" clip-path="url(#gra-jar-clip)" style="transition:y 1s ease,height 1s ease"/>
+          <!-- Jar body -->
+          <path d="M22,42 L22,118 Q22,132 36,132 L64,132 Q78,132 78,118 L78,42 Z" fill="rgba(255,184,0,0.05)" stroke="rgba(255,184,0,0.45)" stroke-width="2"/>
+          <!-- Jar neck -->
+          <rect x="30" y="28" width="40" height="16" rx="2" fill="rgba(255,184,0,0.05)" stroke="rgba(255,184,0,0.45)" stroke-width="2"/>
+          <!-- Jar lid -->
+          <rect x="24" y="20" width="52" height="10" rx="5" fill="rgba(255,138,0,0.25)" stroke="rgba(255,138,0,0.55)" stroke-width="1.5"/>
+          <!-- Shine -->
+          <rect x="25" y="45" width="10" height="78" rx="5" fill="url(#gra-shine)"/>
+          <!-- Water ripple line at fill surface (JS updates) -->
+          <line id="gra-jar-ripple" x1="22" y1="132" x2="78" y2="132" stroke="rgba(255,215,0,0.6)" stroke-width="1.5" stroke-dasharray="4,3"/>
+        </svg>
+        <div style="text-align:center">
+          <div id="gra-jar-pct" style="font-size:18px;font-weight:800;color:#FFB800">0%</div>
+          <div id="gra-jar-label" style="font-size:10px;color:rgba(255,255,255,.4);margin-top:1px">শুরু করো...</div>
+        </div>
+      </div>
+
+      <!-- Stats -->
+      <div style="flex:1;min-width:160px">
+        <div style="font-size:10px;font-weight:700;color:rgba(255,255,255,.4);letter-spacing:2px;margin-bottom:8px">GRATITUDE TRACKER</div>
+        <div style="font-size:22px;font-weight:800;color:#fff;margin-bottom:14px;line-height:1.2">তোমার শুকরিয়ার<br>ভান্ডার</div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px">
+          <div style="background:rgba(255,255,255,.06);border-radius:12px;padding:10px;text-align:center">
+            <div id="gra-total" style="font-size:20px;font-weight:700;color:#FFB800">0</div>
+            <div style="font-size:9px;color:rgba(255,255,255,.4);margin-top:2px">মোট</div>
+          </div>
+          <div style="background:rgba(255,255,255,.06);border-radius:12px;padding:10px;text-align:center">
+            <div id="gra-streak" style="font-size:20px;font-weight:700;color:#FF8A00;display:flex;align-items:center;justify-content:center;gap:2px">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="#FF8A00"><path d="M12 2C8.5 7 6 10 6 14a6 6 0 0012 0c0-4-2.5-7-6-12z"/></svg>0
+            </div>
+            <div style="font-size:9px;color:rgba(255,255,255,.4);margin-top:2px">streak</div>
+          </div>
+          <div style="background:rgba(255,255,255,.06);border-radius:12px;padding:10px;text-align:center">
+            <div id="gra-week" style="font-size:20px;font-weight:700;color:#10B981">0</div>
+            <div style="font-size:9px;color:rgba(255,255,255,.4);margin-top:2px">এই সপ্তাহ</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Today's 3 Prompts ── -->
+  <div style="background:var(--card,#fff);border-radius:20px;padding:20px;border:1px solid var(--border,#f0f0f0);margin-bottom:16px;box-shadow:0 2px 12px rgba(0,0,0,.04)">
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:18px">
+      <div style="width:32px;height:32px;background:linear-gradient(135deg,#FF8A00,#FFB800);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#090B12" stroke-width="2.5" stroke-linecap="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+      </div>
+      <div>
+        <div style="font-size:15px;font-weight:800;color:var(--text,#1a1a2e)">আজকের শুকরিয়া লিখুন</div>
+        <div style="font-size:11px;color:var(--text2,#888)">৩টি প্রশ্নে গভীর reflection করুন</div>
+      </div>
+    </div>
+
+    <!-- Prompt 1 -->
+    <div style="margin-bottom:14px">
+      <div style="display:flex;align-items:center;gap:6px;margin-bottom:8px">
+        <div style="width:22px;height:22px;background:rgba(255,138,0,.12);border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:11px;font-weight:700;color:#FF8A00">১</div>
+        <span style="font-size:12px;font-weight:700;color:var(--text,#1a1a2e)">আল্লাহর কোন নেয়ামত আজ সবচেয়ে বেশি অনুভব করেছি?</span>
+      </div>
+      <textarea id="gra-p1" placeholder="যেমন: আমার পরিবারের সুস্বাস্থ্য, আজকের সুন্দর আবহাওয়া..." rows="2" style="width:100%;border:1.5px solid var(--border,#e5e7eb);border-radius:12px;padding:11px 13px;font-size:13px;font-family:inherit;outline:none;background:var(--card,#fff);color:var(--text,#1a1a2e);box-sizing:border-box;resize:none;line-height:1.6;transition:.2s" onfocus="this.style.borderColor='#FF8A00'" onblur="this.style.borderColor='var(--border,#e5e7eb)'"></textarea>
+    </div>
+
+    <!-- Prompt 2 -->
+    <div style="margin-bottom:14px">
+      <div style="display:flex;align-items:center;gap:6px;margin-bottom:8px">
+        <div style="width:22px;height:22px;background:rgba(139,92,246,.12);border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:11px;font-weight:700;color:#8B5CF6">২</div>
+        <span style="font-size:12px;font-weight:700;color:var(--text,#1a1a2e)">আজ কী ভালো ঘটেছে যা আমাকে শক্তি দিয়েছে?</span>
+      </div>
+      <textarea id="gra-p2" placeholder="ছোট হলেও ঠিক আছে — একটা হাসি, একটা সাহায্য, একটা সুযোগ..." rows="2" style="width:100%;border:1.5px solid var(--border,#e5e7eb);border-radius:12px;padding:11px 13px;font-size:13px;font-family:inherit;outline:none;background:var(--card,#fff);color:var(--text,#1a1a2e);box-sizing:border-box;resize:none;line-height:1.6;transition:.2s" onfocus="this.style.borderColor='#8B5CF6'" onblur="this.style.borderColor='var(--border,#e5e7eb)'"></textarea>
+    </div>
+
+    <!-- Prompt 3 -->
+    <div style="margin-bottom:18px">
+      <div style="display:flex;align-items:center;gap:6px;margin-bottom:8px">
+        <div style="width:22px;height:22px;background:rgba(16,185,129,.12);border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:11px;font-weight:700;color:#10B981">৩</div>
+        <span style="font-size:12px;font-weight:700;color:var(--text,#1a1a2e)">কার জন্য কৃতজ্ঞ এবং তাদের জন্য দোয়া করতে চাই?</span>
+      </div>
+      <textarea id="gra-p3" placeholder="আমার মা-বাবা, বন্ধু, শিক্ষক — যার সাহায্য আজ মনে পড়ছে..." rows="2" style="width:100%;border:1.5px solid var(--border,#e5e7eb);border-radius:12px;padding:11px 13px;font-size:13px;font-family:inherit;outline:none;background:var(--card,#fff);color:var(--text,#1a1a2e);box-sizing:border-box;resize:none;line-height:1.6;transition:.2s" onfocus="this.style.borderColor='#10B981'" onblur="this.style.borderColor='var(--border,#e5e7eb)'"></textarea>
+    </div>
+
+    <!-- Mood Row -->
+    <div style="margin-bottom:14px">
+      <div style="font-size:11px;font-weight:700;color:var(--text2,#888);margin-bottom:9px">আজকের মুড</div>
+      <div id="gra-mood-row" style="display:flex;gap:8px;flex-wrap:wrap"></div>
+    </div>
+
+    <!-- Tags -->
+    <div style="margin-bottom:18px">
+      <div style="font-size:11px;font-weight:700;color:var(--text2,#888);margin-bottom:9px">কোন ক্ষেত্রের শুকরিয়া? <span style="font-weight:400">(ঐচ্ছিক)</span></div>
+      <div id="gra-tag-row" style="display:flex;gap:7px;flex-wrap:wrap"></div>
+    </div>
+
+    <!-- Save -->
+    <button onclick="graSaveTodayAdult()" id="gra-save-btn" style="width:100%;padding:14px;background:linear-gradient(135deg,#FF8A00,#FFB800);color:#090B12;border:none;border-radius:14px;font-size:15px;font-weight:800;cursor:pointer;font-family:inherit;box-shadow:0 4px 20px rgba(255,138,0,.3);display:flex;align-items:center;justify-content:center;gap:8px">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+      শুকরিয়া সংরক্ষণ করুন
+    </button>
+  </div>
+
+  <!-- ── Monthly Heatmap ── -->
+  <div style="background:var(--card,#fff);border-radius:20px;padding:20px;border:1px solid var(--border,#f0f0f0);margin-bottom:16px;box-shadow:0 2px 12px rgba(0,0,0,.04)">
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px">
+      <div style="width:32px;height:32px;background:rgba(255,138,0,.1);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FF8A00" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      </div>
+      <div>
+        <div style="font-size:15px;font-weight:800;color:var(--text,#1a1a2e)">মাসিক অভ্যাস ম্যাপ</div>
+        <div style="font-size:11px;color:var(--text2,#888)">কোন দিন শুকরিয়া লিখেছ দেখো</div>
+      </div>
+    </div>
+    <div id="gra-heatmap"></div>
+    <div style="display:flex;align-items:center;gap:6px;margin-top:12px">
+      <span style="font-size:10px;color:var(--text2,#aaa)">কম</span>
+      <div style="width:14px;height:14px;border-radius:3px;background:var(--border,#e5e7eb)"></div>
+      <div style="width:14px;height:14px;border-radius:3px;background:rgba(255,138,0,.35)"></div>
+      <div style="width:14px;height:14px;border-radius:3px;background:#FF8A00"></div>
+      <span style="font-size:10px;color:var(--text2,#aaa)">বেশি</span>
+    </div>
+  </div>
+
+  <!-- ── Life Area Breakdown ── -->
+  <div style="background:var(--card,#fff);border-radius:20px;padding:20px;border:1px solid var(--border,#f0f0f0);margin-bottom:16px;box-shadow:0 2px 12px rgba(0,0,0,.04)">
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px">
+      <div style="width:32px;height:32px;background:rgba(139,92,246,.1);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8B5CF6" stroke-width="2" stroke-linecap="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+      </div>
+      <div>
+        <div style="font-size:15px;font-weight:800;color:var(--text,#1a1a2e)">জীবনের ক্ষেত্র বিশ্লেষণ</div>
+        <div style="font-size:11px;color:var(--text2,#888)">কোথায় সবচেয়ে বেশি কৃতজ্ঞ?</div>
+      </div>
+    </div>
+    <div id="gra-area-bars"></div>
+  </div>
+
+  <!-- ── Journal Entries ── -->
+  <div style="background:var(--card,#fff);border-radius:20px;padding:20px;border:1px solid var(--border,#f0f0f0);margin-bottom:16px;box-shadow:0 2px 12px rgba(0,0,0,.04)">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+      <div style="display:flex;align-items:center;gap:8px">
+        <div style="width:32px;height:32px;background:rgba(255,138,0,.1);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FF8A00" stroke-width="2" stroke-linecap="round"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+        </div>
+        <div style="font-size:15px;font-weight:800;color:var(--text,#1a1a2e)">আমার Journal</div>
+      </div>
+      <span id="gra-entry-count" style="font-size:11px;color:#FF8A00;font-weight:700;background:rgba(255,138,0,.1);padding:4px 10px;border-radius:50px"></span>
+    </div>
+    <div id="gra-entries"></div>
+  </div>
+
+  <!-- Mobile donation card -->
+  <div class="rz-donation-mobile-card">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+      <div style="width:36px;height:36px;background:linear-gradient(135deg,#FF8A00,#FFB800);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#090B12" stroke-width="2" stroke-linecap="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+      </div>
+      <div>
+        <div style="font-size:14px;font-weight:800;color:var(--text,#1a1a2e)">Rizers কে Support করুন</div>
+        <div style="font-size:11px;color:var(--text2,#888)">বিজ্ঞাপনমুক্ত রাখতে সাহায্য করুন</div>
+      </div>
+    </div>
+    <a href="#" onclick="rzOpenDonation();return false;" style="display:block;text-align:center;padding:11px;background:linear-gradient(135deg,#FF8A00,#FFB800);color:#090B12;border-radius:10px;font-size:13px;font-weight:800;text-decoration:none">❤️ Support করুন</a>
+  </div>
+
+</div>
+</div><!-- rz-page-content -->
+</div><!-- rz-page-with-banner -->
+</div><!-- gr-adult-wrap -->
+
+</div><!-- gratitude-page -->

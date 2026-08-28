@@ -1,0 +1,167 @@
+<div id="referral-page" class="app-page" style="display:none;overflow-x:hidden">
+
+  <!-- DARK HERO SECTION -->
+  <div style="margin:-56px -0px 0;padding:72px 20px 50px;background:radial-gradient(ellipse at 50% -20%,rgba(255,138,0,.35) 0%,transparent 65%),#090B12;position:relative;overflow:hidden">
+
+    <!-- Decorative orbs -->
+    <div style="position:absolute;top:-60px;right:-60px;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(255,184,0,.12) 0%,transparent 70%);pointer-events:none"></div>
+    <div style="position:absolute;bottom:20px;left:-40px;width:150px;height:150px;border-radius:50%;background:radial-gradient(circle,rgba(255,138,0,.08) 0%,transparent 70%);pointer-events:none"></div>
+
+    <!-- Top label -->
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,138,0,.7)" stroke-width="1.5" stroke-linecap="round"><path d="M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
+      <span style="font-size:11px;color:rgba(255,138,0,.8);font-weight:700;letter-spacing:.8px;text-transform:uppercase">Referral Program</span>
+    </div>
+
+    <!-- Big headline -->
+    <div style="font-size:26px;font-weight:800;color:#fff;line-height:1.2;margin-bottom:6px">প্রতিটি Invite এ</div>
+    <div style="font-size:42px;font-weight:800;color:#FF8A00;line-height:1;margin-bottom:6px;letter-spacing:-1px">+500 <span style="font-size:20px;font-weight:600;color:#FFB800">Reys</span></div>
+    <div style="font-size:13px;color:rgba(255,255,255,.45);margin-bottom:24px">বন্ধু পাবে +200 Reys • প্রথম quiz এ আরও +100</div>
+
+    <!-- Referral link box -->
+    <div style="background:rgba(255,255,255,.07);border:1px solid rgba(255,138,0,.3);border-radius:16px;padding:14px 16px;display:flex;align-items:center;gap:10px;margin-bottom:14px;backdrop-filter:blur(10px)">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,138,0,.7)" stroke-width="1.5" stroke-linecap="round"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>
+      <span id="ref-link-text" style="font-size:13px;font-weight:600;color:rgba(255,255,255,.9);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">rizers.app/r/USER2026</span>
+      <button onclick="refCopyLink()" id="ref-copy-btn" style="background:linear-gradient(135deg,#FF8A00,#FFB800);border:none;color:#fff;padding:8px 18px;border-radius:10px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:5px;flex-shrink:0;white-space:nowrap">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+        Copy
+      </button>
+    </div>
+
+    <!-- Share Buttons -->
+    <div style="display:flex;gap:8px;margin-bottom:6px">
+      <button onclick="refShare('whatsapp')" style="flex:2;background:#25D366;border:none;color:#fff;padding:13px 8px;border-radius:14px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:6px">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413z"/><path d="M11.998 2C6.476 2 2 6.477 2 12.001a9.946 9.946 0 001.388 5.134L2 22l4.988-1.308A9.953 9.953 0 0011.998 22C17.52 22 22 17.523 22 12c0-5.522-4.48-10-10.002-10z"/></svg>
+        WhatsApp
+      </button>
+      <button onclick="refShare('facebook')" style="flex:1;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);color:#fff;padding:13px 6px;border-radius:14px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:5px">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="#1877F2"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+        FB
+      </button>
+      <button onclick="refShare('other')" style="flex:1;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);color:#fff;padding:13px 6px;border-radius:14px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:5px">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+        আরও
+      </button>
+    </div>
+    <div style="text-align:center;font-size:11px;color:rgba(255,255,255,.25);padding-bottom:4px">রেফার করলেই তুমি এবং তোমার বন্ধু দুজনই পুরস্কার পাবে</div>
+  </div>
+
+  <!-- CONTENT BELOW HERO -->
+  <div style="padding:0 16px 100px">
+
+    <!-- Reys Earned + Stats -->
+    <div style="display:flex;gap:10px;margin-top:-20px;margin-bottom:14px;position:relative;z-index:2">
+      <div style="background:var(--card,#fff);border-radius:16px;padding:14px;border:1px solid var(--border,#f0f0f0);flex:1;text-align:center;box-shadow:0 4px 20px rgba(0,0,0,.08)">
+        <div id="ref-rzc-total" style="font-size:22px;font-weight:800;color:#FF8A00">0</div>
+        <div style="font-size:10px;color:var(--text2,#888);margin-top:2px;font-weight:600">Reys অর্জিত</div>
+      </div>
+      <div style="background:var(--card,#fff);border-radius:16px;padding:14px;border:1px solid var(--border,#f0f0f0);flex:1;text-align:center;box-shadow:0 4px 20px rgba(0,0,0,.08)">
+        <div id="ref-count" style="font-size:22px;font-weight:800;color:var(--text,#1a1a2e)">0</div>
+        <div style="font-size:10px;color:var(--text2,#888);margin-top:2px;font-weight:600">মোট invite</div>
+      </div>
+      <div style="background:var(--card,#fff);border-radius:16px;padding:14px;border:1px solid var(--border,#f0f0f0);flex:1;text-align:center;box-shadow:0 4px 20px rgba(0,0,0,.08)">
+        <div id="ref-joined" style="font-size:22px;font-weight:800;color:#10B981">0</div>
+        <div style="font-size:10px;color:var(--text2,#888);margin-top:2px;font-weight:600">join করেছে</div>
+      </div>
+    </div>
+
+    <!-- Social Proof Banner -->
+    <div style="background:linear-gradient(135deg,rgba(16,185,129,.08),rgba(16,185,129,.03));border:1px solid rgba(16,185,129,.2);border-radius:14px;padding:12px 16px;display:flex;align-items:center;gap:12px;margin-bottom:14px">
+      <div id="ref-proof-avatars" style="display:flex;flex-shrink:0"></div>
+      <div>
+        <div id="ref-proof-text" style="font-size:12px;font-weight:600;color:var(--text,#1a1a2e)"></div>
+        <div style="font-size:11px;color:var(--text2,#888);margin-top:1px">Rizers community তে আজ যোগ দিয়েছে</div>
+      </div>
+    </div>
+
+    <!-- Weekly Challenge -->
+    <div style="background:#090B12;border-radius:18px;padding:18px;margin-bottom:14px;position:relative;overflow:hidden">
+      <div style="position:absolute;top:-30px;right:-30px;width:120px;height:120px;border-radius:50%;background:radial-gradient(circle,rgba(239,68,68,.2) 0%,transparent 70%);pointer-events:none"></div>
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px">
+        <div>
+          <div style="display:flex;align-items:center;gap:6px;margin-bottom:5px">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="#EF4444"><path d="M12 2C8.5 7 6 10 6 14a6 6 0 0012 0c0-4-2.5-7-6-12z"/></svg>
+            <span style="font-size:11px;font-weight:700;color:#EF4444;letter-spacing:.5px">সাপ্তাহিক CHALLENGE</span>
+          </div>
+          <div style="font-size:17px;font-weight:800;color:#fff;margin-bottom:3px">৩ জনকে invite করো</div>
+          <div style="font-size:11px;color:rgba(255,255,255,.4)">সম্পন্ন করলে পাবে Bonus Reys</div>
+        </div>
+        <div style="text-align:right">
+          <div style="font-size:22px;font-weight:800;color:#FFB800">+1,500</div>
+          <div style="font-size:10px;color:rgba(255,255,255,.4)">Bonus Reys</div>
+          <div id="ref-ch-timer" style="font-size:10px;color:#EF4444;font-weight:700;margin-top:3px">৭ দিন বাকি</div>
+        </div>
+      </div>
+      <div id="ref-ch-dots" style="display:flex;gap:8px;margin-bottom:8px"></div>
+      <div id="ref-ch-status" style="font-size:11px;color:rgba(255,255,255,.4)"></div>
+    </div>
+
+    <!-- Milestone Tracker -->
+    <div style="background:var(--card,#fff);border-radius:18px;border:1px solid var(--border,#f0f0f0);margin-bottom:14px;overflow:hidden">
+      <div style="padding:16px 18px;border-bottom:1px solid var(--border,#f0f0f0);display:flex;justify-content:space-between;align-items:center">
+        <span style="font-size:14px;font-weight:700;color:var(--text,#1a1a2e);display:flex;align-items:center;gap:7px">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FF8A00" stroke-width="1.5" stroke-linecap="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          Milestone Rewards
+        </span>
+        <span style="font-size:11px;color:#FF8A00;font-weight:600">বেশি refer = বড় prize</span>
+      </div>
+      <div style="padding:4px 18px 8px" id="ref-milestones"></div>
+    </div>
+
+    <!-- Leaderboard -->
+    <div style="background:#090B12;border-radius:18px;padding:18px;margin-bottom:14px;overflow:hidden;position:relative">
+      <div style="position:absolute;top:-40px;left:50%;transform:translateX(-50%);width:200px;height:100px;border-radius:50%;background:radial-gradient(circle,rgba(255,138,0,.1) 0%,transparent 70%);pointer-events:none"></div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+        <span style="font-size:14px;font-weight:700;color:#fff;display:flex;align-items:center;gap:7px">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FF8A00" stroke-width="1.5" stroke-linecap="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+          এই সপ্তাহের Top Referrers
+        </span>
+        <span style="font-size:10px;background:rgba(255,138,0,.15);color:#FFB800;padding:4px 10px;border-radius:50px;font-weight:700">Top ৩ = Bonus!</span>
+      </div>
+      <div id="ref-leaderboard"></div>
+    </div>
+
+    <!-- Pending Invites -->
+    <div style="background:var(--card,#fff);border-radius:18px;border:1px solid var(--border,#f0f0f0);margin-bottom:14px;overflow:hidden">
+      <div style="padding:16px 18px;border-bottom:1px solid var(--border,#f0f0f0);display:flex;justify-content:space-between;align-items:center">
+        <span style="font-size:14px;font-weight:700;color:var(--text,#1a1a2e);display:flex;align-items:center;gap:7px">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FF8A00" stroke-width="1.5" stroke-linecap="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+          Pending Invites
+        </span>
+        <button onclick="refAddInvite()" style="background:linear-gradient(135deg,#FF8A00,#FFB800);border:none;color:#fff;padding:7px 14px;border-radius:10px;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:4px">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          নতুন Invite
+        </button>
+      </div>
+      <div style="padding:8px 18px 12px" id="ref-pending"></div>
+    </div>
+
+    <!-- Ready-made Messages -->
+    <div style="background:var(--card,#fff);border-radius:18px;border:1px solid var(--border,#f0f0f0);margin-bottom:14px;overflow:hidden">
+      <div style="padding:16px 18px;border-bottom:1px solid var(--border,#f0f0f0)">
+        <div style="font-size:14px;font-weight:700;color:var(--text,#1a1a2e);display:flex;align-items:center;gap:7px;margin-bottom:2px">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FF8A00" stroke-width="1.5" stroke-linecap="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+          Copy করো, পাঠাও
+        </div>
+        <div style="font-size:11px;color:var(--text2,#888)">বন্ধুদের পাঠানোর জন্য ready-made messages</div>
+      </div>
+      <div style="padding:12px 18px 16px" id="ref-messages"></div>
+    </div>
+
+    <!-- Hadith -->
+    <div style="background:linear-gradient(135deg,#090B12,#0f1525);border-radius:18px;padding:20px;margin-bottom:14px;border:1px solid rgba(255,138,0,.1)">
+      <div style="display:flex;gap:12px;align-items:flex-start">
+        <div style="width:40px;height:40px;border-radius:12px;background:rgba(255,138,0,.12);border:1px solid rgba(255,138,0,.2);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FF8A00" stroke-width="1.5" stroke-linecap="round"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+        </div>
+        <div>
+          <div style="font-size:10px;color:#FF8A00;font-weight:700;letter-spacing:.5px;margin-bottom:8px">হাদিস শরীফ</div>
+          <div style="font-size:14px;color:rgba(255,255,255,.88);line-height:1.8;font-style:italic;margin-bottom:8px">"যে ব্যক্তি কোনো ভালো কাজের দিকে পথ দেখায়, সে সেই কাজ সম্পাদনকারীর অনুরূপ সওয়াব পাবে।"</div>
+          <div style="font-size:11px;color:rgba(255,255,255,.3)">— সহিহ মুসলিম ১৮৯৩</div>
+        </div>
+      </div>
+      <div style="margin-top:14px;padding-top:14px;border-top:1px solid rgba(255,255,255,.06);font-size:12px;color:rgba(255,255,255,.4);line-height:1.6">Rizers এ ইলম share করা শুধু app promotion নয় — এটি একটি ইবাদত।</div>
+    </div>
+
+  </div>
+</div>

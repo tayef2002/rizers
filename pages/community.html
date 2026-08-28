@@ -1,0 +1,319 @@
+﻿<div id="community-page" class="app-page" style="display:none">
+
+
+<div class="cm-layout">
+
+  <!-- LEFT SIDEBAR -->
+  <div class="cm-left">
+    <!-- Next Namaz countdown — real prayer times (Aladhan API, Dhaka default), the single most
+         practical widget for a namaz-centric app, so it sits at the very top. -->
+    <div class="cm-card" id="cm-namaz-countdown" onclick="switchTab('namaz')" style="cursor:pointer;overflow:hidden;position:relative;background:linear-gradient(160deg,#10B98114,transparent 60%),var(--cc);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid #10B98140!important;box-shadow:0 3px 10px rgba(0,0,0,.12),inset 0 1px 0 rgba(255,255,255,.08)">
+      <div style="position:absolute;width:140px;height:140px;border-radius:50%;background:#10B981;opacity:.16;filter:blur(32px);top:-50px;right:-50px;pointer-events:none"></div>
+      <div class="cm-card-pad" style="position:relative;display:flex;align-items:center;justify-content:space-between">
+        <div style="display:flex;align-items:center;gap:12px">
+          <div style="width:38px;height:38px;border-radius:11px;background:#10B98122;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2" stroke-linecap="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9z"/></svg>
+          </div>
+          <div>
+            <div style="font-size:11px;color:var(--ct2);font-weight:700;letter-spacing:.5px;font-family:'Hind Siliguri',sans-serif">Next Prayer</div>
+            <div id="cm-next-prayer-name" style="font-size:20px;font-weight:800;color:var(--ct);margin-top:2px;font-family:'Barlow Condensed','Hind Siliguri',sans-serif">Loading...</div>
+          </div>
+        </div>
+        <div style="text-align:right">
+          <div id="cm-next-prayer-countdown" style="font-size:18px;font-weight:800;color:#10B981;font-family:'Barlow Condensed',sans-serif">--</div>
+          <div style="font-size:10.5px;color:var(--ct2);margin-top:2px;font-family:'Hind Siliguri',sans-serif">Time Left</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- My Profile -->
+    <div class="cm-card cm-card-pad" id="cm-profile-card">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;cursor:pointer" onclick="rzTabProfile()">
+        <div id="cm-profile-av" style="width:48px;height:48px;border-radius:50%;background:#FF8A00;display:flex;align-items:center;justify-content:center;color:#fff;font-size:20px;font-weight:700;flex-shrink:0">?</div>
+        <div>
+          <div id="cm-profile-name" style="font-size:14px;font-weight:700;color:#1c1e21">Loading...</div>
+          <div style="font-size:12px;color:#65676b;margin-top:1px;display:flex;align-items:center;gap:4px"><svg width="11" height="11" viewBox="0 0 24 24" fill="#F9A825" stroke="none"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.7-6.2 3.7 1.6-7-5.4-4.7 7.1-.6z"/></svg> Gold Riser</div>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+        <div style="background:#f0f9f4;border-radius:10px;padding:10px;text-align:center">
+          <div id="cm-profile-streak" style="font-size:18px;font-weight:700;color:#1a6b3c">0</div>
+          <div style="font-size:11px;color:#65676b">Day Streak</div>
+        </div>
+        <div style="background:#fff8e1;border-radius:10px;padding:10px;text-align:center">
+          <div id="cm-profile-pts" style="font-size:18px;font-weight:700;color:#F9A825">0</div>
+          <div style="font-size:11px;color:#65676b">Points</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Active Challenges -->
+    <div class="cm-card cm-card-pad">
+      <div style="font-size:13px;font-weight:700;color:var(--ct);margin-bottom:12px;display:flex;align-items:center;gap:6px"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#FF8A00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg> Active Challenges</div>
+      <div id="cm-challenges-left"></div>
+      <div style="text-align:center;margin-top:10px"><span onclick="showPage('challenges')" style="font-size:12px;font-weight:600;color:#FF8A00;cursor:pointer">See All Challenges →</span></div>
+    </div>
+
+    <!-- Today's Snapshot — each row is now clickable (jumps straight to that tracker), so this
+         card is a shortcut you act on, not just a progress bar you look at. -->
+    <div class="cm-card cm-card-pad">
+      <div style="font-size:13px;font-weight:700;color:var(--ct);margin-bottom:12px;display:flex;align-items:center;gap:6px"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg> Today's Snapshot</div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <div class="cm-snap-row" onclick="switchTab('habits')" style="cursor:pointer"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px"><span style="font-size:12px;color:var(--ct2);display:flex;align-items:center;gap:5px"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--cgold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg> Habit</span><span id="cm-snap-habit-label" style="font-size:11.5px;font-weight:700;color:var(--cgold)">...</span></div><div style="height:5px;background:var(--cl);border-radius:5px"><div id="cm-snap-habit-bar" style="width:0%;height:100%;background:var(--cgold);border-radius:5px;transition:width .3s"></div></div></div>
+        <div class="cm-snap-row" onclick="switchTab('quran')" style="cursor:pointer"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px"><span style="font-size:12px;color:var(--ct2);display:flex;align-items:center;gap:5px"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#3B82F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg> Quran</span><span id="cm-snap-quran-label" style="font-size:11.5px;color:var(--ct2);font-weight:600">...</span></div><div style="height:5px;background:var(--cl);border-radius:5px"><div id="cm-snap-quran-bar" style="width:0%;height:100%;background:#3B82F6;border-radius:5px;transition:width .3s"></div></div></div>
+        <div class="cm-snap-row" onclick="switchTab('namaz')" style="cursor:pointer"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px"><span style="font-size:12px;color:var(--ct2);display:flex;align-items:center;gap:5px"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2" stroke-linecap="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9z"/></svg> Namaz</span><span id="cm-snap-namaz-label" style="font-size:11.5px;color:var(--ct2);font-weight:600">...</span></div><div style="height:5px;background:var(--cl);border-radius:5px"><div id="cm-snap-namaz-bar" style="width:0%;height:100%;background:#10B981;border-radius:5px;transition:width .3s"></div></div></div>
+        <div class="cm-snap-row" onclick="switchTab('deepwork')" style="cursor:pointer"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px"><span style="font-size:12px;color:var(--ct2);display:flex;align-items:center;gap:5px"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#8B5CF6" stroke-width="2"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1" fill="#8B5CF6"/></svg> Deep Work</span><span id="cm-snap-deepwork-label" style="font-size:11.5px;color:var(--ct2);font-weight:600">...</span></div><div style="height:5px;background:var(--cl);border-radius:5px"><div id="cm-snap-deepwork-bar" style="width:0%;height:100%;background:#8B5CF6;border-radius:5px;transition:width .3s"></div></div></div>
+      </div>
+    </div>
+
+    <!-- Shortcuts -->
+    <div class="cm-card" style="padding:8px 0">
+      <div style="padding:4px 14px 6px;font-size:11px;font-weight:700;color:var(--ct2);letter-spacing:.5px">SHORTCUTS</div>
+      <a class="cm-ql" onclick="switchTab('habits')"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--cgold)"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>Habit Tracker</a>
+      <a class="cm-ql" onclick="switchTab('quran')"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:#3B82F6"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>Quran Tracker</a>
+      <a class="cm-ql" onclick="switchTab('namaz')"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="color:#10B981"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9z"/></svg>Namaz Tracker</a>
+      <a class="cm-ql" onclick="switchTab('study')"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:#8B5CF6"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Study Timer</a>
+      <a class="cm-ql" onclick="switchTab('sleep')"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="color:#EF4444"><path d="M17 18a5 5 0 0 0-10 0"/><line x1="12" y1="9" x2="12" y2="2"/><line x1="4.22" y1="10.22" x2="5.64" y2="11.64"/><line x1="1" y1="18" x2="3" y2="18"/><line x1="21" y1="18" x2="23" y2="18"/><line x1="18.36" y1="11.64" x2="19.78" y2="10.22"/></svg>Sleep Tracker</a>
+    </div>
+  </div>
+
+  <!-- CENTER FEED -->
+  <div class="cm-center">
+
+    <!-- DAILY RISE STORIES -->
+    <div class="cm-stories-wrap"><div class="cm-stories" id="cm-stories"></div></div>
+
+    <!-- Create Post Box - Facebook style -->
+    <div class="cm-card" style="padding:12px 14px">
+      <div style="display:flex;align-items:center;gap:10px">
+        <div class="cm-av" id="cm-myav" style="width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,#FF8A00,#FFB800);color:#090B12;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700;flex-shrink:0">R</div>
+        <div class="cm-prompt" onclick="cmOpenComposer()" style="flex:1;border-radius:50px;padding:10px 16px">What's your win today? 🔥</div>
+        <button onclick="cmOpenComposer()" style="width:38px;height:38px;border:none;background:var(--cchip);border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--ct)"><svg viewBox="0 0 24 24" style="width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></button>
+        <button onclick="rzVoicePost()" style="width:38px;height:38px;border:none;background:var(--cchip);border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--ct)"><svg viewBox="0 0 24 24" style="width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round"><rect x="9" y="2" width="6" height="11" rx="3"/><path d="M5 10a7 7 0 0 0 14 0"/><line x1="12" y1="17" x2="12" y2="22"/><line x1="8" y1="22" x2="16" y2="22"/></svg></button>
+      </div>
+    </div>
+    <div id="cm-quick-btns" style="display:none"></div>
+
+    <!-- Tool Progress Carousel — real per-tracker "today" snapshot, horizontally scrollable,
+         each card jumps straight to that tracker. Wrapped in an actual feed-card container (like
+         every other feed item) instead of floating bare on the page background. Phase 1 of the
+         Rise Feed personalization plan (smart action cards + unused-tool discovery come next). -->
+    <div id="cm-tool-carousel-wrap" class="cm-card" style="display:none;overflow:hidden;padding:14px 14px 12px">
+      <div style="font-size:13px;font-weight:800;color:var(--ct);font-family:'Hind Siliguri',sans-serif;margin-bottom:10px">📊 তোমার আজকের Progress</div>
+      <div id="cm-tool-carousel" style="display:flex;gap:10px;overflow-x:auto;padding:2px 2px 6px;scrollbar-width:none"></div>
+    </div>
+
+    <!-- Hadi — AI Partner card. Everything the system itself injects into the feed (not a real
+         user's post) is attributed to Hadi so it's never mistaken for organic content — a
+         context-aware nudge about whichever tracker most needs attention right now. -->
+    <div id="cm-hadi-card-wrap" class="cm-card" style="display:none;overflow:hidden">
+      <div style="display:flex;align-items:center;gap:8px;padding:12px 14px 8px">
+        <div style="width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,#FF8A00,#FFB800);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="#fff" stroke="none"><path d="M12 2L13.5 8.5H20L14.5 12.5L16.5 19L12 15L7.5 19L9.5 12.5L4 8.5H10.5L12 2Z"/></svg>
+        </div>
+        <span style="font-size:13px;font-weight:800;color:var(--ct);font-family:'Hind Siliguri',sans-serif">Hadi</span>
+        <span style="font-size:10.5px;font-weight:700;color:#FF8A00;background:rgba(255,138,0,.14);padding:2px 8px;border-radius:20px">AI Partner</span>
+      </div>
+      <div id="cm-hadi-card-body" style="padding:2px 14px 14px"></div>
+    </div>
+
+    <!-- Feed -->
+    <div id="cm-feed"></div>
+<div id="cm-story-view">
+  <div class="cm-sv-progress" id="cm-sv-progress"></div>
+  <div class="cm-sv-head">
+    <div class="cm-sv-av" id="cm-sv-av"></div>
+    <div class="cm-sv-meta"><div id="cm-sv-name"></div><div class="cm-sv-time">আজকের Rise</div></div>
+    <button class="cm-sv-x" onclick="cmStoryClose()">&times;</button>
+  </div>
+  <div class="cm-sv-nav cm-sv-prev" onclick="cmStoryPrev()"></div>
+  <div class="cm-sv-nav cm-sv-next" onclick="cmStoryNext()"></div>
+  <div class="cm-sv-card" id="cm-sv-card">
+    <div class="cm-sv-brand">RIZERS</div>
+    <div class="cm-sv-title" id="cm-sv-title"></div>
+    <div class="cm-sv-sub" id="cm-sv-sub"></div>
+    <div class="cm-sv-foot">থামবো না — এবার করতেই হবে</div>
+  </div>
+  <div class="cm-sv-react">
+    <input id="cm-sv-reply" placeholder="Reply দাও..."/>
+    <button onclick="cmStoryReact()">🔥 Inspire</button>
+  </div>
+</div>
+<div id="cm-cs">
+  <div class="cm-cs-head">
+    <button onclick="cmCloseCreateStory()" aria-label="বন্ধ" class="cm-cs-x"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+    <span>Create Rise Story</span>
+    <button class="cm-cs-post" onclick="cmCSPost()"><svg viewBox="0 0 24 24" width="12" height="12" fill="currentColor"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>Share</button>
+  </div>
+  <div class="cm-cs-preview" id="cm-cs-card">
+    <div class="cm-sv-brand">RIZERS</div>
+    <div class="cm-cs-title" id="cm-cs-ptitle">তোমার অর্জন</div>
+    <div class="cm-cs-sub" id="cm-cs-psub"></div>
+    <div class="cm-cs-foot">থামবো না — এবার করতেই হবে</div>
+  </div>
+  <div class="cm-cs-controls">
+    <div class="cm-cs-label">কী অর্জন করলে?</div>
+    <div class="cm-cs-chips" id="cm-cs-chips"></div>
+    <div class="cm-cs-label">লেখো</div>
+    <input id="cm-cs-title" placeholder="অর্জন (যেমন: ৫ পেজ Quran)" oninput="cmCSUpdate()"/>
+    <input id="cm-cs-sub" placeholder="ছোট একটা কথা (optional)" oninput="cmCSUpdate()"/>
+    <div class="cm-cs-label">Background</div>
+    <div class="cm-cs-grads" id="cm-cs-grads"></div>
+  </div>
+</div>
+  </div>
+
+  <!-- RIGHT SIDEBAR -->
+  <div class="cm-right">
+
+    <!-- RizPlay Recommended — cross-promotes the video feed from Rise (there was previously no
+         discovery path between the two), one thumbnail card, click opens it directly. -->
+    <div class="cm-card" id="cm-rizplay-promo" style="display:none;cursor:pointer" onclick="cmOpenRizPlayPromo()">
+      <div style="position:relative;width:100%;aspect-ratio:16/9;background:#000;overflow:hidden">
+        <img id="cm-rizplay-promo-thumb" src="" style="width:100%;height:100%;object-fit:cover;display:block">
+        <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.15)">
+          <div style="width:40px;height:40px;border-radius:50%;background:rgba(0,0,0,.55);display:flex;align-items:center;justify-content:center"><svg width="16" height="16" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></div>
+        </div>
+      </div>
+      <div class="cm-card-pad" style="padding:10px 12px">
+        <div style="font-size:11px;color:var(--cgold);font-weight:700;letter-spacing:.5px;margin-bottom:4px;display:flex;align-items:center;gap:5px"><svg width="10" height="10" viewBox="0 0 24 24" fill="var(--cgold)"><path d="M8 5v14l11-7z"/></svg> Watch on RizPlay</div>
+        <div id="cm-rizplay-promo-title" style="font-size:13px;font-weight:700;color:var(--ct);line-height:1.35;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden"></div>
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="cm-card cm-card-pad">
+      <div style="font-size:13px;font-weight:700;color:var(--ct);margin-bottom:12px;display:flex;align-items:center;gap:6px"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg> Community Stats</div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <span style="font-size:13px;color:var(--ct2);display:flex;align-items:center;gap:6px"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--ct2)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> Members</span>
+          <span id="cm-stat-members" style="font-size:14px;font-weight:700;color:#1a6b3c">...</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <span style="font-size:13px;color:var(--ct2);display:flex;align-items:center;gap:6px"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#EF4444" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg> Total Streak</span>
+          <span id="cm-stat-streak" style="font-size:14px;font-weight:700;color:#EF4444">...</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <span style="font-size:13px;color:var(--ct2);display:flex;align-items:center;gap:6px"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#F9A825" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4z"/></svg> Total Posts</span>
+          <span id="cm-stat-posts" style="font-size:14px;font-weight:700;color:#F9A825">...</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <span style="font-size:13px;color:var(--ct2);display:flex;align-items:center;gap:6px"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#8B5CF6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22V8"/><path d="M12 8C12 4 9 3 6 3c0 4 1 7 6 5z"/><path d="M12 8c0-4 3-5 6-5 0 4-1 7-6 5z"/></svg> Joined Today</span>
+          <span id="cm-stat-joined" style="font-size:14px;font-weight:700;color:#8B5CF6">...</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Weekly Hero — currently "top by points" (there's no per-week points tracking yet, so
+         this is the current overall leader, not a true weekly reset). -->
+    <div class="cm-card" id="cm-weekly-hero" style="background:linear-gradient(135deg,#1a1a2e,#2d3748);color:#fff">
+      <div class="cm-card-pad">
+        <div style="font-size:11px;opacity:.7;font-weight:700;letter-spacing:.5px;margin-bottom:8px;display:flex;align-items:center;gap:5px"><svg width="11" height="11" viewBox="0 0 24 24" fill="#F9A825" stroke="none"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.7-6.2 3.7 1.6-7-5.4-4.7 7.1-.6z"/></svg> This Week's Hero</div>
+        <div style="display:flex;align-items:center;gap:10px">
+          <div id="cm-hero-av" style="width:44px;height:44px;border-radius:50%;background:#8B5CF6;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700;flex-shrink:0">?</div>
+          <div>
+            <div id="cm-hero-name" style="font-size:14px;font-weight:700">...</div>
+            <div id="cm-hero-meta" style="font-size:11px;opacity:.75;margin-top:2px">...</div>
+          </div>
+        </div>
+        <div style="margin-top:10px;background:rgba(255,255,255,.1);border-radius:8px;padding:8px;text-align:center;font-size:12px;color:#F9A825;font-weight:700;display:flex;align-items:center;justify-content:center;gap:6px"><svg width="12" height="12" viewBox="0 0 24 24" fill="#F9A825" stroke="none"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.7-6.2 3.7 1.6-7-5.4-4.7 7.1-.6z"/></svg> Community Hero <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#F9A825" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8M12 17v4M17 5V3H7v2M17 5a5 5 0 0 1-5 5 5 5 0 0 1-5-5M17 5h2a2 2 0 0 1 2 2 4 4 0 0 1-4 4M7 5H5a2 2 0 0 0-2 2 4 4 0 0 0 4 4"/></svg></div>
+      </div>
+    </div>
+
+    <!-- Leaderboard -->
+    <div class="cm-card cm-card-pad">
+      <div style="font-size:13px;font-weight:700;color:var(--ct);margin-bottom:12px;display:flex;align-items:center;gap:6px"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#F9A825" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8M12 17v4M17 5V3H7v2M17 5a5 5 0 0 1-5 5 5 5 0 0 1-5-5M17 5h2a2 2 0 0 1 2 2 4 4 0 0 1-4 4M7 5H5a2 2 0 0 0-2 2 4 4 0 0 0 4 4"/></svg> Weekly Leaderboard</div>
+      <div id="cm-leaderboard-right"></div>
+    </div>
+
+    <!-- Suggested Risers — real profiles not yet connected to you, ranked by streak_count. -->
+    <div class="cm-card cm-card-pad">
+      <div style="font-size:13px;font-weight:700;color:var(--ct);margin-bottom:12px;display:flex;align-items:center;gap:6px"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> People You May Know</div>
+      <div id="cm-suggested-risers" style="display:flex;flex-direction:column;gap:12px"><div style="font-size:12px;color:var(--ct2);text-align:center;padding:8px 0">Loading...</div></div>
+    </div>
+
+    <!-- Rise Quote -->
+    <div class="cm-card cm-card-pad" id="cm-rise-quote" style="border:1px solid rgba(255,138,0,.22)!important">
+      <div style="font-size:11px;font-weight:700;color:var(--cgold);letter-spacing:.5px;margin-bottom:8px;display:flex;align-items:center;gap:5px"><svg width="11" height="11" viewBox="0 0 24 24" fill="var(--cgold)" stroke="none"><path d="M12 2l1.5 4.5L18 8l-4.5 1.5L12 14l-1.5-4.5L6 8l4.5-1.5z"/></svg> Today's Rise</div>
+      <div style="font-size:13px;color:var(--ct);line-height:1.75;font-style:italic">"He who never stops, wins. Small steps — big change."</div>
+      <div style="font-size:11px;color:var(--cgold);margin-top:10px;font-weight:600;display:flex;align-items:center;gap:5px">Won't stop — must do it this time. <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="var(--cgold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg></div>
+    </div>
+
+    <!-- Online Risers -->
+    <div class="cm-card cm-card-pad">
+      <div style="font-size:13px;font-weight:700;color:var(--ct);margin-bottom:10px"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#22C55E;margin-right:6px;vertical-align:middle"></span>Active Now</div>
+      <div id="cm-grinding-now" style="display:flex;flex-direction:column;gap:10px"><div style="font-size:12px;color:var(--ct2);text-align:center;padding:8px 0">Loading…</div></div>
+    </div>
+
+  
+  <!-- Mobile Bottom Tab Bar -->
+  <div class="cm-mobile-tabs" id="cm-mobile-tabs">
+    <button class="cm-tab-btn active" id="cmtab-feed" onclick="cmMobileTab('feed',this)">
+      <span class="tab-ic">&#127968;</span>
+      <span>Feed</span>
+    </button>
+    <button class="cm-tab-btn" id="cmtab-challenges" onclick="cmMobileTab('challenges',this)">
+      <span class="tab-ic">&#128293;</span>
+      <span>Challenge</span>
+    </button>
+    <button class="cm-tab-btn" id="cmtab-leaderboard" onclick="cmMobileTab('leaderboard',this)">
+      <span class="tab-ic">&#127942;</span>
+      <span>Top</span>
+    </button>
+    <button class="cm-tab-btn" id="cmtab-profile" onclick="cmMobileTab('profile',this)">
+      <span class="tab-ic">&#128100;</span>
+      <span>&#x09AA;&#x09CD;&#x09B0;&#x09CB;&#x09AB;&#x09BE;&#x0987;&#x09B2;</span>
+    </button>
+  </div>
+
+  <!-- Mobile Panels (hidden on PC) -->
+  <div id="cm-panel-challenges" class="cm-mobile-panel" style="padding:0 0 60px">
+    <!-- Challenges panel content rendered by JS -->
+  </div>
+  <div id="cm-panel-leaderboard" class="cm-mobile-panel" style="padding:0 0 60px">
+    <!-- Leaderboard panel content rendered by JS -->
+  </div>
+  <div id="cm-panel-profile" class="cm-mobile-panel" style="padding:0 0 60px">
+    <!-- Profile panel content rendered by JS -->
+  </div>
+
+</div>
+
+</div>
+
+<script>
+(function(){
+  function initStoryDrag(){
+    var el=document.querySelector('#community-page .cm-stories-wrap');
+    if(!el||el._dragInit)return;
+    el._dragInit=true;
+    var isDown=false,startX,scrollLeft;
+    el.addEventListener('mousedown',function(e){
+      isDown=true;el.classList.add('dragging');
+      startX=e.pageX-el.offsetLeft;scrollLeft=el.scrollLeft;
+    });
+    el.addEventListener('mouseleave',function(){isDown=false;el.classList.remove('dragging');});
+    el.addEventListener('mouseup',function(){isDown=false;el.classList.remove('dragging');});
+    el.addEventListener('mousemove',function(e){
+      if(!isDown)return;
+      e.preventDefault();
+      var x=e.pageX-el.offsetLeft;
+      el.scrollLeft=scrollLeft-(x-startX)*1.2;
+    });
+  }
+  // Init when community page becomes visible
+  var _obs=new MutationObserver(function(){
+    var pg=document.getElementById('community-page');
+    if(pg&&pg.style.display!=='none')initStoryDrag();
+  });
+  var pg=document.getElementById('community-page');
+  if(pg)_obs.observe(pg,{attributes:true,attributeFilter:['style']});
+  // Also init on DOMContentLoaded in case already visible
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',initStoryDrag);
+  else initStoryDrag();
+})();
+</script>
+
+<!-- Composer Modal - Facebook Full Page Style -->
+
+  </div>

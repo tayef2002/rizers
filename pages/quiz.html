@@ -1,0 +1,535 @@
+<div id="quiz-page" class="app-page" style="display:none;overflow-x:hidden">
+
+<!-- ══ KIDS WRAP ══ -->
+<div id="qz-kids-wrap">
+<div class="rz-page-with-banner">
+
+<div class="rz-donation-sidebar">
+  <div class="rz-dsb-inner">
+    <div style="text-align:center;margin-bottom:14px">
+      <div style="width:44px;height:44px;background:linear-gradient(135deg,#FF8A00,#FFB800);border-radius:14px;display:inline-flex;align-items:center;justify-content:center;margin-bottom:10px">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#090B12" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      </div>
+      <div style="font-size:15px;font-weight:800;color:var(--text,#1a1a2e);line-height:1.3">Rizers কে<br>Support করুন</div>
+    </div>
+    <div style="background:linear-gradient(135deg,rgba(255,138,0,.08),rgba(139,92,246,.08));border-radius:12px;padding:12px;margin-bottom:14px;border:1px solid rgba(255,138,0,.15)">
+      <div style="font-size:11px;font-style:italic;color:var(--text2,#666);line-height:1.6;text-align:center">"জ্ঞান অর্জন করা প্রতিটি মুসলিমের উপর ফরজ।" — ইবনে মাজাহ</div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:14px">
+      <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text2,#666)">
+        <div style="width:20px;height:20px;background:rgba(16,185,129,.12);border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+        সম্পূর্ণ বিজ্ঞাপনমুক্ত
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text2,#666)">
+        <div style="width:20px;height:20px;background:rgba(59,130,246,.12);border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#3B82F6" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+        Unlimited Quiz খেলুন
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text2,#666)">
+        <div style="width:20px;height:20px;background:rgba(255,138,0,.12);border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#FF8A00" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+        Badge tracking সব
+      </div>
+    </div>
+    <div style="background:rgba(255,138,0,.06);border-radius:10px;padding:10px 12px;margin-bottom:14px;border:1px solid rgba(255,138,0,.1)">
+      <div style="font-size:10px;font-weight:700;color:#FF8A00;margin-bottom:4px">হাদিস</div>
+      <div style="font-size:11px;color:var(--text2,#666);line-height:1.5;font-style:italic">"যে জ্ঞান অন্বেষণে বের হয়, সে ফিরে না আসা পর্যন্ত আল্লাহর পথে থাকে।"</div>
+    </div>
+    <a href="#" onclick="rzGoToPayment();return false;" style="display:block;width:100%;padding:12px;background:linear-gradient(135deg,#FF8A00,#FFB800);color:#090B12;border:none;border-radius:12px;font-size:13px;font-weight:800;cursor:pointer;font-family:inherit;text-align:center;text-decoration:none;box-sizing:border-box">❤️ Support করুন</a>
+  </div>
+</div>
+
+<div class="rz-page-content">
+<div style="padding:16px 16px 80px 16px">
+
+  <!-- Header -->
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px">
+    <div>
+      <h1 style="font-size:20px;font-weight:700;color:var(--text,#1a1a2e);display:flex;align-items:center;gap:8px;margin:0">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FF8A00" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        Islamic Quiz
+      </h1>
+      <p style="color:var(--text2,#666);font-size:13px;margin-top:4px;margin-bottom:0">জ্ঞান অর্জন করো, RZC জিতে নাও</p>
+    </div>
+    <div style="background:rgba(255,138,0,.1);border:1.5px solid rgba(255,138,0,.25);border-radius:14px;padding:10px 14px;text-align:center;min-width:64px">
+      <div id="qz-score-stat" style="font-size:20px;font-weight:700;color:#FF8A00">840</div>
+      <div style="font-size:10px;color:var(--text2,#666);font-weight:600">মোট Points</div>
+    </div>
+  </div>
+
+  <!-- Kid Tabs -->
+  <div id="qz-kid-tabs" style="display:none;overflow-x:auto;padding-bottom:8px;margin-bottom:14px;scrollbar-width:none;-webkit-overflow-scrolling:touch;white-space:nowrap"></div>
+
+  <!-- XP Level Bar -->
+  <div style="background:var(--card,#fff);border-radius:16px;padding:14px 16px;border:1px solid var(--border,#f0f0f0);margin-bottom:14px">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+      <div style="display:flex;align-items:center;gap:8px">
+        <span id="qz-level-icon" style="display:flex;align-items:center"></span>
+        <span id="qz-level-name" style="font-size:13px;font-weight:700;color:var(--text,#1a1a2e)">Beginner</span>
+      </div>
+      <span id="qz-xp-label" style="font-size:11px;color:#FF8A00;font-weight:700">840 / 1,000 XP</span>
+    </div>
+    <div style="height:10px;background:var(--border,rgba(0,0,0,.06));border-radius:10px;overflow:hidden">
+      <div id="qz-xp-bar" style="height:100%;width:0%;background:linear-gradient(90deg,#FF8A00,#FFB800);border-radius:10px;transition:.6s ease;box-shadow:0 0 6px rgba(255,138,0,.4)"></div>
+    </div>
+    <div style="font-size:10px;color:var(--text2,#aaa);margin-top:5px" id="qz-next-level">আর ১৬০ XP পেলে Silver হবে</div>
+  </div>
+
+  <!-- Streak Calendar -->
+  <div style="background:var(--card,#fff);border-radius:16px;padding:14px 16px;border:1px solid var(--border,#f0f0f0);margin-bottom:14px">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+      <span style="font-size:13px;font-weight:600;color:var(--text,#444)">এই সপ্তাহের Quiz</span>
+      <span id="qz-week-count" style="font-size:12px;font-weight:700;color:#FF8A00">0/7</span>
+    </div>
+    <div id="qz-streak-cal" style="display:grid;grid-template-columns:repeat(7,1fr);gap:6px"></div>
+  </div>
+
+  <!-- Stats Grid -->
+  <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:14px">
+    <div style="background:var(--card,#fff);border-radius:14px;padding:13px;border:1px solid var(--border,#f0f0f0)">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FF8A00" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      <div id="qz-total-stat" style="font-size:22px;font-weight:700;color:#FF8A00;margin-top:5px">0</div>
+      <div style="font-size:11px;color:var(--text2,#888);margin-top:1px">মোট প্রশ্ন</div>
+    </div>
+    <div style="background:var(--card,#fff);border-radius:14px;padding:13px;border:1px solid var(--border,#f0f0f0)">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FF8A00" stroke-width="1.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+      <div id="qz-done-stat" style="font-size:22px;font-weight:700;color:#FF8A00;margin-top:5px">12</div>
+      <div style="font-size:11px;color:var(--text2,#888);margin-top:1px">সম্পন্ন</div>
+    </div>
+    <div style="background:var(--card,#fff);border-radius:14px;padding:13px;border:1px solid var(--border,#f0f0f0)">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="#FF8A00"><path d="M12 2C8.5 7 6 10 6 14a6 6 0 0012 0c0-4-2.5-7-6-12z"/></svg>
+      <div id="qz-streak-stat" style="font-size:22px;font-weight:700;color:#FF8A00;margin-top:5px">5</div>
+      <div style="font-size:11px;color:var(--text2,#888);margin-top:1px">দিনের Streak</div>
+    </div>
+    <div style="background:var(--card,#fff);border-radius:14px;padding:13px;border:1px solid var(--border,#f0f0f0)">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FFB800" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>
+      <div style="font-size:22px;font-weight:700;color:#FFB800;margin-top:5px" id="qz-badges-stat">3</div>
+      <div style="font-size:11px;color:var(--text2,#888);margin-top:1px">Badges</div>
+    </div>
+  </div>
+
+  <!-- Daily Challenge -->
+  <div style="background:linear-gradient(135deg,#FF8A00,#FFB800);border-radius:20px;padding:20px;margin-bottom:14px;color:#fff">
+    <div style="font-size:11px;font-weight:700;opacity:.85;letter-spacing:.5px;margin-bottom:6px;display:flex;align-items:center;gap:5px">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="#fff"><path d="M12 2C8.5 7 6 10 6 14a6 6 0 0012 0c0-4-2.5-7-6-12z"/></svg>
+      আজকের Challenge
+    </div>
+    <div style="font-size:18px;font-weight:700;margin-bottom:4px;color:#fff">দৈনিক Islamic Quiz</div>
+    <div style="font-size:12px;opacity:.85;margin-bottom:14px;color:#fff">৫টি প্রশ্ন সম্পন্ন করো • +50 RZC bonus!</div>
+    <div style="display:flex;justify-content:space-between;align-items:center">
+      <div>
+        <div style="font-size:30px;font-weight:700;color:#fff">3/5</div>
+        <div style="font-size:11px;opacity:.8;color:#fff">বাকি ২টি</div>
+      </div>
+      <div style="text-align:right">
+        <div style="height:8px;width:140px;background:rgba(255,255,255,.25);border-radius:10px;overflow:hidden;margin-bottom:8px">
+          <div style="height:100%;width:60%;background:rgba(255,255,255,.7);border-radius:10px"></div>
+        </div>
+        <button onclick="qzStartCategory('daily')" style="padding:10px 20px;background:rgba(0,0,0,.2);color:#fff;border:none;border-radius:12px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:6px">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="#fff"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          শুরু করো
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Daily Boss Quiz -->
+  <div style="background:linear-gradient(135deg,#4c1d95,#7c3aed);border-radius:18px;padding:18px;margin-bottom:14px;color:#fff;display:flex;justify-content:space-between;align-items:center">
+    <div>
+      <div style="font-size:11px;font-weight:700;color:rgba(255,255,255,.6);letter-spacing:.5px;margin-bottom:5px;display:flex;align-items:center;gap:5px">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="rgba(255,255,255,.6)"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        সাপ্তাহিক BOSS QUIZ
+      </div>
+      <div style="font-size:16px;font-weight:700;margin-bottom:3px">Grand Islamic Challenge</div>
+      <div style="font-size:12px;color:rgba(255,255,255,.65)">২০টি প্রশ্ন • +200 RZC reward</div>
+    </div>
+    <button onclick="qzStartCategory('boss')" style="padding:10px 16px;background:rgba(255,255,255,.15);border:1.5px solid rgba(255,255,255,.3);color:#fff;border-radius:12px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;white-space:nowrap">Challenge করো</button>
+  </div>
+
+  <!-- Categories -->
+  <div style="margin-bottom:14px">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+      <h3 style="font-size:14px;font-weight:700;color:var(--text,#1a1a2e);margin:0;display:flex;align-items:center;gap:7px">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#FF8A00" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+        সব বিষয়
+      </h3>
+      <span style="font-size:11px;color:#FF8A00;font-weight:700;background:rgba(255,138,0,.1);padding:3px 10px;border-radius:50px">6টি category</span>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px" id="qz-cat-grid"></div>
+  </div>
+
+  <!-- Leaderboard -->
+  <div style="background:var(--card,#fff);border-radius:18px;padding:18px;border:1px solid var(--border,#f0f0f0);margin-bottom:14px">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
+      <h3 style="font-size:14px;font-weight:700;color:var(--text,#1a1a2e);margin:0;display:flex;align-items:center;gap:7px">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#FF8A00" stroke-width="2" stroke-linecap="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+        এই সপ্তাহের Leaderboard
+      </h3>
+      <span style="font-size:11px;background:rgba(255,138,0,.1);color:#FF8A00;padding:3px 10px;border-radius:50px;font-weight:700">এই পরিবার</span>
+    </div>
+    <div id="qz-leaderboard"></div>
+  </div>
+
+  <!-- Knowledge Tree -->
+  <div style="background:var(--card,#fff);border-radius:18px;padding:18px;border:1px solid var(--border,#f0f0f0);margin-bottom:14px">
+    <h3 style="font-size:14px;font-weight:700;color:var(--text,#1a1a2e);margin:0 0 16px;display:flex;align-items:center;gap:7px">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#FF8A00" stroke-width="2" stroke-linecap="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+      জ্ঞানের পথ
+    </h3>
+    <div id="qz-knowledge-tree" style="position:relative;padding:0 10px"></div>
+  </div>
+
+  <!-- Parent Report Card -->
+  <div style="background:linear-gradient(160deg,#12142a,#1c1f3a);border-radius:18px;padding:18px;color:#fff;margin-bottom:14px;border:1px solid rgba(255,138,0,.12)">
+    <h3 style="font-size:14px;font-weight:700;margin:0 0 4px;display:flex;align-items:center;gap:7px">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#FF8A00" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+      অভিভাবক রিপোর্ট
+    </h3>
+    <div style="font-size:11px;color:rgba(255,255,255,.5);margin-bottom:16px">এই সপ্তাহের quiz সারসংক্ষেপ</div>
+    <div id="qz-parent-report" style="display:flex;flex-direction:column;gap:10px"></div>
+  </div>
+
+  <!-- Badges -->
+  <div style="background:linear-gradient(160deg,#0e1020,#181b35);border-radius:18px;padding:18px;color:#fff;margin-bottom:14px;border:1px solid rgba(255,138,0,.1)">
+    <h3 style="font-size:14px;font-weight:700;margin:0 0 14px;display:flex;align-items:center;gap:7px">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#FF8A00" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>
+      তোমার Badges
+    </h3>
+    <div style="display:flex;gap:10px;flex-wrap:wrap" id="qz-badges"></div>
+  </div>
+
+</div>
+</div><!-- rz-page-content -->
+</div><!-- rz-page-with-banner -->
+</div><!-- qz-kids-wrap -->
+
+
+<!-- ══ ADULT WRAP ══ -->
+<div id="qz-adult-wrap" style="display:none">
+<div class="rz-page-with-banner">
+
+<div class="rz-donation-sidebar">
+  <div class="rz-dsb-inner">
+    <div style="text-align:center;margin-bottom:14px">
+      <div style="width:44px;height:44px;background:linear-gradient(135deg,#FF8A00,#FFB800);border-radius:14px;display:inline-flex;align-items:center;justify-content:center;margin-bottom:10px">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#090B12" stroke-width="2" stroke-linecap="round"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+      </div>
+      <div style="font-size:15px;font-weight:800;color:var(--text,#1a1a2e);line-height:1.3">Rizers কে<br>Support করুন</div>
+    </div>
+    <div style="background:linear-gradient(135deg,rgba(255,138,0,.08),rgba(139,92,246,.08));border-radius:12px;padding:12px;margin-bottom:14px;border:1px solid rgba(255,138,0,.15)">
+      <div style="font-size:11px;font-style:italic;color:var(--text2,#666);line-height:1.6;text-align:center">"যে ব্যক্তি জ্ঞান অন্বেষণে বের হয়, সে আল্লাহর পথে থাকে।" — তিরমিযি</div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:14px">
+      <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text2,#666)">
+        <div style="width:20px;height:20px;background:rgba(16,185,129,.12);border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+        সম্পূর্ণ বিজ্ঞাপনমুক্ত
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text2,#666)">
+        <div style="width:20px;height:20px;background:rgba(59,130,246,.12);border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#3B82F6" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+        Scholar progress tracking
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text2,#666)">
+        <div style="width:20px;height:20px;background:rgba(255,138,0,.12);border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#FF8A00" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+        Unlimited categories
+      </div>
+    </div>
+    <div style="background:rgba(255,138,0,.06);border-radius:10px;padding:10px 12px;margin-bottom:14px;border:1px solid rgba(255,138,0,.1)">
+      <div style="font-size:10px;font-weight:700;color:#FF8A00;margin-bottom:4px">কুরআন</div>
+      <div style="font-size:11px;color:var(--text2,#666);line-height:1.5;font-style:italic">"আল্লাহ যাকে ভালো চান, তাকে দ্বীনের সঠিক বোঝা দান করেন।" — বুখারি</div>
+    </div>
+    <a href="#" onclick="rzGoToPayment();return false;" style="display:block;width:100%;padding:12px;background:linear-gradient(135deg,#FF8A00,#FFB800);color:#090B12;border:none;border-radius:12px;font-size:13px;font-weight:800;cursor:pointer;font-family:inherit;text-align:center;text-decoration:none;box-sizing:border-box">❤️ Support করুন</a>
+  </div>
+</div>
+
+<div class="rz-page-content">
+<div style="padding:16px 16px 80px 16px">
+
+  <!-- ── HERO ── -->
+  <div style="background:linear-gradient(135deg,#0f0c29,#1a0a3d,#0d1020);border-radius:22px;padding:22px;margin-bottom:16px;border:1px solid rgba(255,138,0,.18);position:relative;overflow:hidden">
+    <div style="position:absolute;top:-30px;right:-30px;width:120px;height:120px;background:radial-gradient(circle,rgba(255,138,0,.12),transparent 70%);border-radius:50%;pointer-events:none"></div>
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:18px">
+      <div>
+        <div style="font-size:10px;font-weight:700;color:rgba(255,255,255,.4);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px">Scholar Level</div>
+        <div id="qzah-level-name" style="font-size:24px;font-weight:800;color:#FF8A00;line-height:1.1">তালিব</div>
+        <div id="qzah-level-sub" style="font-size:11px;color:rgba(255,255,255,.4);margin-top:5px">পরবর্তী স্তর: মুরিদ (200 XP)</div>
+      </div>
+      <!-- XP Ring -->
+      <div style="position:relative">
+        <svg width="82" height="82" viewBox="0 0 82 82">
+          <defs>
+            <linearGradient id="qzaXpGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#FF8A00"/>
+              <stop offset="100%" stop-color="#FFB800"/>
+            </linearGradient>
+          </defs>
+          <circle cx="41" cy="41" r="33" fill="none" stroke="rgba(255,255,255,.07)" stroke-width="6"/>
+          <circle id="qzah-xp-ring" cx="41" cy="41" r="33" fill="none" stroke="url(#qzaXpGrad)" stroke-width="6"
+            stroke-dasharray="207" stroke-dashoffset="207" stroke-linecap="round"
+            transform="rotate(-90 41 41)" style="transition:.9s cubic-bezier(.4,0,.2,1)"/>
+        </svg>
+        <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center">
+          <div id="qzah-xp-ring-val" style="font-size:15px;font-weight:800;color:#FF8A00;line-height:1">0</div>
+          <div style="font-size:9px;color:rgba(255,255,255,.35);font-weight:600">XP</div>
+        </div>
+      </div>
+    </div>
+    <!-- 3 Stats -->
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px">
+      <div style="background:rgba(255,255,255,.06);border-radius:12px;padding:10px;text-align:center;border:1px solid rgba(255,255,255,.05)">
+        <div id="qzah-total-xp" style="font-size:17px;font-weight:800;color:#FF8A00">0</div>
+        <div style="font-size:9px;color:rgba(255,255,255,.35);margin-top:2px;font-weight:600">মোট XP</div>
+      </div>
+      <div style="background:rgba(255,255,255,.06);border-radius:12px;padding:10px;text-align:center;border:1px solid rgba(255,255,255,.05)">
+        <div id="qzah-streak" style="font-size:17px;font-weight:800;color:#EF4444">0</div>
+        <div style="font-size:9px;color:rgba(255,255,255,.35);margin-top:2px;font-weight:600">Streak 🔥</div>
+      </div>
+      <div style="background:rgba(255,255,255,.06);border-radius:12px;padding:10px;text-align:center;border:1px solid rgba(255,255,255,.05)">
+        <div id="qzah-accuracy" style="font-size:17px;font-weight:800;color:#10B981">—</div>
+        <div style="font-size:9px;color:rgba(255,255,255,.35);margin-top:2px;font-weight:600">সঠিক %</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── HONEYCOMB KNOWLEDGE MAP ── -->
+  <div style="background:var(--card,#fff);border-radius:22px;padding:18px;border:1px solid var(--border,#f0f0f0);margin-bottom:16px">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+      <h3 style="font-size:14px;font-weight:700;color:var(--text,#1a1a2e);margin:0;display:flex;align-items:center;gap:7px">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FF8A00" stroke-width="2" stroke-linecap="round"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg>
+        জ্ঞানের মানচিত্র
+      </h3>
+      <span style="font-size:10px;color:#FF8A00;background:rgba(255,138,0,.1);padding:3px 10px;border-radius:50px;font-weight:700">tap → Quiz</span>
+    </div>
+    <p style="font-size:11px;color:var(--text2,#888);margin:0 0 14px">প্রতিটি ষড়ভুজে tap করে সেই বিষয়ে quiz দাও ও mastery বাড়াও</p>
+
+    <!-- SVG Honeycomb — center (150,130) + ring of 6 at r≈65 -->
+    <svg id="qza-hexmap" viewBox="50 34 210 196" width="100%" style="display:block;max-width:400px;margin:0 auto">
+      <defs>
+        <filter id="qzaHexGlow" x="-30%" y="-30%" width="160%" height="160%">
+          <feGaussianBlur stdDeviation="2.5" result="blur"/>
+          <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+      </defs>
+
+      <!-- Center: Mixed/Daily Quiz (gold) -->
+      <g onclick="qzStartCategory('daily')" style="cursor:pointer" title="দৈনিক Quiz">
+        <polygon points="150,102 174,116 174,144 150,158 126,144 126,116"
+          fill="rgba(255,138,0,.22)" stroke="#FF8A00" stroke-width="2"/>
+        <text x="150" y="126" text-anchor="middle" fill="#FF8A00" font-size="9" font-weight="700" font-family="inherit">মিশ্র</text>
+        <text x="150" y="141" text-anchor="middle" fill="#FF8A00" font-size="9" font-family="inherit">Quiz</text>
+      </g>
+
+      <!-- Right (215,130): Quran -->
+      <g id="qzah-hex-quran" onclick="qzStartCategory('quran')" style="cursor:pointer">
+        <polygon points="215,102 239,116 239,144 215,158 191,144 191,116"
+          fill="rgba(255,138,0,.09)" stroke="rgba(255,138,0,.35)" stroke-width="1.5"/>
+        <text x="215" y="126" text-anchor="middle" fill="#FF8A00" font-size="8.5" font-weight="700" font-family="inherit">কুরআন</text>
+        <text id="qzah-pct-quran" x="215" y="141" text-anchor="middle" fill="#FF8A00" font-size="9" font-family="inherit">0%</text>
+      </g>
+
+      <!-- Upper-right (182,74): History -->
+      <g id="qzah-hex-history" onclick="qzStartCategory('history')" style="cursor:pointer">
+        <polygon points="182,46 206,60 206,88 182,102 158,88 158,60"
+          fill="rgba(245,158,11,.09)" stroke="rgba(245,158,11,.35)" stroke-width="1.5"/>
+        <text x="182" y="70" text-anchor="middle" fill="#F59E0B" font-size="8.5" font-weight="700" font-family="inherit">ইতিহাস</text>
+        <text id="qzah-pct-history" x="182" y="85" text-anchor="middle" fill="#F59E0B" font-size="9" font-family="inherit">0%</text>
+      </g>
+
+      <!-- Upper-left (118,74): Namaz -->
+      <g id="qzah-hex-namaz" onclick="qzStartCategory('namaz')" style="cursor:pointer">
+        <polygon points="118,46 142,60 142,88 118,102 94,88 94,60"
+          fill="rgba(139,92,246,.09)" stroke="rgba(139,92,246,.35)" stroke-width="1.5"/>
+        <text x="118" y="70" text-anchor="middle" fill="#8B5CF6" font-size="8.5" font-weight="700" font-family="inherit">নামাজ</text>
+        <text id="qzah-pct-namaz" x="118" y="85" text-anchor="middle" fill="#8B5CF6" font-size="9" font-family="inherit">0%</text>
+      </g>
+
+      <!-- Left (85,130): Dua -->
+      <g id="qzah-hex-dua" onclick="qzStartCategory('dua')" style="cursor:pointer">
+        <polygon points="85,102 109,116 109,144 85,158 61,144 61,116"
+          fill="rgba(16,185,129,.09)" stroke="rgba(16,185,129,.35)" stroke-width="1.5"/>
+        <text x="85" y="126" text-anchor="middle" fill="#10B981" font-size="8.5" font-weight="700" font-family="inherit">দোয়া</text>
+        <text id="qzah-pct-dua" x="85" y="141" text-anchor="middle" fill="#10B981" font-size="9" font-family="inherit">0%</text>
+      </g>
+
+      <!-- Lower-left (118,186): Akhlaq -->
+      <g id="qzah-hex-akhlaq" onclick="qzStartCategory('akhlaq')" style="cursor:pointer">
+        <polygon points="118,158 142,172 142,200 118,214 94,200 94,172"
+          fill="rgba(239,68,68,.09)" stroke="rgba(239,68,68,.35)" stroke-width="1.5"/>
+        <text x="118" y="182" text-anchor="middle" fill="#EF4444" font-size="8.5" font-weight="700" font-family="inherit">আখলাক</text>
+        <text id="qzah-pct-akhlaq" x="118" y="197" text-anchor="middle" fill="#EF4444" font-size="9" font-family="inherit">0%</text>
+      </g>
+
+      <!-- Lower-right (182,186): General -->
+      <g id="qzah-hex-general" onclick="qzStartCategory('general')" style="cursor:pointer">
+        <polygon points="182,158 206,172 206,200 182,214 158,200 158,172"
+          fill="rgba(6,182,212,.09)" stroke="rgba(6,182,212,.35)" stroke-width="1.5"/>
+        <text x="182" y="182" text-anchor="middle" fill="#06B6D4" font-size="8.5" font-weight="700" font-family="inherit">সাধারণ</text>
+        <text id="qzah-pct-general" x="182" y="197" text-anchor="middle" fill="#06B6D4" font-size="9" font-family="inherit">0%</text>
+      </g>
+    </svg>
+  </div>
+
+  <!-- ── TODAY'S MISSIONS ── -->
+  <div style="margin-bottom:16px">
+    <h3 style="font-size:14px;font-weight:700;color:var(--text,#1a1a2e);margin:0 0 12px;display:flex;align-items:center;gap:7px">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#FF8A00" stroke-width="2" stroke-linecap="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+      আজকের Mission
+    </h3>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+      <!-- Daily -->
+      <div style="background:linear-gradient(135deg,#FF8A00,#FFB800);border-radius:18px;padding:16px;color:#090B12">
+        <div style="font-size:10px;font-weight:700;opacity:.65;letter-spacing:.5px;margin-bottom:8px">দৈনিক QUIZ</div>
+        <div style="font-size:15px;font-weight:800;margin-bottom:4px;line-height:1.2;color:#090B12">Islamic তথ্য</div>
+        <div style="font-size:11px;opacity:.65;margin-bottom:12px">৫ প্রশ্ন • +50 XP</div>
+        <div style="height:5px;background:rgba(0,0,0,.15);border-radius:5px;margin-bottom:12px;overflow:hidden">
+          <div id="qzah-daily-bar" style="height:100%;width:60%;background:rgba(0,0,0,.3);border-radius:5px;transition:.5s"></div>
+        </div>
+        <button onclick="qzStartCategory('daily')" style="width:100%;padding:9px;background:rgba(0,0,0,.18);color:#090B12;border:none;border-radius:10px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:5px">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="#090B12"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          শুরু করো
+        </button>
+      </div>
+      <!-- Boss -->
+      <div style="background:linear-gradient(135deg,#4c1d95,#7c3aed);border-radius:18px;padding:16px;color:#fff">
+        <div style="font-size:10px;font-weight:700;color:rgba(255,255,255,.55);letter-spacing:.5px;margin-bottom:8px">BOSS QUIZ</div>
+        <div style="font-size:15px;font-weight:800;margin-bottom:4px;line-height:1.2">Grand Challenge</div>
+        <div style="font-size:11px;color:rgba(255,255,255,.6);margin-bottom:12px">২০ প্রশ্ন • +200 XP</div>
+        <div style="height:5px;background:rgba(255,255,255,.15);border-radius:5px;margin-bottom:12px"></div>
+        <button onclick="qzStartCategory('boss')" style="width:100%;padding:9px;background:rgba(255,255,255,.14);border:1.5px solid rgba(255,255,255,.25);color:#fff;border-radius:10px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit">Challenge</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SCHOLAR'S PATH ── -->
+  <div style="background:linear-gradient(160deg,#12142a,#1c1f3a);border-radius:22px;padding:20px;border:1px solid rgba(255,138,0,.12);margin-bottom:16px;color:#fff;overflow:hidden">
+    <h3 style="font-size:14px;font-weight:700;margin:0 0 4px;display:flex;align-items:center;gap:7px">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#FF8A00" stroke-width="2" stroke-linecap="round"><path d="M3 17l9-9 4 4 5-5"/><path d="M14 7h7v7"/></svg>
+      আলিমের পথ
+    </h3>
+    <p style="font-size:11px;color:rgba(255,255,255,.35);margin:0 0 18px">তালিব থেকে মুফতি পর্যন্ত তোমার জ্ঞানের যাত্রা</p>
+    <!-- Milestone path -->
+    <div style="position:relative;overflow-x:auto;padding:4px 0 8px">
+      <!-- Background line -->
+      <div style="position:absolute;top:22px;left:8px;right:8px;height:2px;background:rgba(255,255,255,.07);border-radius:2px;min-width:300px"></div>
+      <!-- Progress line (JS animates width) -->
+      <div id="qzah-path-line" style="position:absolute;top:22px;left:8px;height:2px;background:linear-gradient(90deg,#10B981,#FF8A00);border-radius:2px;width:0%;transition:1s ease;min-width:0"></div>
+      <!-- Milestones -->
+      <div id="qzah-path-container" style="display:flex;justify-content:space-between;min-width:300px;padding:0 8px;position:relative;z-index:1"></div>
+    </div>
+  </div>
+
+  <!-- ── CATEGORY PROGRESS ── -->
+  <div style="background:var(--card,#fff);border-radius:22px;padding:18px;border:1px solid var(--border,#f0f0f0);margin-bottom:16px">
+    <h3 style="font-size:14px;font-weight:700;color:var(--text,#1a1a2e);margin:0 0 14px;display:flex;align-items:center;gap:7px">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#FF8A00" stroke-width="2" stroke-linecap="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+      বিষয় ভিত্তিক অগ্রগতি
+    </h3>
+    <div id="qzah-cat-progress" style="display:flex;flex-direction:column;gap:10px"></div>
+  </div>
+
+  <!-- ── ACHIEVEMENT CABINET ── -->
+  <div style="background:linear-gradient(160deg,#0e1020,#181b35);border-radius:22px;padding:18px;border:1px solid rgba(255,138,0,.1);margin-bottom:16px;color:#fff">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
+      <h3 style="font-size:14px;font-weight:700;margin:0;display:flex;align-items:center;gap:7px">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#FFB800" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>
+        অর্জনের সংগ্রহ
+      </h3>
+      <span id="qzah-earned-count" style="font-size:11px;font-weight:700;color:#FFB800;background:rgba(255,184,0,.1);padding:3px 10px;border-radius:50px">0 অর্জিত</span>
+    </div>
+    <div id="qzah-badges" style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px"></div>
+  </div>
+
+
+</div>
+</div><!-- rz-page-content -->
+</div><!-- rz-page-with-banner -->
+</div><!-- qz-adult-wrap -->
+
+
+<!-- ══ QUIZ MODAL (shared) ══ -->
+<div id="qz-modal" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.6);align-items:flex-end" onclick="if(event.target===this)qzCloseModal()">
+  <div id="qz-modal-sheet" style="width:100%;background:var(--card,#fff);border-radius:22px 22px 0 0;overflow:hidden;max-height:92vh;overflow-y:auto;box-shadow:0 -8px 40px rgba(0,0,0,.35);transform:translateY(100%)">
+    <div style="display:flex;justify-content:center;padding:10px 0 2px;background:var(--card,#fff)">
+      <div style="width:36px;height:4px;border-radius:10px;background:var(--border,rgba(0,0,0,.12))"></div>
+    </div>
+    <div id="qz-modal-hdr" style="padding:16px 22px 20px;background:linear-gradient(135deg,#FF8A00,#FFB800);color:#fff">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+        <span id="qz-cat-label" style="font-size:12px;font-weight:700;opacity:.9"></span>
+        <div style="display:flex;align-items:center;gap:8px">
+          <div id="qz-timer-wrap" style="background:rgba(0,0,0,.18);border-radius:8px;padding:4px 10px;font-size:13px;font-weight:700;display:none;align-items:center;gap:5px">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <span id="qz-timer">15</span>s
+          </div>
+          <button onclick="qzCloseModal()" style="background:rgba(0,0,0,.18);border:none;color:#fff;width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:16px;font-weight:700;display:flex;align-items:center;justify-content:center">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+        </div>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+        <span id="qz-progress-text" style="font-size:13px;font-weight:700;color:#fff"></span>
+        <span id="qz-hint-btn" onclick="qzUseHint()" style="display:flex;align-items:center;gap:5px;font-size:11px;font-weight:700;background:rgba(0,0,0,.18);padding:4px 10px;border-radius:8px;cursor:pointer;color:#fff">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0018 8A6 6 0 006 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 018.91 14"/></svg>
+          Hint (<span id="qz-hint-count">1</span>)
+        </span>
+      </div>
+      <div style="height:7px;background:rgba(0,0,0,.18);border-radius:10px;overflow:hidden">
+        <div id="qz-progress-bar" style="height:100%;background:rgba(255,255,255,.7);border-radius:10px;transition:.4s;width:0%"></div>
+      </div>
+    </div>
+    <div style="height:24px;background:linear-gradient(180deg,rgba(255,138,0,.13) 0%,transparent 100%);margin-top:-1px"></div>
+    <div style="padding:6px 22px 22px">
+      <div id="qz-question" style="font-size:16px;font-weight:700;color:var(--text,#1a1a2e);line-height:1.6;margin-bottom:18px;min-height:60px"></div>
+      <div id="qz-options" style="display:flex;flex-direction:column;gap:10px;margin-bottom:16px"></div>
+      <div id="qz-explanation" style="display:none;background:rgba(255,138,0,.07);border-radius:12px;padding:14px;margin-bottom:14px;border-left:4px solid #FF8A00">
+        <div style="font-size:12px;font-weight:700;color:#FF8A00;margin-bottom:4px;display:flex;align-items:center;gap:5px">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#FF8A00" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          ব্যাখ্যা:
+        </div>
+        <div id="qz-exp-text" style="font-size:13px;color:var(--text,#444);line-height:1.6"></div>
+      </div>
+      <button id="qz-next-btn" onclick="qzNext()" style="display:none;width:100%;padding:13px;background:linear-gradient(135deg,#FF8A00,#FFB800);color:#090B12;border:none;border-radius:12px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit"></button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ RESULT MODAL (shared) ══ -->
+<div id="qz-result-modal" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.75);align-items:flex-end">
+  <div id="qz-result-sheet" style="width:100%;background:var(--card,#fff);border-radius:22px 22px 0 0;overflow:hidden;max-height:92vh;overflow-y:auto;box-shadow:0 -8px 40px rgba(0,0,0,.35);text-align:center;transform:translateY(100%)">
+    <div style="display:flex;justify-content:center;padding:10px 0 2px">
+      <div style="width:36px;height:4px;border-radius:10px;background:var(--border,rgba(0,0,0,.12))"></div>
+    </div>
+    <div id="qz-result-hdr" style="padding:28px;background:linear-gradient(135deg,#FF8A00,#FFB800);color:#090B12">
+      <div id="qz-result-icon" style="display:flex;align-items:center;justify-content:center;margin-bottom:10px"></div>
+      <div id="qz-result-title" style="font-size:22px;font-weight:700;margin-bottom:6px"></div>
+      <div id="qz-result-sub" style="font-size:13px;opacity:.75"></div>
+    </div>
+    <div style="padding:22px">
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px" id="qz-result-stats"></div>
+      <div id="qz-result-badge" style="display:none;background:rgba(255,138,0,.07);border-radius:14px;padding:14px;margin-bottom:14px;border:1.5px solid rgba(255,138,0,.25)">
+        <div style="display:flex;align-items:center;justify-content:center;margin-bottom:6px" id="qz-badge-icon"></div>
+        <div style="font-size:13px;font-weight:700;color:#FF8A00" id="qz-badge-name"></div>
+        <div style="font-size:11px;color:var(--text2,#888);margin-top:2px;display:flex;align-items:center;justify-content:center;gap:4px">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="#FFB800"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          নতুন Badge অর্জন!
+        </div>
+      </div>
+      <div id="qz-rzc-earned" style="background:rgba(255,138,0,.08);border-radius:12px;padding:12px;margin-bottom:14px;display:none">
+        <div style="font-size:12px;color:var(--text2,#888)">XP অর্জিত</div>
+        <div id="qz-rzc-amount" style="font-size:24px;font-weight:700;color:#FF8A00">+0 XP</div>
+      </div>
+      <div style="display:flex;gap:8px;margin-bottom:10px">
+        <button onclick="qzCloseResult()" style="flex:1;padding:12px;background:var(--border,#f0f0f0);color:var(--text,#444);border:none;border-radius:12px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:6px">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg>
+          ফিরে যাও
+        </button>
+        <button onclick="qzPlayAgain()" style="flex:1;padding:12px;background:linear-gradient(135deg,#FF8A00,#FFB800);color:#090B12;border:none;border-radius:12px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:6px">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#090B12" stroke-width="2" stroke-linecap="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 11-2.12-9.36L23 10"/></svg>
+          আবার খেলো
+        </button>
+      </div>
+      <button onclick="qzShareResult()" style="width:100%;padding:11px;background:transparent;border:1.5px solid rgba(255,138,0,.35);color:#FF8A00;border-radius:12px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:6px">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+        পরিবারকে দেখাও
+      </button>
+    </div>
+  </div>
+</div>
+
+</div>

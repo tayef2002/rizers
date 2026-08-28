@@ -1,0 +1,460 @@
+<div id="fitness-page" class="page-div app-page" style="display:none">
+
+<!-- ══ KIDS WRAP ══ -->
+<div id="ft-kids-wrap">
+  <div style="padding:60px 24px 32px;text-align:center">
+    <div style="width:72px;height:72px;border-radius:22px;background:linear-gradient(135deg,rgba(0,212,170,.15),rgba(0,212,170,.05));border:1.5px solid rgba(0,212,170,.3);display:flex;align-items:center;justify-content:center;margin:0 auto 18px">
+      <svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="#00D4AA" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>
+    </div>
+    <div style="font-size:20px;font-weight:800;color:var(--text,#1a1a2e);margin-bottom:8px">Fitness Tracker</div>
+    <div style="font-size:14px;color:var(--text2,#888);line-height:1.7">এই section টি বড়দের জন্য।<br>উপরে <strong>Me</strong> বাটন চাপুন।</div>
+  </div>
+  <div class="rz-donation-mobile-card" style="margin:0 16px 24px">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
+      <div style="width:38px;height:38px;border-radius:12px;background:rgba(255,138,0,.1);border:1px solid rgba(255,138,0,.25);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#FF8A00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" fill="rgba(255,138,0,.12)"/></svg>
+      </div>
+      <div>
+        <div style="font-size:13px;font-weight:800;color:var(--text,#1f2937)">Rizers কে টিকিয়ে রাখুন</div>
+        <div style="font-size:11.5px;color:var(--text2,#888);margin-top:2px">মাত্র ৳৯৯/মাসে • সম্পূর্ণ স্বেচ্ছায়</div>
+      </div>
+    </div>
+    <a href="#" onclick="rzGoToPayment&&rzGoToPayment();return false;" style="display:block;width:100%;background:linear-gradient(135deg,#FF8A00,#FFB800);color:#090B12;font-size:13px;font-weight:800;text-align:center;padding:11px;border-radius:12px;text-decoration:none;box-sizing:border-box">🤲 Support করুন</a>
+  </div>
+</div>
+
+<!-- ══ ADULT WRAP ══ -->
+<div id="ft-adult-wrap" style="display:none">
+  <div class="rz-page-with-banner">
+    <div class="rz-page-content" style="padding:0 0 80px">
+
+      <!-- ═══ HERO: ACTIVITY RINGS ═══ -->
+      <div style="background:linear-gradient(135deg,#0d1117 0%,#1a2744 55%,#0d1117 100%);padding:24px 20px;margin:16px 20px 0;border-radius:24px;position:relative;overflow:hidden">
+        <div style="position:absolute;width:220px;height:220px;border-radius:50%;border:1.5px solid rgba(0,212,170,.08);top:-80px;right:-60px;pointer-events:none"></div>
+        <div style="position:absolute;font-size:90px;opacity:.03;top:10px;right:10px;pointer-events:none;line-height:1">💪</div>
+        <div style="font-size:10px;color:rgba(255,255,255,.4);letter-spacing:1px;text-transform:uppercase;margin-bottom:16px">Fitness Tracker</div>
+
+        <div style="display:flex;align-items:center;gap:20px">
+          <!-- Activity Rings SVG -->
+          <div style="flex-shrink:0">
+            <svg viewBox="0 0 200 200" width="148" height="148">
+              <circle cx="100" cy="100" r="85" fill="none" stroke="rgba(0,212,170,.15)" stroke-width="13"/>
+              <circle cx="100" cy="100" r="67" fill="none" stroke="rgba(255,107,53,.15)" stroke-width="13"/>
+              <circle cx="100" cy="100" r="49" fill="none" stroke="rgba(124,58,237,.15)" stroke-width="13"/>
+              <circle id="ft-ring-steps" cx="100" cy="100" r="85" fill="none" stroke="#00D4AA" stroke-width="13" stroke-dasharray="0 534" stroke-linecap="round" transform="rotate(-90 100 100)" style="transition:stroke-dasharray 1.2s ease"/>
+              <circle id="ft-ring-cal" cx="100" cy="100" r="67" fill="none" stroke="#FF6B35" stroke-width="13" stroke-dasharray="0 421" stroke-linecap="round" transform="rotate(-90 100 100)" style="transition:stroke-dasharray 1.2s ease"/>
+              <circle id="ft-ring-active" cx="100" cy="100" r="49" fill="none" stroke="#7C3AED" stroke-width="13" stroke-dasharray="0 308" stroke-linecap="round" transform="rotate(-90 100 100)" style="transition:stroke-dasharray 1.2s ease"/>
+              <text x="100" y="95" text-anchor="middle" fill="rgba(255,255,255,.45)" font-size="10" font-weight="600">আজকের</text>
+              <text x="100" y="110" text-anchor="middle" fill="rgba(255,255,255,.45)" font-size="10" font-weight="600">হাটা-হাটি</text>
+            </svg>
+          </div>
+          <!-- Stats -->
+          <div style="flex:1;display:flex;flex-direction:column;gap:14px">
+            <div>
+              <div style="display:flex;align-items:center;gap:5px;margin-bottom:2px">
+                <div style="width:8px;height:8px;border-radius:50%;background:#00D4AA"></div>
+                <span style="font-size:9px;color:rgba(255,255,255,.4);letter-spacing:.5px">হাটা-হাটি</span>
+              </div>
+              <div id="ft-hero-steps" style="font-size:24px;font-weight:900;color:#00D4AA;line-height:1">0</div>
+              <div id="ft-hero-steps-sub" style="font-size:9px;color:rgba(0,212,170,.55);margin-top:1px">/ 10,000 লক্ষ্য</div>
+            </div>
+            <div>
+              <div style="display:flex;align-items:center;gap:5px;margin-bottom:2px">
+                <div style="width:8px;height:8px;border-radius:50%;background:#FF6B35"></div>
+                <span style="font-size:9px;color:rgba(255,255,255,.4);letter-spacing:.5px">CALORIES</span>
+              </div>
+              <div id="ft-hero-cal" style="font-size:24px;font-weight:900;color:#FF6B35;line-height:1">0</div>
+              <div id="ft-hero-cal-sub" style="font-size:9px;color:rgba(255,107,53,.55);margin-top:1px">/ 500 kcal লক্ষ্য</div>
+            </div>
+            <div>
+              <div style="display:flex;align-items:center;gap:5px;margin-bottom:2px">
+                <div style="width:8px;height:8px;border-radius:50%;background:#7C3AED"></div>
+                <span style="font-size:9px;color:rgba(255,255,255,.4);letter-spacing:.5px">ACTIVE MINS</span>
+              </div>
+              <div id="ft-hero-active" style="font-size:24px;font-weight:900;color:#7C3AED;line-height:1">0</div>
+              <div id="ft-hero-active-sub" style="font-size:9px;color:rgba(124,58,237,.55);margin-top:1px">/ 30 মিনিট লক্ষ্য</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bottom quick stats -->
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:16px">
+          <div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:10px;text-align:center">
+            <div id="ft-stat-streak" style="font-size:18px;font-weight:900;color:#F59E0B">0</div>
+            <div style="font-size:9px;color:rgba(255,255,255,.35);margin-top:2px">🔥 streak</div>
+          </div>
+          <div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:10px;text-align:center">
+            <div id="ft-stat-workouts" style="font-size:18px;font-weight:900;color:#00D4AA">0</div>
+            <div style="font-size:9px;color:rgba(255,255,255,.35);margin-top:2px">💪 workout</div>
+          </div>
+          <div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:10px;text-align:center">
+            <div id="ft-stat-water" style="font-size:18px;font-weight:900;color:#3B82F6">0/8</div>
+            <div style="font-size:9px;color:rgba(255,255,255,.35);margin-top:2px">💧 পানি</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══ SMART GOAL CARD ═══ -->
+      <div style="background:linear-gradient(135deg,#1a1033 0%,#0d1117 60%,#1a2744 100%);margin:12px 20px 0;border-radius:20px;padding:18px;border:1px solid rgba(124,58,237,.2)">
+        <div style="font-size:10px;color:rgba(255,255,255,.4);letter-spacing:1px;text-transform:uppercase;margin-bottom:10px">🤖 AI স্মার্ট প্ল্যান</div>
+        <div id="ft-smart-card"><div style="font-size:12px;color:rgba(255,255,255,.4);text-align:center;padding:16px">লোড হচ্ছে...</div></div>
+      </div>
+
+      <!-- ═══ TODAY'S PLAN ═══ -->
+      <div style="margin:12px 20px 0">
+        <div style="background:var(--card,#fff);border:1.5px solid var(--border,#e5e7eb);border-radius:16px;padding:16px">
+          <div style="font-size:13px;font-weight:800;color:var(--text,#1a1a2e);margin-bottom:12px">📋 আজকের পরিকল্পনা</div>
+          <div id="ft-today-plan"><div style="font-size:12px;color:var(--text2,#888);text-align:center;padding:8px">লোড হচ্ছে...</div></div>
+        </div>
+      </div>
+
+      <!-- ═══ STEPS INPUT ═══ -->
+      <div style="margin:16px 20px 0">
+        <div style="background:var(--card,#fff);border:1.5px solid var(--border,#e5e7eb);border-radius:16px;padding:16px">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+            <div style="font-size:13px;font-weight:800;color:var(--text,#1a1a2e)">🏃 আজকের মোট হাটা-হাটি</div>
+            <div id="ft-steps-badge" style="font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;background:rgba(0,212,170,.1);color:#00D4AA">0%</div>
+          </div>
+          <input id="ft-steps-input" type="number" placeholder="কতটুকু হেঁটেছেন..." min="0" max="100000" oninput="ftUpdateSteps(this.value)" style="width:100%;padding:12px 14px;border:1.5px solid var(--border,#e5e7eb);border-radius:12px;font-size:22px;font-weight:900;color:#00D4AA;background:var(--bg2,#f9fafb);box-sizing:border-box;outline:none;text-align:center"/>
+          <div style="margin-top:10px">
+            <div style="background:var(--bg2,#f3f4f6);border-radius:6px;height:8px;overflow:hidden">
+              <div id="ft-steps-bar" style="height:100%;background:linear-gradient(90deg,#00D4AA,#00ffaa);width:0%;border-radius:6px;transition:width .8s ease"></div>
+            </div>
+          </div>
+          <div style="display:flex;gap:6px;margin-top:10px">
+            <button onclick="ftAddSteps(1000)" style="flex:1;padding:8px;border:1.5px solid rgba(0,212,170,.3);border-radius:10px;font-size:11px;font-weight:700;color:#00D4AA;background:rgba(0,212,170,.06);cursor:pointer">+1,000</button>
+            <button onclick="ftAddSteps(2000)" style="flex:1;padding:8px;border:1.5px solid rgba(0,212,170,.3);border-radius:10px;font-size:11px;font-weight:700;color:#00D4AA;background:rgba(0,212,170,.06);cursor:pointer">+2,000</button>
+            <button onclick="ftAddSteps(5000)" style="flex:1;padding:8px;border:1.5px solid rgba(0,212,170,.3);border-radius:10px;font-size:11px;font-weight:700;color:#00D4AA;background:rgba(0,212,170,.06);cursor:pointer">+5,000</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══ BODY PROFILE & BMI ═══ -->
+      <div style="margin:16px 20px 0">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+          <div style="font-size:14px;font-weight:800;color:var(--text,#1a1a2e)">⚖️ শারীরিক প্রোফাইল</div>
+          <button onclick="ftOpenProfile()" style="padding:7px 14px;border:1.5px solid rgba(0,212,170,.4);border-radius:14px;font-size:11px;font-weight:700;color:#00D4AA;background:rgba(0,212,170,.06);cursor:pointer">✏️ এডিট করুন</button>
+        </div>
+        <div style="background:var(--card,#fff);border:1.5px solid var(--border,#e5e7eb);border-radius:16px;padding:18px">
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:16px">
+            <div style="text-align:center">
+              <div id="ft-disp-weight" style="font-size:22px;font-weight:900;color:var(--text,#1a1a2e)">--</div>
+              <div style="font-size:10px;color:var(--text2,#888);margin-top:2px">ওজন (কেজি)</div>
+            </div>
+            <div style="text-align:center">
+              <div id="ft-disp-height" style="font-size:22px;font-weight:900;color:var(--text,#1a1a2e)">--</div>
+              <div style="font-size:10px;color:var(--text2,#888);margin-top:2px">উচ্চতা (সেমি)</div>
+            </div>
+            <div style="text-align:center">
+              <div id="ft-disp-bmi" style="font-size:22px;font-weight:900;color:#10B981">--</div>
+              <div style="font-size:10px;color:var(--text2,#888);margin-top:2px">BMI</div>
+            </div>
+          </div>
+          <!-- BMI gauge bar -->
+          <div>
+            <div style="display:flex;justify-content:space-between;margin-bottom:5px">
+              <span style="font-size:9px;color:var(--text2,#888)">অপুষ্টি<br>&lt;18.5</span>
+              <span style="font-size:9px;color:var(--text2,#888);text-align:center">স্বাভাবিক<br>18.5–25</span>
+              <span style="font-size:9px;color:var(--text2,#888);text-align:center">বেশি<br>25–30</span>
+              <span style="font-size:9px;color:var(--text2,#888);text-align:right">স্থূল<br>30+</span>
+            </div>
+            <div style="position:relative;height:14px;border-radius:8px;overflow:visible">
+              <div style="display:flex;height:100%;border-radius:8px;overflow:hidden">
+                <div style="width:21%;background:#EAB308"></div>
+                <div style="width:19%;background:#10B981"></div>
+                <div style="width:15%;background:#F97316"></div>
+                <div style="width:45%;background:#EF4444;border-radius:0 8px 8px 0"></div>
+              </div>
+              <div id="ft-bmi-needle" style="display:none;position:absolute;top:-4px;left:50%;width:4px;height:22px;background:#1a1a2e;border-radius:3px;transform:translateX(-50%);transition:left .8s ease"></div>
+            </div>
+            <div id="ft-bmi-label" style="font-size:11px;font-weight:700;text-align:center;margin-top:8px;color:var(--text2,#888)">ওজন ও উচ্চতা লিখলে BMI দেখাবে</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══ CALORIE BALANCE + FOOD LOG ═══ -->
+      <div style="margin:16px 20px 0">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+          <div style="font-size:14px;font-weight:800;color:var(--text,#1a1a2e)">🍽️ ক্যালোরি ও পুষ্টি</div>
+        </div>
+        <div style="background:var(--card,#fff);border:1.5px solid var(--border,#e5e7eb);border-radius:16px;padding:16px">
+          <div id="ft-nutrition-section"><div style="text-align:center;padding:12px;font-size:12px;color:var(--text2,#888)">লোড হচ্ছে...</div></div>
+        </div>
+      </div>
+
+      <!-- ═══ WATER TRACKER ═══ -->
+      <div style="margin:16px 20px 0">
+        <div style="font-size:14px;font-weight:800;color:var(--text,#1a1a2e);margin-bottom:12px">💧 পানির হিসাব</div>
+        <div style="background:var(--card,#fff);border:1.5px solid var(--border,#e5e7eb);border-radius:16px;padding:18px">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
+            <div>
+              <div id="ft-water-count" style="font-size:30px;font-weight:900;color:#3B82F6;line-height:1">0</div>
+              <div style="font-size:11px;color:var(--text2,#888);margin-top:2px">/ ৮ গ্লাস লক্ষ্য</div>
+            </div>
+            <div style="font-size:11px;color:var(--text2,#888);text-align:right;line-height:1.7">প্রতি গ্লাস ≈<br>250 মিলি</div>
+          </div>
+          <div id="ft-water-grid" style="display:grid;grid-template-columns:repeat(8,1fr);gap:5px;margin-bottom:12px"></div>
+          <div style="background:var(--bg2,#f3f4f6);border-radius:6px;height:8px;overflow:hidden;margin-bottom:12px">
+            <div id="ft-water-bar" style="height:100%;background:linear-gradient(90deg,#3B82F6,#60A5FA);width:0%;border-radius:6px;transition:width .5s ease"></div>
+          </div>
+          <div style="display:flex;gap:8px">
+            <button onclick="ftAddWater()" style="flex:1;padding:10px;background:linear-gradient(135deg,#3B82F6,#2563EB);color:#fff;border:none;border-radius:12px;font-size:13px;font-weight:700;cursor:pointer">+ এক গ্লাস</button>
+            <button onclick="ftRemoveWater()" style="padding:10px 16px;background:rgba(59,130,246,.1);color:#3B82F6;border:1.5px solid rgba(59,130,246,.3);border-radius:12px;font-size:18px;font-weight:700;cursor:pointer;line-height:1">−</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══ SLEEP TRACKER ═══ -->
+      <div style="margin:16px 20px 0">
+        <div style="font-size:14px;font-weight:800;color:var(--text,#1a1a2e);margin-bottom:12px">🌙 ঘুমের হিসাব</div>
+        <div style="background:var(--card,#fff);border:1.5px solid var(--border,#e5e7eb);border-radius:16px;padding:18px">
+          <div id="ft-sleep-section"><div style="text-align:center;padding:12px;font-size:12px;color:var(--text2,#888)">লোড হচ্ছে...</div></div>
+        </div>
+      </div>
+
+      <!-- ═══ BODY MEASUREMENTS ═══ -->
+      <div style="margin:16px 20px 0">
+        <div style="font-size:14px;font-weight:800;color:var(--text,#1a1a2e);margin-bottom:12px">📏 শরীরের মাপ</div>
+        <div style="background:var(--card,#fff);border:1.5px solid var(--border,#e5e7eb);border-radius:16px;padding:18px">
+          <div id="ft-measurements-section"><div style="text-align:center;padding:12px;font-size:12px;color:var(--text2,#888)">লোড হচ্ছে...</div></div>
+        </div>
+      </div>
+
+      <!-- ═══ TODAY'S WORKOUTS ═══ -->
+      <div style="margin:16px 20px 0">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+          <div style="font-size:14px;font-weight:800;color:var(--text,#1a1a2e)">💪 আজকের Workout</div>
+          <button onclick="ftOpenAddWorkout()" style="display:flex;align-items:center;gap:5px;padding:7px 12px;background:linear-gradient(135deg,#00D4AA,#00a88a);color:#0d1117;border:none;border-radius:16px;font-size:11px;font-weight:800;cursor:pointer">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            যোগ করুন
+          </button>
+        </div>
+        <div id="ft-workout-list" style="display:flex;flex-direction:column;gap:8px"></div>
+      </div>
+
+      <!-- ═══ 7-DAY ACTIVITY GRID ═══ -->
+      <div style="margin:16px 20px 0">
+        <div style="font-size:14px;font-weight:800;color:var(--text,#1a1a2e);margin-bottom:12px">📅 সাপ্তাহিক ব্যায়াম</div>
+        <div style="background:var(--card,#fff);border:1.5px solid var(--border,#e5e7eb);border-radius:16px;padding:16px">
+          <div id="ft-weekly-grid" style="display:grid;grid-template-columns:repeat(7,1fr);gap:6px;text-align:center"></div>
+          <div style="display:flex;align-items:center;gap:12px;margin-top:12px;justify-content:center;flex-wrap:wrap">
+            <div style="display:flex;align-items:center;gap:4px"><div style="width:10px;height:10px;border-radius:3px;background:var(--bg2,#e5e7eb)"></div><span style="font-size:10px;color:var(--text2,#888)">বিশ্রাম</span></div>
+            <div style="display:flex;align-items:center;gap:4px"><div style="width:10px;height:10px;border-radius:3px;background:rgba(0,212,170,.3)"></div><span style="font-size:10px;color:var(--text2,#888)">হালকা</span></div>
+            <div style="display:flex;align-items:center;gap:4px"><div style="width:10px;height:10px;border-radius:3px;background:rgba(0,212,170,.6)"></div><span style="font-size:10px;color:var(--text2,#888)">মাঝারি</span></div>
+            <div style="display:flex;align-items:center;gap:4px"><div style="width:10px;height:10px;border-radius:3px;background:#00D4AA"></div><span style="font-size:10px;color:var(--text2,#888)">তীব্র</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══ PERSONAL RECORDS ═══ -->
+      <div style="margin:16px 20px 0">
+        <div style="font-size:14px;font-weight:800;color:var(--text,#1a1a2e);margin-bottom:12px">🏆 ব্যক্তিগত রেকর্ড (PR)</div>
+        <div id="ft-pr-list" style="display:flex;flex-direction:column;gap:8px"></div>
+      </div>
+
+      <!-- ═══ SMART INSIGHTS ═══ -->
+      <div style="margin:16px 20px 0">
+        <div style="font-size:14px;font-weight:800;color:var(--text,#1a1a2e);margin-bottom:12px">💡 স্মার্ট পরামর্শ</div>
+        <div style="background:var(--card,#fff);border:1.5px solid var(--border,#e5e7eb);border-radius:16px;padding:16px">
+          <div id="ft-insights-section"><div style="text-align:center;padding:12px;font-size:12px;color:var(--text2,#888)">লোড হচ্ছে...</div></div>
+        </div>
+      </div>
+
+      <!-- ═══ ISLAMIC TIPS ═══ -->
+      <div style="margin:16px 20px 0">
+        <div style="font-size:13px;font-weight:700;color:var(--text2,#888);text-transform:uppercase;letter-spacing:.8px;margin-bottom:12px">ইসলামে সুস্বাস্থ্য</div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <div style="background:linear-gradient(135deg,#0d1117,#1a2744);border-radius:14px;padding:16px">
+            <div style="font-size:12px;font-weight:700;color:#00D4AA;margin-bottom:6px">🕌 শরীর আমানত</div>
+            <div style="font-size:12px;color:rgba(255,255,255,.75);line-height:1.7">রাসূলুল্লাহ ﷺ বলেছেন: "তোমার শরীরেরও তোমার উপর হক আছে।" শারীরিক সুস্থতা আল্লাহর দেওয়া আমানত। <span style="color:#00D4AA;font-weight:700">— বুখারী: ১৯৭৫</span></div>
+          </div>
+          <div style="background:var(--card,#fff);border:1.5px solid var(--border,#e5e7eb);border-radius:14px;padding:14px;display:flex;gap:12px">
+            <div style="font-size:22px;flex-shrink:0">🏃</div>
+            <div style="font-size:12px;color:var(--text,#1a1a2e);line-height:1.7">নবী ﷺ নিয়মিত হাঁটতেন, দৌড়াতেন এবং শারীরিক কার্যকলাপে অংশ নিতেন। সুন্নাহ অনুযায়ী সক্রিয় থাকুন।</div>
+          </div>
+          <div style="background:var(--card,#fff);border:1.5px solid var(--border,#e5e7eb);border-radius:14px;padding:14px;display:flex;gap:12px">
+            <div style="font-size:22px;flex-shrink:0">💧</div>
+            <div style="font-size:12px;color:var(--text,#1a1a2e);line-height:1.7">"আমরা পানি দিয়ে প্রতিটি জীবন্ত জিনিস সৃষ্টি করলাম।" পর্যাপ্ত পানি পান করা ফরয কর্তব্য। <span style="color:#3B82F6;font-weight:700">— সূরা আম্বিয়া: ৩০</span></div>
+          </div>
+          <div style="background:var(--card,#fff);border:1.5px solid var(--border,#e5e7eb);border-radius:14px;padding:14px;display:flex;gap:12px">
+            <div style="font-size:22px;flex-shrink:0">🌙</div>
+            <div style="font-size:12px;color:var(--text,#1a1a2e);line-height:1.7">"শক্তিশালী মুমিন আল্লাহর কাছে দুর্বল মুমিনের চেয়ে উত্তম ও বেশি প্রিয়।" — ব্যায়াম করুন, শক্তিশালী হন। <span style="color:#F59E0B;font-weight:700">— মুসলিম: ২৬৬৪</span></div>
+          </div>
+          <div style="background:var(--card,#fff);border:1.5px solid var(--border,#e5e7eb);border-radius:14px;padding:14px;display:flex;gap:12px">
+            <div style="font-size:22px;flex-shrink:0">🥗</div>
+            <div style="font-size:12px;color:var(--text,#1a1a2e);line-height:1.7">পেটের এক-তৃতীয়াংশ খাবারে, এক-তৃতীয়াংশ পানীয়ে, এক-তৃতীয়াংশ শ্বাসের জন্য রাখুন। <span style="color:#10B981;font-weight:700">— তিরমিযী: ২৩৮০</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mobile donation -->
+      <div class="rz-donation-mobile-card" style="margin:16px 20px 0">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
+          <div style="width:38px;height:38px;border-radius:12px;background:rgba(255,138,0,.1);border:1px solid rgba(255,138,0,.25);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#FF8A00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" fill="rgba(255,138,0,.12)"/></svg>
+          </div>
+          <div>
+            <div style="font-size:13px;font-weight:800;color:var(--text,#1f2937)">Rizers কে টিকিয়ে রাখুন</div>
+            <div style="font-size:11.5px;color:var(--text2,#888);margin-top:2px">মাত্র ৳৯৯/মাসে • সম্পূর্ণ স্বেচ্ছায়</div>
+          </div>
+        </div>
+        <a href="#" onclick="rzGoToPayment&&rzGoToPayment();return false;" style="display:block;width:100%;background:linear-gradient(135deg,#FF8A00,#FFB800);color:#090B12;font-size:13px;font-weight:800;text-align:center;padding:11px;border-radius:12px;text-decoration:none;box-sizing:border-box">🤲 Support করুন</a>
+      </div>
+
+    </div><!-- end rz-page-content -->
+
+    <!-- Desktop donation sidebar -->
+    <div class="rz-donation-sidebar">
+      <div class="rz-dsb-inner">
+        <div style="text-align:center;margin-bottom:20px">
+          <div style="width:58px;height:58px;border-radius:18px;background:linear-gradient(135deg,rgba(255,138,0,.15),rgba(255,184,0,.1));border:1px solid rgba(255,138,0,.3);display:flex;align-items:center;justify-content:center;margin:0 auto 12px">
+            <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="#FF8A00" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" fill="rgba(255,138,0,.12)"/></svg>
+          </div>
+          <div style="font-size:12px;font-weight:800;color:#FF8A00;letter-spacing:1px;text-transform:uppercase">Rizers কে Support করুন</div>
+        </div>
+        <div style="background:rgba(255,138,0,.06);border:1px solid rgba(255,138,0,.15);border-radius:14px;padding:16px;margin-bottom:16px">
+          <div style="font-size:15px;font-weight:700;color:var(--text,#1f2937);line-height:1.6;margin-bottom:10px">"সুস্থ থাকো, ইবাদত করো — দুটোই জরুরি।"</div>
+          <div style="font-size:12.5px;color:var(--text2,#888);line-height:1.7">Rizers Fitness Tracker তোমাকে প্রতিদিন সুস্থ রাখতে সাহায্য করছে।</div>
+        </div>
+        <div style="margin-bottom:16px">
+          <div style="font-size:12px;font-weight:700;color:var(--text2,#888);margin-bottom:10px;text-transform:uppercase;letter-spacing:.8px">মাত্র ৳৯৯/মাসে</div>
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <div style="display:flex;align-items:center;gap:10px"><div style="width:7px;height:7px;border-radius:50%;background:#00D4AA;flex-shrink:0"></div><span style="font-size:13.5px;color:var(--text,#1f2937)">Fitness + Zakat + Business</span></div>
+            <div style="display:flex;align-items:center;gap:10px"><div style="width:7px;height:7px;border-radius:50%;background:#22C55E;flex-shrink:0"></div><span style="font-size:13.5px;color:var(--text,#1f2937)">সব feature সম্পূর্ণ free</span></div>
+            <div style="display:flex;align-items:center;gap:10px"><div style="width:7px;height:7px;border-radius:50%;background:#3B82F6;flex-shrink:0"></div><span style="font-size:13.5px;color:var(--text,#1f2937)">হাজারজনের সাথে জার্নি</span></div>
+          </div>
+        </div>
+        <div style="height:1px;background:var(--border,#e5e7eb);margin-bottom:16px"></div>
+        <div style="margin-bottom:20px">
+          <div style="font-size:13px;color:var(--text2,#888);line-height:1.8;font-style:italic">"শক্তিশালী মুমিন আল্লাহর কাছে দুর্বল মুমিনের চেয়ে উত্তম।"</div>
+          <div style="font-size:11.5px;color:#00D4AA;font-weight:700;margin-top:6px">— মুসলিম: ২৬৬৪</div>
+        </div>
+        <a href="#" onclick="rzGoToPayment&&rzGoToPayment();return false;" style="display:block;width:100%;background:linear-gradient(135deg,#FF8A00,#FFB800);color:#090B12;font-size:14px;font-weight:800;text-align:center;padding:15px;border-radius:13px;text-decoration:none;box-shadow:0 4px 16px rgba(255,138,0,.4);box-sizing:border-box">🤲 ৳৯৯/মাসে Support করুন</a>
+        <div style="text-align:center;margin-top:12px;font-size:11px;color:var(--text2,#888)">সম্পূর্ণ স্বেচ্ছায় • যেকোনো সময় বাতিল করুন</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ WORKOUT MODAL ══ -->
+<div id="ft-workout-modal" style="display:none;position:fixed;inset:0;z-index:1200;background:rgba(0,0,0,.55);backdrop-filter:blur(6px);align-items:flex-end;justify-content:center">
+  <div style="background:var(--card,#fff);border-radius:28px 28px 0 0;padding:24px 24px 36px;width:100%;max-width:520px;box-shadow:0 -20px 60px rgba(0,0,0,.2);max-height:85vh;overflow-y:auto">
+    <div style="width:36px;height:4px;border-radius:2px;background:var(--border,#e5e7eb);margin:0 auto 20px"></div>
+    <div style="font-size:16px;font-weight:800;color:var(--text,#1a1a2e);margin-bottom:18px">💪 Workout যোগ করুন</div>
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <div>
+        <label style="font-size:11px;font-weight:700;color:var(--text2,#888);display:block;margin-bottom:8px">ব্যায়ামের ধরন *</label>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px">
+          <button onclick="ftPickWType(this,'cardio','🏃','#FF6B35')" class="ft-wtype-btn" style="padding:10px 6px;border:1.5px solid var(--border,#e5e7eb);border-radius:12px;font-size:11px;font-weight:700;cursor:pointer;background:var(--bg2,#f3f4f6);color:var(--text2,#888)">🏃 কার্ডিও</button>
+          <button onclick="ftPickWType(this,'strength','💪','#7C3AED')" class="ft-wtype-btn" style="padding:10px 6px;border:1.5px solid var(--border,#e5e7eb);border-radius:12px;font-size:11px;font-weight:700;cursor:pointer;background:var(--bg2,#f3f4f6);color:var(--text2,#888)">💪 শক্তি</button>
+          <button onclick="ftPickWType(this,'hiit','⚡','#F59E0B')" class="ft-wtype-btn" style="padding:10px 6px;border:1.5px solid var(--border,#e5e7eb);border-radius:12px;font-size:11px;font-weight:700;cursor:pointer;background:var(--bg2,#f3f4f6);color:var(--text2,#888)">⚡ HIIT</button>
+          <button onclick="ftPickWType(this,'yoga','🧘','#10B981')" class="ft-wtype-btn" style="padding:10px 6px;border:1.5px solid var(--border,#e5e7eb);border-radius:12px;font-size:11px;font-weight:700;cursor:pointer;background:var(--bg2,#f3f4f6);color:var(--text2,#888)">🧘 যোগব্যায়াম</button>
+          <button onclick="ftPickWType(this,'sports','⚽','#3B82F6')" class="ft-wtype-btn" style="padding:10px 6px;border:1.5px solid var(--border,#e5e7eb);border-radius:12px;font-size:11px;font-weight:700;cursor:pointer;background:var(--bg2,#f3f4f6);color:var(--text2,#888)">⚽ খেলাধুলা</button>
+          <button onclick="ftPickWType(this,'walk','🚶','#00D4AA')" class="ft-wtype-btn" style="padding:10px 6px;border:1.5px solid var(--border,#e5e7eb);border-radius:12px;font-size:11px;font-weight:700;cursor:pointer;background:var(--bg2,#f3f4f6);color:var(--text2,#888)">🚶 হাঁটা</button>
+        </div>
+        <input id="ft-w-type" type="hidden" value=""/>
+        <input id="ft-w-type-icon" type="hidden" value=""/>
+        <input id="ft-w-type-color" type="hidden" value=""/>
+      </div>
+      <div>
+        <label style="font-size:11px;font-weight:700;color:var(--text2,#888);display:block;margin-bottom:6px">ব্যায়ামের নাম</label>
+        <input id="ft-w-name" type="text" placeholder="যেমন: পুশআপ, ৫কিমি দৌড়, ক্রিকেট..." style="width:100%;padding:12px 14px;border:1.5px solid var(--border,#e5e7eb);border-radius:12px;font-size:14px;color:var(--text,#1a1a2e);background:var(--bg,#fff);box-sizing:border-box;outline:none"/>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+        <div>
+          <label style="font-size:11px;font-weight:700;color:var(--text2,#888);display:block;margin-bottom:6px">সময় (মিনিট) *</label>
+          <input id="ft-w-duration" type="number" placeholder="30" min="1" max="300" oninput="ftCalcAutoCalories()" style="width:100%;padding:12px 14px;border:1.5px solid var(--border,#e5e7eb);border-radius:12px;font-size:18px;font-weight:800;color:var(--text,#1a1a2e);background:var(--bg,#fff);box-sizing:border-box;outline:none;text-align:center"/>
+        </div>
+        <div>
+          <label style="font-size:11px;font-weight:700;color:var(--text2,#888);display:block;margin-bottom:6px">ক্যালোরি (অটো)</label>
+          <input id="ft-w-calories" type="number" placeholder="0" min="0" style="width:100%;padding:12px 14px;border:1.5px solid var(--border,#e5e7eb);border-radius:12px;font-size:18px;font-weight:800;color:#FF6B35;background:var(--bg,#fff);box-sizing:border-box;outline:none;text-align:center"/>
+        </div>
+      </div>
+      <div id="ft-w-strength-fields" style="display:none;grid-template-columns:1fr 1fr;gap:10px">
+        <div>
+          <label style="font-size:11px;font-weight:700;color:var(--text2,#888);display:block;margin-bottom:6px">সেট</label>
+          <input id="ft-w-sets" type="number" placeholder="3" min="1" style="width:100%;padding:12px 14px;border:1.5px solid var(--border,#e5e7eb);border-radius:12px;font-size:18px;font-weight:800;color:var(--text,#1a1a2e);background:var(--bg,#fff);box-sizing:border-box;outline:none;text-align:center"/>
+        </div>
+        <div>
+          <label style="font-size:11px;font-weight:700;color:var(--text2,#888);display:block;margin-bottom:6px">রেপ</label>
+          <input id="ft-w-reps" type="number" placeholder="12" min="1" style="width:100%;padding:12px 14px;border:1.5px solid var(--border,#e5e7eb);border-radius:12px;font-size:18px;font-weight:800;color:var(--text,#1a1a2e);background:var(--bg,#fff);box-sizing:border-box;outline:none;text-align:center"/>
+        </div>
+      </div>
+    </div>
+    <button onclick="ftSaveWorkout()" style="width:100%;padding:15px;background:linear-gradient(135deg,#00D4AA,#00a88a);color:#0d1117;border:none;border-radius:16px;font-size:15px;font-weight:800;cursor:pointer;margin-top:20px">যোগ করুন ✓</button>
+    <button onclick="ftCloseModal('ft-workout-modal')" style="width:100%;padding:12px;background:none;color:var(--text2,#888);border:none;font-size:13px;cursor:pointer;margin-top:8px">বাতিল</button>
+  </div>
+</div>
+
+<!-- ══ PROFILE MODAL ══ -->
+<div id="ft-profile-modal" style="display:none;position:fixed;inset:0;z-index:1200;background:rgba(0,0,0,.55);backdrop-filter:blur(6px);align-items:center;justify-content:center;padding:20px">
+  <div style="background:var(--card,#fff);border-radius:24px;padding:24px;width:100%;max-width:420px;box-shadow:0 20px 60px rgba(0,0,0,.25)">
+    <div style="font-size:16px;font-weight:800;color:var(--text,#1a1a2e);margin-bottom:18px">⚖️ শারীরিক প্রোফাইল</div>
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+        <div>
+          <label style="font-size:11px;font-weight:700;color:var(--text2,#888);display:block;margin-bottom:6px">ওজন (কেজি)</label>
+          <input id="ft-p-weight" type="number" placeholder="70" min="20" max="300" step="0.1" style="width:100%;padding:12px 14px;border:1.5px solid var(--border,#e5e7eb);border-radius:12px;font-size:18px;font-weight:800;color:var(--text,#1a1a2e);background:var(--bg,#fff);box-sizing:border-box;outline:none;text-align:center"/>
+        </div>
+        <div>
+          <label style="font-size:11px;font-weight:700;color:var(--text2,#888);display:block;margin-bottom:6px">উচ্চতা (সেমি)</label>
+          <input id="ft-p-height" type="number" placeholder="170" min="100" max="250" style="width:100%;padding:12px 14px;border:1.5px solid var(--border,#e5e7eb);border-radius:12px;font-size:18px;font-weight:800;color:var(--text,#1a1a2e);background:var(--bg,#fff);box-sizing:border-box;outline:none;text-align:center"/>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+        <div>
+          <label style="font-size:11px;font-weight:700;color:var(--text2,#888);display:block;margin-bottom:6px">বয়স</label>
+          <input id="ft-p-age" type="number" placeholder="25" min="10" max="100" style="width:100%;padding:12px 14px;border:1.5px solid var(--border,#e5e7eb);border-radius:12px;font-size:18px;font-weight:800;color:var(--text,#1a1a2e);background:var(--bg,#fff);box-sizing:border-box;outline:none;text-align:center"/>
+        </div>
+        <div>
+          <label style="font-size:11px;font-weight:700;color:var(--text2,#888);display:block;margin-bottom:6px">লিঙ্গ</label>
+          <select id="ft-p-gender" style="width:100%;padding:12px 14px;border:1.5px solid var(--border,#e5e7eb);border-radius:12px;font-size:14px;font-weight:700;color:var(--text,#1a1a2e);background:var(--bg,#fff);box-sizing:border-box;outline:none">
+            <option value="male">পুরুষ</option>
+            <option value="female">মহিলা</option>
+          </select>
+        </div>
+      </div>
+      <div>
+        <label style="font-size:11px;font-weight:700;color:var(--text2,#888);display:block;margin-bottom:6px">লক্ষ্য</label>
+        <select id="ft-p-goal" style="width:100%;padding:12px 14px;border:1.5px solid var(--border,#e5e7eb);border-radius:12px;font-size:14px;font-weight:700;color:var(--text,#1a1a2e);background:var(--bg,#fff);box-sizing:border-box;outline:none">
+          <option value="lose">ওজন কমানো</option>
+          <option value="maintain">ওজন ধরে রাখা</option>
+          <option value="gain">ওজন বাড়ানো</option>
+          <option value="muscle">পেশি গঠন</option>
+        </select>
+      </div>
+    </div>
+    <button onclick="ftSaveProfile()" style="width:100%;padding:15px;background:linear-gradient(135deg,#00D4AA,#00a88a);color:#0d1117;border:none;border-radius:16px;font-size:15px;font-weight:800;cursor:pointer;margin-top:20px">সংরক্ষণ করুন ✓</button>
+    <button onclick="ftCloseModal('ft-profile-modal')" style="width:100%;padding:12px;background:none;color:var(--text2,#888);border:none;font-size:13px;cursor:pointer;margin-top:8px">বাতিল</button>
+  </div>
+</div>
+
+<!-- ══ FOOD MODAL ══ -->
+<div id="ft-food-modal" style="display:none;position:fixed;inset:0;z-index:1200;background:rgba(0,0,0,.55);backdrop-filter:blur(6px);align-items:flex-end;justify-content:center">
+  <div style="background:var(--card,#fff);border-radius:28px 28px 0 0;padding:24px 24px 36px;width:100%;max-width:520px;box-shadow:0 -20px 60px rgba(0,0,0,.2);max-height:85vh;overflow-y:auto">
+    <div style="width:36px;height:4px;border-radius:2px;background:var(--border,#e5e7eb);margin:0 auto 20px"></div>
+    <div style="font-size:16px;font-weight:800;color:var(--text,#1a1a2e);margin-bottom:6px">🍽️ খাবার যোগ করুন</div>
+    <div style="font-size:12px;color:var(--text2,#888);margin-bottom:16px">বাংলাদেশি সাধারণ খাবার থেকে বেছে নিন</div>
+    <div id="ft-food-quickpicks" style="display:flex;flex-direction:column;gap:6px;max-height:55vh;overflow-y:auto"></div>
+    <button onclick="ftCloseModal('ft-food-modal')" style="width:100%;padding:12px;background:none;color:var(--text2,#888);border:none;font-size:13px;cursor:pointer;margin-top:16px">বাতিল</button>
+  </div>
+</div>
+
+<!-- ══ MEASUREMENTS MODAL ══ -->
+<div id="ft-measure-modal" style="display:none;position:fixed;inset:0;z-index:1200;background:rgba(0,0,0,.55);backdrop-filter:blur(6px);align-items:center;justify-content:center;padding:20px">
+  <div style="background:var(--card,#fff);border-radius:24px;padding:24px;width:100%;max-width:420px;box-shadow:0 20px 60px rgba(0,0,0,.25)">
+    <div style="font-size:16px;font-weight:800;color:var(--text,#1a1a2e);margin-bottom:6px">📏 শরীরের মাপ (সেমি)</div>
+    <div style="font-size:12px;color:var(--text2,#888);margin-bottom:16px">মাপ নিন ও লিখুন</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+      <div><label style="font-size:11px;font-weight:700;color:var(--text2,#888);display:block;margin-bottom:6px">কোমর</label><input id="ft-m-waist" type="number" placeholder="80" style="width:100%;padding:12px;border:1.5px solid var(--border,#e5e7eb);border-radius:12px;font-size:18px;font-weight:800;color:var(--text,#1a1a2e);background:var(--bg,#fff);box-sizing:border-box;outline:none;text-align:center"/></div>
+      <div><label style="font-size:11px;font-weight:700;color:var(--text2,#888);display:block;margin-bottom:6px">বুক</label><input id="ft-m-chest" type="number" placeholder="90" style="width:100%;padding:12px;border:1.5px solid var(--border,#e5e7eb);border-radius:12px;font-size:18px;font-weight:800;color:var(--text,#1a1a2e);background:var(--bg,#fff);box-sizing:border-box;outline:none;text-align:center"/></div>
+      <div><label style="font-size:11px;font-weight:700;color:var(--text2,#888);display:block;margin-bottom:6px">নিতম্ব</label><input id="ft-m-hips" type="number" placeholder="95" style="width:100%;padding:12px;border:1.5px solid var(--border,#e5e7eb);border-radius:12px;font-size:18px;font-weight:800;color:var(--text,#1a1a2e);background:var(--bg,#fff);box-sizing:border-box;outline:none;text-align:center"/></div>
+      <div><label style="font-size:11px;font-weight:700;color:var(--text2,#888);display:block;margin-bottom:6px">হাত (বাইসেপ)</label><input id="ft-m-arms" type="number" placeholder="32" style="width:100%;padding:12px;border:1.5px solid var(--border,#e5e7eb);border-radius:12px;font-size:18px;font-weight:800;color:var(--text,#1a1a2e);background:var(--bg,#fff);box-sizing:border-box;outline:none;text-align:center"/></div>
+      <div style="grid-column:1/-1"><label style="font-size:11px;font-weight:700;color:var(--text2,#888);display:block;margin-bottom:6px">গলা</label><input id="ft-m-neck" type="number" placeholder="38" style="width:100%;padding:12px;border:1.5px solid var(--border,#e5e7eb);border-radius:12px;font-size:18px;font-weight:800;color:var(--text,#1a1a2e);background:var(--bg,#fff);box-sizing:border-box;outline:none;text-align:center"/></div>
+    </div>
+    <button onclick="ftSaveMeasurements()" style="width:100%;padding:15px;background:linear-gradient(135deg,#00D4AA,#00a88a);color:#0d1117;border:none;border-radius:16px;font-size:15px;font-weight:800;cursor:pointer;margin-top:20px">সংরক্ষণ করুন ✓</button>
+    <button onclick="ftCloseModal('ft-measure-modal')" style="width:100%;padding:12px;background:none;color:var(--text2,#888);border:none;font-size:13px;cursor:pointer;margin-top:8px">বাতিল</button>
+  </div>
+</div>
+
+</div><!-- end fitness-page -->

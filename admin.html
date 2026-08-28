@@ -1,0 +1,2467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Rizers Backend · Admin Console</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+  :root{
+    --bg:#0A0A0F;
+    --bg-sidebar:#0B0C12;
+    --bg-surface:#12141C;
+    --bg-surface-2:#171A24;
+    --bg-surface-3:#1D202C;
+    --border:rgba(255,255,255,0.08);
+    --border-strong:rgba(255,255,255,0.14);
+    --text-1:#F4F4F6;
+    --text-2:#A6A8B4;
+    --text-3:#75778A;
+    --text-4:#4B4D5C;
+    --accent:#6366F1;
+    --accent-hover:#7C7FF5;
+    --accent-dim:rgba(99,102,241,0.14);
+    --accent-border:rgba(99,102,241,0.4);
+    --success:#22C55E;
+    --success-dim:rgba(34,197,94,0.13);
+    --success-border:rgba(34,197,94,0.38);
+    --danger:#F04747;
+    --danger-dim:rgba(240,71,71,0.13);
+    --danger-border:rgba(240,71,71,0.4);
+    --warning:#F5A524;
+    --warning-dim:rgba(245,165,36,0.13);
+    --warning-border:rgba(245,165,36,0.4);
+    --radius-sm:6px;
+    --radius-md:10px;
+    --radius-lg:14px;
+    --font-ui: -apple-system, BlinkMacSystemFont, "Segoe UI", "Inter", Roboto, Helvetica, Arial, sans-serif;
+    --font-mono: ui-monospace, "SF Mono", "JetBrains Mono", "Cascadia Code", Menlo, Consolas, monospace;
+  }
+
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html,body{ height:100%; }
+  body{
+    background:var(--bg);
+    color:var(--text-1);
+    font-family:var(--font-ui);
+    font-size:14px;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  button{ font-family:inherit; }
+  input{ font-family:inherit; }
+  ::selection{ background:var(--accent-dim); color:var(--text-1); }
+  :focus-visible{ outline:2px solid var(--accent); outline-offset:2px; border-radius:4px; }
+
+  svg{ display:block; flex-shrink:0; }
+
+  /* ============ LOGIN SCREEN ============ */
+  #login-screen{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    position:relative;
+    padding:24px;
+    background:
+      radial-gradient(600px 400px at 18% 8%, rgba(99,102,241,0.16), transparent 60%),
+      radial-gradient(500px 380px at 85% 92%, rgba(99,102,241,0.10), transparent 60%),
+      var(--bg);
+  }
+  #login-screen::before{
+    content:"";
+    position:absolute; inset:0;
+    background-image:
+      linear-gradient(var(--border) 1px, transparent 1px),
+      linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size:48px 48px;
+    -webkit-mask-image:radial-gradient(ellipse 900px 600px at 50% 40%, black, transparent 75%);
+    mask-image:radial-gradient(ellipse 900px 600px at 50% 40%, black, transparent 75%);
+    opacity:0.5;
+    pointer-events:none;
+  }
+
+  .login-card{
+    position:relative;
+    width:100%;
+    max-width:392px;
+    background:var(--bg-surface);
+    border:1px solid var(--border);
+    border-radius:var(--radius-lg);
+    padding:36px 32px 32px;
+    box-shadow:0 24px 60px -20px rgba(0,0,0,0.6);
+  }
+
+  .login-brand{ display:flex; align-items:center; gap:10px; margin-bottom:26px; }
+  .brand-mark{
+    width:34px; height:34px; border-radius:9px;
+    background:linear-gradient(155deg, #7B7FF7, #5457D6);
+    display:flex; align-items:center; justify-content:center;
+    box-shadow:0 4px 14px -4px rgba(99,102,241,0.55);
+  }
+  .brand-name{ font-size:15.5px; font-weight:650; color:var(--text-1); letter-spacing:-0.01em; }
+  .brand-badge{
+    font-size:10.5px; font-weight:600; letter-spacing:0.07em; text-transform:uppercase;
+    color:var(--text-3); background:var(--bg-surface-2); border:1px solid var(--border-strong);
+    padding:3px 7px; border-radius:5px; margin-left:2px;
+  }
+
+  .login-heading{ font-size:19px; font-weight:650; color:var(--text-1); letter-spacing:-0.015em; margin-bottom:4px; }
+  .login-sub{ font-size:13px; color:var(--text-3); margin-bottom:26px; }
+
+  .field{ margin-bottom:16px; }
+  .field label{ display:block; font-size:12px; font-weight:600; color:var(--text-2); margin-bottom:7px; letter-spacing:0.01em; }
+  .field input{
+    width:100%; background:var(--bg-surface-2); border:1px solid var(--border-strong); color:var(--text-1);
+    font-size:13.5px; padding:10px 12px; border-radius:var(--radius-sm);
+    transition:border-color .15s ease, background .15s ease;
+  }
+  .field input::placeholder{ color:var(--text-4); }
+  .field input:hover{ border-color:rgba(255,255,255,0.22); }
+  .field input:focus{ border-color:var(--accent); background:var(--bg-surface-3); outline:none; box-shadow:0 0 0 3px var(--accent-dim); }
+
+  .error-banner{
+    display:none; align-items:flex-start; gap:9px;
+    background:var(--danger-dim); border:1px solid var(--danger-border); color:#FF9E9E;
+    font-size:12.5px; padding:10px 12px; border-radius:var(--radius-sm); margin-bottom:16px; line-height:1.45;
+  }
+  .error-banner.show{ display:flex; }
+  .error-banner svg{ margin-top:1px; flex-shrink:0; }
+  .error-banner strong{ color:#FFC2C2; }
+
+  .btn{
+    display:inline-flex; align-items:center; justify-content:center; gap:7px;
+    font-size:13.5px; font-weight:600; padding:10px 16px; border-radius:var(--radius-sm);
+    border:1px solid transparent; cursor:pointer;
+    transition:background .15s ease, border-color .15s ease, color .15s ease, transform .05s ease;
+    white-space:nowrap;
+  }
+  .btn:active{ transform:translateY(1px); }
+  .btn:disabled{ opacity:.6; cursor:default; }
+  .btn-primary{ background:var(--accent); color:#fff; width:100%; }
+  .btn-primary:hover:not(:disabled){ background:var(--accent-hover); }
+
+  .login-copyright{ text-align:center; color:var(--text-4); font-size:11.5px; margin-top:28px; }
+
+  /* ============ DASHBOARD SHELL ============ */
+  #dashboard-screen{ display:none; min-height:100vh; }
+
+  .sidebar{
+    width:244px; flex-shrink:0; background:var(--bg-sidebar); border-right:1px solid var(--border);
+    display:flex; flex-direction:column; position:fixed; top:0; left:0; bottom:0; padding:18px 12px;
+  }
+  .sidebar-brand{ display:flex; align-items:center; gap:10px; padding:6px 8px 20px; }
+  .sidebar-brand .brand-mark{ width:28px; height:28px; border-radius:7px; }
+  .sidebar-brand-text{ display:flex; flex-direction:column; line-height:1.2; }
+  .sidebar-brand-text .brand-name{ font-size:14px; }
+  .sidebar-brand-text .brand-badge{ margin-left:0; margin-top:3px; align-self:flex-start; }
+
+  .nav-label{ font-size:10.5px; font-weight:650; letter-spacing:0.09em; text-transform:uppercase; color:var(--text-4); padding:14px 10px 8px; }
+  .nav-list{ list-style:none; display:flex; flex-direction:column; gap:2px; }
+  .nav-item{
+    display:flex; align-items:center; gap:10px; padding:8px 10px; border-radius:var(--radius-sm);
+    color:var(--text-2); font-size:13px; font-weight:500; cursor:pointer;
+    border:1px solid transparent; border-left:2px solid transparent; position:relative;
+    transition:background .12s ease, color .12s ease; -webkit-user-select:none; user-select:none;
+  }
+  .nav-item svg{ width:17px; height:17px; opacity:0.85; }
+  .nav-item:hover{ background:var(--bg-surface-2); color:var(--text-1); }
+  .nav-item.active{ background:var(--accent-dim); color:#C7C9FF; border-left:2px solid var(--accent); padding-left:8px; }
+  .nav-item.active svg{ opacity:1; }
+  .nav-item.disabled{ color:var(--text-4); cursor:not-allowed; }
+  .nav-item.disabled:hover{ background:transparent; color:var(--text-4); }
+  .nav-item.disabled svg{ opacity:0.4; }
+
+  .nav-soon{
+    margin-left:auto; font-size:9.5px; font-weight:650; letter-spacing:0.04em; text-transform:uppercase;
+    color:var(--text-3); background:var(--bg-surface-2); border:1px solid var(--border-strong); padding:2px 6px; border-radius:4px;
+  }
+
+  .sidebar-footer{ margin-top:auto; padding:12px 10px 4px; border-top:1px solid var(--border); }
+  .status-line{ display:flex; align-items:center; gap:7px; font-size:11.5px; color:var(--text-3); margin-bottom:8px; }
+  .status-dot{ width:6px; height:6px; border-radius:50%; background:var(--success); box-shadow:0 0 0 3px var(--success-dim); flex-shrink:0; }
+  .version-line{ font-size:11px; color:var(--text-4); font-family:var(--font-mono); }
+
+  .main{ margin-left:244px; display:flex; flex-direction:column; min-height:100vh; width:calc(100% - 244px); }
+
+  .topbar{
+    height:60px; flex-shrink:0; display:flex; align-items:center; justify-content:space-between;
+    padding:0 28px; background:var(--bg-surface); border-bottom:1px solid var(--border);
+    position:sticky; top:0; z-index:5;
+  }
+  .topbar-title-block{ display:flex; flex-direction:column; gap:1px; }
+  .topbar-title{ font-size:14.5px; font-weight:650; color:var(--text-1); letter-spacing:-0.01em; }
+  .topbar-sub{ font-size:11.5px; color:var(--text-3); }
+  .topbar-right{ display:flex; align-items:center; gap:14px; }
+
+  .admin-chip{ display:flex; align-items:center; gap:9px; }
+  .admin-avatar{
+    width:28px; height:28px; border-radius:50%; background:linear-gradient(155deg, #7B7FF7, #5457D6);
+    color:#fff; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:650;
+  }
+  .admin-email{ font-size:12.5px; color:var(--text-2); font-weight:500; }
+
+  .btn-signout{
+    display:flex; align-items:center; gap:6px; background:transparent; border:1px solid var(--border-strong);
+    color:var(--text-2); font-size:12.5px; font-weight:600; padding:7px 12px; border-radius:var(--radius-sm);
+    cursor:pointer; transition:background .12s ease, border-color .12s ease, color .12s ease;
+  }
+  .btn-signout:hover{ background:var(--bg-surface-2); border-color:var(--border-strong); color:var(--text-1); }
+  .btn-signout svg{ width:15px; height:15px; }
+
+  .content{ padding:28px; flex:1; }
+  .view{ display:none; }
+  .view.active{ display:block; }
+
+  /* ============ FILTER TABS ============ */
+  .filter-tabs{ display:flex; gap:6px; margin-bottom:18px; }
+  .filter-tab{
+    display:flex; align-items:center; gap:7px; background:transparent; border:1px solid var(--border-strong);
+    color:var(--text-2); font-size:12.5px; font-weight:600; padding:7px 12px; border-radius:999px; cursor:pointer;
+    transition:background .12s ease, border-color .12s ease, color .12s ease;
+  }
+  .filter-tab:hover{ background:var(--bg-surface-2); color:var(--text-1); }
+  .filter-tab .count{ font-family:var(--font-mono); font-size:11px; background:var(--bg-surface-3); border-radius:999px; padding:1px 6px; color:var(--text-3); }
+  .filter-tab.active{ background:var(--accent-dim); border-color:var(--accent-border); color:#C7C9FF; }
+  .filter-tab.active .count{ background:rgba(99,102,241,0.28); color:#DCDDFF; }
+
+  /* ============ TABLE ============ */
+  .table-card{ background:var(--bg-surface); border:1px solid var(--border); border-radius:var(--radius-lg); overflow:hidden; }
+  .table-wrap{ overflow-x:auto; }
+  .p-table{ width:100%; border-collapse:collapse; min-width:920px; }
+  .p-table thead th{
+    text-align:left; font-size:10.5px; font-weight:650; letter-spacing:0.08em; text-transform:uppercase;
+    color:var(--text-4); padding:12px 16px; border-bottom:1px solid var(--border); white-space:nowrap;
+  }
+  .p-table tbody td{ padding:14px 16px; border-bottom:1px solid var(--border); vertical-align:middle; }
+  .p-table tbody tr:last-child td{ border-bottom:none; }
+  .p-table tbody tr{ transition:background .12s ease; }
+  .p-table tbody tr:hover{ background:var(--bg-surface-2); }
+
+  .user-cell{ display:flex; align-items:center; gap:10px; }
+  .avatar{
+    width:34px; height:34px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+    font-size:12px; font-weight:650; color:#fff; flex-shrink:0;
+  }
+  .user-meta{ display:flex; flex-direction:column; gap:1px; min-width:0; }
+  .user-name{ font-size:13px; font-weight:600; color:var(--text-1); }
+  .user-handle{ font-size:11.5px; color:var(--text-3); }
+
+  .plan-pill{
+    display:inline-block; font-size:11.5px; font-weight:600; color:var(--text-2); background:var(--bg-surface-2);
+    border:1px solid var(--border-strong); padding:3px 9px; border-radius:6px; white-space:nowrap;
+  }
+
+  .amount-cell{ font-family:var(--font-mono); font-size:13px; font-weight:650; color:var(--text-1); white-space:nowrap; }
+  .txn-cell{ font-family:var(--font-mono); font-size:12px; color:var(--text-3); white-space:nowrap; }
+  .date-cell{ font-size:12px; color:var(--text-2); white-space:nowrap; }
+  .date-cell span{ display:block; color:var(--text-4); font-size:11px; }
+
+  .reys-input{
+    width:88px; background:var(--bg-surface-2); border:1px solid var(--border-strong); color:var(--text-1);
+    font-family:var(--font-mono); font-size:12.5px; padding:7px 9px; border-radius:var(--radius-sm);
+    transition:border-color .15s ease;
+  }
+  .reys-input:hover{ border-color:rgba(255,255,255,0.22); }
+  .reys-input:focus{ border-color:var(--accent); outline:none; box-shadow:0 0 0 3px var(--accent-dim); }
+  .reys-static{ font-family:var(--font-mono); font-size:12.5px; color:var(--text-3); }
+
+  .row-actions{ display:flex; gap:8px; white-space:nowrap; }
+
+  .btn-approve{
+    display:flex; align-items:center; gap:5px; background:var(--success); color:#052E10; font-size:12px; font-weight:700;
+    padding:7px 11px; border-radius:var(--radius-sm); border:1px solid transparent; cursor:pointer; transition:background .12s ease;
+  }
+  .btn-approve:hover:not(:disabled){ background:#2ED96A; }
+  .btn-approve:disabled{ opacity:.6; cursor:default; }
+  .btn-approve svg{ width:14px; height:14px; }
+
+  .btn-reject{
+    display:flex; align-items:center; gap:5px; background:transparent; color:#FF9E9E; font-size:12px; font-weight:700;
+    padding:7px 11px; border-radius:var(--radius-sm); border:1px solid var(--danger-border); cursor:pointer;
+    transition:background .12s ease, color .12s ease;
+  }
+  .btn-reject:hover:not(:disabled){ background:var(--danger-dim); color:#FFC2C2; }
+  .btn-reject:disabled{ opacity:.6; cursor:default; }
+  .btn-reject svg{ width:14px; height:14px; }
+
+  .status-badge{ display:inline-flex; align-items:center; gap:6px; font-size:11.5px; font-weight:650; padding:5px 10px; border-radius:999px; white-space:nowrap; }
+  .status-badge svg{ width:13px; height:13px; }
+  .status-badge.approved{ background:var(--success-dim); color:#6EE7A0; border:1px solid var(--success-border); }
+  .status-badge.rejected{ background:var(--danger-dim); color:#FF9E9E; border:1px solid var(--danger-border); }
+
+  .empty-state{ text-align:center; color:var(--text-3); font-size:12.5px; padding:40px 0; }
+  .empty-state.error{ color:#FF9E9E; }
+
+  /* ============ MODERATION VIEW ============ */
+  .mod-list{ display:flex; flex-direction:column; gap:16px; }
+  .report-card{ background:var(--bg-surface); border:1px solid var(--border); border-radius:var(--radius-lg); padding:20px 22px; }
+  .report-head{ display:flex; align-items:center; justify-content:space-between; margin-bottom:16px; flex-wrap:wrap; gap:10px; }
+  .report-reporter{ display:flex; align-items:center; gap:9px; }
+  .report-reporter-text{ font-size:12.5px; color:var(--text-2); }
+  .report-reporter-text strong{ color:var(--text-1); font-weight:650; }
+
+  .reason-pill{
+    font-size:11px; font-weight:650; color:#FFCB80; background:var(--warning-dim); border:1px solid var(--warning-border);
+    padding:4px 10px; border-radius:999px; letter-spacing:0.01em;
+  }
+  .report-time{ font-size:11.5px; color:var(--text-4); margin-left:auto; }
+
+  .post-preview{
+    background:var(--bg-surface-2); border:1px solid var(--border); border-left:3px solid var(--border-strong);
+    border-radius:var(--radius-md); padding:14px 16px; display:flex; gap:14px; margin-bottom:18px;
+  }
+  .post-preview-body{ flex:1; min-width:0; }
+  .post-author-row{ display:flex; align-items:center; gap:8px; margin-bottom:7px; }
+  .post-author-name{ font-size:12.5px; font-weight:650; color:var(--text-1); }
+  .post-author-handle{ font-size:11.5px; color:var(--text-3); }
+  .post-content{ font-size:13px; color:var(--text-2); line-height:1.55; white-space:pre-wrap; word-break:break-word; }
+
+  .post-image-placeholder{
+    width:72px; height:72px; flex-shrink:0; border-radius:8px; border:1px dashed var(--border-strong);
+    background:var(--bg-surface-3); display:flex; align-items:center; justify-content:center; color:var(--text-4);
+  }
+  .post-image-placeholder svg{ width:24px; height:24px; }
+
+  .report-actions{ display:flex; justify-content:flex-end; gap:9px; flex-wrap:wrap; }
+  .report-actions svg{ width:14px; height:14px; }
+
+  .btn-dismiss{
+    display:flex; align-items:center; gap:6px; background:transparent; border:1px solid var(--border-strong);
+    color:var(--text-2); font-size:12.5px; font-weight:600; padding:8px 13px; border-radius:var(--radius-sm);
+    cursor:pointer; transition:background .12s ease, color .12s ease, border-color .12s ease;
+  }
+  .btn-dismiss:hover:not(:disabled){ background:var(--bg-surface-2); color:var(--text-1); border-color:rgba(255,255,255,0.22); }
+
+  .btn-hide{
+    display:flex; align-items:center; gap:6px; background:transparent; border:1px solid var(--warning-border);
+    color:#FFCB80; font-size:12.5px; font-weight:600; padding:8px 13px; border-radius:var(--radius-sm); cursor:pointer;
+    transition:background .12s ease, color .12s ease;
+  }
+  .btn-hide:hover:not(:disabled){ background:var(--warning-dim); color:#FFDCA3; }
+
+  .btn-delete{
+    display:flex; align-items:center; gap:6px; background:var(--danger); border:1px solid transparent; color:#fff;
+    font-size:12.5px; font-weight:650; padding:8px 13px; border-radius:var(--radius-sm); cursor:pointer; transition:background .12s ease;
+  }
+  .btn-delete:hover:not(:disabled){ background:#FF6363; }
+  .btn-dismiss:disabled, .btn-hide:disabled, .btn-delete:disabled{ opacity:.6; cursor:default; }
+
+  /* ============ USERS VIEW ============ */
+  .users-search-row{ display:flex; gap:8px; margin-bottom:18px; max-width:440px; }
+  .users-search-input{
+    flex:1; background:var(--bg-surface-2); border:1px solid var(--border-strong); color:var(--text-1);
+    font-size:13.5px; padding:9px 12px; border-radius:var(--radius-sm); transition:border-color .15s ease;
+  }
+  .users-search-input::placeholder{ color:var(--text-4); }
+  .users-search-input:focus{ border-color:var(--accent); outline:none; box-shadow:0 0 0 3px var(--accent-dim); }
+  .btn-search{
+    background:var(--accent); color:#fff; border:1px solid transparent; font-size:12.5px; font-weight:650;
+    padding:0 18px; border-radius:var(--radius-sm); cursor:pointer; transition:background .12s ease;
+  }
+  .btn-search:hover:not(:disabled){ background:var(--accent-hover); }
+
+  .user-list{ display:flex; flex-direction:column; gap:12px; }
+  .user-card{ background:var(--bg-surface); border:1px solid var(--border); border-radius:var(--radius-lg); padding:16px 20px; }
+  .user-card-head{ display:flex; align-items:center; gap:12px; }
+  .user-card-meta{ flex:1; min-width:0; display:flex; flex-direction:column; gap:1px; }
+  .user-card-name{ font-size:13.5px; font-weight:650; color:var(--text-1); display:flex; align-items:center; gap:7px; }
+  .user-card-handle{ font-size:12px; color:var(--text-3); }
+  .user-card-reys{ font-family:var(--font-mono); font-size:13.5px; font-weight:650; color:var(--text-1); white-space:nowrap; }
+  .user-card-reys span{ display:block; font-family:var(--font-ui); font-weight:600; font-size:10px; color:var(--text-4); text-transform:uppercase; letter-spacing:.06em; text-align:right; margin-top:2px; }
+
+  .verified-badge{
+    display:inline-flex; align-items:center; gap:4px; font-size:10.5px; font-weight:650; padding:2px 8px; border-radius:999px;
+    background:var(--success-dim); color:#6EE7A0; border:1px solid var(--success-border);
+  }
+  .banned-badge{
+    display:inline-flex; align-items:center; gap:4px; font-size:10.5px; font-weight:650; padding:2px 8px; border-radius:999px;
+    background:var(--danger-dim); color:#FF9E9E; border:1px solid var(--danger-border);
+  }
+
+  .user-card-controls{
+    display:flex; align-items:center; flex-wrap:wrap; gap:18px; margin-top:14px; padding-top:14px; border-top:1px solid var(--border);
+  }
+  .control-group{ display:flex; align-items:center; gap:8px; }
+  .control-label{ font-size:10.5px; font-weight:650; letter-spacing:.05em; text-transform:uppercase; color:var(--text-4); }
+  .segmented{ display:flex; background:var(--bg-surface-2); border:1px solid var(--border-strong); border-radius:var(--radius-sm); overflow:hidden; }
+  .segmented button{
+    background:none; border:none; color:var(--text-3); font-size:11.5px; font-weight:600; padding:6px 11px; cursor:pointer;
+    transition:background .12s ease, color .12s ease; border-right:1px solid var(--border-strong);
+  }
+  .segmented button:last-child{ border-right:none; }
+  .segmented button.active{ background:var(--accent-dim); color:#C7C9FF; }
+  .segmented button:hover:not(.active){ background:var(--bg-surface-3); color:var(--text-1); }
+
+  .btn-ban-toggle{
+    display:flex; align-items:center; gap:6px; font-size:11.5px; font-weight:650; padding:6px 12px; border-radius:var(--radius-sm);
+    cursor:pointer; transition:background .12s ease, color .12s ease;
+  }
+  .btn-ban-toggle.do-ban{ background:transparent; border:1px solid var(--danger-border); color:#FF9E9E; }
+  .btn-ban-toggle.do-ban:hover{ background:var(--danger-dim); }
+  .btn-ban-toggle.do-unban{ background:transparent; border:1px solid var(--border-strong); color:var(--text-2); }
+  .btn-ban-toggle.do-unban:hover{ background:var(--bg-surface-2); color:var(--text-1); }
+
+  .reys-adjust{ display:flex; align-items:center; gap:6px; }
+  .reys-adjust input[type=number]{
+    width:82px; background:var(--bg-surface-2); border:1px solid var(--border-strong); color:var(--text-1);
+    font-family:var(--font-mono); font-size:12px; padding:6px 8px; border-radius:var(--radius-sm);
+  }
+  .reys-adjust input[type=text]{
+    width:150px; background:var(--bg-surface-2); border:1px solid var(--border-strong); color:var(--text-1);
+    font-size:12px; padding:6px 9px; border-radius:var(--radius-sm);
+  }
+  .reys-adjust input:focus{ border-color:var(--accent); outline:none; box-shadow:0 0 0 3px var(--accent-dim); }
+  .btn-apply-reys{
+    background:var(--success); color:#052E10; border:none; font-size:11.5px; font-weight:700; padding:7px 12px;
+    border-radius:var(--radius-sm); cursor:pointer; transition:background .12s ease;
+  }
+  .btn-apply-reys:hover:not(:disabled){ background:#2ED96A; }
+  .btn-apply-reys:disabled{ opacity:.6; cursor:default; }
+
+  /* ============ REYS ECONOMY VIEW ============ */
+  .economy-card{ background:var(--bg-surface); border:1px solid var(--border); border-radius:var(--radius-lg); padding:20px; max-width:480px; margin-bottom:24px; }
+  .economy-card-title{ font-size:13px; font-weight:650; color:var(--text-1); margin-bottom:14px; }
+  .config-row{ display:flex; align-items:center; gap:10px; margin-bottom:12px; }
+  .config-label{ flex:1; font-size:12.5px; color:var(--text-2); }
+  .config-input{
+    width:110px; background:var(--bg-surface-2); border:1px solid var(--border-strong); color:var(--text-1);
+    font-family:var(--font-mono); font-size:12.5px; padding:7px 9px; border-radius:var(--radius-sm);
+  }
+  .config-input:focus{ border-color:var(--accent); outline:none; box-shadow:0 0 0 3px var(--accent-dim); }
+  .config-unit{ width:90px; font-size:11px; color:var(--text-4); }
+  .btn-save-config{
+    width:100%; margin-top:6px; background:var(--accent); color:#fff; border:none; font-size:12.5px; font-weight:650;
+    padding:9px; border-radius:var(--radius-sm); cursor:pointer; transition:background .12s ease;
+  }
+  .btn-save-config:hover:not(:disabled){ background:var(--accent-hover); }
+  .btn-save-config:disabled{ opacity:.6; cursor:default; }
+
+  .economy-tiers-header{ display:flex; align-items:center; justify-content:space-between; max-width:720px; margin-bottom:14px; }
+  .btn-add-tier{
+    background:transparent; border:1px solid var(--border-strong); color:var(--text-2); font-size:12px; font-weight:650;
+    padding:7px 14px; border-radius:var(--radius-sm); cursor:pointer; transition:background .12s ease, color .12s ease;
+  }
+  .btn-add-tier:hover{ background:var(--bg-surface-2); color:var(--text-1); }
+
+  .tier-list{ display:flex; flex-direction:column; gap:10px; max-width:720px; }
+  .tier-card{ background:var(--bg-surface); border:1px solid var(--border); border-radius:var(--radius-lg); padding:14px 18px; }
+  .tier-card-row{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+  .tier-field{ display:flex; flex-direction:column; gap:4px; }
+  .tier-field label{ font-size:9.5px; font-weight:650; letter-spacing:.05em; text-transform:uppercase; color:var(--text-4); }
+  .tier-field input[type=number]{
+    width:80px; background:var(--bg-surface-2); border:1px solid var(--border-strong); color:var(--text-1);
+    font-family:var(--font-mono); font-size:12px; padding:6px 8px; border-radius:var(--radius-sm);
+  }
+  .tier-field input[type=text]{
+    width:100px; background:var(--bg-surface-2); border:1px solid var(--border-strong); color:var(--text-1);
+    font-size:12px; padding:6px 8px; border-radius:var(--radius-sm);
+  }
+  .tier-field input:focus{ border-color:var(--accent); outline:none; box-shadow:0 0 0 3px var(--accent-dim); }
+  .tier-toggle{ display:flex; align-items:center; gap:6px; }
+  .tier-toggle label{ font-size:9.5px; font-weight:650; letter-spacing:.05em; text-transform:uppercase; color:var(--text-4); }
+  .tier-actions{ display:flex; gap:8px; margin-left:auto; }
+  .btn-save-tier{
+    background:var(--success); color:#052E10; border:none; font-size:11.5px; font-weight:700; padding:7px 12px;
+    border-radius:var(--radius-sm); cursor:pointer; transition:background .12s ease;
+  }
+  .btn-save-tier:hover:not(:disabled){ background:#2ED96A; }
+  .btn-delete-tier{
+    background:transparent; border:1px solid var(--danger-border); color:#FF9E9E; font-size:11.5px; font-weight:700;
+    padding:7px 12px; border-radius:var(--radius-sm); cursor:pointer; transition:background .12s ease;
+  }
+  .btn-delete-tier:hover:not(:disabled){ background:var(--danger-dim); }
+  .tier-inactive{ opacity:.55; }
+
+  /* ============ ANNOUNCEMENTS VIEW ============ */
+  .ann-form-row{ display:flex; align-items:flex-start; gap:12px; margin-bottom:12px; }
+  .ann-form-row .users-search-input{ flex:1; max-width:none; }
+  .ann-form-row label{ padding-top:9px; flex-shrink:0; }
+  .ann-textarea{
+    flex:1; background:var(--bg-surface-2); border:1px solid var(--border-strong); color:var(--text-1);
+    font-size:13px; font-family:inherit; padding:9px 12px; border-radius:var(--radius-sm); resize:vertical; min-height:60px;
+  }
+  .ann-textarea:focus{ border-color:var(--accent); outline:none; box-shadow:0 0 0 3px var(--accent-dim); }
+
+  .ann-list{ display:flex; flex-direction:column; gap:10px; max-width:560px; }
+  .ann-card{ background:var(--bg-surface); border:1px solid var(--border); border-radius:var(--radius-lg); padding:16px 18px; }
+  .ann-card.ann-inactive{ opacity:.55; }
+  .ann-card-head{ display:flex; align-items:flex-start; justify-content:space-between; gap:10px; margin-bottom:6px; }
+  .ann-card-title{ font-size:13.5px; font-weight:650; color:var(--text-1); }
+  .ann-card-message{ font-size:12.5px; color:var(--text-2); line-height:1.5; margin-bottom:8px; white-space:pre-wrap; word-break:break-word; }
+  .ann-card-meta{ font-size:11px; color:var(--text-4); margin-bottom:10px; }
+  .ann-card-actions{ display:flex; gap:8px; flex-wrap:wrap; }
+  .ann-status-badge{ font-size:10.5px; font-weight:650; padding:3px 9px; border-radius:999px; flex-shrink:0; white-space:nowrap; }
+  .ann-status-badge.live{ background:var(--success-dim); color:#6EE7A0; border:1px solid var(--success-border); }
+  .ann-status-badge.off{ background:var(--bg-surface-2); color:var(--text-4); border:1px solid var(--border-strong); }
+
+  /* ============ RIZPLAY VIEW ============ */
+  .video-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(240px, 1fr)); gap:14px; }
+  .video-card{ background:var(--bg-surface); border:1px solid var(--border); border-radius:var(--radius-lg); overflow:hidden; }
+  .video-thumb{ width:100%; aspect-ratio:16/9; object-fit:cover; background:var(--bg-surface-2); display:block; }
+  .video-card-body{ padding:12px 14px; }
+  .video-card-title{ font-size:12.5px; font-weight:650; color:var(--text-1); line-height:1.4; margin-bottom:5px; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+  .video-card-meta{ font-size:11px; color:var(--text-3); margin-bottom:10px; }
+  .video-card-actions{ display:flex; gap:6px; flex-wrap:wrap; }
+  .video-card-actions button{ flex:1; padding:6px 8px; font-size:11px; }
+
+  .rz-subtabs{ display:flex; gap:6px; margin-bottom:18px; }
+
+  .channel-add-row{ display:flex; gap:10px; max-width:640px; }
+  .channel-add-row .users-search-input{ flex:1; }
+
+  .channel-preview-card{ background:var(--bg-surface); border:1px solid var(--border); border-radius:var(--radius-lg); padding:18px; margin-top:16px; max-width:720px; }
+  .channel-preview-head{ display:flex; gap:12px; align-items:center; margin-bottom:10px; }
+  .channel-preview-avatar{ width:52px; height:52px; border-radius:50%; object-fit:cover; background:var(--bg-surface-2); flex-shrink:0; }
+  .channel-preview-name{ font-size:14px; font-weight:650; color:var(--text-1); }
+  .channel-preview-meta{ font-size:11.5px; color:var(--text-3); margin-top:2px; }
+  .channel-preview-bio{ font-size:12px; color:var(--text-2); line-height:1.5; margin-bottom:14px; max-height:60px; overflow:hidden; }
+  .channel-preview-videos{ display:grid; grid-template-columns:repeat(auto-fill, minmax(120px,1fr)); gap:8px; margin-bottom:16px; }
+  .channel-preview-video{ position:relative; }
+  .channel-preview-video img{ width:100%; aspect-ratio:16/9; object-fit:cover; border-radius:6px; background:var(--bg-surface-2); display:block; }
+  .cpv-badge{ position:absolute; top:4px; left:4px; font-size:9px; font-weight:650; padding:2px 6px; border-radius:4px; }
+  .channel-preview-actions{ display:flex; gap:8px; }
+  .channel-preview-actions button{ flex:1; }
+
+  .channel-row{ display:flex; align-items:center; gap:12px; padding:12px 14px; background:var(--bg-surface); border:1px solid var(--border); border-radius:var(--radius-md); margin-bottom:8px; }
+  .channel-row img{ width:38px; height:38px; border-radius:50%; object-fit:cover; background:var(--bg-surface-2); flex-shrink:0; }
+  .channel-row-body{ flex:1; min-width:0; }
+  .channel-row-name{ font-size:12.5px; font-weight:650; color:var(--text-1); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .channel-row-meta{ font-size:11px; color:var(--text-3); margin-top:2px; }
+  .channel-status-pill{ font-size:10px; font-weight:650; padding:3px 9px; border-radius:999px; text-transform:uppercase; letter-spacing:.3px; flex-shrink:0; }
+  .channel-status-pill.approved{ background:var(--success-dim); color:#8FF0B0; border:1px solid var(--success-border); }
+  .channel-status-pill.rejected{ background:var(--danger-dim); color:#FFC2C2; border:1px solid var(--danger-border); }
+  .channel-status-pill.pending{ background:var(--warning-dim); color:#FFD98C; border:1px solid var(--warning-border); }
+
+  .suggestion-card{ display:flex; gap:12px; padding:14px; background:var(--bg-surface); border:1px solid var(--border); border-radius:var(--radius-md); margin-bottom:8px; }
+  .suggestion-card img{ width:44px; height:44px; border-radius:50%; object-fit:cover; background:var(--bg-surface-2); flex-shrink:0; }
+  .suggestion-card-body{ flex:1; min-width:0; }
+  .suggestion-card-name{ font-size:12.5px; font-weight:650; color:var(--text-1); }
+  .suggestion-card-bio{ font-size:11.5px; color:var(--text-3); margin-top:3px; line-height:1.4; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+  .suggestion-card-source{ font-size:10px; color:var(--text-4); margin-top:5px; }
+  .suggestion-card-category{ display:inline-block; font-size:10px; font-weight:650; padding:2px 8px; border-radius:999px; background:var(--accent-dim); color:#C7C9FF; border:1px solid var(--accent-border); margin-top:6px; }
+  .suggestion-card-actions{ display:flex; flex-direction:column; gap:6px; flex-shrink:0; }
+  .suggestion-card-actions button{ padding:6px 12px; font-size:11px; white-space:nowrap; }
+
+  /* ============ ANALYTICS VIEW ============ */
+  .stat-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(190px,1fr)); gap:14px; margin-bottom:22px; }
+  .stat-card{ background:linear-gradient(155deg, var(--bg-surface) 0%, var(--bg-surface-2) 100%); border:1px solid var(--border); border-radius:var(--radius-lg); padding:20px; display:flex; flex-direction:column; gap:14px; transition:transform .18s ease, border-color .18s ease, box-shadow .18s ease; }
+  .stat-card:hover{ transform:translateY(-3px); border-color:var(--border-strong); box-shadow:0 12px 28px -12px rgba(0,0,0,0.5); }
+  .stat-card-icon{ width:38px; height:38px; border-radius:11px; display:flex; align-items:center; justify-content:center; }
+  .stat-card-icon svg{ width:19px; height:19px; }
+  .stat-card-icon.tone-accent{ background:var(--accent-dim); color:#C7C9FF; }
+  .stat-card-icon.tone-success{ background:var(--success-dim); color:#8FF0B0; }
+  .stat-card-icon.tone-warning{ background:var(--warning-dim); color:#FFD98C; }
+  .stat-card-label{ font-size:10.5px; color:var(--text-3); text-transform:uppercase; letter-spacing:.6px; font-weight:700; }
+  .stat-card-value{ font-size:26px; font-weight:750; color:var(--text-1); font-family:var(--font-mono); letter-spacing:-.5px; line-height:1; }
+  .stat-card-sub{ font-size:11px; color:var(--text-4); }
+  .chart-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(420px,1fr)); gap:18px; }
+  .chart-card{ background:var(--bg-surface); border:1px solid var(--border); border-radius:var(--radius-lg); padding:22px; transition:border-color .18s ease; }
+  .chart-card:hover{ border-color:var(--border-strong); }
+  .chart-card-head{ display:flex; align-items:center; gap:10px; margin-bottom:18px; }
+  .chart-card-dot{ width:8px; height:8px; border-radius:50%; background:var(--accent); box-shadow:0 0 0 4px var(--accent-dim); flex-shrink:0; }
+  .chart-card-title{ font-size:13px; font-weight:650; color:var(--text-1); }
+  .chart-svg-wrap{ width:100%; overflow-x:auto; }
+  .chart-bar{ transition:opacity .12s ease; }
+  .chart-bar:hover{ opacity:.82; }
+  .chart-bar-value{ fill:var(--text-2); font-size:9px; font-family:var(--font-mono); text-anchor:middle; }
+  .chart-axis-label{ fill:var(--text-4); font-size:9.5px; font-family:var(--font-mono); }
+  .chart-gridline{ stroke:var(--border); stroke-width:1; stroke-dasharray:2,3; }
+  .chart-baseline{ stroke:var(--border-strong); stroke-width:1; }
+  .stat-card-icon.tone-danger{ background:var(--danger-dim); color:#FFC2C2; }
+  .analytics-section-title{ font-size:13.5px; font-weight:700; color:var(--text-1); margin:30px 0 14px; padding-top:2px; }
+  .analytics-section-title:first-child{ margin-top:0; }
+  .range-tabs{ display:flex; gap:6px; margin-bottom:18px; }
+  .mini-list-card{ background:var(--bg-surface); border:1px solid var(--border); border-radius:var(--radius-lg); padding:20px 22px; }
+  .mini-list-row{ display:flex; align-items:center; justify-content:space-between; padding:9px 0; border-bottom:1px solid var(--border); }
+  .mini-list-row:last-child{ border-bottom:none; }
+  .mini-list-label{ font-size:12px; color:var(--text-2); }
+  .mini-list-value{ font-family:var(--font-mono); font-weight:650; color:var(--text-1); font-size:12.5px; }
+
+  .category-btn-grid{ display:flex; flex-wrap:wrap; gap:8px; }
+  .category-btn{ background:var(--bg-surface-2); border:1px solid var(--border); color:var(--text-2); border-radius:var(--radius-sm); padding:8px 14px; font-size:12px; font-weight:600; cursor:pointer; transition:background .15s,color .15s; }
+  .category-btn:hover:not(:disabled){ background:var(--accent-dim); border-color:var(--accent-border); color:#C7C9FF; }
+  .category-btn:disabled{ opacity:.6; cursor:default; }
+  .category-btn.active{ background:var(--accent-dim); border-color:var(--accent-border); color:#C7C9FF; }
+
+  .toast{
+    position:fixed; bottom:24px; left:50%; transform:translateX(-50%); background:var(--bg-surface-3);
+    border:1px solid var(--border-strong); color:var(--text-1); padding:10px 18px; border-radius:var(--radius-sm);
+    font-size:13px; font-family:inherit; z-index:999; box-shadow:0 8px 24px rgba(0,0,0,.4);
+  }
+
+  @media (max-width: 880px){
+    .sidebar{ display:none; }
+    .main{ margin-left:0; width:100%; }
+    .topbar{ padding:0 16px; }
+    .content{ padding:18px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ LOGIN SCREEN ============ -->
+<div id="login-screen">
+  <div class="login-card">
+    <div class="login-brand">
+      <div class="brand-mark">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 18L10 8L14 14L20 4" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <span class="brand-name">Rizers</span>
+      <span class="brand-badge">Backend</span>
+    </div>
+
+    <div class="login-heading">Sign in to the admin console</div>
+    <div class="login-sub">Restricted access &mdash; authorized team members only.</div>
+
+    <div class="error-banner" id="loginError">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#FF9E9E" stroke-width="2"/><path d="M12 8v5" stroke="#FF9E9E" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="16" r="1" fill="#FF9E9E"/></svg>
+      <span id="loginErrorText"><strong>Access denied.</strong> This account does not have admin access.</span>
+    </div>
+
+    <form id="login-form">
+      <div class="field">
+        <label for="phone">Phone number</label>
+        <input type="tel" id="phone" placeholder="01XXXXXXXXX" autocomplete="username" required>
+      </div>
+      <div class="field" style="margin-bottom:20px;">
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="••••••••••••" autocomplete="current-password" required>
+      </div>
+      <button type="submit" class="btn btn-primary" id="loginBtn">Sign in</button>
+    </form>
+
+    <div class="login-copyright">© Rizers &middot; Internal tool &middot; Not for public access</div>
+  </div>
+</div>
+
+<!-- ============ DASHBOARD SHELL ============ -->
+<div id="dashboard-screen">
+
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <div class="brand-mark">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M4 18L10 8L14 14L20 4" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="sidebar-brand-text">
+        <span class="brand-name">Rizers</span>
+        <span class="brand-badge">Backend</span>
+      </div>
+    </div>
+
+    <div class="nav-label">Operations</div>
+    <ul class="nav-list">
+      <li class="nav-item active" data-view="payments" onclick="switchView('payments', this)">
+        <svg viewBox="0 0 24 24" fill="none"><rect x="2.5" y="5.5" width="19" height="13" rx="2.2" stroke="currentColor" stroke-width="1.8"/><path d="M2.5 9.5h19" stroke="currentColor" stroke-width="1.8"/><path d="M6 14.5h4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        <span>Payments</span>
+      </li>
+      <li class="nav-item" data-view="moderation" onclick="switchView('moderation', this)">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 3l7 3v5.5c0 4.5-3 7.7-7 9-4-1.3-7-4.5-7-9V6l7-3z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9.5 12l1.8 1.8L14.7 10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>Moderation</span>
+      </li>
+      <li class="nav-item" data-view="users" onclick="switchView('users', this)">
+        <svg viewBox="0 0 24 24" fill="none"><circle cx="9" cy="8" r="3.2" stroke="currentColor" stroke-width="1.8"/><path d="M3 20c0-3.6 2.7-6 6-6s6 2.4 6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="17.5" cy="8.5" r="2.3" stroke="currentColor" stroke-width="1.6"/><path d="M15.7 13.2c2.4.3 4.3 2.2 4.8 4.8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        <span>Users</span>
+      </li>
+      <li class="nav-item" data-view="economy" onclick="switchView('economy', this)">
+        <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M12 7v10M9.5 9.3c0-1.1 1.1-1.8 2.5-1.8s2.5.8 2.5 1.9c0 2.6-5 1.3-5 3.9 0 1.1 1.1 1.9 2.5 1.9s2.5-.7 2.5-1.8" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>Reys Economy</span>
+      </li>
+      <li class="nav-item" data-view="announcements" onclick="switchView('announcements', this)">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M4 10v4a1 1 0 001 1h2l4 4V5l-4 4H5a1 1 0 00-1 1z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M16.5 8.5a5 5 0 010 7M19.5 6a9 9 0 010 12" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+        <span>Announcements</span>
+      </li>
+      <li class="nav-item" data-view="rizplay" onclick="switchView('rizplay', this)">
+        <svg viewBox="0 0 24 24" fill="none"><rect x="2.5" y="4.5" width="19" height="14" rx="2.2" stroke="currentColor" stroke-width="1.7"/><path d="M10 8.5l5 3.2-5 3.2V8.5z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>
+        <span>RizPlay</span>
+      </li>
+      <li class="nav-item" data-view="analytics" onclick="switchView('analytics', this)">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M4 20V10M11 20V4M18 20v-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        <span>Analytics</span>
+      </li>
+    </ul>
+
+    <div class="nav-label">Coming soon</div>
+    <ul class="nav-list">
+      <li class="nav-item disabled">
+        <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="2.8" stroke="currentColor" stroke-width="1.8"/><path d="M12 3.5v2.2M12 18.3v2.2M20.5 12h-2.2M5.7 12H3.5M17.9 6.1l-1.6 1.6M7.7 16.3l-1.6 1.6M17.9 17.9l-1.6-1.6M7.7 7.7L6.1 6.1" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        <span>Settings</span><span class="nav-soon">Soon</span>
+      </li>
+    </ul>
+
+    <div class="sidebar-footer">
+      <div class="status-line"><span class="status-dot"></span> All systems normal</div>
+      <div class="version-line">admin · production</div>
+    </div>
+  </aside>
+
+  <div class="main">
+    <header class="topbar">
+      <div class="topbar-title-block">
+        <span class="topbar-title" id="topbarTitle">Payments</span>
+        <span class="topbar-sub" id="topbarSub">Review and approve bKash subscription payments</span>
+      </div>
+      <div class="topbar-right">
+        <div class="admin-chip">
+          <div class="admin-avatar" id="adminAvatar">A</div>
+          <span class="admin-email" id="adminEmail"></span>
+        </div>
+        <button class="btn-signout" id="logout-btn">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M16 17l5-5-5-5M21 12H9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Sign out
+        </button>
+      </div>
+    </header>
+
+    <div class="content">
+
+      <!-- ============ PAYMENTS VIEW ============ -->
+      <section class="view active" id="view-payments">
+        <div class="filter-tabs">
+          <button class="filter-tab active" data-status="pending" onclick="setFilter('pending', this)">Pending <span class="count" id="countPending">&middot;</span></button>
+          <button class="filter-tab" data-status="approved" onclick="setFilter('approved', this)">Approved <span class="count" id="countApproved">&middot;</span></button>
+          <button class="filter-tab" data-status="rejected" onclick="setFilter('rejected', this)">Rejected <span class="count" id="countRejected">&middot;</span></button>
+        </div>
+
+        <div class="table-card">
+          <div class="table-wrap">
+            <table class="p-table">
+              <thead>
+                <tr>
+                  <th>User</th>
+                  <th>Reys Requested</th>
+                  <th>Amount</th>
+                  <th>Transaction ID</th>
+                  <th>Submitted</th>
+                  <th>Reys to grant</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="paymentsBody">
+                <tr><td colspan="7" class="empty-state">Loading…</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ MODERATION VIEW ============ -->
+      <section class="view" id="view-moderation">
+        <div class="mod-list" id="reportsList">
+          <div class="empty-state">Loading…</div>
+        </div>
+      </section>
+
+      <!-- ============ USERS VIEW ============ -->
+      <section class="view" id="view-users">
+        <div class="users-search-row">
+          <input type="text" id="usersSearchInput" class="users-search-input" placeholder="Search by name or username…">
+          <button class="btn-search" id="usersSearchBtn">Search</button>
+        </div>
+        <div class="user-list" id="usersList">
+          <div class="empty-state">Search for a user by name or username to manage their account.</div>
+        </div>
+      </section>
+
+      <!-- ============ REYS ECONOMY VIEW ============ -->
+      <section class="view" id="view-economy">
+        <div class="economy-card">
+          <div class="economy-card-title">Core settings</div>
+          <div class="config-row">
+            <label class="config-label">Daily claim amount</label>
+            <input type="number" id="cfg-daily_claim_amount" class="config-input" step="1" min="0">
+            <span class="config-unit">Reys / day</span>
+          </div>
+          <div class="config-row">
+            <label class="config-label">Challenge join fee</label>
+            <input type="number" id="cfg-challenge_join_fee" class="config-input" step="1" min="0">
+            <span class="config-unit">Reys</span>
+          </div>
+          <div class="config-row">
+            <label class="config-label">Progress post reward</label>
+            <input type="number" id="cfg-progress_post_reward" class="config-input" step="1" min="0">
+            <span class="config-unit">Reys / day</span>
+          </div>
+          <div class="config-row">
+            <label class="config-label">Custom purchase rate</label>
+            <input type="number" id="cfg-custom_purchase_rate" class="config-input" step="0.01">
+            <span class="config-unit">Reys per ৳1</span>
+          </div>
+          <button class="btn-save-config" id="saveConfigBtn">Save Settings</button>
+        </div>
+
+        <div class="economy-tiers-header">
+          <div class="economy-card-title">Purchase tiers</div>
+          <button class="btn-add-tier" id="addTierBtn">+ Add tier</button>
+        </div>
+        <div class="tier-list" id="tiersList">
+          <div class="empty-state">Loading…</div>
+        </div>
+      </section>
+
+      <!-- ============ ANNOUNCEMENTS VIEW ============ -->
+      <section class="view" id="view-announcements">
+        <div class="economy-card" style="max-width:560px">
+          <div class="economy-card-title">New announcement</div>
+          <div class="ann-form-row">
+            <label class="config-label" style="width:90px">Title</label>
+            <input type="text" id="ann-new-title" class="users-search-input" placeholder="e.g. Scheduled maintenance">
+          </div>
+          <div class="ann-form-row">
+            <label class="config-label" style="width:90px">Message</label>
+            <textarea id="ann-new-message" class="ann-textarea" placeholder="What should users see?"></textarea>
+          </div>
+          <div class="ann-form-row">
+            <label class="config-label" style="width:90px">Link URL</label>
+            <input type="text" id="ann-new-link-url" class="users-search-input" placeholder="Optional — e.g. https://... or a page">
+          </div>
+          <div class="ann-form-row">
+            <label class="config-label" style="width:90px">Link text</label>
+            <input type="text" id="ann-new-link-text" class="users-search-input" placeholder="Optional — e.g. Join Now">
+          </div>
+          <div class="ann-form-row">
+            <label class="config-label" style="width:90px">Starts</label>
+            <input type="datetime-local" id="ann-new-starts" class="users-search-input">
+          </div>
+          <div class="ann-form-row">
+            <label class="config-label" style="width:90px">Ends</label>
+            <input type="datetime-local" id="ann-new-ends" class="users-search-input">
+          </div>
+          <button class="btn-save-config" id="createAnnBtn">Create Announcement</button>
+        </div>
+
+        <div class="economy-tiers-header">
+          <div class="economy-card-title">All announcements</div>
+        </div>
+        <div class="ann-list" id="announcementsList">
+          <div class="empty-state">Loading…</div>
+        </div>
+      </section>
+
+      <!-- ============ RIZPLAY VIEW ============ -->
+      <section class="view" id="view-rizplay">
+        <div class="rz-subtabs">
+          <button class="filter-tab rz-subtab active" onclick="setRizplaySubview('videos', this)">Videos</button>
+          <button class="filter-tab rz-subtab" onclick="setRizplaySubview('channels', this)">Channels</button>
+          <button class="filter-tab rz-subtab" onclick="setRizplaySubview('suggestions', this)">Suggestions</button>
+        </div>
+
+        <div id="rizplaySubview-videos">
+          <div class="economy-card" style="max-width:640px; margin-bottom:16px">
+            <div class="economy-card-title">Auto-tag video categories (keyword backfill)</div>
+            <div class="channel-preview-meta" style="margin-bottom:12px">
+              Derives each video's own category from its title/description text. Only fills in
+              videos with no category yet, unless Overwrite is checked.
+            </div>
+            <label style="display:flex; align-items:center; gap:8px; margin-bottom:12px; font-size:13px; color:var(--text-2)">
+              <input type="checkbox" id="backfillOverwriteChk"> Overwrite existing categories too (recomputes from scratch)
+            </label>
+            <div style="display:flex; gap:10px">
+              <button class="btn-save-config" id="backfillPreviewBtn" onclick="previewCategoryBackfill()" style="width:auto; padding:0 16px; font-size:13px">Preview Auto-Tag Categories</button>
+              <button class="btn-save-config" id="backfillCommitBtn" onclick="commitCategoryBackfill()" style="width:auto; padding:0 16px; font-size:13px; display:none">Run Auto-Tag Categories</button>
+            </div>
+            <div id="categoryBackfillPreviewArea"></div>
+          </div>
+
+          <div class="filter-tabs">
+            <button class="filter-tab active" data-status="pending" onclick="setVideoFilter('pending', this)">Pending <span class="count" id="countVidPending">&middot;</span></button>
+            <button class="filter-tab" data-status="approved" onclick="setVideoFilter('approved', this)">Approved <span class="count" id="countVidApproved">&middot;</span></button>
+            <button class="filter-tab" data-status="rejected" onclick="setVideoFilter('rejected', this)">Rejected <span class="count" id="countVidRejected">&middot;</span></button>
+          </div>
+          <div class="video-grid" id="videosList">
+            <div class="empty-state">Loading…</div>
+          </div>
+        </div>
+
+        <div id="rizplaySubview-channels" style="display:none">
+          <div class="economy-card" style="max-width:640px">
+            <div class="economy-card-title">Add / sync a channel</div>
+            <div class="channel-add-row">
+              <input type="text" id="channelInput" class="users-search-input" placeholder="@handle, youtube.com/@handle, or /channel/UC… link" onkeypress="if(event.key==='Enter')fetchChannelPreview()">
+              <button class="btn-save-config" id="fetchChannelBtn" onclick="fetchChannelPreview()" style="width:auto; padding:0 20px">Fetch</button>
+            </div>
+            <div id="channelPreviewArea"></div>
+          </div>
+
+          <div class="economy-tiers-header">
+            <div class="economy-card-title">All channels</div>
+            <button class="btn-save-config" id="refreshAllBtn" onclick="refreshAllChannelHandles()" style="width:auto; padding:0 16px; font-size:13px">Refresh All (backfill handles)</button>
+          </div>
+          <div id="channelsList">
+            <div class="empty-state">Loading…</div>
+          </div>
+        </div>
+
+        <div id="rizplaySubview-suggestions" style="display:none">
+          <div class="economy-card" style="max-width:820px">
+            <div class="economy-card-title">Find new channels by category</div>
+            <div class="channel-preview-meta" style="margin-bottom:12px">Pick language(s) and a category to search YouTube. Already-known or previously-dismissed channels are skipped.</div>
+            <div class="channel-preview-meta" style="margin-bottom:6px; font-weight:650; color:var(--text-2)">Language</div>
+            <div class="category-btn-grid" id="languageBtnGrid" style="margin-bottom:16px"></div>
+            <div class="channel-preview-meta" style="margin-bottom:6px; font-weight:650; color:var(--text-2)">Category</div>
+            <div class="category-btn-grid" id="categoryBtnGrid"></div>
+          </div>
+
+          <div class="economy-tiers-header">
+            <div class="economy-card-title">Suggested channels</div>
+          </div>
+          <div id="suggestionsList">
+            <div class="empty-state">Loading…</div>
+          </div>
+          <div class="empty-state" id="suggestionsLoadMoreIndicator" style="display:none">Loading more…</div>
+        </div>
+      </section>
+
+      <!-- ============ ANALYTICS VIEW ============ -->
+      <section class="view" id="view-analytics">
+        <div class="stat-grid" id="analyticsStats">
+          <div class="empty-state">Loading…</div>
+        </div>
+
+        <div class="range-tabs" id="analyticsRangeTabs">
+          <button class="filter-tab" data-days="7" onclick="setAnalyticsRange(7, this)">7 days</button>
+          <button class="filter-tab active" data-days="30" onclick="setAnalyticsRange(30, this)">30 days</button>
+          <button class="filter-tab" data-days="90" onclick="setAnalyticsRange(90, this)">90 days</button>
+        </div>
+
+        <div class="chart-grid">
+          <div class="chart-card">
+            <div class="chart-card-head"><span class="chart-card-dot"></span><span class="chart-card-title" id="chartSignupsTitle">New signups</span></div>
+            <div class="chart-svg-wrap" id="chartSignups"></div>
+          </div>
+          <div class="chart-card">
+            <div class="chart-card-head"><span class="chart-card-dot"></span><span class="chart-card-title" id="chartRevenueTitle">Revenue (৳)</span></div>
+            <div class="chart-svg-wrap" id="chartRevenue"></div>
+          </div>
+          <div class="chart-card">
+            <div class="chart-card-head"><span class="chart-card-dot"></span><span class="chart-card-title" id="chartPostsTitle">Posts created</span></div>
+            <div class="chart-svg-wrap" id="chartPosts"></div>
+          </div>
+        </div>
+
+        <div class="analytics-section-title">Reys Economy</div>
+        <div class="stat-grid" id="analyticsReysStats"></div>
+        <div class="mini-list-card">
+          <div class="economy-card-title">Ledger activity by type (all-time)</div>
+          <div id="reysByTypeList"></div>
+        </div>
+
+        <div class="analytics-section-title">RizPlay Content Pipeline</div>
+        <div class="stat-grid" id="analyticsRizplayStats"></div>
+
+        <div class="analytics-section-title">Challenges</div>
+        <div class="stat-grid" id="analyticsChallengeStats"></div>
+        <div class="mini-list-card">
+          <div class="economy-card-title">Top challenges by participants</div>
+          <div id="topChallengesList"></div>
+        </div>
+
+        <div class="analytics-section-title">User Verification &amp; Safety</div>
+        <div class="stat-grid" id="analyticsSafetyStats"></div>
+      </section>
+
+    </div>
+  </div>
+</div>
+
+<script>
+const _sb = window.supabase.createClient(
+  'https://zsmyscntuunrmzekdxjo.supabase.co',
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpzbXlzY250dXVucm16ZWtkeGpvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQwODQyMzQsImV4cCI6MjA5OTY2MDIzNH0.9PUG96wG8A1RqwF6nTLmMY54oDwpDdT6M4_X1Ldu1WE'
+);
+
+function escapeHtml(s){
+  return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+  });
+}
+function toast(msg){
+  var t = document.createElement('div');
+  t.className = 'toast';
+  t.textContent = msg;
+  document.body.appendChild(t);
+  setTimeout(function(){ t.remove(); }, 2400);
+}
+function initials(name){
+  var parts = String(name || '?').trim().split(/\s+/);
+  if (!parts[0]) return '?';
+  if (parts.length === 1) return parts[0].charAt(0).toUpperCase();
+  return (parts[0].charAt(0) + parts[parts.length - 1].charAt(0)).toUpperCase();
+}
+var AVATAR_GRADIENTS = [
+  'linear-gradient(155deg,#7B7FF7,#5457D6)',
+  'linear-gradient(155deg,#34D399,#0EA5A0)',
+  'linear-gradient(155deg,#FB923C,#EA580C)',
+  'linear-gradient(155deg,#F472B6,#DB2777)',
+  'linear-gradient(155deg,#60A5FA,#2563EB)',
+  'linear-gradient(155deg,#FBBF24,#D97706)'
+];
+function avatarGradient(seed){
+  var s = String(seed || ''), h = 0;
+  for (var i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) >>> 0;
+  return AVATAR_GRADIENTS[h % AVATAR_GRADIENTS.length];
+}
+function fmtDate(iso){
+  if (!iso) return { date: '—', time: '' };
+  var d = new Date(iso);
+  return {
+    date: d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
+    time: d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })
+  };
+}
+function fmtRelative(iso){
+  if (!iso) return '';
+  var mins = Math.floor((Date.now() - new Date(iso).getTime()) / 60000);
+  if (mins < 1) return 'just now';
+  if (mins < 60) return mins + (mins === 1 ? ' minute ago' : ' minutes ago');
+  var hrs = Math.floor(mins / 60);
+  if (hrs < 24) return hrs + (hrs === 1 ? ' hour ago' : ' hours ago');
+  var days = Math.floor(hrs / 24);
+  return days + (days === 1 ? ' day ago' : ' days ago');
+}
+
+/* ── Auth / boot ── */
+async function boot(){
+  var res = await _sb.auth.getSession();
+  var session = res.data && res.data.session;
+  if (session) await tryEnterAdmin(session);
+}
+
+function showLoginError(msg){
+  document.getElementById('loginErrorText').innerHTML = '<strong>Access denied.</strong> ' + escapeHtml(msg);
+  document.getElementById('loginError').classList.add('show');
+}
+
+async function tryEnterAdmin(session){
+  var uid = session.user.id;
+  var prof = await _sb.from('profiles').select('is_admin').eq('id', uid).maybeSingle();
+  if (prof.error || !prof.data || !prof.data.is_admin) {
+    await _sb.auth.signOut();
+    showLoginError('This account does not have admin access.');
+    return;
+  }
+  document.getElementById('adminEmail').textContent = 'Admin';
+  document.getElementById('adminAvatar').textContent = 'A';
+  document.getElementById('login-screen').style.display = 'none';
+  document.getElementById('dashboard-screen').style.display = 'flex';
+  admInit();
+}
+
+document.getElementById('login-form').addEventListener('submit', async function(e){
+  e.preventDefault();
+  document.getElementById('loginError').classList.remove('show');
+  var btn = document.getElementById('loginBtn');
+  btn.disabled = true;
+  btn.textContent = 'Signing in…';
+  try {
+    var phoneRaw = document.getElementById('phone').value.trim();
+    var digits = phoneRaw.replace(/\D/g, '');
+    var password = document.getElementById('password').value;
+    if (digits.length < 10) { showLoginError('Enter a valid phone number.'); return; }
+    var email = 'p' + digits + '@xwdmhwaxzwowlezqruaj.supabase.co';
+    var res = await _sb.auth.signInWithPassword({ email: email, password: password });
+    if (res.error) { showLoginError(res.error.message || 'Invalid phone number or password.'); return; }
+    await tryEnterAdmin(res.data.session);
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Sign in';
+  }
+});
+
+document.getElementById('logout-btn').addEventListener('click', async function(){
+  await _sb.auth.signOut();
+  location.reload();
+});
+
+/* ── Nav ── */
+var _reportsLoaded = false;
+function switchView(view, el){
+  document.querySelectorAll('.nav-item[data-view]').forEach(function(n){ n.classList.remove('active'); });
+  el.classList.add('active');
+  document.querySelectorAll('.view').forEach(function(v){ v.classList.remove('active'); });
+  document.getElementById('view-' + view).classList.add('active');
+  var title = document.getElementById('topbarTitle'), sub = document.getElementById('topbarSub');
+  if (view === 'payments') {
+    title.textContent = 'Payments';
+    sub.textContent = 'Review and approve bKash subscription payments';
+  } else if (view === 'moderation') {
+    title.textContent = 'Moderation';
+    sub.textContent = 'Review reported posts and take action';
+    if (!_reportsLoaded) loadReports();
+  } else if (view === 'users') {
+    title.textContent = 'Users';
+    sub.textContent = 'Search accounts, manage verification, bans, and Reys balance';
+  } else if (view === 'economy') {
+    title.textContent = 'Reys Economy';
+    sub.textContent = 'Edit Reys constants and bKash purchase tiers — no code deploy needed';
+    if (!_economyLoaded) loadEconomy();
+  } else if (view === 'announcements') {
+    title.textContent = 'Announcements';
+    sub.textContent = 'Create and manage the site-wide banner';
+    if (!_announcementsLoaded) loadAnnouncements();
+  } else if (view === 'rizplay') {
+    title.textContent = 'RizPlay';
+    sub.textContent = 'Approve or reject synced videos before they reach the feed';
+    if (!_rizplayInited) { _rizplayInited = true; loadVideos('pending'); refreshVideoCounts(); }
+  } else if (view === 'analytics') {
+    title.textContent = 'Analytics';
+    sub.textContent = 'Users, revenue, and activity at a glance';
+    if (!_analyticsLoaded) { _analyticsLoaded = true; loadAnalytics(); }
+  }
+}
+
+var _admInited = false;
+function admInit(){
+  if (_admInited) return;
+  _admInited = true;
+  loadPayments('pending');
+  refreshPaymentCounts();
+}
+
+/* ── Payments ── */
+function setFilter(status, el){
+  document.querySelectorAll('.filter-tab').forEach(function(t){ t.classList.remove('active'); });
+  el.classList.add('active');
+  loadPayments(status);
+}
+
+async function loadPayments(status){
+  var tbody = document.getElementById('paymentsBody');
+  tbody.innerHTML = '<tr><td colspan="7" class="empty-state">Loading…</td></tr>';
+  try {
+    var res = await _sb.from('subscription_payments')
+      .select('*, profiles(name, username, avatar_url)')
+      .eq('status', status)
+      .order('created_at', { ascending: status === 'pending' });
+    if (res.error) throw res.error;
+    var rows = res.data || [];
+    if (!rows.length) { tbody.innerHTML = '<tr><td colspan="7" class="empty-state">No ' + escapeHtml(status) + ' payments.</td></tr>'; return; }
+    tbody.innerHTML = rows.map(renderPaymentRow).join('');
+  } catch (e) {
+    tbody.innerHTML = '<tr><td colspan="7" class="empty-state error">Failed to load: ' + escapeHtml(e.message || String(e)) + '</td></tr>';
+  }
+}
+
+async function refreshPaymentCounts(){
+  try {
+    var results = await Promise.all(['pending', 'approved', 'rejected'].map(function(s){
+      return _sb.from('subscription_payments').select('id', { count: 'exact', head: true }).eq('status', s);
+    }));
+    document.getElementById('countPending').textContent = results[0].count || 0;
+    document.getElementById('countApproved').textContent = results[1].count || 0;
+    document.getElementById('countRejected').textContent = results[2].count || 0;
+  } catch (e) {}
+}
+
+function renderPaymentRow(p){
+  var prof = p.profiles || {};
+  var name = prof.name || 'Unknown';
+  var grad = avatarGradient(p.user_id || name);
+  var d = fmtDate(p.created_at);
+  var tail;
+  if (p.status === 'pending') {
+    tail = '<td><input type="number" class="reys-input" id="grant-' + p.id + '" value="' + (p.reys_to_grant || p.reys_requested || 0) + '"></td>'
+      + '<td><div class="row-actions">'
+      + '<button class="btn-approve" onclick="approvePayment(\'' + p.id + '\')"><svg viewBox="0 0 24 24" fill="none"><path d="M4 12.5l5 5L20 6" stroke="#052E10" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Approve</button>'
+      + '<button class="btn-reject" onclick="rejectPayment(\'' + p.id + '\')"><svg viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>Reject</button>'
+      + '</div></td>';
+  } else if (p.status === 'approved') {
+    tail = '<td><span class="reys-static">' + (p.reys_to_grant || 0) + ' Reys</span></td>'
+      + '<td><span class="status-badge approved"><svg viewBox="0 0 24 24" fill="none"><path d="M4 12.5l5 5L20 6" stroke="#6EE7A0" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Approved</span></td>';
+  } else {
+    tail = '<td><span class="reys-static">&mdash;</span></td>'
+      + '<td><span class="status-badge rejected"><svg viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="#FF9E9E" stroke-width="2.4" stroke-linecap="round"/></svg>Rejected</span></td>';
+  }
+  return '<tr id="pay-row-' + p.id + '">'
+    + '<td><div class="user-cell"><div class="avatar" style="background:' + grad + '">' + escapeHtml(initials(name)) + '</div>'
+    + '<div class="user-meta"><span class="user-name">' + escapeHtml(name) + '</span><span class="user-handle">@' + escapeHtml(prof.username || '') + '</span></div></div></td>'
+    + '<td><span class="plan-pill">' + (p.reys_requested ? (p.reys_requested + ' Reys') : '—') + '</span></td>'
+    + '<td class="amount-cell">৳' + (p.amount || 0) + '</td>'
+    + '<td class="txn-cell">' + escapeHtml(p.trx_id || '—') + '</td>'
+    + '<td class="date-cell">' + d.date + '<span>' + d.time + '</span></td>'
+    + tail
+    + '</tr>';
+}
+
+async function approvePayment(id){
+  var inp = document.getElementById('grant-' + id);
+  var grant = inp ? parseInt(inp.value, 10) : 0;
+  if (!grant || grant <= 0) { toast('Enter a valid Reys amount first'); return; }
+  try {
+    var res = await _sb.from('subscription_payments').update({ reys_to_grant: grant, status: 'approved', reviewed_at: new Date().toISOString() }).eq('id', id);
+    if (res.error) throw res.error;
+    toast('Approved ✓');
+    loadPayments('pending');
+    refreshPaymentCounts();
+  } catch (e) { toast('Failed: ' + (e.message || e)); }
+}
+
+async function rejectPayment(id){
+  try {
+    var res = await _sb.from('subscription_payments').update({ status: 'rejected', reviewed_at: new Date().toISOString() }).eq('id', id);
+    if (res.error) throw res.error;
+    toast('Rejected');
+    loadPayments('pending');
+    refreshPaymentCounts();
+  } catch (e) { toast('Failed: ' + (e.message || e)); }
+}
+
+/* ── Moderation ── */
+async function loadReports(){
+  var list = document.getElementById('reportsList');
+  list.innerHTML = '<div class="empty-state">Loading…</div>';
+  try {
+    var res = await _sb.from('reports')
+      .select('*, posts(id, content, image_url, user_id, profiles(name, username)), reporter:profiles!reporter_id(name, username)')
+      .eq('status', 'pending')
+      .order('created_at', { ascending: true });
+    if (res.error) throw res.error;
+    _reportsLoaded = true;
+    var rows = res.data || [];
+    if (!rows.length) { list.innerHTML = '<div class="empty-state">No pending reports.</div>'; return; }
+    list.innerHTML = rows.map(renderReportRow).join('');
+  } catch (e) {
+    list.innerHTML = '<div class="empty-state error">Failed to load: ' + escapeHtml(e.message || String(e)) + '</div>';
+  }
+}
+
+function renderReportRow(r){
+  var post = r.posts || {};
+  var author = post.profiles || {};
+  var reporter = r.reporter || {};
+  var reporterName = reporter.name || 'Unknown';
+  var grad = avatarGradient(r.reporter_id || reporterName);
+  var content = (post.content || '').slice(0, 220);
+  var postBlock = post.id
+    ? ('<div class="post-preview"><div class="post-preview-body">'
+      + '<div class="post-author-row"><span class="post-author-name">' + escapeHtml(author.name || 'Unknown') + '</span><span class="post-author-handle">@' + escapeHtml(author.username || '') + '</span></div>'
+      + '<p class="post-content">' + escapeHtml(content) + (post.content && post.content.length > 220 ? '…' : '') + '</p></div>'
+      + (post.image_url
+        ? '<img src="' + escapeHtml(post.image_url) + '" style="width:72px;height:72px;border-radius:8px;object-fit:cover;flex-shrink:0">'
+        : '<div class="post-image-placeholder"><svg viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="16" rx="2" stroke="currentColor" stroke-width="1.6"/><circle cx="8.5" cy="9.5" r="1.5" stroke="currentColor" stroke-width="1.6"/><path d="M21 16l-5.5-5.5L8 18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>')
+      + '</div>')
+    : '<div style="font-size:12.5px;color:var(--text-4);font-style:italic;margin-bottom:14px">Post no longer exists.</div>';
+  var actions = '<div class="report-actions">'
+    + '<button class="btn-dismiss" onclick="dismissReport(\'' + r.id + '\')"><svg viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>Dismiss</button>'
+    + (post.id ? (
+      '<button class="btn-hide" onclick="hideReportedPost(\'' + r.id + '\',\'' + post.id + '\')"><svg viewBox="0 0 24 24" fill="none"><path d="M2 12s3.8-7 10-7 10 7 10 7-3.8 7-10 7-10-7-10-7z" stroke="currentColor" stroke-width="1.8"/><path d="M3 3l18 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>Hide Post</button>'
+      + '<button class="btn-delete" onclick="deleteReportedPost(\'' + r.id + '\',\'' + post.id + '\')"><svg viewBox="0 0 24 24" fill="none"><path d="M4 7h16M9 7V5a1 1 0 011-1h4a1 1 0 011 1v2m2 0v13a1 1 0 01-1 1H8a1 1 0 01-1-1V7h10z" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Delete Post</button>'
+    ) : '')
+    + '</div>';
+  return '<div class="report-card" id="report-row-' + r.id + '">'
+    + '<div class="report-head">'
+    + '<div class="report-reporter"><div class="avatar" style="width:26px;height:26px;font-size:10px;background:' + grad + '">' + escapeHtml(initials(reporterName)) + '</div><span class="report-reporter-text">Reported by <strong>' + escapeHtml(reporterName) + '</strong></span></div>'
+    + (r.reason ? '<span class="reason-pill">' + escapeHtml(r.reason) + '</span>' : '')
+    + '<span class="report-time">' + fmtRelative(r.created_at) + '</span>'
+    + '</div>'
+    + postBlock
+    + actions
+    + '</div>';
+}
+
+async function dismissReport(id){
+  try {
+    var uid = (await _sb.auth.getUser()).data.user.id;
+    var res = await _sb.from('reports').update({ status: 'dismissed', reviewed_at: new Date().toISOString(), reviewed_by: uid }).eq('id', id);
+    if (res.error) throw res.error;
+    var row = document.getElementById('report-row-' + id); if (row) row.remove();
+    toast('Dismissed');
+  } catch (e) { toast('Failed: ' + (e.message || e)); }
+}
+
+async function hideReportedPost(reportId, postId){
+  try {
+    var uid = (await _sb.auth.getUser()).data.user.id;
+    if (postId) {
+      var r1 = await _sb.from('posts').update({ admin_hidden: true }).eq('id', postId);
+      if (r1.error) throw r1.error;
+    }
+    var r2 = await _sb.from('reports').update({ status: 'reviewed', reviewed_at: new Date().toISOString(), reviewed_by: uid }).eq('id', reportId);
+    if (r2.error) throw r2.error;
+    var row = document.getElementById('report-row-' + reportId); if (row) row.remove();
+    toast('Post hidden');
+  } catch (e) { toast('Failed: ' + (e.message || e)); }
+}
+
+async function deleteReportedPost(reportId, postId){
+  try {
+    var uid = (await _sb.auth.getUser()).data.user.id;
+    if (postId) {
+      var r1 = await _sb.from('posts').delete().eq('id', postId);
+      if (r1.error) throw r1.error;
+    }
+    var r2 = await _sb.from('reports').update({ status: 'reviewed', reviewed_at: new Date().toISOString(), reviewed_by: uid }).eq('id', reportId);
+    if (r2.error) throw r2.error;
+    var row = document.getElementById('report-row-' + reportId); if (row) row.remove();
+    toast('Post deleted');
+  } catch (e) { toast('Failed: ' + (e.message || e)); }
+}
+
+/* ── Users ── */
+var USER_SELECT_COLS = 'id, name, username, avatar_url, reys_balance, is_verified, is_verified_manual_override, is_banned';
+
+async function searchUsers(){
+  var q = document.getElementById('usersSearchInput').value.trim();
+  var list = document.getElementById('usersList');
+  if (!q) {
+    list.innerHTML = '<div class="empty-state">Search for a user by name or username to manage their account.</div>';
+    return;
+  }
+  list.innerHTML = '<div class="empty-state">Searching…</div>';
+  try {
+    var res = await _sb.from('profiles')
+      .select(USER_SELECT_COLS)
+      .or('name.ilike.%' + q + '%,username.ilike.%' + q + '%')
+      .order('name')
+      .limit(20);
+    if (res.error) throw res.error;
+    var rows = res.data || [];
+    if (!rows.length) { list.innerHTML = '<div class="empty-state">No users found for "' + escapeHtml(q) + '".</div>'; return; }
+    list.innerHTML = rows.map(renderUserCard).join('');
+  } catch (e) {
+    list.innerHTML = '<div class="empty-state error">Failed to search: ' + escapeHtml(e.message || String(e)) + '</div>';
+  }
+}
+
+document.getElementById('usersSearchBtn').addEventListener('click', searchUsers);
+document.getElementById('usersSearchInput').addEventListener('keydown', function(e){
+  if (e.key === 'Enter') searchUsers();
+});
+
+function renderUserCard(u){
+  var grad = avatarGradient(u.id || u.name);
+  var override = u.is_verified_manual_override; // null = auto, true/false = forced
+  var isAuto = override === null || override === undefined;
+  var badges = '';
+  if (u.is_verified) badges += '<span class="verified-badge"><svg viewBox="0 0 24 24" fill="none"><path d="M4 12.5l5 5L20 6" stroke="#6EE7A0" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Verified</span>';
+  if (u.is_banned) badges += '<span class="banned-badge"><svg viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="#FF9E9E" stroke-width="2.2" stroke-linecap="round"/></svg>Banned</span>';
+  return '<div class="user-card" id="user-card-' + u.id + '">'
+    + '<div class="user-card-head">'
+    + '<div class="avatar" style="background:' + grad + '">' + (u.avatar_url ? '' : escapeHtml(initials(u.name))) + '</div>'
+    + '<div class="user-card-meta"><div class="user-card-name">' + escapeHtml(u.name || 'Unknown') + badges + '</div>'
+    + '<div class="user-card-handle">@' + escapeHtml(u.username || '') + '</div></div>'
+    + '<div class="user-card-reys">' + (u.reys_balance || 0) + '<span>Reys</span></div>'
+    + '</div>'
+    + '<div class="user-card-controls">'
+    + '<div class="control-group"><span class="control-label">Verified</span>'
+    + '<div class="segmented">'
+    + '<button class="' + (isAuto ? 'active' : '') + '" onclick="setVerifiedOverride(\'' + u.id + '\', null)">Auto</button>'
+    + '<button class="' + (override === true ? 'active' : '') + '" onclick="setVerifiedOverride(\'' + u.id + '\', true)">Verified</button>'
+    + '<button class="' + (override === false ? 'active' : '') + '" onclick="setVerifiedOverride(\'' + u.id + '\', false)">Unverified</button>'
+    + '</div></div>'
+    + '<div class="control-group">'
+    + (u.is_banned
+      ? '<button class="btn-ban-toggle do-unban" onclick="toggleBan(\'' + u.id + '\', false)">Unban</button>'
+      : '<button class="btn-ban-toggle do-ban" onclick="toggleBan(\'' + u.id + '\', true)">Ban</button>')
+    + '</div>'
+    + '<div class="control-group reys-adjust">'
+    + '<input type="number" id="reys-amt-' + u.id + '" placeholder="+/-100">'
+    + '<input type="text" id="reys-reason-' + u.id + '" placeholder="Reason (optional)">'
+    + '<button class="btn-apply-reys" onclick="applyReysAdjustment(\'' + u.id + '\')">Apply</button>'
+    + '</div>'
+    + '</div>'
+    + '</div>';
+}
+
+async function refreshUserCard(userId){
+  try {
+    var res = await _sb.from('profiles').select(USER_SELECT_COLS).eq('id', userId).maybeSingle();
+    if (res.error || !res.data) return;
+    var el = document.getElementById('user-card-' + userId);
+    if (el) el.outerHTML = renderUserCard(res.data);
+  } catch (e) {}
+}
+
+async function setVerifiedOverride(userId, value){
+  try {
+    var res = await _sb.from('profiles').update({ is_verified_manual_override: value }).eq('id', userId);
+    if (res.error) throw res.error;
+    await refreshUserCard(userId);
+    toast('Updated');
+  } catch (e) { toast('Failed: ' + (e.message || e)); }
+}
+
+async function toggleBan(userId, newValue){
+  try {
+    var res = await _sb.from('profiles').update({ is_banned: newValue }).eq('id', userId);
+    if (res.error) throw res.error;
+    await refreshUserCard(userId);
+    toast(newValue ? 'User banned' : 'User unbanned');
+  } catch (e) { toast('Failed: ' + (e.message || e)); }
+}
+
+async function applyReysAdjustment(userId){
+  var amtInput = document.getElementById('reys-amt-' + userId);
+  var reasonInput = document.getElementById('reys-reason-' + userId);
+  var amount = parseInt(amtInput.value, 10);
+  if (!amount) { toast('Enter a non-zero amount'); return; }
+  var reason = reasonInput.value.trim() || null;
+  try {
+    var res = await _sb.rpc('admin_adjust_reys', { p_user_id: userId, p_amount: amount, p_description: reason });
+    if (res.error) throw res.error;
+    var reysEl = document.querySelector('#user-card-' + userId + ' .user-card-reys');
+    if (reysEl) reysEl.innerHTML = res.data + '<span>Reys</span>';
+    amtInput.value = '';
+    reasonInput.value = '';
+    toast('Reys balance updated');
+  } catch (e) { toast('Failed: ' + (e.message || e)); }
+}
+
+/* ── Reys Economy ── */
+var _economyLoaded = false;
+var CONFIG_KEYS = ['daily_claim_amount', 'challenge_join_fee', 'progress_post_reward', 'custom_purchase_rate'];
+var CONFIG_INTEGER_KEYS = ['daily_claim_amount', 'challenge_join_fee', 'progress_post_reward'];
+
+async function loadEconomy(){
+  try {
+    var cfgRes = await _sb.from('reys_config').select('key, value');
+    if (cfgRes.error) throw cfgRes.error;
+    (cfgRes.data || []).forEach(function(row){
+      var input = document.getElementById('cfg-' + row.key);
+      if (!input) return;
+      var value = Number(row.value);
+      input.value = CONFIG_INTEGER_KEYS.indexOf(row.key) !== -1 ? Math.round(value) : value;
+    });
+    _economyLoaded = true;
+    await loadTiers();
+  } catch (e) {
+    toast('Failed to load economy config: ' + (e.message || e));
+  }
+}
+
+document.getElementById('saveConfigBtn').addEventListener('click', async function(){
+  var btn = document.getElementById('saveConfigBtn');
+  btn.disabled = true;
+  btn.textContent = 'Saving…';
+  try {
+    var updates = CONFIG_KEYS.map(function(key){
+      var input = document.getElementById('cfg-' + key);
+      var value = parseFloat(input.value);
+      if (isNaN(value)) throw new Error('Invalid value for ' + key);
+      if (CONFIG_INTEGER_KEYS.indexOf(key) !== -1) value = Math.round(value);
+      input.value = value;
+      return _sb.from('reys_config').update({ value: value, updated_at: new Date().toISOString() }).eq('key', key);
+    });
+    var results = await Promise.all(updates);
+    var failed = results.find(function(r){ return r.error; });
+    if (failed) throw failed.error;
+    toast('Settings saved ✓');
+  } catch (e) {
+    toast('Failed: ' + (e.message || e));
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Save Settings';
+  }
+});
+
+async function loadTiers(){
+  var list = document.getElementById('tiersList');
+  list.innerHTML = '<div class="empty-state">Loading…</div>';
+  try {
+    var res = await _sb.from('reys_purchase_tiers').select('*').order('sort_order');
+    if (res.error) throw res.error;
+    var rows = res.data || [];
+    if (!rows.length) { list.innerHTML = '<div class="empty-state">No tiers yet. Add one below.</div>'; return; }
+    list.innerHTML = rows.map(renderTierCard).join('');
+  } catch (e) {
+    list.innerHTML = '<div class="empty-state error">Failed to load: ' + escapeHtml(e.message || String(e)) + '</div>';
+  }
+}
+
+function renderTierCard(t){
+  return '<div class="tier-card' + (t.active ? '' : ' tier-inactive') + '" id="tier-card-' + t.id + '">'
+    + '<div class="tier-card-row">'
+    + '<div class="tier-field"><label>Amount (৳)</label><input type="number" id="tier-amount-' + t.id + '" value="' + t.amount_taka + '"></div>'
+    + '<div class="tier-field"><label>Reys</label><input type="number" id="tier-reys-' + t.id + '" value="' + t.reys_amount + '"></div>'
+    + '<div class="tier-field"><label>Eyebrow text</label><input type="text" id="tier-eyebrow-' + t.id + '" value="' + escapeHtml(t.eyebrow_text || '') + '"></div>'
+    + '<div class="tier-field"><label>Badge text</label><input type="text" id="tier-badge-' + t.id + '" value="' + escapeHtml(t.badge_text || '') + '"></div>'
+    + '<div class="tier-field"><label>Sort</label><input type="number" id="tier-sort-' + t.id + '" value="' + t.sort_order + '" style="width:52px"></div>'
+    + '<div class="tier-toggle"><label>Featured</label><input type="checkbox" id="tier-featured-' + t.id + '" ' + (t.is_featured ? 'checked' : '') + '></div>'
+    + '<div class="tier-toggle"><label>Active</label><input type="checkbox" id="tier-active-' + t.id + '" ' + (t.active ? 'checked' : '') + '></div>'
+    + '<div class="tier-actions">'
+    + '<button class="btn-save-tier" onclick="saveTier(\'' + t.id + '\')">Save</button>'
+    + '<button class="btn-delete-tier" onclick="deleteTier(\'' + t.id + '\')">Delete</button>'
+    + '</div>'
+    + '</div>'
+    + '</div>';
+}
+
+async function saveTier(tierId){
+  try {
+    var updates = {
+      amount_taka: parseFloat(document.getElementById('tier-amount-' + tierId).value),
+      reys_amount: parseInt(document.getElementById('tier-reys-' + tierId).value, 10),
+      eyebrow_text: document.getElementById('tier-eyebrow-' + tierId).value.trim() || null,
+      badge_text: document.getElementById('tier-badge-' + tierId).value.trim() || null,
+      sort_order: parseInt(document.getElementById('tier-sort-' + tierId).value, 10) || 0,
+      is_featured: document.getElementById('tier-featured-' + tierId).checked,
+      active: document.getElementById('tier-active-' + tierId).checked
+    };
+    if (isNaN(updates.amount_taka) || isNaN(updates.reys_amount)) { toast('Amount and Reys must be numbers'); return; }
+    var res = await _sb.from('reys_purchase_tiers').update(updates).eq('id', tierId);
+    if (res.error) throw res.error;
+    toast('Tier saved ✓');
+    await loadTiers();
+  } catch (e) { toast('Failed: ' + (e.message || e)); }
+}
+
+async function deleteTier(tierId){
+  try {
+    var res = await _sb.from('reys_purchase_tiers').delete().eq('id', tierId);
+    if (res.error) throw res.error;
+    var el = document.getElementById('tier-card-' + tierId); if (el) el.remove();
+    toast('Tier deleted');
+  } catch (e) { toast('Failed: ' + (e.message || e)); }
+}
+
+document.getElementById('addTierBtn').addEventListener('click', async function(){
+  try {
+    var existing = document.querySelectorAll('.tier-card').length;
+    var res = await _sb.from('reys_purchase_tiers').insert({
+      amount_taka: 0, reys_amount: 0, sort_order: existing + 1, active: false
+    });
+    if (res.error) throw res.error;
+    await loadTiers();
+    toast('New tier added — edit and Save');
+  } catch (e) { toast('Failed: ' + (e.message || e)); }
+});
+
+/* ── Announcements ── */
+var _announcementsLoaded = false;
+
+async function loadAnnouncements(){
+  var list = document.getElementById('announcementsList');
+  list.innerHTML = '<div class="empty-state">Loading…</div>';
+  try {
+    var res = await _sb.from('announcements').select('*').order('created_at', { ascending: false });
+    if (res.error) throw res.error;
+    _announcementsLoaded = true;
+    var rows = res.data || [];
+    if (!rows.length) { list.innerHTML = '<div class="empty-state">No announcements yet.</div>'; return; }
+    list.innerHTML = rows.map(renderAnnouncementCard).join('');
+  } catch (e) {
+    list.innerHTML = '<div class="empty-state error">Failed to load: ' + escapeHtml(e.message || String(e)) + '</div>';
+  }
+}
+
+function annIsLive(a){
+  var now = new Date();
+  if (!a.is_active) return false;
+  if (a.starts_at && new Date(a.starts_at) > now) return false;
+  if (a.ends_at && new Date(a.ends_at) < now) return false;
+  return true;
+}
+
+function annFmt(iso){
+  if (!iso) return null;
+  return new Date(iso).toLocaleString('en-US', { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' });
+}
+
+function renderAnnouncementCard(a){
+  var live = annIsLive(a);
+  var metaParts = [];
+  if (a.starts_at) metaParts.push('from ' + annFmt(a.starts_at));
+  if (a.ends_at) metaParts.push('until ' + annFmt(a.ends_at));
+  if (a.link_url) metaParts.push('links to ' + a.link_url);
+  return '<div class="ann-card' + (a.is_active ? '' : ' ann-inactive') + '" id="ann-card-' + a.id + '">'
+    + '<div class="ann-card-head">'
+    + '<div class="ann-card-title">' + escapeHtml(a.title) + '</div>'
+    + '<span class="ann-status-badge ' + (live ? 'live' : 'off') + '">' + (live ? 'Live now' : (a.is_active ? 'Scheduled/expired' : 'Off')) + '</span>'
+    + '</div>'
+    + '<div class="ann-card-message">' + escapeHtml(a.message) + '</div>'
+    + (metaParts.length ? '<div class="ann-card-meta">' + escapeHtml(metaParts.join(' · ')) + '</div>' : '')
+    + '<div class="ann-card-actions">'
+    + (a.is_active
+      ? '<button class="btn-ban-toggle do-ban" onclick="toggleAnnouncementActive(\'' + a.id + '\', false)">Turn off</button>'
+      : '<button class="btn-ban-toggle do-unban" onclick="toggleAnnouncementActive(\'' + a.id + '\', true)">Turn on</button>')
+    + '<button class="btn-delete-tier" onclick="deleteAnnouncement(\'' + a.id + '\')">Delete</button>'
+    + '</div>'
+    + '</div>';
+}
+
+async function toggleAnnouncementActive(id, newValue){
+  try {
+    var res = await _sb.from('announcements').update({ is_active: newValue }).eq('id', id);
+    if (res.error) throw res.error;
+    toast(newValue ? 'Announcement turned on' : 'Announcement turned off');
+    await loadAnnouncements();
+  } catch (e) { toast('Failed: ' + (e.message || e)); }
+}
+
+async function deleteAnnouncement(id){
+  try {
+    var res = await _sb.from('announcements').delete().eq('id', id);
+    if (res.error) throw res.error;
+    var el = document.getElementById('ann-card-' + id); if (el) el.remove();
+    toast('Announcement deleted');
+  } catch (e) { toast('Failed: ' + (e.message || e)); }
+}
+
+document.getElementById('createAnnBtn').addEventListener('click', async function(){
+  var btn = document.getElementById('createAnnBtn');
+  var title = document.getElementById('ann-new-title').value.trim();
+  var message = document.getElementById('ann-new-message').value.trim();
+  var linkUrl = document.getElementById('ann-new-link-url').value.trim();
+  var linkText = document.getElementById('ann-new-link-text').value.trim();
+  var startsRaw = document.getElementById('ann-new-starts').value;
+  var endsRaw = document.getElementById('ann-new-ends').value;
+  if (!title || !message) { toast('Title and message are required'); return; }
+  btn.disabled = true;
+  btn.textContent = 'Creating…';
+  try {
+    var uid = (await _sb.auth.getUser()).data.user.id;
+    var res = await _sb.from('announcements').insert({
+      title: title,
+      message: message,
+      link_url: linkUrl || null,
+      link_text: linkUrl ? (linkText || null) : null,
+      starts_at: startsRaw ? new Date(startsRaw).toISOString() : null,
+      ends_at: endsRaw ? new Date(endsRaw).toISOString() : null,
+      created_by: uid
+    });
+    if (res.error) throw res.error;
+    ['ann-new-title', 'ann-new-message', 'ann-new-link-url', 'ann-new-link-text', 'ann-new-starts', 'ann-new-ends'].forEach(function(id){
+      var el = document.getElementById(id); if (el) el.value = '';
+    });
+    toast('Announcement created ✓');
+    await loadAnnouncements();
+  } catch (e) {
+    toast('Failed: ' + (e.message || e));
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Create Announcement';
+  }
+});
+
+/* ── RizPlay video approval ── */
+var _rizplayInited = false;
+var _videoFilter = 'pending';
+
+function setVideoFilter(status, el){
+  document.querySelectorAll('#view-rizplay .filter-tab').forEach(function(t){ t.classList.remove('active'); });
+  el.classList.add('active');
+  loadVideos(status);
+}
+
+async function loadVideos(status){
+  _videoFilter = status;
+  var list = document.getElementById('videosList');
+  list.innerHTML = '<div class="empty-state">Loading…</div>';
+  try {
+    var res = await _sb.from('yt_videos').select('*').eq('filter_status', status).order('published_at', { ascending: false });
+    if (res.error) throw res.error;
+    var rows = res.data || [];
+    if (!rows.length) { list.innerHTML = '<div class="empty-state">No ' + escapeHtml(status) + ' videos.</div>'; return; }
+    list.innerHTML = rows.map(renderVideoCard).join('');
+  } catch (e) {
+    list.innerHTML = '<div class="empty-state error">Failed to load: ' + escapeHtml(e.message || String(e)) + '</div>';
+  }
+}
+
+async function refreshVideoCounts(){
+  try {
+    var results = await Promise.all(['pending', 'approved', 'rejected'].map(function(s){
+      return _sb.from('yt_videos').select('video_id', { count: 'exact', head: true }).eq('filter_status', s);
+    }));
+    document.getElementById('countVidPending').textContent = results[0].count || 0;
+    document.getElementById('countVidApproved').textContent = results[1].count || 0;
+    document.getElementById('countVidRejected').textContent = results[2].count || 0;
+  } catch (e) {}
+}
+
+function renderVideoCard(v){
+  var when = v.published_at ? new Date(v.published_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : '';
+  var actions;
+  if (v.filter_status === 'pending') {
+    actions = '<button class="btn-approve" onclick="approveVideo(\'' + v.video_id + '\')">Approve</button>'
+      + '<button class="btn-reject" onclick="rejectVideo(\'' + v.video_id + '\')">Reject</button>';
+  } else if (v.filter_status === 'approved') {
+    actions = '<button class="btn-reject" onclick="rejectVideo(\'' + v.video_id + '\')">Reject</button>'
+      + '<button class="btn-delete-tier" onclick="deleteVideo(\'' + v.video_id + '\')">Delete</button>';
+  } else {
+    actions = '<button class="btn-approve" onclick="approveVideo(\'' + v.video_id + '\')">Approve</button>'
+      + '<button class="btn-delete-tier" onclick="deleteVideo(\'' + v.video_id + '\')">Delete</button>';
+  }
+  return '<div class="video-card" id="video-card-' + v.video_id + '">'
+    + '<img class="video-thumb" src="' + escapeHtml(v.thumbnail || '') + '" loading="lazy" alt="">'
+    + '<div class="video-card-body">'
+    + '<div class="video-card-title">' + escapeHtml(v.title || 'Untitled') + '</div>'
+    + '<div class="video-card-meta">' + escapeHtml(v.channel_title || '') + (when ? ' · ' + when : '') + '</div>'
+    + '<div class="video-card-actions">' + actions + '</div>'
+    + '</div>'
+    + '</div>';
+}
+
+async function approveVideo(videoId){
+  try {
+    var res = await _sb.from('yt_videos').update({ filter_status: 'approved' }).eq('video_id', videoId);
+    if (res.error) throw res.error;
+    var el = document.getElementById('video-card-' + videoId); if (el) el.remove();
+    toast('Video approved ✓');
+    refreshVideoCounts();
+  } catch (e) { toast('Failed: ' + (e.message || e)); }
+}
+
+async function rejectVideo(videoId){
+  try {
+    var res = await _sb.from('yt_videos').update({ filter_status: 'rejected' }).eq('video_id', videoId);
+    if (res.error) throw res.error;
+    var el = document.getElementById('video-card-' + videoId); if (el) el.remove();
+    toast('Video rejected');
+    refreshVideoCounts();
+  } catch (e) { toast('Failed: ' + (e.message || e)); }
+}
+
+async function deleteVideo(videoId){
+  try {
+    var res = await _sb.from('yt_videos').delete().eq('video_id', videoId);
+    if (res.error) throw res.error;
+    var el = document.getElementById('video-card-' + videoId); if (el) el.remove();
+    toast('Video deleted');
+    refreshVideoCounts();
+  } catch (e) { toast('Failed: ' + (e.message || e)); }
+}
+
+/* ── RizPlay: channel-level curation ── */
+var _youtubeChannelFetchUrl = 'https://zsmyscntuunrmzekdxjo.supabase.co/functions/v1/rapid-endpoint';
+var _youtubeChannelDiscoverUrl = 'https://zsmyscntuunrmzekdxjo.supabase.co/functions/v1/youtube-channel-discover';
+var _channelsInited = false;
+var _lastChannelPreview = null;
+
+var _suggestionsInited = false;
+
+// Must match the CATEGORIES keys in supabase/functions/youtube-channel-discover/index.ts exactly.
+var SUGGESTION_CATEGORIES = [
+  'Quran Recitation', 'Quran Tafsir', 'Islamic Lectures', 'Dua & Dhikr', 'Hadith',
+  'Seerah & Islamic History', 'Reminders & Motivation', 'Productivity & Self-Improvement',
+  'Study & Student Motivation', 'Ramadan & Islamic Occasions', 'Islamic Parenting & Family',
+  'Dawah & New Muslims', 'Islamic Finance & Halal Income', 'Time Management & Discipline'
+];
+var SUGGESTION_LANGUAGES = [ { code: 'bn', label: 'Bangla' }, { code: 'en', label: 'English' }, { code: 'hi', label: 'Hindi' } ];
+var _selectedLanguages = ['bn'];
+var _activeSuggestionCategory = null; // null = show all categories in the list
+var _suggestionActiveLanguages = [];  // languages locked in for the current category's search session
+var _suggestionPageTokens = {};       // per-query YouTube pageToken cursors, for "load more"
+var _suggestionHasMore = false;
+var _suggestionLoadingMore = false;
+
+function toggleLanguage(btn){
+  var lang = btn.dataset.lang;
+  var idx = _selectedLanguages.indexOf(lang);
+  if (idx === -1) {
+    _selectedLanguages.push(lang);
+    btn.classList.add('active');
+  } else {
+    if (_selectedLanguages.length === 1) { toast('At least one language must stay selected'); return; }
+    _selectedLanguages.splice(idx, 1);
+    btn.classList.remove('active');
+  }
+}
+
+function setRizplaySubview(name, el){
+  document.querySelectorAll('#view-rizplay .rz-subtab').forEach(function(t){ t.classList.remove('active'); });
+  el.classList.add('active');
+  document.getElementById('rizplaySubview-videos').style.display = name === 'videos' ? '' : 'none';
+  document.getElementById('rizplaySubview-channels').style.display = name === 'channels' ? '' : 'none';
+  document.getElementById('rizplaySubview-suggestions').style.display = name === 'suggestions' ? '' : 'none';
+  if (name === 'channels' && !_channelsInited) { _channelsInited = true; loadChannelsList(); }
+  if (name === 'suggestions' && !_suggestionsInited) {
+    _suggestionsInited = true;
+    document.getElementById('languageBtnGrid').innerHTML = SUGGESTION_LANGUAGES.map(function(l){
+      var active = _selectedLanguages.indexOf(l.code) !== -1 ? ' active' : '';
+      return '<button class="category-btn' + active + '" data-lang="' + escapeHtml(l.code) + '" onclick="toggleLanguage(this)">' + escapeHtml(l.label) + '</button>';
+    }).join('');
+    renderCategoryButtons();
+    loadSuggestions();
+  }
+}
+
+function renderCategoryButtons(){
+  var allActive = _activeSuggestionCategory === null ? ' active' : '';
+  var html = '<button class="category-btn' + allActive + '" onclick="selectSuggestionCategory(null)">All</button>';
+  html += SUGGESTION_CATEGORIES.map(function(cat){
+    var active = _activeSuggestionCategory === cat ? ' active' : '';
+    return '<button class="category-btn' + active + '" onclick="findNewChannels(\'' + cat.replace(/'/g, "\\'") + '\', this)">' + escapeHtml(cat) + '</button>';
+  }).join('');
+  document.getElementById('categoryBtnGrid').innerHTML = html;
+}
+
+// Just narrows the visible list to a category already searched before —
+// doesn't hit the network. Use a category button to search AND filter.
+function selectSuggestionCategory(category){
+  _activeSuggestionCategory = category;
+  renderCategoryButtons();
+  loadSuggestions();
+}
+
+async function _fetchChannelFromYoutube(handle){
+  var sess = await _sb.auth.getSession();
+  var token = sess && sess.data && sess.data.session && sess.data.session.access_token;
+  var res = await fetch(_youtubeChannelFetchUrl, {
+    method: 'POST',
+    headers: { 'Authorization': 'Bearer ' + (token || ''), 'Content-Type': 'application/json' },
+    body: JSON.stringify({ handle: handle })
+  });
+  var data = await res.json();
+  if (!res.ok) throw new Error(data.error || 'Fetch failed');
+  return data;
+}
+
+async function fetchChannelPreview(){
+  var input = document.getElementById('channelInput');
+  var btn = document.getElementById('fetchChannelBtn');
+  var handle = input.value.trim();
+  if (!handle) { toast('Paste a channel link or @handle first'); return; }
+  btn.disabled = true;
+  btn.textContent = 'Fetching…';
+  document.getElementById('channelPreviewArea').innerHTML = '';
+  try {
+    var data = await _fetchChannelFromYoutube(handle);
+    _lastChannelPreview = data;
+    renderChannelPreview(data);
+  } catch (e) {
+    toast('Failed: ' + (e.message || e));
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Fetch';
+  }
+}
+
+var CHANNEL_PREVIEW_THUMB_CAP = 30;
+
+function renderChannelPreview(data){
+  var c = data.channel;
+  var statusNote = '';
+  if (data.existing_curation_status === 'approved') statusNote = '<div class="channel-preview-meta" style="color:#8FF0B0; margin-bottom:10px">Already approved — new videos below will be added as approved automatically.</div>';
+  else if (data.existing_curation_status === 'rejected') statusNote = '<div class="channel-preview-meta" style="color:#FFC2C2; margin-bottom:10px">Previously rejected. Approving now will bring its videos into RizPlay.</div>';
+
+  var cappedNote = data.capped
+    ? '<div class="channel-preview-meta" style="color:#FFD98C; margin-bottom:10px">This channel has more videos than the safety limit could fetch in one go — run Fetch again after approving to pull the rest.</div>'
+    : '';
+
+  var shown = data.videos.slice(0, CHANNEL_PREVIEW_THUMB_CAP);
+  var videosHtml = shown.map(function(v){
+    var badge;
+    if (!v.already_known) badge = '<span class="cpv-badge" style="background:var(--accent-dim);color:#C7C9FF">New</span>';
+    else if (v.existing_filter_status === 'approved') badge = '<span class="cpv-badge" style="background:var(--success-dim);color:#8FF0B0">Approved</span>';
+    else if (v.existing_filter_status === 'rejected') badge = '<span class="cpv-badge" style="background:var(--danger-dim);color:#FFC2C2">Rejected</span>';
+    else badge = '<span class="cpv-badge" style="background:var(--bg-surface-3);color:var(--text-3)">Pending</span>';
+    return '<div class="channel-preview-video">' + badge + '<img src="' + escapeHtml(v.thumbnail || '') + '" loading="lazy" alt=""></div>';
+  }).join('');
+  var moreNote = data.videos.length > CHANNEL_PREVIEW_THUMB_CAP
+    ? '<div class="channel-preview-meta">+ ' + (data.videos.length - CHANNEL_PREVIEW_THUMB_CAP) + ' more not shown here, but all will be included on Approve.</div>'
+    : '';
+
+  document.getElementById('channelPreviewArea').innerHTML =
+    '<div class="channel-preview-card">'
+    + '<div class="channel-preview-head">'
+    + '<img class="channel-preview-avatar" src="' + escapeHtml(c.channel_photo || '') + '" alt="">'
+    + '<div><div class="channel-preview-name">' + escapeHtml(c.channel_title) + '</div>'
+    + '<div class="channel-preview-meta">' + data.new_video_count + ' new video(s) of ' + data.videos.length + ' fetched</div></div>'
+    + '</div>'
+    + statusNote
+    + cappedNote
+    + (c.channel_bio ? '<div class="channel-preview-bio">' + escapeHtml(c.channel_bio) + '</div>' : '')
+    + '<div class="channel-preview-videos">' + videosHtml + '</div>'
+    + moreNote
+    + '<div class="channel-preview-meta" style="margin-bottom:6px">Category (used for RizPlay browsing — optional)</div>'
+    + '<select id="channelCategorySelect" class="users-search-input" style="margin-bottom:14px; max-width:280px">'
+    + '<option value="">— No category —</option>'
+    + SUGGESTION_CATEGORIES.map(function(cat){ return '<option value="' + escapeHtml(cat) + '">' + escapeHtml(cat) + '</option>'; }).join('')
+    + '</select>'
+    + '<div class="channel-preview-actions">'
+    + '<button class="btn-approve" onclick="decideChannel(\'approved\')">Approve channel — bring all videos into RizPlay</button>'
+    + '<button class="btn-reject" onclick="decideChannel(\'rejected\')">Reject</button>'
+    + '</div>'
+    + '</div>';
+}
+
+async function decideChannel(decision){
+  if (!_lastChannelPreview) return;
+  var data = _lastChannelPreview;
+  var categorySelect = document.getElementById('channelCategorySelect');
+  var category = categorySelect ? (categorySelect.value || null) : null;
+  try {
+    var res = await _sb.rpc('admin_decide_channel', {
+      p_channel_id: data.channel.channel_id,
+      p_channel_title: data.channel.channel_title,
+      p_channel_photo: data.channel.channel_photo,
+      p_channel_bio: data.channel.channel_bio,
+      p_videos: data.videos.filter(function(v){ return !v.already_known; }),
+      p_decision: decision,
+      p_category: category,
+      p_channel_handle: data.channel.channel_handle || null
+    });
+    if (res.error) throw res.error;
+    var summary = res.data || {};
+    if (decision === 'approved') {
+      toast('Channel approved ✓ ' + (summary.new_videos_inserted || 0) + ' new, ' + (summary.existing_videos_cascaded || 0) + ' pending video(s) now approved');
+    } else {
+      toast('Channel rejected');
+    }
+    document.getElementById('channelPreviewArea').innerHTML = '';
+    document.getElementById('channelInput').value = '';
+    _lastChannelPreview = null;
+    loadChannelsList();
+    refreshVideoCounts();
+  } catch (e) {
+    toast('Failed: ' + (e.message || e));
+  }
+}
+
+async function loadChannelsList(){
+  var list = document.getElementById('channelsList');
+  list.innerHTML = '<div class="empty-state">Loading…</div>';
+  try {
+    var res = await _sb.from('yt_channels').select('*').order('channel_title');
+    if (res.error) throw res.error;
+    var rows = res.data || [];
+    if (!rows.length) { list.innerHTML = '<div class="empty-state">No channels yet — add one above.</div>'; return; }
+    var countsRes = await _sb.from('yt_videos').select('channel_id, filter_status').range(0, 9999);
+    if (countsRes.error) throw countsRes.error;
+    var counts = {};
+    (countsRes.data || []).forEach(function(v){
+      counts[v.channel_id] = counts[v.channel_id] || {};
+      counts[v.channel_id][v.filter_status] = (counts[v.channel_id][v.filter_status] || 0) + 1;
+    });
+    list.innerHTML = rows.map(function(c){ return renderChannelRow(c, counts[c.channel_id] || {}); }).join('');
+  } catch (e) {
+    list.innerHTML = '<div class="empty-state error">Failed to load: ' + escapeHtml(e.message || String(e)) + '</div>';
+  }
+}
+
+function renderChannelRow(c, counts){
+  var approvedCount = counts.approved || 0;
+  var status = c.curation_status || 'pending';
+  var safeId = escapeHtml(c.channel_id || '');
+  var refreshBtn = status === 'approved'
+    ? '<button class="btn-delete-tier" onclick="refreshChannel(this)" data-channel-id="' + safeId + '" data-category="' + escapeHtml(c.category || '') + '" style="flex-shrink:0">Refresh</button>'
+    : '';
+  return '<div class="channel-row">'
+    + '<img src="' + escapeHtml(c.channel_photo || '') + '" alt="">'
+    + '<div class="channel-row-body">'
+    + '<div class="channel-row-name">' + escapeHtml(c.channel_title || c.channel_id || '') + '</div>'
+    + '<div class="channel-row-meta">' + approvedCount + ' approved video(s)</div>'
+    + '</div>'
+    + '<span class="channel-status-pill ' + status + '">' + status + '</span>'
+    + refreshBtn
+    + '</div>';
+}
+
+async function refreshChannel(btn){
+  var channelId = btn.dataset.channelId;
+  var category = btn.dataset.category || null;
+  btn.disabled = true; btn.textContent = '…';
+  try {
+    var data = await _fetchChannelFromYoutube(channelId);
+    if (!data.new_video_count) { toast('No new videos for ' + data.channel.channel_title); return; }
+    var rpcRes = await _sb.rpc('admin_decide_channel', {
+      p_channel_id: data.channel.channel_id,
+      p_channel_title: data.channel.channel_title,
+      p_channel_photo: data.channel.channel_photo,
+      p_channel_bio: data.channel.channel_bio,
+      p_videos: data.videos.filter(function(v){ return !v.already_known; }),
+      p_decision: 'approved',
+      p_category: category,
+      p_channel_handle: data.channel.channel_handle || null
+    });
+    if (rpcRes.error) throw rpcRes.error;
+    toast(data.new_video_count + ' new video(s) added for ' + data.channel.channel_title);
+    loadChannelsList();
+    refreshVideoCounts();
+  } catch (e) {
+    toast('Failed: ' + (e.message || e));
+  } finally {
+    btn.disabled = false; btn.textContent = 'Refresh';
+  }
+}
+
+// Video-level category backfill — keyword-classifies each approved video's own title+
+// description against the 14-category taxonomy (no per-channel concept, unlike Refresh All
+// above), via admin_backfill_video_categories() (scripts/db-fixes/rizplay_video_category_
+// backfill.sql). No external API call needed (pure text match against already-stored
+// columns), so this is a single RPC round-trip, not a client-side per-row loop — the dry-run
+// param IS the preview step, mirroring the Add-Channel flow's own fetch-preview-then-Approve
+// shape instead of inventing a new confirmation pattern.
+var _lastBackfillPreview = null;
+
+async function previewCategoryBackfill(){
+  var btn = document.getElementById('backfillPreviewBtn');
+  var overwrite = document.getElementById('backfillOverwriteChk').checked;
+  if (overwrite && !confirm('This will overwrite categories on videos that already have one (including admin-picked channel-level ones). Continue?')) return;
+  btn.disabled = true; btn.textContent = 'Scanning…';
+  document.getElementById('categoryBackfillPreviewArea').innerHTML = '';
+  document.getElementById('backfillCommitBtn').style.display = 'none';
+  try {
+    var res = await _sb.rpc('admin_backfill_video_categories', { p_dry_run: true, p_overwrite: overwrite });
+    if (res.error) throw res.error;
+    _lastBackfillPreview = { overwrite: overwrite };
+    renderBackfillPreview(res.data);
+    document.getElementById('backfillCommitBtn').style.display = '';
+  } catch (e) {
+    toast('Failed: ' + (e.message || e));
+  } finally {
+    btn.disabled = false; btn.textContent = 'Preview Auto-Tag Categories';
+  }
+}
+
+function renderBackfillPreview(data){
+  var byCat = data.by_category || {};
+  var cats = Object.keys(byCat).sort(function(a,b){ return byCat[b] - byCat[a]; });
+  var rowsHtml = cats.length
+    ? cats.map(function(c){
+        return '<div class="channel-preview-meta" style="display:flex; justify-content:space-between; max-width:420px">'
+          + '<span>' + escapeHtml(c) + '</span>'
+          + '<span style="font-weight:650; color:var(--text-1)">' + byCat[c] + '</span></div>';
+      }).join('')
+    : '<div class="channel-preview-meta">No keyword matches found.</div>';
+  var headline = data.count + ' video(s) ' + (data.dry_run ? 'would be tagged' : 'were tagged');
+  document.getElementById('categoryBackfillPreviewArea').innerHTML =
+    '<div class="channel-preview-card">'
+    + '<div class="channel-preview-name">' + headline + '</div>'
+    + '<div style="margin:10px 0 4px">' + rowsHtml + '</div>'
+    + '</div>';
+}
+
+async function commitCategoryBackfill(){
+  if (!_lastBackfillPreview) return;
+  var btn = document.getElementById('backfillCommitBtn');
+  btn.disabled = true; btn.textContent = 'Applying…';
+  try {
+    var res = await _sb.rpc('admin_backfill_video_categories', {
+      p_dry_run: false,
+      p_overwrite: _lastBackfillPreview.overwrite
+    });
+    if (res.error) throw res.error;
+    renderBackfillPreview(res.data);
+    toast(res.data.count + ' video(s) tagged ✓');
+    btn.style.display = 'none';
+    _lastBackfillPreview = null;
+    refreshVideoCounts();
+  } catch (e) {
+    toast('Failed: ' + (e.message || e));
+  } finally {
+    btn.disabled = false; btn.textContent = 'Run Auto-Tag Categories';
+  }
+}
+
+// Bulk backfill for channels approved before channel_handle existed — same fetch+RPC pipeline
+// as a single Refresh click, just looped over every approved channel that's still missing a
+// handle, so admin doesn't have to click Refresh on each one individually. Sequential (not
+// parallel) with a small delay between channels, since each one pages through that channel's
+// entire uploads playlist against the YouTube API's daily quota.
+async function refreshAllChannelHandles(){
+  var btn = document.getElementById('refreshAllBtn');
+  var originalText = btn.textContent;
+  btn.disabled = true;
+  try {
+    var res = await _sb.from('yt_channels').select('channel_id, channel_title, category')
+      .eq('curation_status', 'approved').is('channel_handle', null).order('channel_title');
+    if (res.error) throw res.error;
+    var rows = res.data || [];
+    if (!rows.length) { toast('Every approved channel already has a handle ✓'); return; }
+    var handleCount = 0, noHandleCount = 0, errorCount = 0;
+    for (var i = 0; i < rows.length; i++) {
+      var c = rows[i];
+      btn.textContent = 'Refreshing ' + (i + 1) + '/' + rows.length + '…';
+      try {
+        var data = await _fetchChannelFromYoutube(c.channel_id);
+        var rpcRes = await _sb.rpc('admin_decide_channel', {
+          p_channel_id: data.channel.channel_id,
+          p_channel_title: data.channel.channel_title,
+          p_channel_photo: data.channel.channel_photo,
+          p_channel_bio: data.channel.channel_bio,
+          p_videos: data.videos.filter(function(v){ return !v.already_known; }),
+          p_decision: 'approved',
+          p_category: c.category || null,
+          p_channel_handle: data.channel.channel_handle || null
+        });
+        if (rpcRes.error) throw rpcRes.error;
+        if (data.channel.channel_handle) handleCount++; else noHandleCount++;
+      } catch (e) {
+        errorCount++;
+        console.warn('Refresh-all: failed for ' + c.channel_title + ':', e);
+      }
+      if (i < rows.length - 1) await new Promise(function(r){ setTimeout(r, 400); });
+    }
+    toast('Done — ' + handleCount + ' channel(s) got a handle' + (noHandleCount ? ', ' + noHandleCount + ' have no @handle on YouTube' : '') + (errorCount ? ', ' + errorCount + ' failed' : ''));
+    loadChannelsList();
+    refreshVideoCounts();
+  } catch (e) {
+    toast('Failed: ' + (e.message || e));
+  } finally {
+    btn.disabled = false;
+    btn.textContent = originalText;
+  }
+}
+
+/* ── RizPlay: channel suggestions (discovery) ── */
+async function _runDiscoverySearch(category, languages, pageTokens){
+  var sess = await _sb.auth.getSession();
+  var token = sess && sess.data && sess.data.session && sess.data.session.access_token;
+  var body = { category: category, languages: languages };
+  if (pageTokens) body.pageTokens = pageTokens;
+  var res = await fetch(_youtubeChannelDiscoverUrl, {
+    method: 'POST',
+    headers: { 'Authorization': 'Bearer ' + (token || ''), 'Content-Type': 'application/json' },
+    body: JSON.stringify(body)
+  });
+  var data = await res.json();
+  if (!res.ok) throw new Error(data.error || 'Search failed');
+  return data;
+}
+
+async function findNewChannels(category, btn){
+  var original = btn.textContent;
+  _activeSuggestionCategory = category;
+  _suggestionActiveLanguages = _selectedLanguages.slice();
+  _suggestionPageTokens = {};
+  _suggestionHasMore = false;
+  renderCategoryButtons();
+  loadSuggestions();
+  btn = document.getElementById('categoryBtnGrid').querySelector('button.active');
+  if (btn) { btn.disabled = true; btn.textContent = 'Searching…'; }
+  try {
+    var data = await _runDiscoverySearch(category, _suggestionActiveLanguages, null);
+    _suggestionPageTokens = data.next_page_tokens || {};
+    _suggestionHasMore = !!data.has_more;
+    toast(data.inserted + ' new suggestion(s) found in ' + category + ' (' + data.found + ' total seen)');
+    appendSuggestionCards(data.candidates);
+  } catch (e) {
+    toast('Failed: ' + (e.message || e));
+  } finally {
+    if (btn) { btn.disabled = false; btn.textContent = original; }
+  }
+}
+
+// Triggered by scrolling near the bottom of the Suggestions list — resumes
+// each search query from where it left off (per-query YouTube pageTokens),
+// so scrolling keeps surfacing more candidates instead of stopping at the
+// first ~50-per-query batch. Tries up to 3 pages in a row if a page turns
+// out to be all-duplicates, so one scroll doesn't silently do nothing.
+async function loadMoreSuggestions(){
+  if (_suggestionLoadingMore || !_suggestionHasMore || !_activeSuggestionCategory) return;
+  _suggestionLoadingMore = true;
+  var indicator = document.getElementById('suggestionsLoadMoreIndicator');
+  if (indicator) indicator.style.display = '';
+  try {
+    var attempts = 0;
+    while (_suggestionHasMore && attempts < 3) {
+      attempts++;
+      var data = await _runDiscoverySearch(_activeSuggestionCategory, _suggestionActiveLanguages, _suggestionPageTokens);
+      _suggestionPageTokens = data.next_page_tokens || {};
+      _suggestionHasMore = !!data.has_more;
+      appendSuggestionCards(data.candidates);
+      if (data.inserted > 0) break;
+    }
+  } catch (e) {
+    toast('Failed to load more: ' + (e.message || e));
+  } finally {
+    _suggestionLoadingMore = false;
+    if (indicator) indicator.style.display = 'none';
+  }
+}
+
+window.addEventListener('scroll', function(){
+  var el = document.getElementById('rizplaySubview-suggestions');
+  if (!el || el.offsetParent === null) return;
+  if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 400) {
+    loadMoreSuggestions();
+  }
+});
+
+async function loadSuggestions(){
+  var list = document.getElementById('suggestionsList');
+  list.innerHTML = '<div class="empty-state">Loading…</div>';
+  try {
+    var q = _sb.from('yt_channel_suggestions').select('*').eq('dismissed', false).order('discovered_at', { ascending: false });
+    if (_activeSuggestionCategory) q = q.eq('category', _activeSuggestionCategory);
+    var res = await q;
+    if (res.error) throw res.error;
+    var rows = res.data || [];
+    if (!rows.length) {
+      list.innerHTML = '<div class="empty-state">' + (_activeSuggestionCategory ? 'No suggestions in this category yet — click it above to search.' : 'No suggestions yet — pick a category above.') + '</div>';
+      return;
+    }
+    list.innerHTML = rows.map(renderSuggestionCard).join('');
+  } catch (e) {
+    list.innerHTML = '<div class="empty-state error">Failed to load: ' + escapeHtml(e.message || String(e)) + '</div>';
+  }
+}
+
+function renderSuggestionCard(s){
+  var safeId = escapeHtml(s.channel_id || '');
+  return '<div class="suggestion-card" id="suggestion-card-' + safeId + '">'
+    + '<img src="' + escapeHtml(s.channel_photo || '') + '" alt="">'
+    + '<div class="suggestion-card-body">'
+    + '<div class="suggestion-card-name">' + escapeHtml(s.channel_title || s.channel_id || '') + '</div>'
+    + (s.channel_bio ? '<div class="suggestion-card-bio">' + escapeHtml(s.channel_bio) + '</div>' : '')
+    + '<div class="suggestion-card-source">found via "' + escapeHtml(s.source_query || '') + '"</div>'
+    + (s.category ? '<div class="suggestion-card-category">' + escapeHtml(s.category) + '</div>' : '')
+    + '</div>'
+    + '<div class="suggestion-card-actions">'
+    + '<button class="btn-approve" onclick="approveSuggestion(this)" data-channel-id="' + safeId + '" data-category="' + escapeHtml(s.category || '') + '">Approve</button>'
+    + '<button class="btn-reject" onclick="dismissSuggestion(this)" data-channel-id="' + safeId + '">Dismiss</button>'
+    + '</div>'
+    + '</div>';
+}
+
+// Adds cards to the BOTTOM of the list without touching what's already
+// rendered — used for fresh search results and "load more" so scrolling
+// never reorders/reshuffles cards the admin is already looking at (unlike
+// re-running loadSuggestions(), which re-sorts everything by discovered_at
+// and would push new rows to the top).
+function appendSuggestionCards(rows){
+  if (!rows || !rows.length) return;
+  var list = document.getElementById('suggestionsList');
+  var empty = list.querySelector('.empty-state');
+  if (empty) empty.remove();
+  rows.forEach(function(s){
+    if (document.getElementById('suggestion-card-' + s.channel_id)) return; // already on screen
+    list.insertAdjacentHTML('beforeend', renderSuggestionCard(s));
+  });
+}
+
+async function approveSuggestion(btn){
+  var channelId = btn.dataset.channelId;
+  var category = btn.dataset.category || null;
+  var card = document.getElementById('suggestion-card-' + channelId);
+  btn.disabled = true;
+  btn.textContent = '…';
+  try {
+    var data = await _fetchChannelFromYoutube(channelId);
+    var rpcRes = await _sb.rpc('admin_decide_channel', {
+      p_channel_id: data.channel.channel_id,
+      p_channel_title: data.channel.channel_title,
+      p_channel_photo: data.channel.channel_photo,
+      p_channel_bio: data.channel.channel_bio,
+      p_videos: data.videos.filter(function(v){ return !v.already_known; }),
+      p_decision: 'approved',
+      p_category: category,
+      p_channel_handle: data.channel.channel_handle || null
+    });
+    if (rpcRes.error) throw rpcRes.error;
+    var summary = rpcRes.data || {};
+    await _sb.from('yt_channel_suggestions').delete().eq('channel_id', channelId);
+    if (card) card.remove();
+    toast('Channel approved ✓ ' + (summary.new_videos_inserted || 0) + ' video(s) brought in');
+    loadChannelsList();
+    refreshVideoCounts();
+  } catch (e) {
+    toast('Failed: ' + (e.message || e));
+    btn.disabled = false;
+    btn.textContent = 'Approve';
+  }
+}
+
+async function dismissSuggestion(btn){
+  var channelId = btn.dataset.channelId;
+  var card = document.getElementById('suggestion-card-' + channelId);
+  btn.disabled = true;
+  try {
+    var res = await _sb.from('yt_channel_suggestions').update({ dismissed: true }).eq('channel_id', channelId);
+    if (res.error) throw res.error;
+    if (card) card.remove();
+    toast('Dismissed');
+  } catch (e) {
+    toast('Failed: ' + (e.message || e));
+    btn.disabled = false;
+  }
+}
+
+/* ── Analytics ── */
+var _analyticsLoaded = false;
+var _analyticsDays = 30;
+
+function setAnalyticsRange(days, el){
+  _analyticsDays = days;
+  document.querySelectorAll('#analyticsRangeTabs .filter-tab').forEach(function(t){ t.classList.remove('active'); });
+  el.classList.add('active');
+  loadAnalytics();
+}
+
+var _analyticsRequestId = 0;
+
+async function loadAnalytics(){
+  var myRequestId = ++_analyticsRequestId;
+  var statGrid = document.getElementById('analyticsStats');
+  ['analyticsStats', 'analyticsReysStats', 'analyticsRizplayStats', 'analyticsChallengeStats', 'analyticsSafetyStats',
+   'reysByTypeList', 'topChallengesList', 'chartSignups', 'chartRevenue', 'chartPosts'].forEach(function(id){
+    document.getElementById(id).innerHTML = '<div class="empty-state">Loading…</div>';
+  });
+  try {
+    var res = await _sb.rpc('admin_analytics_overview', { p_days: _analyticsDays });
+    if (myRequestId !== _analyticsRequestId) return; // a newer request (e.g. rapid tab switch) superseded this one
+    if (res.error) throw res.error;
+    var d = res.data || {};
+    var suffix = ' — last ' + _analyticsDays + ' days';
+    document.getElementById('chartSignupsTitle').textContent = 'New signups' + suffix;
+    document.getElementById('chartRevenueTitle').textContent = 'Revenue (৳)' + suffix;
+    document.getElementById('chartPostsTitle').textContent = 'Posts created' + suffix;
+
+    renderAnalyticsStats(d);
+    renderBarChart('chartSignups', d.signups_by_day, { valueKey: 'count' });
+    renderBarChart('chartRevenue', d.revenue_by_day, { valueKey: 'amount', prefix: '৳' });
+    renderBarChart('chartPosts', d.posts_by_day, { valueKey: 'count' });
+
+    document.getElementById('analyticsReysStats').innerHTML = buildStatCardsHtml([
+      { label: 'Reys in Circulation', value: (d.reys_circulation || 0).toLocaleString(), icon: 'coin', tone: 'success' }
+    ]);
+    renderReysByTypeList(d.reys_by_type);
+
+    document.getElementById('analyticsRizplayStats').innerHTML = buildStatCardsHtml([
+      { label: 'Channels', value: (d.channels_total || 0).toLocaleString(), sub: (d.channels_approved || 0) + ' approved · ' + (d.channels_pending || 0) + ' pending', icon: 'video', tone: 'accent' },
+      { label: 'Videos', value: (d.videos_total || 0).toLocaleString(), sub: (d.videos_approved || 0) + ' approved · ' + (d.videos_pending || 0) + ' pending', icon: 'video', tone: 'success' },
+      { label: 'Rejected', value: ((d.channels_rejected || 0) + (d.videos_rejected || 0)).toLocaleString(), sub: 'channels + videos', icon: 'ban', tone: 'danger' },
+      { label: 'Pending Suggestions', value: (d.pending_suggestions || 0).toLocaleString(), icon: 'clock', tone: 'warning' }
+    ]);
+
+    document.getElementById('analyticsChallengeStats').innerHTML = buildStatCardsHtml([
+      { label: 'Total Challenges', value: (d.challenges_total || 0).toLocaleString(), icon: 'trophy', tone: 'accent' },
+      { label: 'Total Participants', value: (d.challenge_participants_total || 0).toLocaleString(), icon: 'users', tone: 'success' }
+    ]);
+    renderTopChallengesList(d.top_challenges);
+
+    document.getElementById('analyticsSafetyStats').innerHTML = buildStatCardsHtml([
+      { label: 'Verified Users', value: (d.verified_users || 0).toLocaleString(), icon: 'shield', tone: 'success' },
+      { label: 'Banned Users', value: (d.banned_users || 0).toLocaleString(), icon: 'ban', tone: 'danger' }
+    ]);
+  } catch (e) {
+    if (myRequestId !== _analyticsRequestId) return;
+    statGrid.innerHTML = '<div class="empty-state error">Failed to load: ' + escapeHtml(e.message || String(e)) + '</div>';
+  }
+}
+
+var ANALYTICS_ICONS = {
+  users: '<svg viewBox="0 0 24 24" fill="none"><circle cx="9" cy="8" r="3.2" stroke="currentColor" stroke-width="1.8"/><path d="M3 20c0-3.6 2.7-6 6-6s6 2.4 6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="17.5" cy="8.5" r="2.3" stroke="currentColor" stroke-width="1.6"/><path d="M15.7 13.2c2.4.3 4.3 2.2 4.8 4.8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>',
+  coin: '<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M12 7v10M9.5 9.3c0-1.1 1.1-1.8 2.5-1.8s2.5.8 2.5 1.9c0 2.6-5 1.3-5 3.9 0 1.1 1.1 1.9 2.5 1.9s2.5-.7 2.5-1.8" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+  clock: '<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M12 7v5l3.5 2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+  doc: '<svg viewBox="0 0 24 24" fill="none"><rect x="5" y="3.5" width="14" height="17" rx="2" stroke="currentColor" stroke-width="1.7"/><path d="M8.5 8.5h7M8.5 12h7M8.5 15.5h4.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>',
+  pulse: '<svg viewBox="0 0 24 24" fill="none"><path d="M3 12h4l2-6 4 12 2-6h6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+  video: '<svg viewBox="0 0 24 24" fill="none"><rect x="2.5" y="4.5" width="19" height="14" rx="2.2" stroke="currentColor" stroke-width="1.7"/><path d="M10 8.5l5 3.2-5 3.2V8.5z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>',
+  shield: '<svg viewBox="0 0 24 24" fill="none"><path d="M12 3l7 3v5.5c0 4.5-3 7.7-7 9-4-1.3-7-4.5-7-9V6l7-3z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9.5 12l1.8 1.8L14.7 10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+  ban: '<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M6 6l12 12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>',
+  trophy: '<svg viewBox="0 0 24 24" fill="none"><path d="M7 4h10v4a5 5 0 01-10 0V4z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M9.5 13.5v2a2.5 2.5 0 005 0v-2M5 5H3.5a1.5 1.5 0 000 3H5M19 5h1.5a1.5 1.5 0 010 3H19" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M8.5 20h7" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>'
+};
+
+var REYS_TYPE_LABELS = { daily_claim: 'Daily Claims', purchase: 'Purchases', challenge_join: 'Challenge Joins', admin_adjustment: 'Admin Adjustments' };
+
+function buildStatCardsHtml(cards){
+  return cards.map(function(c){
+    return '<div class="stat-card">'
+      + '<div class="stat-card-icon tone-' + escapeHtml(c.tone) + '">' + ANALYTICS_ICONS[c.icon] + '</div>'
+      + '<div><div class="stat-card-label">' + escapeHtml(c.label) + '</div>'
+      + '<div class="stat-card-value">' + escapeHtml(String(c.value)) + '</div>'
+      + (c.sub ? '<div class="stat-card-sub">' + escapeHtml(c.sub) + '</div>' : '')
+      + '</div>'
+      + '</div>';
+  }).join('');
+}
+
+function renderReysByTypeList(list){
+  var container = document.getElementById('reysByTypeList');
+  if (!list || !list.length) { container.innerHTML = '<div class="empty-state">No ledger activity yet.</div>'; return; }
+  container.innerHTML = list.map(function(r){
+    var label = REYS_TYPE_LABELS[r.type] || r.type;
+    var total = r.total || 0;
+    var sign = total > 0 ? '+' : '';
+    var color = total > 0 ? '#8FF0B0' : (total < 0 ? '#FFC2C2' : 'inherit');
+    return '<div class="mini-list-row"><span class="mini-list-label">' + escapeHtml(label) + '</span><span class="mini-list-value" style="color:' + color + '">' + sign + total.toLocaleString() + ' Reys</span></div>';
+  }).join('');
+}
+
+function renderTopChallengesList(list){
+  var container = document.getElementById('topChallengesList');
+  if (!list || !list.length) { container.innerHTML = '<div class="empty-state">No challenges yet.</div>'; return; }
+  container.innerHTML = list.map(function(c){
+    return '<div class="mini-list-row"><span class="mini-list-label">' + escapeHtml(c.title || 'Untitled') + '</span><span class="mini-list-value">' + (c.participants || 0).toLocaleString() + '</span></div>';
+  }).join('');
+}
+
+function renderAnalyticsStats(d){
+  document.getElementById('analyticsStats').innerHTML = buildStatCardsHtml([
+    { label: 'Total Users', value: (d.total_users || 0).toLocaleString(), icon: 'users', tone: 'accent' },
+    { label: 'Total Revenue', value: '৳' + (d.total_revenue || 0).toLocaleString(), icon: 'coin', tone: 'success' },
+    { label: 'Pending Revenue', value: '৳' + (d.pending_revenue || 0).toLocaleString(), sub: (d.pending_count || 0) + ' payment(s) waiting', icon: 'clock', tone: 'warning' },
+    { label: 'Total Posts', value: (d.total_posts || 0).toLocaleString(), icon: 'doc', tone: 'accent' },
+    { label: 'Active Users (7d)', value: (d.active_users_7d || 0).toLocaleString(), sub: 'posted or commented', icon: 'pulse', tone: 'success' }
+  ]);
+}
+
+// Simple single-series SVG bar chart — native <title> gives a hover tooltip
+// without needing a custom tooltip layer, reasonable for this internal tool.
+var _chartGradCounter = 0;
+
+function renderBarChart(containerId, points, opts){
+  opts = opts || {};
+  var valueKey = opts.valueKey || 'count';
+  var prefix = opts.prefix || '';
+  var container = document.getElementById(containerId);
+  if (!points || !points.length) {
+    container.innerHTML = '<div class="empty-state">Not enough data yet.</div>';
+    return;
+  }
+  var gradId = 'barGrad' + (_chartGradCounter++);
+  var W = 820, H = 200, padL = 42, padB = 24, padT = 26, padR = 10;
+  var chartW = W - padL - padR, chartH = H - padT - padB;
+  var maxVal = Math.max.apply(null, points.map(function(p){ return p[valueKey] || 0; })) || 1;
+  var slotW = chartW / points.length;
+  var barW = Math.max(2, Math.min(slotW - 3, 22));
+  var nonZeroCount = points.filter(function(p){ return (p[valueKey] || 0) > 0; }).length;
+  var showLabels = nonZeroCount > 0 && nonZeroCount <= 12;
+  var r = Math.min(4, barW / 2);
+  var baseY = padT + chartH;
+
+  var gridLines = '';
+  var gridSteps = 3;
+  for (var g = 0; g <= gridSteps; g++){
+    var y = padT + chartH - (chartH * g / gridSteps);
+    var val = Math.round(maxVal * g / gridSteps);
+    var cls = g === 0 ? 'chart-baseline' : 'chart-gridline';
+    gridLines += '<line class="' + cls + '" x1="' + padL + '" x2="' + (W - padR) + '" y1="' + y.toFixed(1) + '" y2="' + y.toFixed(1) + '"></line>';
+    gridLines += '<text class="chart-axis-label" x="2" y="' + (y + 3).toFixed(1) + '">' + escapeHtml(prefix + val) + '</text>';
+  }
+
+  var bars = points.map(function(p, i){
+    var val = p[valueKey] || 0;
+    var barH = val > 0 ? Math.max(chartH * (val / maxVal), 2) : 0;
+    var x = padL + i * slotW + (slotW - barW) / 2;
+    var y = baseY - barH;
+    var label = p.date + ': ' + prefix + val;
+    var path;
+    if (barH <= r) {
+      path = 'M' + x.toFixed(1) + ',' + baseY.toFixed(1) + ' L' + x.toFixed(1) + ',' + y.toFixed(1) + ' L' + (x + barW).toFixed(1) + ',' + y.toFixed(1) + ' L' + (x + barW).toFixed(1) + ',' + baseY.toFixed(1) + ' Z';
+    } else {
+      path = 'M' + x.toFixed(1) + ',' + (y + r).toFixed(1)
+        + ' Q' + x.toFixed(1) + ',' + y.toFixed(1) + ' ' + (x + r).toFixed(1) + ',' + y.toFixed(1)
+        + ' L' + (x + barW - r).toFixed(1) + ',' + y.toFixed(1)
+        + ' Q' + (x + barW).toFixed(1) + ',' + y.toFixed(1) + ' ' + (x + barW).toFixed(1) + ',' + (y + r).toFixed(1)
+        + ' L' + (x + barW).toFixed(1) + ',' + baseY.toFixed(1)
+        + ' L' + x.toFixed(1) + ',' + baseY.toFixed(1) + ' Z';
+    }
+    var valueLabel = (showLabels && val > 0) ? '<text class="chart-bar-value" x="' + (x + barW / 2).toFixed(1) + '" y="' + (y - 5).toFixed(1) + '">' + escapeHtml(prefix + val) + '</text>' : '';
+    return '<path class="chart-bar" fill="url(#' + gradId + ')" d="' + path + '"><title>' + escapeHtml(label) + '</title></path>' + valueLabel;
+  }).join('');
+
+  var xLabels = '';
+  var labelEvery = Math.max(1, Math.ceil(points.length / 6));
+  points.forEach(function(p, i){
+    if (i % labelEvery !== 0 && i !== points.length - 1) return;
+    var x = padL + i * slotW + slotW / 2;
+    xLabels += '<text class="chart-axis-label" x="' + x.toFixed(1) + '" y="' + (H - 6) + '" text-anchor="middle">' + escapeHtml((p.date || '').slice(5)) + '</text>';
+  });
+
+  var defs = '<defs><linearGradient id="' + gradId + '" x1="0" y1="0" x2="0" y2="1">'
+    + '<stop offset="0%" stop-color="var(--accent-hover)"></stop>'
+    + '<stop offset="100%" stop-color="var(--accent)" stop-opacity="0.55"></stop>'
+    + '</linearGradient></defs>';
+
+  container.innerHTML = '<svg viewBox="0 0 ' + W + ' ' + H + '" style="width:100%; height:190px;">' + defs + gridLines + bars + xLabels + '</svg>';
+}
+
+boot();
+</script>
+</body>
+</html>

@@ -1,0 +1,163 @@
+<div id="subscription-page" class="app-page" style="display:none">
+<div style="padding:16px 16px 100px">
+
+  <!-- HERO: Reys balance -->
+  <div style="background:linear-gradient(160deg,#0e1020 0%,#181b35 60%,#0e1020 100%);border-radius:22px;padding:22px;margin-bottom:14px;border:1px solid rgba(255,138,0,.2);position:relative;overflow:hidden">
+    <div style="position:absolute;top:-40px;right:-40px;width:140px;height:140px;border-radius:50%;background:radial-gradient(circle,rgba(255,138,0,.12) 0%,transparent 70%)"></div>
+    <div style="font-size:10px;color:rgba(255,138,0,.6);font-weight:700;letter-spacing:.8px;margin-bottom:12px">তোমার REYS ব্যালেন্স</div>
+    <div style="display:flex;align-items:center;gap:12px">
+      <div style="width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#FF8A00,#FFB800);display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(255,138,0,.5);flex-shrink:0">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8" fill="rgba(0,0,0,.2)"/><text x="12" y="16.5" text-anchor="middle" font-size="11" font-weight="900" fill="#fff" font-family="Georgia,serif">R</text></svg>
+      </div>
+      <div id="sub-reys-balance" style="font-size:34px;font-weight:800;color:#FFB800;line-height:1">0</div>
+    </div>
+    <div id="sub-reys-breakdown" style="font-size:11px;color:rgba(255,255,255,.4);margin-top:10px;position:relative"></div>
+  </div>
+
+  <!-- DAILY FREE CLAIM — not yet collected -->
+  <div id="sub-claim-card" style="background:linear-gradient(160deg,#0e1020 0%,#181b35 60%,#0e1020 100%);border-radius:20px;border:1px solid rgba(255,138,0,.2);box-shadow:0 8px 28px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.06);padding:20px;margin-bottom:14px;display:flex;align-items:center;gap:14px;position:relative;overflow:hidden">
+    <div style="position:absolute;top:-30px;left:-20px;width:110px;height:110px;border-radius:50%;background:radial-gradient(circle,rgba(255,138,0,.18) 0%,transparent 70%);pointer-events:none"></div>
+    <div style="width:52px;height:52px;border-radius:16px;background:linear-gradient(135deg,#FF8A00,#FFB800);display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 4px 16px rgba(255,138,0,.4);position:relative">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#090B12" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>
+    </div>
+    <div style="flex:1;min-width:0;position:relative">
+      <div style="font-size:14px;font-weight:800;color:#fff">প্রতিদিনের <span id="sub-daily-amount-1">…</span> Reys ফ্রি</div>
+      <div style="font-size:11px;color:rgba(255,255,255,.5);margin-top:2px">প্রতিদিন একবার collect করা যায়</div>
+    </div>
+    <button id="sub-claim-btn" onclick="rzClaimDailyReys()" style="padding:11px 18px;background:linear-gradient(135deg,#FF8A00,#FFB800);color:#090B12;border:none;border-radius:12px;font-size:13px;font-weight:800;cursor:pointer;font-family:inherit;white-space:nowrap;flex-shrink:0;box-shadow:0 4px 14px rgba(255,138,0,.4);position:relative">Collect করো</button>
+  </div>
+
+  <!-- DAILY FREE CLAIM — already collected today -->
+  <div id="sub-claimed-card" style="display:none;background:linear-gradient(160deg,#0e1020 0%,#181b35 60%,#0e1020 100%);border-radius:20px;border:1px solid rgba(16,185,129,.25);box-shadow:0 8px 28px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.06);padding:20px;margin-bottom:14px;align-items:center;gap:14px;position:relative;overflow:hidden">
+    <div style="position:absolute;top:-30px;left:-20px;width:110px;height:110px;border-radius:50%;background:radial-gradient(circle,rgba(16,185,129,.18) 0%,transparent 70%);pointer-events:none"></div>
+    <div style="width:52px;height:52px;border-radius:16px;background:linear-gradient(135deg,#10B981,#34D399);display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 4px 16px rgba(16,185,129,.4);position:relative">
+      <svg width="24" height="24" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#0e1020" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <div style="flex:1;min-width:0;position:relative">
+      <div style="font-size:14px;font-weight:800;color:#fff">আজকের <span id="sub-daily-amount-2">…</span> Reys সংগ্রহ করা হয়েছে</div>
+      <div style="font-size:11px;color:rgba(255,255,255,.5);margin-top:2px">রাত ১২টার মধ্যে ব্যবহার না করলে শেষ হয়ে যাবে</div>
+    </div>
+  </div>
+
+  <!-- WHAT REYS IS FOR -->
+  <div style="background:var(--card,#fff);border-radius:20px;border:1px solid var(--border,#f0f0f0);padding:20px;margin-bottom:14px">
+    <div style="font-size:16px;font-weight:800;color:var(--text,#1a1a2e);margin-bottom:4px">Reys দিয়ে যা করতে পারবে</div>
+    <div style="font-size:12px;color:var(--text-muted,#888);margin-bottom:16px">Rizers এর অনেক ফিচার সবার জন্য সবসময় ফ্রি — কিছু ফিচার ব্যবহার করতে Reys লাগবে। দিনের <span id="sub-daily-amount-3">…</span> ফ্রি Reys দিয়ে normal ব্যবহার চলে যাবে; আরও লাগলে নিচ থেকে কিনতে পারবে।</div>
+    <div style="display:flex;flex-wrap:wrap;gap:10px">
+      <div style="display:flex;align-items:center;gap:8px;width:calc(50% - 5px)">
+        <div style="width:20px;height:20px;border-radius:50%;background:rgba(255,138,0,.12);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#FF8A00" stroke-width="2" stroke-linecap="round"/></svg></div>
+        <span style="font-size:12px;color:var(--text,#444)">Kids profile add</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;width:calc(50% - 5px)">
+        <div style="width:20px;height:20px;border-radius:50%;background:rgba(255,138,0,.12);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#FF8A00" stroke-width="2" stroke-linecap="round"/></svg></div>
+        <span style="font-size:12px;color:var(--text,#444)">Weekly live class</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;width:calc(50% - 5px)">
+        <div style="width:20px;height:20px;border-radius:50%;background:rgba(255,138,0,.12);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#FF8A00" stroke-width="2" stroke-linecap="round"/></svg></div>
+        <span style="font-size:12px;color:var(--text,#444)">৫০+ content library</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;width:calc(50% - 5px)">
+        <div style="width:20px;height:20px;border-radius:50%;background:rgba(255,138,0,.12);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#FF8A00" stroke-width="2" stroke-linecap="round"/></svg></div>
+        <span style="font-size:12px;color:var(--text,#444)">AI Daily Plan</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- BKASH — BUY MORE REYS -->
+  <div style="background:linear-gradient(160deg,#0e1020 0%,#181b35 60%,#0e1020 100%);border-radius:20px;border:1px solid rgba(226,19,110,.22);box-shadow:0 8px 28px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.06);padding:20px;margin-bottom:14px;position:relative;overflow:hidden">
+    <div style="position:absolute;top:-30px;right:-20px;width:120px;height:120px;border-radius:50%;background:radial-gradient(circle,rgba(226,19,110,.16) 0%,transparent 70%);pointer-events:none"></div>
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;position:relative">
+      <div style="width:44px;height:44px;background:linear-gradient(135deg,#E2136E,#ff4f9a);border-radius:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 4px 16px rgba(226,19,110,.4)">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+      </div>
+      <div>
+        <div style="font-size:15px;font-weight:800;color:#fff">bKash দিয়ে আরও Reys কিনো</div>
+        <div style="font-size:11px;color:rgba(255,255,255,.5)">মাত্র ২ মিনিটে সম্পন্ন</div>
+      </div>
+    </div>
+
+    <!-- STEP 1: pick amount -->
+    <div id="sub-buy-step1" style="position:relative">
+      <div style="font-size:12px;font-weight:700;color:rgba(255,255,255,.7);margin-bottom:10px">কত Reys কিনতে চাও</div>
+      <div id="sub-tiers-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px">
+        <div style="grid-column:1/-1;text-align:center;font-size:12px;color:rgba(255,255,255,.4);padding:10px 0">Loading…</div>
+      </div>
+
+      <div id="sub-custom-toggle" onclick="rzShowCustomReys()" style="text-align:center;font-size:12px;font-weight:700;color:#FFB800;padding:10px;cursor:pointer;border:1.5px dashed rgba(255,184,0,.35);border-radius:12px">নিজে টাকা লিখো</div>
+
+      <div id="sub-custom-wrap" style="display:none;margin-top:12px">
+        <div style="position:relative;margin-bottom:8px">
+          <span style="position:absolute;left:14px;top:50%;transform:translateY(-50%);font-size:15px;color:rgba(255,255,255,.5)">৳</span>
+          <input id="sub-custom-amount" type="number" min="30" placeholder="যেমন: ৭৫ (কমপক্ষে ৳৩০)" oninput="rzCalcCustomReys()" style="width:100%;background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.15);border-radius:12px;padding:11px 14px 11px 28px;font-size:15px;font-weight:700;font-family:inherit;outline:none;color:#fff;box-sizing:border-box"/>
+        </div>
+        <div id="sub-custom-calc" style="font-size:13px;color:#FFB800;font-weight:700;text-align:center;margin-bottom:10px">= 0 Reys পাবে</div>
+        <button onclick="rzConfirmCustomReys()" style="width:100%;padding:11px;background:linear-gradient(135deg,#FF8A00,#FFB800);color:#090B12;border:none;border-radius:12px;font-size:13px;font-weight:800;cursor:pointer;font-family:inherit;box-shadow:0 4px 14px rgba(255,138,0,.35)">Continue</button>
+      </div>
+    </div>
+
+    <!-- STEP 2: bKash payment — collapsed by default, expands below the still-visible cards on selection -->
+    <div id="sub-buy-step2" style="position:relative;max-height:0;opacity:0;overflow:hidden;margin-top:0;transition:max-height .45s cubic-bezier(.4,0,.2,1),opacity .35s ease,margin-top .45s ease">
+      <div style="display:flex;align-items:center;justify-content:space-between;background:linear-gradient(135deg,rgba(255,138,0,.14),rgba(255,184,0,.06));border:1.5px solid rgba(255,138,0,.3);border-radius:12px;padding:12px 16px;margin-bottom:16px;gap:10px">
+        <div id="sub-buy-summary" style="font-size:13px;font-weight:700;color:#fff"></div>
+        <span onclick="rzCollapseReysBuy()" style="font-size:16px;color:rgba(255,255,255,.5);font-weight:700;cursor:pointer;white-space:nowrap;flex-shrink:0;padding:2px 4px">✕</span>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:14px;margin-bottom:18px">
+
+        <div style="display:flex;gap:12px;align-items:flex-start">
+          <div style="width:28px;height:28px;background:linear-gradient(135deg,#E2136E,#ff4f9a);border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px;font-weight:800;flex-shrink:0;box-shadow:0 2px 8px rgba(226,19,110,.35)">১</div>
+          <div style="padding-top:4px">
+            <div style="font-size:13px;font-weight:700;color:#fff">bKash app খোলো → Send Money</div>
+            <div style="font-size:11px;color:rgba(255,255,255,.5);margin-top:2px">অথবা *247# dial করো</div>
+          </div>
+        </div>
+
+        <div style="display:flex;gap:12px;align-items:flex-start">
+          <div style="width:28px;height:28px;background:linear-gradient(135deg,#E2136E,#ff4f9a);border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px;font-weight:800;flex-shrink:0;box-shadow:0 2px 8px rgba(226,19,110,.35)">২</div>
+          <div style="flex:1;padding-top:4px">
+            <div style="font-size:13px;font-weight:700;color:#fff;margin-bottom:8px">এই নম্বরে উপরের টাকা Send করো</div>
+            <div style="display:flex;align-items:center;gap:8px">
+              <div style="background:rgba(226,19,110,.1);border:1.5px solid rgba(226,19,110,.3);border-radius:12px;padding:10px 16px;font-size:17px;font-weight:800;color:#ff6ba8;letter-spacing:1.5px;flex:1">01XXXXXXXXX</div>
+              <button onclick="copyNumber()" style="padding:10px 16px;background:linear-gradient(135deg,#E2136E,#ff4f9a);color:#fff;border:none;border-radius:10px;font-size:12px;font-weight:800;cursor:pointer;font-family:inherit;white-space:nowrap;flex-shrink:0;box-shadow:0 3px 10px rgba(226,19,110,.35)">Copy</button>
+            </div>
+          </div>
+        </div>
+
+        <div style="display:flex;gap:12px;align-items:flex-start">
+          <div style="width:28px;height:28px;background:linear-gradient(135deg,#E2136E,#ff4f9a);border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px;font-weight:800;flex-shrink:0;box-shadow:0 2px 8px rgba(226,19,110,.35)">৩</div>
+          <div style="padding-top:4px">
+            <div style="font-size:13px;font-weight:700;color:#fff">Reference এ তোমার phone নম্বর লিখো</div>
+            <div style="font-size:11px;color:rgba(255,255,255,.5);margin-top:2px">যে নম্বর দিয়ে signup করেছো</div>
+          </div>
+        </div>
+
+        <div style="display:flex;gap:12px;align-items:flex-start">
+          <div style="width:28px;height:28px;background:linear-gradient(135deg,#E2136E,#ff4f9a);border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px;font-weight:800;flex-shrink:0;box-shadow:0 2px 8px rgba(226,19,110,.35)">৪</div>
+          <div style="padding-top:4px">
+            <div style="font-size:13px;font-weight:700;color:#fff">Transaction ID নিচে submit করো</div>
+            <div style="font-size:11px;color:rgba(255,255,255,.5);margin-top:2px">২–৪ ঘণ্টায় Reys যোগ হয়ে যাবে</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="background:rgba(255,255,255,.04);border-radius:14px;padding:16px;border:1px solid rgba(255,138,0,.25)">
+        <label style="font-size:13px;font-weight:700;color:#fff;display:block;margin-bottom:10px">Transaction ID দাও</label>
+        <div style="display:flex;gap:8px">
+          <input id="txn-input" type="text" placeholder="যেমন: 8K9J2M1P3Q" style="flex:1;background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.15);border-radius:10px;padding:11px 14px;font-size:14px;font-family:inherit;outline:none;color:#fff"/>
+          <button id="sub-submit-btn" onclick="submitPayment()" style="padding:11px 18px;background:linear-gradient(135deg,#FF8A00,#FFB800);color:#090B12;border:none;border-radius:10px;font-size:13px;font-weight:800;cursor:pointer;font-family:inherit;white-space:nowrap;flex-shrink:0;box-shadow:0 4px 14px rgba(255,138,0,.35)">Submit</button>
+        </div>
+        <div id="txn-msg" style="font-size:11px;color:rgba(255,255,255,.5);margin-top:8px">Payment করার পরে transaction ID এখানে দাও</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TRUST NOTE -->
+  <div style="background:rgba(255,138,0,.04);border:1px solid rgba(255,138,0,.15);border-radius:14px;padding:14px 16px;margin-bottom:6px">
+    <div style="font-size:11px;color:var(--text-muted,#888);line-height:1.6">
+      <strong style="color:var(--text,#555)">নোট:</strong> payment করলে refund হয় না। যেকোনো সমস্যায় WhatsApp এ আমাদের সাথে কথা বলো।
+    </div>
+  </div>
+
+</div>
+</div>
+<script>setTimeout(function(){if(typeof rzRenderSubscriptionPage==='function')rzRenderSubscriptionPage();},80);</script>

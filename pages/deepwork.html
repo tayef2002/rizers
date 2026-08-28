@@ -1,0 +1,478 @@
+<!-- Deep Work Page -->
+<style>
+@keyframes dwDotBlink{0%,100%{opacity:.25}50%{opacity:1}}
+@keyframes dwBarPulse{0%,100%{transform:scaleY(.25);opacity:.25}50%{transform:scaleY(1);opacity:1}}
+@keyframes dwScanLine{0%{top:-2px}100%{top:100%}}
+@keyframes dwDrainGlow{0%,100%{box-shadow:0 0 6px rgba(56,189,248,.4)}50%{box-shadow:0 0 18px rgba(56,189,248,.9),0 0 30px rgba(99,102,241,.4)}}
+@keyframes dwCornerPulse{0%,100%{opacity:.5}50%{opacity:1}}
+@keyframes dwFadeUp{from{transform:translateY(8px);opacity:0}to{transform:translateY(0);opacity:1}}
+
+/* Duration pills */
+.dw-dur-btn{padding:5px 13px;border-radius:20px;border:1.5px solid rgba(56,189,248,.2);background:rgba(255,255,255,.03);color:rgba(255,255,255,.4);font-size:11px;font-weight:700;cursor:pointer;transition:all .18s;letter-spacing:.5px}
+.dw-dur-btn:hover{border-color:#38BDF8;color:#38BDF8;background:rgba(56,189,248,.07)}
+.dw-dur-btn.active{border-color:#38BDF8;background:rgba(56,189,248,.15);color:#38BDF8;box-shadow:0 0 10px rgba(56,189,248,.2)}
+
+/* EQ bars */
+.dw-eq-bar{width:3px;border-radius:3px;background:linear-gradient(180deg,#38BDF8,#6366F1);transform-origin:bottom;transform:scaleY(.2);opacity:.2;transition:opacity .3s}
+.dw-eq-bar.active{opacity:1;animation:dwBarPulse 1s ease-in-out infinite}
+
+/* HUD corners */
+.dw-corner{position:absolute;width:18px;height:18px;z-index:2}
+.dw-corner-tl{top:-1px;left:-1px;border-top:2px solid #38BDF8;border-left:2px solid #38BDF8;border-radius:4px 0 0 0;animation:dwCornerPulse 3s ease-in-out infinite}
+.dw-corner-tr{top:-1px;right:-1px;border-top:2px solid #38BDF8;border-right:2px solid #38BDF8;border-radius:0 4px 0 0;animation:dwCornerPulse 3s ease-in-out infinite .5s}
+.dw-corner-bl{bottom:-1px;left:-1px;border-bottom:2px solid #38BDF8;border-left:2px solid #38BDF8;border-radius:0 0 0 4px;animation:dwCornerPulse 3s ease-in-out infinite 1s}
+.dw-corner-br{bottom:-1px;right:-1px;border-bottom:2px solid #38BDF8;border-right:2px solid #38BDF8;border-radius:0 0 4px 0;animation:dwCornerPulse 3s ease-in-out infinite 1.5s}
+
+/* Scanline */
+.dw-scanline{position:absolute;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(56,189,248,.3),transparent);pointer-events:none;display:none}
+.dw-scanline.active{display:block;animation:dwScanLine 3s linear infinite}
+
+/* Drain bar glow */
+#dw-timer-ring.dw-active{animation:dwDrainGlow 2s ease-in-out infinite}
+
+/* Start button shimmer */
+.dw-btn-glow{position:relative;overflow:hidden}
+.dw-btn-glow::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.14),transparent);transform:translateX(-100%);transition:.5s}
+.dw-btn-glow:hover::after{transform:translateX(100%)}
+
+/* Stat pills */
+.dw-stat-pill{display:flex;flex-direction:column;align-items:center;gap:2px;padding:10px 14px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:14px;min-width:68px}
+</style>
+<div id="deepwork-page" class="page-div app-page">
+
+<!-- KIDS MODE -->
+<div id="dw-kids-wrap" style="display:none;padding:20px">
+  <div style="text-align:center;padding:40px 20px">
+    <div style="font-size:48px;margin-bottom:12px">🧠</div>
+    <h2 style="font-size:20px;font-weight:800;color:var(--text,#1a1a2e);margin-bottom:8px">Deep Work</h2>
+    <p style="font-size:13px;color:var(--text2,#888)">এই ফিচারটি প্রাপ্তবয়স্কদের জন্য। গভীর মনোযোগ দিয়ে কাজ করুন।</p>
+  </div>
+  <div style="max-width:400px;margin:0 auto;background:linear-gradient(160deg,#080D1A,#0D1528);border-radius:20px;padding:24px;color:#fff;border:1px solid rgba(56,189,248,.2)">
+    <div style="font-size:13px;font-weight:700;opacity:.8;margin-bottom:8px">🧠 Deep Work Timer</div>
+    <div style="font-size:18px;font-weight:900;margin-bottom:8px">গভীর মনোযোগ = সেরা ফলাফল</div>
+    <p style="font-size:12px;opacity:.85;margin-bottom:16px">distraction ছাড়া কাজ করুন, flow state পান।</p>
+    <button onclick="showPage('subscription')" style="background:linear-gradient(135deg,#FF8A00,#FFB800);color:#090B12;border:none;padding:10px 20px;border-radius:10px;font-weight:800;font-size:13px;cursor:pointer;width:100%">সাপোর্ট করুন</button>
+  </div>
+  <div style="margin:16px auto;max-width:400px;background:var(--bg2,#f3f4f6);border-radius:16px;padding:16px">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
+      <div style="width:38px;height:38px;border-radius:12px;background:rgba(255,138,0,.1);border:1px solid rgba(255,138,0,.25);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:18px">🤲</div>
+      <div>
+        <div style="font-size:13px;font-weight:800;color:var(--text,#1f2937)">Rizers কে টিকিয়ে রাখুন</div>
+        <div style="font-size:11.5px;color:var(--text2,#888);margin-top:2px">মাত্র ৳৯৯/মাসে</div>
+      </div>
+    </div>
+    <a href="#" onclick="rzGoToPayment&&rzGoToPayment();return false;" style="display:block;width:100%;background:linear-gradient(135deg,#FF8A00,#FFB800);color:#090B12;font-size:13px;font-weight:800;text-align:center;padding:11px;border-radius:12px;text-decoration:none;box-sizing:border-box">🤲 Support করুন</a>
+  </div>
+</div>
+
+<!-- ADULT MODE -->
+<div id="dw-adult-wrap" style="display:none">
+  <div class="rz-page-with-banner">
+    <div class="rz-page-content" style="padding:20px 24px 60px;min-width:0">
+
+      <!-- HERO TIMER CARD — HUD Terminal Style -->
+      <div style="background:linear-gradient(145deg,#050B18 0%,#080F1E 60%,#050B18 100%);border-radius:24px;padding:20px 20px 18px;margin-bottom:20px;position:relative;overflow:hidden;border:1px solid rgba(56,189,248,.1)">
+
+        <!-- Dot-grid background texture -->
+        <div style="position:absolute;inset:0;background-image:radial-gradient(rgba(56,189,248,.06) 1px,transparent 1px);background-size:20px 20px;pointer-events:none"></div>
+        <!-- Ambient glow -->
+        <div style="position:absolute;top:-40px;right:-40px;width:220px;height:220px;background:radial-gradient(circle,rgba(99,102,241,.12),transparent 70%);pointer-events:none"></div>
+        <div style="position:absolute;bottom:-30px;left:20%;width:160px;height:160px;background:radial-gradient(circle,rgba(56,189,248,.08),transparent 70%);pointer-events:none"></div>
+
+        <!-- Scanline sweep (active during session) -->
+        <div id="dw-scanline" class="dw-scanline"></div>
+
+        <!-- Top status row -->
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;position:relative">
+          <div style="display:flex;align-items:center;gap:8px">
+            <span id="dw-live-dot" style="width:6px;height:6px;border-radius:50%;background:rgba(56,189,248,.3);display:inline-block;flex-shrink:0"></span>
+            <span style="font-size:9px;color:rgba(255,255,255,.22);letter-spacing:2.5px;font-weight:700;text-transform:uppercase">DEEP WORK SESSION</span>
+          </div>
+          <div style="display:flex;gap:6px">
+            <button id="dw-btn-focus" onclick="dwEnterFocusMode()" style="display:none;background:rgba(99,102,241,.12);border:1px solid rgba(99,102,241,.3);color:#a5b4fc;padding:4px 11px;border-radius:20px;font-weight:700;font-size:9px;cursor:pointer;letter-spacing:1px">⛶ FOCUS</button>
+            <button id="dw-btn-stop" onclick="dwStopSession()" style="display:none;background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.22);color:#EF4444;padding:4px 11px;border-radius:20px;font-weight:700;font-size:9px;cursor:pointer;letter-spacing:1px">&#9632; STOP</button>
+          </div>
+        </div>
+
+        <!-- ═══ HUD TIMER PANEL ═══ -->
+        <div style="position:relative;background:rgba(0,0,0,.25);border:1px solid rgba(56,189,248,.14);border-radius:18px;padding:22px 20px 18px;margin-bottom:18px">
+          <!-- Corner brackets -->
+          <div class="dw-corner dw-corner-tl"></div>
+          <div class="dw-corner dw-corner-tr"></div>
+          <div class="dw-corner dw-corner-bl"></div>
+          <div class="dw-corner dw-corner-br"></div>
+
+          <!-- Label row -->
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+            <span style="font-size:8px;color:rgba(56,189,248,.45);letter-spacing:2px;font-weight:700;text-transform:uppercase">FOCUS TIME</span>
+            <span id="dw-timer-status" style="font-size:8px;color:rgba(255,255,255,.25);letter-spacing:2px;font-weight:700;text-transform:uppercase">প্রস্তুত</span>
+          </div>
+
+          <!-- BIG countdown -->
+          <div style="text-align:center;margin-bottom:14px">
+            <div id="dw-timer-display" style="font-size:64px;font-weight:900;color:#fff;font-family:'Courier New',monospace;letter-spacing:6px;line-height:1;text-shadow:0 0 40px rgba(56,189,248,.5),0 0 80px rgba(56,189,248,.15)">45:00</div>
+          </div>
+
+          <!-- EQ waveform bars — pulse when active -->
+          <div style="display:flex;align-items:flex-end;justify-content:center;gap:4px;height:28px;margin-bottom:14px">
+            <div class="dw-eq-bar" id="dw-eq-0" style="height:30%;animation-delay:0s"></div>
+            <div class="dw-eq-bar" id="dw-eq-1" style="height:60%;animation-delay:.1s"></div>
+            <div class="dw-eq-bar" id="dw-eq-2" style="height:90%;animation-delay:.18s"></div>
+            <div class="dw-eq-bar" id="dw-eq-3" style="height:45%;animation-delay:.07s"></div>
+            <div class="dw-eq-bar" id="dw-eq-4" style="height:100%;animation-delay:.25s"></div>
+            <div class="dw-eq-bar" id="dw-eq-5" style="height:70%;animation-delay:.12s"></div>
+            <div class="dw-eq-bar" id="dw-eq-6" style="height:55%;animation-delay:.32s"></div>
+            <div class="dw-eq-bar" id="dw-eq-7" style="height:80%;animation-delay:.05s"></div>
+            <div class="dw-eq-bar" id="dw-eq-8" style="height:40%;animation-delay:.22s"></div>
+            <div class="dw-eq-bar" id="dw-eq-9" style="height:65%;animation-delay:.15s"></div>
+            <div class="dw-eq-bar" id="dw-eq-10" style="height:35%;animation-delay:.28s"></div>
+          </div>
+
+          <!-- Drain bar (replaces ring) -->
+          <div style="position:relative;background:rgba(56,189,248,.08);border-radius:6px;height:6px;overflow:visible">
+            <!-- Track ticks -->
+            <div style="position:absolute;inset:0;display:flex;justify-content:space-between;padding:0 2px;align-items:center;pointer-events:none">
+              <div style="width:1px;height:3px;background:rgba(56,189,248,.2)"></div>
+              <div style="width:1px;height:3px;background:rgba(56,189,248,.2)"></div>
+              <div style="width:1px;height:3px;background:rgba(56,189,248,.2)"></div>
+              <div style="width:1px;height:3px;background:rgba(56,189,248,.2)"></div>
+              <div style="width:1px;height:3px;background:rgba(56,189,248,.2)"></div>
+            </div>
+            <div id="dw-timer-ring" style="height:100%;width:100%;background:linear-gradient(90deg,#6366F1,#38BDF8);border-radius:6px;transition:width 1s linear;position:relative">
+              <!-- Moving dot at tip -->
+              <div style="position:absolute;right:-4px;top:50%;transform:translateY(-50%);width:8px;height:8px;background:#fff;border-radius:50%;box-shadow:0 0 8px rgba(56,189,248,.8),0 0 16px rgba(56,189,248,.4)"></div>
+            </div>
+          </div>
+          <div style="display:flex;justify-content:space-between;margin-top:5px">
+            <span style="font-size:8px;color:rgba(56,189,248,.35);letter-spacing:.5px">শুরু</span>
+            <span style="font-size:8px;color:rgba(56,189,248,.35);letter-spacing:.5px">শেষ</span>
+          </div>
+        </div>
+
+        <!-- Duration + controls row -->
+        <div style="display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap">
+          <button onclick="dwSetDuration(25)" id="dw-dur-25" class="dw-dur-btn">25m</button>
+          <button onclick="dwSetDuration(45)" id="dw-dur-45" class="dw-dur-btn active">45m</button>
+          <button onclick="dwSetDuration(90)" id="dw-dur-90" class="dw-dur-btn">90m</button>
+          <button onclick="dwSetDuration(120)" id="dw-dur-120" class="dw-dur-btn">2h</button>
+        </div>
+
+        <!-- Task input -->
+        <div style="background:rgba(255,255,255,.04);border:1px solid rgba(56,189,248,.15);border-radius:14px;padding:12px 16px;margin-bottom:12px;cursor:text" onclick="this.querySelector('input').focus()">
+          <div style="font-size:8px;color:rgba(56,189,248,.6);font-weight:800;letter-spacing:1.5px;margin-bottom:5px;text-transform:uppercase">Focus করছেন কীসে?</div>
+          <input id="dw-session-task" type="text" placeholder="উদাহরণ: Chapter 5 পড়া, Report লেখা..." style="background:transparent;border:none;outline:none;color:#fff;font-size:13px;font-weight:600;width:100%;font-family:inherit" maxlength="80" autocomplete="off"/>
+        </div>
+
+        <!-- Project chips + add -->
+        <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-bottom:14px">
+          <div id="dw-project-chips" style="display:flex;gap:6px;flex-wrap:wrap"></div>
+          <button onclick="dwOpenProjectModal()" style="padding:4px 10px;border-radius:20px;border:1px dashed rgba(56,189,248,.22);background:transparent;color:rgba(56,189,248,.45);font-size:9px;font-weight:700;cursor:pointer;letter-spacing:.5px">+ প্রজেক্ট</button>
+        </div>
+
+        <!-- Start / Pause -->
+        <div style="display:flex;gap:10px;align-items:center;margin-bottom:14px">
+          <button id="dw-btn-start" onclick="dwStartSession()" class="dw-btn-glow" style="flex:1;background:linear-gradient(90deg,#38BDF8,#6366F1);color:#fff;border:none;padding:14px 20px;border-radius:14px;font-weight:800;font-size:14px;cursor:pointer;box-shadow:0 4px 24px rgba(56,189,248,.3),0 2px 8px rgba(99,102,241,.2);display:flex;align-items:center;justify-content:center;gap:10px">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><polygon points="4,2 16,9 4,16" fill="white" rx="2"/></svg>
+            <span>শুরু করুন</span>
+          </button>
+          <button id="dw-btn-pause" onclick="dwPauseSession()" style="display:none;flex:1;background:rgba(56,189,248,.08);border:1.5px solid rgba(56,189,248,.3);color:#38BDF8;padding:14px 20px;border-radius:14px;font-weight:800;font-size:14px;cursor:pointer;align-items:center;justify-content:center;gap:10px">
+            <svg id="dw-pause-icon" width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="3" y="2" width="4" height="14" rx="1.5" fill="#38BDF8"/><rect x="11" y="2" width="4" height="14" rx="1.5" fill="#38BDF8"/></svg>
+            <span id="dw-pause-label">বিরতি</span>
+          </button>
+        </div>
+
+        <!-- Distraction panel -->
+        <div id="dw-distraction-panel" style="display:none;background:rgba(239,68,68,.05);border:1px solid rgba(239,68,68,.14);border-radius:14px;padding:10px 14px;align-items:center;gap:12px;margin-bottom:4px">
+          <button onclick="dwLogDistraction()" style="width:42px;height:42px;border-radius:50%;background:rgba(239,68,68,.1);border:1.5px solid rgba(239,68,68,.28);color:#EF4444;font-size:17px;cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center" onmouseover="this.style.background='rgba(239,68,68,.2)'" onmouseout="this.style.background='rgba(239,68,68,.1)'">&#9889;</button>
+          <div style="flex:1">
+            <div style="font-size:8px;color:rgba(239,68,68,.55);font-weight:800;letter-spacing:1px;text-transform:uppercase;margin-bottom:2px">Distraction</div>
+            <div style="font-size:11px;color:rgba(255,255,255,.35)">মনোযোগ ভেঙেছে?</div>
+          </div>
+          <div style="text-align:right">
+            <div id="dw-distraction-count" style="font-size:28px;font-weight:900;color:#EF4444;line-height:1">0</div>
+            <div style="font-size:8px;color:rgba(255,255,255,.25)">বাধা</div>
+          </div>
+        </div>
+
+        <!-- Stats pills row -->
+        <div style="display:flex;gap:6px;margin-top:14px;flex-wrap:wrap;position:relative">
+          <div class="dw-stat-pill">
+            <span id="dw-stat-today" style="font-size:15px;font-weight:900;color:#38BDF8;line-height:1">0m</span>
+            <span style="font-size:8px;color:rgba(255,255,255,.28);font-weight:600;letter-spacing:.5px">আজ</span>
+          </div>
+          <div class="dw-stat-pill">
+            <span id="dw-stat-week" style="font-size:15px;font-weight:900;color:#a5b4fc;line-height:1">0m</span>
+            <span style="font-size:8px;color:rgba(255,255,255,.28);font-weight:600;letter-spacing:.5px">সপ্তাহ</span>
+          </div>
+          <div class="dw-stat-pill">
+            <span id="dw-stat-streak" style="font-size:15px;font-weight:900;color:#FF8A00;line-height:1">0</span>
+            <span style="font-size:8px;color:rgba(255,255,255,.28);font-weight:600;letter-spacing:.5px">স্ট্রিক 🔥</span>
+          </div>
+          <div style="margin-left:auto;text-align:center;padding:8px 16px;background:linear-gradient(135deg,rgba(56,189,248,.08),rgba(99,102,241,.08));border:1px solid rgba(56,189,248,.14);border-radius:14px">
+            <div id="dw-stat-score" style="font-size:18px;font-weight:900;color:#38BDF8;line-height:1;text-shadow:0 0 10px rgba(56,189,248,.5)">0</div>
+            <div style="font-size:8px;color:rgba(255,255,255,.28);font-weight:600;letter-spacing:.5px;margin-top:2px">DW Score</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- DAILY GOAL -->
+      <div style="background:var(--bg2,#f3f4f6);border-radius:16px;padding:16px;margin-bottom:16px">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+          <div style="font-size:13px;font-weight:800;color:var(--text,#1a1a2e)">🎯 আজকের লক্ষ্য</div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <span id="dw-goal-text" style="font-size:12px;font-weight:700;color:#38BDF8">0m / 2h</span>
+            <button onclick="dwChangeGoal()" style="background:transparent;border:1px solid var(--border,#e5e7eb);border-radius:6px;padding:3px 8px;font-size:10px;font-weight:700;cursor:pointer;color:var(--text2,#888)">পরিবর্তন</button>
+          </div>
+        </div>
+        <div style="background:var(--border,#e5e7eb);border-radius:8px;height:10px;overflow:hidden">
+          <div id="dw-goal-bar" style="height:10px;background:linear-gradient(90deg,#38BDF8,#6366F1);border-radius:8px;width:0%;transition:width .8s ease"></div>
+        </div>
+        <div id="dw-goal-sessions" style="display:flex;gap:6px;margin-top:10px;flex-wrap:wrap"></div>
+      </div>
+
+      <!-- WEEKLY CHART -->
+      <div style="background:var(--bg2,#f3f4f6);border-radius:16px;padding:16px;margin-bottom:16px">
+        <div style="font-size:13px;font-weight:800;color:var(--text,#1a1a2e);margin-bottom:14px">📊 এই সপ্তাহের Deep Work</div>
+        <div style="display:flex;align-items:flex-end;gap:6px;height:80px" id="dw-week-chart"></div>
+        <div style="display:flex;gap:6px;margin-top:6px" id="dw-week-labels"></div>
+      </div>
+
+      <!-- HEATMAP -->
+      <div style="background:var(--bg2,#f3f4f6);border-radius:16px;padding:16px;margin-bottom:16px">
+        <div style="font-size:13px;font-weight:800;color:var(--text,#1a1a2e);margin-bottom:12px">🔥 ধারাবাহিকতা (৪৯ দিন)</div>
+        <div id="dw-heatmap" style="display:flex;gap:3px;flex-wrap:wrap"></div>
+        <div style="display:flex;align-items:center;gap:6px;margin-top:8px">
+          <span style="font-size:10px;color:var(--text2,#888)">কম</span>
+          <div style="display:flex;gap:2px">
+            <div style="width:9px;height:9px;border-radius:2px;background:var(--border,#e5e7eb)"></div>
+            <div style="width:9px;height:9px;border-radius:2px;background:rgba(56,189,248,.3)"></div>
+            <div style="width:9px;height:9px;border-radius:2px;background:rgba(56,189,248,.6)"></div>
+            <div style="width:9px;height:9px;border-radius:2px;background:#38BDF8"></div>
+          </div>
+          <span style="font-size:10px;color:var(--text2,#888)">বেশি</span>
+        </div>
+      </div>
+
+      <!-- INSIGHTS -->
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px;margin-bottom:16px">
+        <div style="background:var(--bg,#fff);border:1px solid var(--border,#e5e7eb);border-radius:14px;padding:14px">
+          <div style="font-size:9px;color:var(--text2,#888);font-weight:700;margin-bottom:5px;text-transform:uppercase">সেরা সময়</div>
+          <div id="dw-ins-peak" style="font-size:18px;font-weight:900;color:#38BDF8">--</div>
+          <div style="font-size:9px;color:var(--text2,#888);margin-top:2px">peak focus hour</div>
+        </div>
+        <div style="background:var(--bg,#fff);border:1px solid var(--border,#e5e7eb);border-radius:14px;padding:14px">
+          <div style="font-size:9px;color:var(--text2,#888);font-weight:700;margin-bottom:5px;text-transform:uppercase">গড় সেশন</div>
+          <div id="dw-ins-avg" style="font-size:18px;font-weight:900;color:#6366F1">0m</div>
+          <div style="font-size:9px;color:var(--text2,#888);margin-top:2px">প্রতি সেশন</div>
+        </div>
+        <div style="background:var(--bg,#fff);border:1px solid var(--border,#e5e7eb);border-radius:14px;padding:14px">
+          <div style="font-size:9px;color:var(--text2,#888);font-weight:700;margin-bottom:5px;text-transform:uppercase">গড় Flow</div>
+          <div id="dw-ins-flow" style="font-size:18px;font-weight:900;color:var(--text,#1a1a2e)">--</div>
+          <div style="font-size:9px;color:var(--text2,#888);margin-top:2px">flow rating</div>
+        </div>
+        <div style="background:var(--bg,#fff);border:1px solid var(--border,#e5e7eb);border-radius:14px;padding:14px">
+          <div style="font-size:9px;color:var(--text2,#888);font-weight:700;margin-bottom:5px;text-transform:uppercase">মোট সেশন</div>
+          <div id="dw-ins-total" style="font-size:18px;font-weight:900;color:#FF8A00">0</div>
+          <div style="font-size:9px;color:var(--text2,#888);margin-top:2px">সব সময়</div>
+        </div>
+      </div>
+
+      <!-- ISLAMIC FOCUS -->
+      <div style="background:linear-gradient(160deg,#080D1A,#0D1528);border-radius:16px;padding:18px;margin-bottom:16px;border:1px solid rgba(56,189,248,.1)">
+        <div style="font-size:13px;font-weight:800;color:#fff;margin-bottom:4px">🕌 ইসলামী Motivation</div>
+        <div style="font-size:11px;color:rgba(255,255,255,.4);margin-bottom:14px">নিয়্যত ঠিক রাখুন, আল্লাহর সন্তুষ্টির জন্য কাজ করুন</div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px">
+          <div style="background:rgba(255,255,255,.04);border:1px solid rgba(56,189,248,.2);border-radius:12px;padding:14px">
+            <div style="font-size:11px;font-weight:800;color:#38BDF8;margin-bottom:6px">📖 হাদিস</div>
+            <div style="font-size:11px;color:rgba(255,255,255,.65);line-height:1.7">"সময় হলো তরবারির মতো — কাজে না লাগালে সে তোমাকে কেটে ফেলবে।" — আলী (রা.)</div>
+          </div>
+          <div style="background:rgba(255,255,255,.04);border:1px solid rgba(99,102,241,.2);border-radius:12px;padding:14px">
+            <div style="font-size:11px;font-weight:800;color:#a5b4fc;margin-bottom:6px">🤲 নিয়্যত</div>
+            <div style="font-size:11px;color:rgba(255,255,255,.65);line-height:1.7">বিসমিল্লাহ বলে শুরু করুন। প্রতিটি কাজ ইবাদত হতে পারে সঠিক নিয়্যতে।</div>
+          </div>
+          <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,138,0,.2);border-radius:12px;padding:14px">
+            <div style="font-size:11px;font-weight:800;color:#FF8A00;margin-bottom:6px">⏰ সময়ের মূল্য</div>
+            <div style="font-size:11px;color:rgba(255,255,255,.65);line-height:1.7">কেয়ামতে জিজ্ঞেস করা হবে জীবনের সময় কোথায় ব্যয় করলে।</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SESSION LOG -->
+      <div style="background:var(--bg2,#f3f4f6);border-radius:16px;padding:16px">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+          <div style="font-size:13px;font-weight:800;color:var(--text,#1a1a2e)">📋 সেশন ইতিহাস</div>
+          <button onclick="dwClearLog()" style="background:transparent;border:1px solid var(--border,#e5e7eb);border-radius:8px;padding:4px 10px;font-size:10px;font-weight:700;cursor:pointer;color:var(--text2,#888)">সব মুছুন</button>
+        </div>
+        <div id="dw-session-log"><div style="text-align:center;padding:24px;color:var(--text2,#888);font-size:13px">এখনো কোনো সেশন নেই। আজই শুরু করুন! 🧠</div></div>
+      </div>
+
+    </div><!-- end page-content -->
+
+    <!-- DESKTOP DONATION SIDEBAR -->
+    <div class="rz-donation-sidebar">
+      <div class="rz-dsb-inner">
+        <div style="text-align:center;margin-bottom:20px">
+          <div style="width:58px;height:58px;border-radius:18px;background:linear-gradient(135deg,rgba(56,189,248,.12),rgba(99,102,241,.1));border:1px solid rgba(56,189,248,.3);display:flex;align-items:center;justify-content:center;margin:0 auto 12px;font-size:28px">🧠</div>
+          <div style="font-size:12px;font-weight:800;color:#38BDF8;letter-spacing:1px;text-transform:uppercase">Deep Work Tracker</div>
+        </div>
+        <div style="background:rgba(56,189,248,.06);border:1px solid rgba(56,189,248,.15);border-radius:14px;padding:16px;margin-bottom:16px">
+          <div style="font-size:14px;font-weight:700;color:var(--text,#1f2937);line-height:1.6;margin-bottom:10px">"গভীর কাজই আপনাকে এগিয়ে নিয়ে যাবে।"</div>
+          <div style="font-size:12px;color:var(--text2,#888);line-height:1.7">Rizers ব্যবহার করে প্রতিদিন মানুষ focus করছে। আপনার সাপোর্ট এই যাত্রা চালু রাখে।</div>
+        </div>
+        <div style="margin-bottom:16px">
+          <div style="font-size:11px;font-weight:700;color:var(--text,#1a1a2e);margin-bottom:8px">আজকের সেশন</div>
+          <div id="dw-sb-today"><div style="font-size:11px;color:var(--text2,#888)">কোনো সেশন নেই</div></div>
+        </div>
+        <div style="margin-bottom:16px">
+          <div style="font-size:11px;font-weight:700;color:var(--text,#1a1a2e);margin-bottom:8px">📈 পরিসংখ্যান</div>
+          <div style="display:flex;flex-direction:column;gap:6px">
+            <div style="display:flex;justify-content:space-between"><span style="font-size:11px;color:var(--text2,#888)">🔥 স্ট্রিক</span><span id="dw-sb-streak" style="font-size:11px;font-weight:700;color:#FF8A00">0 দিন</span></div>
+            <div style="display:flex;justify-content:space-between"><span style="font-size:11px;color:var(--text2,#888)">⏱ মোট সময়</span><span id="dw-sb-total" style="font-size:11px;font-weight:700;color:#38BDF8">0m</span></div>
+            <div style="display:flex;justify-content:space-between"><span style="font-size:11px;color:var(--text2,#888)">🎯 গড় Flow</span><span id="dw-sb-flow" style="font-size:11px;font-weight:700;color:#6366F1">--</span></div>
+          </div>
+        </div>
+        <div style="height:1px;background:var(--border,#e5e7eb);margin-bottom:16px"></div>
+        <div style="font-size:12px;color:var(--text2,#888);line-height:1.8;font-style:italic">"যে ব্যক্তি কোনো ভালো কাজে সহায়তা করে, সে যেন সেই কাজ নিজেই করলো।"</div>
+        <div style="font-size:11px;color:#FF8A00;font-weight:700;margin-top:6px;margin-bottom:16px">— বুখারী ও মুসলিম</div>
+        <a href="#" onclick="rzGoToPayment&&rzGoToPayment();return false;" style="display:block;width:100%;background:linear-gradient(135deg,#FF8A00,#FFB800);color:#090B12;font-size:14px;font-weight:800;text-align:center;padding:15px;border-radius:13px;text-decoration:none;box-shadow:0 4px 16px rgba(255,138,0,.4);box-sizing:border-box">🤲 ৳৯৯/মাসে Support করুন</a>
+        <div style="text-align:center;margin-top:12px;font-size:11px;color:var(--text2,#888)">সম্পূর্ণ স্বেচ্ছায় &bull; যেকোনো সময় বাতিল করুন</div>
+      </div>
+    </div>
+
+  </div>
+</div><!-- end adult wrap -->
+
+<!-- FOCUS MODE OVERLAY -->
+<div id="dw-focus-overlay" style="display:none;position:fixed;inset:0;z-index:9000;background:#02050E;flex-direction:column;align-items:center;justify-content:center;padding:24px">
+
+  <!-- dot-grid bg -->
+  <div style="position:absolute;inset:0;background-image:radial-gradient(rgba(56,189,248,.06) 1px,transparent 1px);background-size:22px 22px;pointer-events:none"></div>
+
+  <!-- top label -->
+  <div style="font-size:10px;color:rgba(56,189,248,.45);letter-spacing:3px;text-transform:uppercase;margin-bottom:10px;font-family:'Courier New',monospace">◉ DEEP WORK — FOCUS MODE</div>
+  <div id="dw-fo-task" style="font-size:15px;font-weight:700;color:rgba(255,255,255,.55);margin-bottom:22px;max-width:300px;text-align:center;letter-spacing:.5px"></div>
+
+  <!-- HUD panel -->
+  <div style="position:relative;width:100%;max-width:340px;background:rgba(8,16,36,.85);border:1px solid rgba(56,189,248,.18);border-radius:20px;padding:28px 24px 20px;backdrop-filter:blur(10px);box-shadow:0 0 40px rgba(56,189,248,.06),0 20px 60px rgba(0,0,0,.6)">
+
+    <!-- corner brackets -->
+    <div style="position:absolute;top:10px;left:10px;width:16px;height:16px;border-top:2px solid #38BDF8;border-left:2px solid #38BDF8;border-radius:3px 0 0 0"></div>
+    <div style="position:absolute;top:10px;right:10px;width:16px;height:16px;border-top:2px solid #38BDF8;border-right:2px solid #38BDF8;border-radius:0 3px 0 0"></div>
+    <div style="position:absolute;bottom:10px;left:10px;width:16px;height:16px;border-bottom:2px solid #38BDF8;border-left:2px solid #38BDF8;border-radius:0 0 0 3px"></div>
+    <div style="position:absolute;bottom:10px;right:10px;width:16px;height:16px;border-bottom:2px solid #38BDF8;border-right:2px solid #38BDF8;border-radius:0 0 3px 0"></div>
+
+    <!-- scanline sweep -->
+    <div id="dw-fo-scanline" style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,rgba(56,189,248,.35),transparent);border-radius:20px 20px 0 0;opacity:0;transition:opacity .3s"></div>
+
+    <!-- FOCUS TIME label + status -->
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px">
+      <span style="font-size:9px;color:rgba(56,189,248,.4);letter-spacing:2px;font-family:'Courier New',monospace;text-transform:uppercase">FOCUS TIME</span>
+      <div style="display:flex;align-items:center;gap:6px">
+        <div id="dw-fo-dot" style="width:7px;height:7px;border-radius:50%;background:rgba(56,189,248,.3)"></div>
+        <span id="dw-fo-status" style="font-size:9px;color:rgba(56,189,248,.4);letter-spacing:1.5px;font-family:'Courier New',monospace">চলছে...</span>
+      </div>
+    </div>
+
+    <!-- Big timer -->
+    <div id="dw-fo-timer" style="font-size:58px;font-weight:900;color:#fff;font-family:'Courier New',monospace;letter-spacing:4px;text-align:center;line-height:1;text-shadow:0 0 30px rgba(56,189,248,.25);margin-bottom:14px">45:00</div>
+
+    <!-- EQ bars -->
+    <div style="display:flex;align-items:flex-end;justify-content:center;gap:3px;height:28px;margin-bottom:14px">
+      <div id="dw-fo-eq-0"  class="dw-eq-bar" style="--dh:55%"></div>
+      <div id="dw-fo-eq-1"  class="dw-eq-bar" style="--dh:80%"></div>
+      <div id="dw-fo-eq-2"  class="dw-eq-bar" style="--dh:40%"></div>
+      <div id="dw-fo-eq-3"  class="dw-eq-bar" style="--dh:95%"></div>
+      <div id="dw-fo-eq-4"  class="dw-eq-bar" style="--dh:65%"></div>
+      <div id="dw-fo-eq-5"  class="dw-eq-bar" style="--dh:100%"></div>
+      <div id="dw-fo-eq-6"  class="dw-eq-bar" style="--dh:70%"></div>
+      <div id="dw-fo-eq-7"  class="dw-eq-bar" style="--dh:50%"></div>
+      <div id="dw-fo-eq-8"  class="dw-eq-bar" style="--dh:85%"></div>
+      <div id="dw-fo-eq-9"  class="dw-eq-bar" style="--dh:45%"></div>
+      <div id="dw-fo-eq-10" class="dw-eq-bar" style="--dh:75%"></div>
+    </div>
+
+    <!-- Drain bar -->
+    <div style="position:relative;height:6px;background:rgba(56,189,248,.08);border-radius:4px;margin-bottom:6px;overflow:hidden">
+      <div id="dw-fo-ring" style="height:100%;width:100%;border-radius:4px;background:linear-gradient(90deg,#38BDF8,#6366F1);transition:width 1s linear;box-shadow:0 0 10px rgba(56,189,248,.5)"></div>
+    </div>
+    <div style="display:flex;justify-content:space-between;margin-bottom:22px">
+      <span style="font-size:9px;color:rgba(255,255,255,.18);font-family:'Courier New',monospace">শুরু</span>
+      <span style="font-size:9px;color:rgba(255,255,255,.18);font-family:'Courier New',monospace">শেষ</span>
+    </div>
+
+    <!-- Distraction row -->
+    <div style="display:flex;align-items:center;justify-content:space-between;background:rgba(239,68,68,.06);border:1px solid rgba(239,68,68,.12);border-radius:12px;padding:10px 16px;margin-bottom:14px">
+      <button onclick="dwLogDistraction()" style="background:rgba(239,68,68,.15);border:1px solid rgba(239,68,68,.3);color:#EF4444;padding:7px 14px;border-radius:8px;font-weight:700;font-size:12px;cursor:pointer;display:flex;align-items:center;gap:6px">
+        <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M6.5 1L7.9 4.7H12L8.9 7.1L10 11L6.5 8.7L3 11L4.1 7.1L1 4.7H5.1Z" fill="#EF4444"/></svg>
+        বাধা লগ
+      </button>
+      <div style="text-align:center">
+        <div id="dw-fo-distract" style="font-size:26px;font-weight:900;color:#EF4444;line-height:1;font-family:'Courier New',monospace">0</div>
+        <div style="font-size:9px;color:rgba(255,255,255,.2);letter-spacing:1px">বাধা</div>
+      </div>
+      <button id="dw-fo-pause" onclick="dwPauseSession()" style="background:rgba(56,189,248,.1);border:1px solid rgba(56,189,248,.25);color:#38BDF8;padding:7px 14px;border-radius:8px;font-weight:700;font-size:12px;cursor:pointer;display:flex;align-items:center;gap:6px">
+        <svg id="dw-fo-pause-icon" width="13" height="13" viewBox="0 0 13 13" fill="none"><rect x="2" y="1" width="3" height="11" rx="1" fill="#38BDF8"/><rect x="8" y="1" width="3" height="11" rx="1" fill="#38BDF8"/></svg>
+        <span id="dw-fo-pause-label">বিরতি</span>
+      </button>
+    </div>
+
+    <!-- Bottom actions -->
+    <div style="display:flex;gap:10px">
+      <button onclick="dwExitFocusMode()" style="flex:1;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);color:rgba(255,255,255,.4);padding:11px;border-radius:10px;font-weight:700;font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px">
+        <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M8 2L3 6.5L8 11" stroke="rgba(255,255,255,.4)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        ফিরুন
+      </button>
+      <button onclick="dwStopSession()" style="flex:1;background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.25);color:#EF4444;padding:11px;border-radius:10px;font-weight:700;font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px">
+        <svg width="11" height="11" viewBox="0 0 11 11" fill="none"><rect x="1" y="1" width="9" height="9" rx="2" fill="#EF4444"/></svg>
+        শেষ করুন
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- FLOW RATING MODAL -->
+<div id="dw-flow-modal" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.75);backdrop-filter:blur(6px);align-items:center;justify-content:center;padding:20px">
+  <div style="background:var(--bg,#fff);border-radius:24px;width:100%;max-width:400px;padding:32px;text-align:center;box-shadow:0 30px 80px rgba(0,0,0,.4)">
+    <div style="font-size:40px;margin-bottom:10px">🎉</div>
+    <div style="font-size:20px;font-weight:900;color:var(--text,#1a1a2e);margin-bottom:6px">সেশন সম্পন্ন!</div>
+    <div id="dw-modal-summary" style="font-size:12px;color:var(--text2,#888);margin-bottom:20px;line-height:1.6"></div>
+    <div style="font-size:13px;font-weight:700;color:var(--text,#1a1a2e);margin-bottom:12px">আপনার Flow State কেমন ছিল?</div>
+    <div style="display:flex;gap:8px;justify-content:center;margin-bottom:20px">
+      <button onclick="dwRateFlow(1)" class="dw-flow-btn" style="font-size:26px;background:var(--bg2,#f3f4f6);border:2px solid var(--border,#e5e7eb);border-radius:12px;padding:8px 10px;cursor:pointer" title="খুব খারাপ">😩</button>
+      <button onclick="dwRateFlow(2)" class="dw-flow-btn" style="font-size:26px;background:var(--bg2,#f3f4f6);border:2px solid var(--border,#e5e7eb);border-radius:12px;padding:8px 10px;cursor:pointer" title="খারাপ">😕</button>
+      <button onclick="dwRateFlow(3)" class="dw-flow-btn" style="font-size:26px;background:var(--bg2,#f3f4f6);border:2px solid var(--border,#e5e7eb);border-radius:12px;padding:8px 10px;cursor:pointer" title="ঠিকঠাক">😐</button>
+      <button onclick="dwRateFlow(4)" class="dw-flow-btn" style="font-size:26px;background:var(--bg2,#f3f4f6);border:2px solid var(--border,#e5e7eb);border-radius:12px;padding:8px 10px;cursor:pointer" title="ভালো">😊</button>
+      <button onclick="dwRateFlow(5)" class="dw-flow-btn" style="font-size:26px;background:var(--bg2,#f3f4f6);border:2px solid var(--border,#e5e7eb);border-radius:12px;padding:8px 10px;cursor:pointer" title="অসাধারণ">🚀</button>
+    </div>
+    <textarea id="dw-modal-notes" placeholder="সেশনে কী অর্জন করলেন? (ঐচ্ছিক)" rows="3" style="width:100%;box-sizing:border-box;border:1.5px solid var(--border,#e5e7eb);border-radius:12px;padding:10px 14px;font-size:12px;font-family:inherit;color:var(--text,#1a1a2e);background:var(--bg,#fff);outline:none;resize:none;margin-bottom:14px"></textarea>
+    <button onclick="dwSaveSession()" style="width:100%;background:linear-gradient(135deg,#38BDF8,#6366F1);color:#fff;border:none;padding:14px;border-radius:13px;font-weight:800;font-size:14px;cursor:pointer">সংরক্ষণ করুন ✓</button>
+  </div>
+</div>
+
+<!-- PROJECT MODAL -->
+<div id="dw-project-modal" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.6);backdrop-filter:blur(4px);align-items:center;justify-content:center;padding:20px">
+  <div style="background:var(--bg,#fff);border-radius:20px;width:100%;max-width:340px;padding:24px;box-shadow:0 20px 60px rgba(0,0,0,.3)">
+    <div style="font-size:16px;font-weight:900;color:var(--text,#1a1a2e);margin-bottom:16px">📁 প্রজেক্ট যোগ করুন</div>
+    <input id="dw-project-input" type="text" placeholder="প্রজেক্টের নাম..." style="width:100%;box-sizing:border-box;border:1.5px solid var(--border,#e5e7eb);border-radius:10px;padding:10px 14px;font-size:14px;font-family:inherit;outline:none;margin-bottom:12px;color:var(--text,#1a1a2e);background:var(--bg,#fff)" onkeydown="if(event.key==='Enter')dwAddProject()"/>
+    <div style="display:flex;gap:8px">
+      <button onclick="document.getElementById('dw-project-modal').style.display='none'" style="flex:1;background:var(--bg2,#f3f4f6);border:none;padding:10px;border-radius:10px;font-weight:700;cursor:pointer;color:var(--text2,#888)">বাতিল</button>
+      <button onclick="dwAddProject()" style="flex:1;background:linear-gradient(135deg,#38BDF8,#6366F1);color:#fff;border:none;padding:10px;border-radius:10px;font-weight:800;cursor:pointer">যোগ করুন</button>
+    </div>
+  </div>
+</div>
+
+<!-- GOAL MODAL -->
+<div id="dw-goal-modal" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.6);backdrop-filter:blur(4px);align-items:center;justify-content:center;padding:20px">
+  <div style="background:var(--bg,#fff);border-radius:20px;width:100%;max-width:320px;padding:24px;box-shadow:0 20px 60px rgba(0,0,0,.3)">
+    <div style="font-size:16px;font-weight:900;color:var(--text,#1a1a2e);margin-bottom:16px">🎯 দৈনিক লক্ষ্য বেছে নিন</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px">
+      <button onclick="dwSetGoal(60)" style="padding:14px;border:2px solid var(--border,#e5e7eb);border-radius:12px;font-weight:800;cursor:pointer;font-size:13px;background:var(--bg2,#f3f4f6);color:var(--text,#1a1a2e)">১ ঘণ্টা</button>
+      <button onclick="dwSetGoal(120)" style="padding:14px;border:2px solid var(--border,#e5e7eb);border-radius:12px;font-weight:800;cursor:pointer;font-size:13px;background:var(--bg2,#f3f4f6);color:var(--text,#1a1a2e)">২ ঘণ্টা</button>
+      <button onclick="dwSetGoal(180)" style="padding:14px;border:2px solid var(--border,#e5e7eb);border-radius:12px;font-weight:800;cursor:pointer;font-size:13px;background:var(--bg2,#f3f4f6);color:var(--text,#1a1a2e)">৩ ঘণ্টা</button>
+      <button onclick="dwSetGoal(240)" style="padding:14px;border:2px solid var(--border,#e5e7eb);border-radius:12px;font-weight:800;cursor:pointer;font-size:13px;background:var(--bg2,#f3f4f6);color:var(--text,#1a1a2e)">৪ ঘণ্টা</button>
+    </div>
+    <button onclick="document.getElementById('dw-goal-modal').style.display='none'" style="width:100%;background:var(--bg2,#f3f4f6);border:none;padding:10px;border-radius:10px;font-weight:700;cursor:pointer;color:var(--text2,#888)">বাতিল</button>
+  </div>
+</div>
+
+</div><!-- end deepwork-page -->

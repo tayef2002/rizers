@@ -1,0 +1,360 @@
+<div id="challenges-page" class="app-page" style="display:none">
+  <div class="chl-wrap">
+
+    <!-- Browse view -->
+    <div id="chl-browse-view">
+      <div class="chl-browse-header">
+        <h2 class="chl-page-title">Challenges</h2>
+        <button class="chl-btn-primary chl-new-btn" onclick="chlOpenCreateModal()">+ Start New Challenge</button>
+      </div>
+      <div id="chl-browse-list" class="chl-browse-list"></div>
+    </div>
+
+    <!-- Detail view -->
+    <div id="chl-detail-view" style="display:none">
+      <button class="chl-back-btn" onclick="chlBackToBrowse()">&larr; Back to Challenges</button>
+      <div class="chl-detail-header">
+        <div class="chl-cover"></div>
+        <div class="chl-detail-body">
+          <div id="chl-detail-icon" class="chl-detail-avatar">🎯</div>
+          <div id="chl-detail-title" class="chl-detail-title"></div>
+          <div id="chl-detail-creator" class="chl-detail-creator"></div>
+          <div class="chl-detail-stats-row">
+            <span id="chl-detail-membercount"></span>
+            <span id="chl-detail-duration-dot" class="chl-stat-dot">·</span>
+            <span id="chl-detail-duration"></span>
+          </div>
+          <div id="chl-detail-desc" class="chl-detail-desc"></div>
+          <div id="chl-detail-avatars" class="chl-avatar-strip"></div>
+        </div>
+      </div>
+      <div id="chl-join-actions" class="chl-join-actions chl-not-joined">
+        <button id="chl-join-btn" class="chl-btn-primary" onclick="chlToggleJoin(chlCurrentChallengeId)">Join Challenge — <span id="chl-join-fee-text">100</span> Reys</button>
+        <div id="chl-leave-btn" class="chl-join-toggle">
+          <span class="chl-join-toggle-active">&#10003; Joined</span>
+          <button onclick="chlToggleJoin(chlCurrentChallengeId)">Leave</button>
+        </div>
+      </div>
+      <div class="chl-cal-wrap">
+        <div class="chl-cal-label">গত ৭ দিনের অগ্রগতি</div>
+        <div id="chl-progress-cal" style="display:flex;gap:5px"></div>
+        <div id="chl-quick-complete-wrap" style="display:none;margin-top:12px;padding-top:12px;border-top:1px solid var(--border)">
+          <button id="chl-quick-complete-btn" onclick="chlQuickCompleteToday(chlCurrentChallengeId)" style="width:100%;display:flex;align-items:center;justify-content:center;gap:8px;background:rgba(255,138,0,.08);border:1.5px solid rgba(255,138,0,.3);color:#FF8A00;border-radius:12px;padding:10px;font-size:12.5px;font-weight:700;cursor:pointer;font-family:inherit">
+            ✅ আজকের Challenge সম্পন্ন করেছি <span style="opacity:.7;font-weight:600">— Free</span>
+          </button>
+        </div>
+        <div id="chl-milestone-btn-wrap" style="display:none;margin-top:12px;padding-top:12px;border-top:1px solid var(--border)">
+          <button onclick="chlOpenMilestoneCardCurrent(chlCurrentChallengeId)" style="width:100%;display:flex;align-items:center;justify-content:center;gap:8px;background:linear-gradient(135deg,rgba(255,138,0,.12),rgba(255,184,0,.06));border:1.5px solid rgba(255,138,0,.3);color:#FF8A00;border-radius:12px;padding:10px;font-size:12.5px;font-weight:700;cursor:pointer;font-family:inherit">
+            🎉 তোমার Streak Card দেখো / শেয়ার করো
+          </button>
+        </div>
+      </div>
+      <div id="chl-progress-prompt" class="chl-progress-prompt" onclick="chlOpenProgressComposer(chlCurrentChallengeId)">Share your progress...</div>
+      <div id="chl-feed" class="chl-feed"></div>
+    </div>
+
+  </div>
+
+  <!-- Create Challenge modal — page-scoped, modeled on RizMeet's .rzm-modal-overlay/.rzm-modal
+       visual pattern (pages/rizmeet.html) but with independent .chl-* classes, since rizmeet.html's
+       own <style> block only exists in the DOM once that page fragment has been fetched. -->
+  <div class="chl-modal-overlay" id="chl-create-modal" onclick="if(event.target===this)this.classList.remove('open')">
+    <div class="chl-modal" role="dialog" aria-labelledby="chl-create-modal-title">
+      <button class="chl-modal-close" onclick="document.getElementById('chl-create-modal').classList.remove('open')">&times;</button>
+      <div class="chl-modal-title" id="chl-create-modal-title">Start New Challenge</div>
+
+      <div class="chl-form-group">
+        <label class="chl-label" for="chl-c-title">Title *</label>
+        <input type="text" class="chl-input" id="chl-c-title" maxlength="60" placeholder="e.g. 30 Day Fajr Challenge">
+      </div>
+
+      <div class="chl-form-group">
+        <label class="chl-label" for="chl-c-desc">Description</label>
+        <textarea class="chl-textarea" id="chl-c-desc" maxlength="300" placeholder="What is this challenge about?"></textarea>
+      </div>
+
+      <div class="chl-form-group">
+        <label class="chl-label">Icon</label>
+        <div class="chl-chips" id="chl-c-icon-chips">
+          <button type="button" class="chl-chip selected" data-val="🔥" onclick="chlSelectChip('c-icon',this)">🔥</button>
+          <button type="button" class="chl-chip" data-val="🎯" onclick="chlSelectChip('c-icon',this)">🎯</button>
+          <button type="button" class="chl-chip" data-val="📖" onclick="chlSelectChip('c-icon',this)">📖</button>
+          <button type="button" class="chl-chip" data-val="🕌" onclick="chlSelectChip('c-icon',this)">🕌</button>
+          <button type="button" class="chl-chip" data-val="💪" onclick="chlSelectChip('c-icon',this)">💪</button>
+          <button type="button" class="chl-chip" data-val="🌙" onclick="chlSelectChip('c-icon',this)">🌙</button>
+        </div>
+        <input type="hidden" id="chl-c-icon" value="🔥">
+      </div>
+
+      <div class="chl-form-group">
+        <label class="chl-label">Duration</label>
+        <div class="chl-chips" id="chl-c-duration-chips">
+          <button type="button" class="chl-chip" data-val="7" onclick="chlSelectChip('c-duration',this)">7 Days</button>
+          <button type="button" class="chl-chip selected" data-val="30" onclick="chlSelectChip('c-duration',this)">30 Days</button>
+          <button type="button" class="chl-chip" data-val="" onclick="chlSelectChip('c-duration',this)">No End Date</button>
+        </div>
+        <input type="hidden" id="chl-c-duration" value="30">
+      </div>
+
+      <div id="chl-c-error" class="chl-error" style="display:none"></div>
+
+      <div class="chl-modal-actions">
+        <button class="chl-btn-outline" onclick="document.getElementById('chl-create-modal').classList.remove('open')">Cancel</button>
+        <button class="chl-btn-primary" id="chl-c-submit-btn" onclick="chlSubmitCreate()">Create Challenge</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Progress Composer — purpose-built for logging progress on a challenge (not the generic
+       Rise-feed composer): shows which day of the challenge this is + any current streak, and a
+       one-tap "did it today" quick-log alongside the free-text option. Same .chl-modal-overlay/
+       .chl-modal visual pattern as the Create Challenge modal above. -->
+  <div class="chl-modal-overlay" id="chl-progress-modal" onclick="if(event.target===this)chlCloseProgressComposer()">
+    <div class="chl-modal" role="dialog" aria-labelledby="chl-pc-title-lbl">
+      <button class="chl-modal-close" onclick="chlCloseProgressComposer()">&times;</button>
+
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px">
+        <div id="chl-pc-icon" style="width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg,#FF8A00,#FFB800);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0">🎯</div>
+        <div style="min-width:0">
+          <div id="chl-pc-title-lbl" style="font-size:14.5px;font-weight:800;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Challenge</div>
+          <div id="chl-pc-day" style="font-size:11.5px;color:var(--text2);font-weight:600">Day 1</div>
+        </div>
+      </div>
+
+      <div id="chl-pc-streak-badge" style="display:none;align-items:center;gap:8px;background:#FF8A0012;border:1px solid #FF8A0030;border-radius:12px;padding:10px 14px;margin-bottom:14px">
+        <span style="font-size:17px">🔥</span>
+        <span id="chl-pc-streak-text" style="font-size:12px;font-weight:700;color:var(--text)"></span>
+      </div>
+
+      <button type="button" onclick="chlQuickLog()" style="width:100%;padding:11px;background:#10B98114;border:1.5px solid #10B98140;color:#10B981;border-radius:12px;font-size:13px;font-weight:700;cursor:pointer;margin-bottom:14px;display:flex;align-items:center;justify-content:center;gap:8px;font-family:inherit">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        আজ সম্পন্ন করেছি — এক ট্যাপে লগ করো
+      </button>
+
+      <!-- Auto-generated card preview — like Facebook's colored-background text posts, this
+           shows what will actually be posted (a dark/premium 1:1 card with the caption drawn on
+           it, see chlDrawProgressCard in js/app.js) when no real photo is attached. Redrawn live
+           as the caption is typed; swapped out for the real photo preview below it if the user
+           attaches one instead (see chlPickImage/chlClearImage). -->
+      <div id="chl-pc-card-preview" style="display:flex;justify-content:center;margin-bottom:14px">
+        <canvas id="chl-pc-card-canvas" width="1080" height="1080" style="width:100%;max-width:180px;border-radius:14px;box-shadow:0 8px 24px rgba(0,0,0,.3)"></canvas>
+      </div>
+
+      <div class="chl-form-group">
+        <label class="chl-label">তোমার অগ্রগতি</label>
+        <textarea class="chl-textarea" id="chl-pc-text" maxlength="200" placeholder="আজ কী করলে লিখো..." oninput="chlUpdateSubmitState();chlScheduleProgressCardPreview()"></textarea>
+      </div>
+
+      <div id="chl-pc-attach-prev" style="display:none;position:relative;margin-bottom:14px;border-radius:12px;overflow:hidden">
+        <img id="chl-pc-attach-img" style="width:100%;display:block"/>
+        <button type="button" onclick="chlClearImage()" style="position:absolute;top:8px;right:8px;width:26px;height:26px;border-radius:50%;background:rgba(0,0,0,.6);color:#fff;border:none;cursor:pointer;font-size:14px;line-height:1">&times;</button>
+      </div>
+
+      <input type="file" id="chl-pc-file" accept="image/*" style="display:none" onchange="chlPickImage(this)"/>
+
+      <div class="chl-modal-actions">
+        <button class="chl-btn-outline" type="button" onclick="document.getElementById('chl-pc-file').click()" style="flex:0 0 auto;padding:9px 14px">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+        </button>
+        <button class="chl-btn-primary" id="chl-pc-submit-btn" onclick="chlComposerSubmit()">Share Progress</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Milestone Shareable Card — canvas is drawn at a fixed 1080x1920 (Instagram/WhatsApp
+       Story ratio) resolution in js/app.js (chlDrawMilestoneCard) and just scaled down
+       visually here via CSS width; download/share always use the full-res canvas. -->
+  <div class="chl-modal-overlay" id="chl-milestone-modal" onclick="if(event.target===this)chlCloseMilestoneCard()">
+    <div class="chl-modal" role="dialog" aria-labelledby="chl-mc-title-lbl" style="max-width:280px">
+      <button class="chl-modal-close" onclick="chlCloseMilestoneCard()">&times;</button>
+      <div class="chl-modal-title" id="chl-mc-title-lbl">🎉 Milestone Card</div>
+      <div style="display:flex;justify-content:center;margin-bottom:16px">
+        <canvas id="chl-mc-canvas" width="1080" height="1920" style="width:100%;max-width:160px;border-radius:14px;box-shadow:0 8px 24px rgba(0,0,0,.35)"></canvas>
+      </div>
+      <div class="chl-modal-actions">
+        <button class="chl-btn-outline" type="button" onclick="chlDownloadMilestoneCard()">📥 Download</button>
+        <button class="chl-btn-primary" type="button" onclick="chlShareMilestoneCard()">📤 Share করো</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Custom confirm — replaces the browser's native confirm() for Join/Leave/Streak Freeze
+       (js/app.js: chlConfirm()/chlConfirmResolve()), which looked jarring/inconsistent across
+       browsers. Small "mini card" variant of the same .chl-modal-overlay/.chl-modal pattern —
+       already mobile/desktop responsive (centered on desktop, bottom-sheet on mobile). -->
+  <div class="chl-modal-overlay" id="chl-confirm-modal" onclick="if(event.target===this)chlConfirmResolve(false)">
+    <div class="chl-modal" role="alertdialog" aria-labelledby="chl-confirm-message" style="max-width:300px;text-align:center;padding-top:28px">
+      <div id="chl-confirm-icon" style="width:44px;height:44px;border-radius:50%;background:rgba(255,138,0,.12);display:flex;align-items:center;justify-content:center;font-size:20px;margin:0 auto 14px;font-family:'Segoe UI Emoji','Apple Color Emoji','Noto Color Emoji',sans-serif">❓</div>
+      <div id="chl-confirm-message" style="font-size:13.5px;color:var(--text);line-height:1.55;margin-bottom:20px"></div>
+      <div class="chl-modal-actions">
+        <button class="chl-btn-outline" type="button" onclick="chlConfirmResolve(false)">বাতিল</button>
+        <button class="chl-btn-primary" type="button" id="chl-confirm-ok-btn" onclick="chlConfirmResolve(true)">নিশ্চিত করো</button>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    #challenges-page .chl-wrap{max-width:720px;margin:0 auto;padding:16px}
+    #challenges-page .chl-browse-header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px;flex-wrap:wrap}
+    #challenges-page .chl-page-title{font-size:20px;font-weight:800;color:var(--text);margin:0}
+    #challenges-page .chl-empty{text-align:center;padding:40px 16px;color:var(--text2);font-size:13px}
+
+    /* Buttons — same visual language as RizMeet's .rzm-btn-primary/.rzm-btn-outline */
+    #challenges-page .chl-btn-primary{display:inline-flex;align-items:center;justify-content:center;gap:6px;background:linear-gradient(135deg,#FF8A00,#FFB800);color:#fff;border:none;border-radius:12px;padding:11px 18px;font-size:13.5px;font-weight:700;cursor:pointer;transition:opacity .2s,transform .1s}
+    /* Header-level CTA, sitting right next to the compact Me/Kids pill toggle (.rz-modesw in
+       index.html/styles.css) — the default .chl-btn-primary sizing (built for in-content
+       buttons like Join/Share Progress) read as oversized up here. Scaled down to match the
+       toggle's own proportions (padding 5px 14px, font-size 12px, border-radius 20px). */
+    #challenges-page .chl-new-btn{padding:6px 14px;font-size:12px;border-radius:20px;gap:4px}
+    #challenges-page .chl-btn-primary:active{opacity:.85;transform:scale(.98)}
+    #challenges-page .chl-btn-primary:disabled{opacity:.6;cursor:default}
+    #challenges-page .chl-btn-outline{display:inline-flex;align-items:center;justify-content:center;gap:6px;background:transparent;color:#FF8A00;border:1.5px solid #FF8A00;border-radius:12px;padding:9px 16px;font-size:13px;font-weight:600;cursor:pointer;transition:background .2s}
+    #challenges-page .chl-btn-outline:active{background:#FF8A0015}
+
+    /* Browse list cards */
+    #challenges-page .chl-browse-list{display:flex;flex-direction:column;gap:12px}
+    #challenges-page .chl-card{background:var(--card);border:1.5px solid var(--border);border-radius:16px;padding:16px;display:flex;gap:12px;align-items:flex-start;cursor:pointer;transition:box-shadow .18s,border-color .18s}
+    #challenges-page .chl-card:hover{box-shadow:0 4px 20px rgba(0,0,0,.08);border-color:#FF8A00}
+    #challenges-page .chl-card-icon{width:44px;height:44px;border-radius:12px;background:#FF8A0020;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+    #challenges-page .chl-card-body{flex:1;min-width:0}
+    #challenges-page .chl-card-title{font-size:15px;font-weight:700;color:var(--text)}
+    #challenges-page .chl-card-desc{font-size:12.5px;color:var(--text2);margin-top:3px;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2}
+    #challenges-page .chl-card-meta{font-size:11.5px;color:var(--text2);margin-top:8px;display:flex;align-items:center;gap:6px}
+    #challenges-page .chl-card-actions{flex-shrink:0}
+    #challenges-page .chl-card-actions .chl-btn-primary,#challenges-page .chl-card-actions .chl-btn-outline{padding:8px 14px;font-size:12.5px}
+
+    /* Detail view — cover + overlapping avatar, same visual language as the app's own Profile
+       page (#pf-cover/#pf-avatar in pages/profile.html): a channel/page-style header instead of
+       a flat icon+text row, so a challenge reads as a real place rather than a plain list item. */
+    #challenges-page .chl-back-btn{background:none;border:none;color:var(--text2);font-size:13px;font-weight:600;cursor:pointer;padding:8px 0;margin-bottom:8px}
+    #challenges-page .chl-detail-header{background:var(--card);border:1.5px solid var(--border);border-radius:16px;overflow:hidden;margin-bottom:14px}
+    #challenges-page .chl-cover{height:120px;background:linear-gradient(135deg,#090B12 0%,#1a1200 60%,#FFB800 100%)}
+    #challenges-page .chl-detail-body{padding:0 20px 20px;text-align:center;margin-top:-44px}
+    #challenges-page .chl-detail-avatar{width:88px;height:88px;border-radius:50%;background:var(--card);border:4px solid var(--card);box-shadow:0 2px 10px rgba(0,0,0,.15);display:flex;align-items:center;justify-content:center;font-size:40px;margin:0 auto 10px}
+    #challenges-page .chl-detail-title{font-size:19px;font-weight:800;color:var(--text)}
+    #challenges-page .chl-detail-creator{font-size:12.5px;color:var(--text2);margin-top:2px}
+    #challenges-page .chl-detail-stats-row{display:flex;align-items:center;justify-content:center;gap:6px;font-size:12.5px;color:var(--text2);font-weight:600;margin-top:8px}
+    #challenges-page .chl-detail-desc{font-size:13.5px;color:var(--text);margin-top:10px;line-height:1.5}
+    #challenges-page .chl-avatar-strip{display:flex;justify-content:center;margin-top:14px}
+    #challenges-page .chl-avatar-strip img{width:28px;height:28px;border-radius:50%;object-fit:cover;border:2px solid var(--card);margin-left:-8px;display:block;background:var(--border)}
+    #challenges-page .chl-avatar-strip img:first-child{margin-left:0}
+    #challenges-page .chl-avatar-strip .chl-av-fallback{width:28px;height:28px;border-radius:50%;border:2px solid var(--card);margin-left:-8px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;background:#FF8A00}
+    #challenges-page .chl-avatar-strip .chl-av-fallback:first-child{margin-left:0}
+    #challenges-page .chl-join-actions.chl-not-joined #chl-leave-btn{display:none}
+    #challenges-page .chl-join-actions.chl-joined #chl-join-btn{display:none}
+    #challenges-page .chl-join-actions{display:flex;justify-content:center;margin-bottom:14px}
+    /* Same "matches the compact Me/Kids pill toggle" scale as .chl-new-btn — this was still
+       using the bigger in-content button sizing (min-width:180px included), oversized next to
+       everything else on the page now that the header CTA above it was already shrunk. */
+    #challenges-page .chl-join-actions button{padding:6px 16px;font-size:12px;border-radius:20px;min-width:0}
+    /* Restyled to literally BE a 2-segment .rz-modesw-style toggle (track + solid-fill active
+       segment + plain-text alternate segment) instead of one flat "Joined ✓ (Leave)" button —
+       a single button conflated the status ("you're joined") with the action ("tap to leave")
+       into one label, which read as one undifferentiated block. Splitting it into the same
+       track/active-segment language the Me/Kids switcher already uses lets a user recognize
+       the pattern instantly: solid orange = your current status, the plain-text segment next
+       to it = the other state you can switch to. */
+    #challenges-page .chl-join-toggle{display:flex;align-items:center;background:#f0f1f4;border:1px solid #e3e5e9;border-radius:22px;padding:3px;gap:2px}
+    body.dark-mode #challenges-page .chl-join-toggle{background:#121722;border-color:rgba(255,255,255,.14)}
+    #challenges-page .chl-join-toggle-active{background:#FF8A00;color:#fff;font-size:12px;font-weight:700;padding:6px 14px;border-radius:20px;white-space:nowrap;display:flex;align-items:center;gap:4px}
+    #challenges-page .chl-join-toggle button{border:none;background:transparent;color:#6a7080;font-family:inherit;font-size:12px;font-weight:600;padding:6px 14px;border-radius:20px;cursor:pointer;transition:.18s;min-width:0}
+    body.dark-mode #challenges-page .chl-join-toggle button{color:#9aa2b2}
+    #challenges-page .chl-join-toggle button:hover{background:rgba(255,138,0,.12);color:#FF8A00}
+    #challenges-page .chl-cal-wrap{background:var(--card);border:1.5px solid var(--border);border-radius:16px;padding:14px 16px;margin-bottom:14px}
+    #challenges-page .chl-cal-label{font-size:11px;font-weight:600;color:var(--text2);margin-bottom:10px;text-transform:uppercase;letter-spacing:.4px}
+    #challenges-page .chl-progress-prompt{background:var(--card);border:1.5px solid var(--border);border-radius:24px;padding:11px 18px;color:var(--text2);font-size:13.5px;cursor:pointer;margin-bottom:16px;transition:border-color .2s}
+    #challenges-page .chl-progress-prompt:hover{border-color:#FF8A00}
+    #challenges-page .chl-feed{display:flex;flex-direction:column}
+
+    /* Premium progress-post card — always dark (like the hero/claim/bKash cards), regardless
+       of the site's own light/dark toggle. Forced dark by redefining the SAME custom
+       properties .cm-post's shared CSS already reads (--cc/--cl/--ct/--ct2/--cchip/--cgold +
+       the generic --card/--border/--text/--text2 used by a couple of inline styles, e.g. the
+       voice-note bar) scoped to .chl-pcard — every descendant inherits the override via normal
+       CSS cascade, so .cm-post itself (reactions/comments/menu/voice/media) stays completely
+       unmodified. NOT a fixed aspect-ratio:1/1 on the outer card anymore — the auto-generated
+       progress-card IMAGE is square on its own (see .cm-post-media img below), but forcing the
+       whole CARD (header + image + action bar stacked) into that same square left no room for
+       the header/action bar, so .cm-post's own overflow-y:auto silently scrolled the bottom of
+       the image (the challenge title + branding) out of view. max-height is just a safety net
+       for pathological cases (e.g. many comments open), not the normal-case constraint. */
+    #challenges-page .chl-pcard{
+      --cb:#0b0d13;--cc:#121722;--cl:rgba(255,255,255,.09);--ct:#e8ebf0;--ct2:#8b94a3;--cchip:#1a2031;--cgold:#FFB800;
+      --card:#121722;--border:rgba(255,255,255,.09);--text:#e8ebf0;--text2:#8b94a3;
+      position:relative;max-height:85vh;display:flex;flex-direction:column;
+      background:linear-gradient(165deg,#171d2c,#0b0e15);border:1px solid rgba(255,255,255,.09);
+      border-radius:20px;margin-bottom:16px;overflow:hidden;box-shadow:0 4px 16px rgba(0,0,0,.12)
+    }
+    /* The card's own dark gradient is always-on regardless of site theme, but the drop shadow
+       it casts onto the PAGE isn't — a 0.5-opacity shadow tuned to blend into a dark page
+       looked like a heavy dark smudge against a light one (Rise feed's own post cards use no
+       shadow at all, just a border). Light mode now uses that same light-page-appropriate
+       weight; dark mode keeps the stronger shadow that already looked right there. */
+    body.dark-mode #challenges-page .chl-pcard{box-shadow:0 10px 32px rgba(0,0,0,.5)}
+    #challenges-page .chl-pcard::before{content:'';position:absolute;top:-40px;right:-40px;width:130px;height:130px;border-radius:50%;background:radial-gradient(circle,rgba(255,138,0,.16) 0%,transparent 70%);pointer-events:none}
+    #challenges-page .chl-pcard .cm-post{border:none;border-radius:0;margin:0;box-shadow:none;background:transparent;position:relative;flex:1;min-height:0;display:flex;flex-direction:column;overflow-y:auto}
+    #challenges-page .chl-pcard .cm-post-hd{position:sticky;top:0;z-index:2;background:var(--cc)}
+    #challenges-page .chl-pcard .cm-actbar{position:sticky;bottom:0;z-index:2;background:var(--cc)}
+    /* aspect-ratio:1/1 + cover (not a fixed height, and not object-fit:contain either — contain
+       kept the whole 1080x1080 progress card uncropped but left ugly empty side-letterboxing
+       since the container was wider than its capped height, not actually square). Matching the
+       container's own aspect ratio to 1:1 means the auto-generated progress card (already
+       exactly square — js/app.js chlDrawProgressCard) displays edge-to-edge with ZERO cropping,
+       while a real user photo of any shape gets center-cropped to the same clean square grid —
+       consistent with this card being a fixed "1:1 size" design in the first place. */
+    #challenges-page .chl-pcard .cm-post-media img{width:100%;aspect-ratio:1/1;object-fit:cover}
+    /* Real header strip (not an absolutely-positioned badge) — used to float over the post's
+       own ⋯ menu button and make it hard to tap; a strip pushes content down instead. */
+    #challenges-page .chl-pcard-strip{position:relative;z-index:2;flex-shrink:0;display:flex;align-items:center;gap:6px;padding:8px 14px;background:linear-gradient(135deg,#FF8A00,#FFB800)}
+    #challenges-page .chl-pcard-strip-ic{font-size:13px;line-height:1}
+    #challenges-page .chl-pcard-strip-txt{font-size:10.5px;font-weight:800;color:#090B12;letter-spacing:.6px}
+    @media(max-width:700px){
+      #challenges-page .chl-pcard{margin:0 -16px 16px;border-radius:0}
+    }
+
+    /* Create modal — same shell pattern as RizMeet's .rzm-modal-overlay/.rzm-modal, own classes */
+    #challenges-page .chl-modal-overlay{display:none;position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,.55);align-items:center;justify-content:center}
+    #challenges-page .chl-modal-overlay.open{display:flex}
+    #challenges-page .chl-modal{position:relative;background:var(--card);border-radius:20px;width:480px;max-width:calc(100vw - 32px);max-height:calc(100vh - 40px);overflow-y:auto;padding:24px 24px 20px;box-shadow:0 20px 60px rgba(0,0,0,.18);animation:chl-popup-in .2s ease}
+    @keyframes chl-popup-in{from{opacity:0;transform:scale(.96) translateY(8px)}to{opacity:1;transform:scale(1) translateY(0)}}
+    @media(max-width:600px){#challenges-page .chl-modal{border-radius:20px 20px 0 0;width:100%;align-self:flex-end;max-height:88vh}#challenges-page .chl-modal-overlay{align-items:flex-end}
+      /* The confirm dialog is a small "mini card" (max-width:300px, set inline), not a big
+         form/composer — the bottom-sheet treatment above (made for Create Challenge/Progress
+         Composer/Milestone Card) leaves it stranded near the bottom edge instead of reading as
+         a centered popup. Opt it back out to the desktop centered behavior on mobile too. */
+      #challenges-page #chl-confirm-modal{align-items:center}
+      #challenges-page #chl-confirm-modal .chl-modal{border-radius:20px;width:calc(100% - 40px);align-self:center;max-height:none}
+    }
+    #challenges-page .chl-modal-title{font-size:17px;font-weight:800;color:var(--text);margin-bottom:18px;text-align:center}
+    #challenges-page .chl-modal-close{position:absolute;top:14px;right:14px;background:var(--bg);border:none;border-radius:50%;width:28px;height:28px;font-size:15px;line-height:1;cursor:pointer;color:var(--text2);display:flex;align-items:center;justify-content:center}
+    #challenges-page .chl-form-group{margin-bottom:16px}
+    #challenges-page .chl-label{display:block;font-size:12px;font-weight:600;color:var(--text2);margin-bottom:6px;text-transform:uppercase;letter-spacing:.4px}
+    #challenges-page .chl-input,#challenges-page .chl-textarea{width:100%;background:var(--bg);border:1.5px solid var(--border);border-radius:10px;padding:11px 12px;font-size:14px;color:var(--text);outline:none;box-sizing:border-box;font-family:inherit;transition:border-color .2s}
+    #challenges-page .chl-textarea{resize:vertical;min-height:70px}
+    #challenges-page .chl-input:focus,#challenges-page .chl-textarea:focus{border-color:#FF8A00}
+    #challenges-page .chl-chips{display:flex;flex-wrap:wrap;gap:8px}
+    #challenges-page .chl-chip{padding:7px 14px;border-radius:20px;border:1.5px solid var(--border);background:var(--bg);font-size:13px;color:var(--text2);cursor:pointer;transition:all .2s}
+    #challenges-page .chl-chip.selected{background:#FF8A0020;border-color:#FF8A00;color:#FF8A00;font-weight:600}
+    #challenges-page .chl-error{color:#ef4444;font-size:12.5px;margin-bottom:12px}
+    #challenges-page .chl-modal-actions{display:flex;gap:10px;margin-top:6px}
+    #challenges-page .chl-modal-actions .chl-btn-outline{flex:1}
+    #challenges-page .chl-modal-actions .chl-btn-primary{flex:2}
+
+    /* Progress composer — always dark/premium (same recipe as .chl-pcard), scoped to just this
+       modal's ID so the shared .chl-modal base (also used by Start New Challenge) is untouched.
+       Overriding --bg/--card/--border/--text/--text2 here cascades into every existing
+       .chl-label/.chl-textarea/.chl-modal-close etc. without duplicating their rules. */
+    #challenges-page #chl-progress-modal{--bg:#1a2031;--card:#171d2c;--border:rgba(255,255,255,.1);--text:#e8ebf0;--text2:#8b94a3}
+    #challenges-page #chl-progress-modal .chl-modal{position:relative;background:linear-gradient(165deg,#171d2c,#0b0e15);border:1px solid rgba(255,255,255,.1);box-shadow:0 24px 70px rgba(0,0,0,.6);overflow:hidden}
+    #challenges-page #chl-progress-modal .chl-modal::before{content:'';position:absolute;top:-50px;right:-50px;width:150px;height:150px;border-radius:50%;background:radial-gradient(circle,rgba(255,138,0,.18) 0%,transparent 70%);pointer-events:none}
+    #challenges-page #chl-progress-modal .chl-modal::after{content:'';position:absolute;bottom:-60px;left:-40px;width:140px;height:140px;border-radius:50%;background:radial-gradient(circle,rgba(16,185,129,.12) 0%,transparent 70%);pointer-events:none}
+    #challenges-page #chl-progress-modal .chl-modal-close{background:rgba(255,255,255,.08);color:#fff}
+    #challenges-page #chl-progress-modal #chl-pc-icon{box-shadow:0 6px 18px rgba(255,138,0,.4)}
+    #challenges-page #chl-progress-modal #chl-pc-streak-badge{background:rgba(255,138,0,.12);border-color:rgba(255,138,0,.35)}
+    #challenges-page #chl-progress-modal .chl-textarea{position:relative}
+    #challenges-page #chl-progress-modal .chl-modal-actions,
+    #challenges-page #chl-progress-modal .chl-form-group,
+    #challenges-page #chl-progress-modal #chl-pc-attach-prev{position:relative}
+
+  </style>
+</div>

@@ -1,0 +1,344 @@
+<div id="islamic-page" class="app-page" style="display:none">
+
+<!-- ═══ KIDS WRAP ════════════════════════════════════════════════ -->
+<div id="islamic-kids-wrap">
+<div style="padding:16px 16px 20px 16px">
+
+  <!-- Header + XP -->
+  <div style="margin-bottom:18px">
+    <div style="display:flex;align-items:center;justify-content:space-between">
+      <div>
+        <h1 style="font-size:20px;font-weight:700;color:var(--text,#1a1a2e);display:flex;align-items:center;gap:8px;margin:0">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FF8A00" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="M3 21h18M8 21V13a4 4 0 018 0v8M4 21V11l8-8 8 8v10"/></svg>
+          Islamic Learning
+        </h1>
+        <p style="color:var(--text2,#666);font-size:13px;margin-top:4px;margin-bottom:0">নামাজ, সিরাহ ও আরবি শেখো</p>
+      </div>
+      <div id="isl-level-badge" style="text-align:center;min-width:44px"></div>
+    </div>
+    <div style="margin-top:12px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+        <span id="isl-level-name" style="font-size:11px;font-weight:700;color:var(--text,#1a1a2e)"></span>
+        <span id="isl-xp-text" style="font-size:11px;color:var(--text2,#666)"></span>
+      </div>
+      <div style="height:6px;background:var(--border,#e5e7eb);border-radius:10px;overflow:hidden">
+        <div id="isl-xp-bar" style="height:100%;width:0%;background:linear-gradient(90deg,#FF8A00,#FFB800);border-radius:10px;transition:.4s"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stats -->
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:16px">
+    <div style="background:rgba(255,138,0,.08);border-radius:14px;padding:12px;text-align:center">
+      <div id="isl-namaz-stat" style="font-size:18px;font-weight:700;color:#FF8A00">0/5</div>
+      <div style="font-size:10px;color:var(--text2,#666);margin-top:2px">নামাজ</div>
+    </div>
+    <div style="background:rgba(124,58,237,.08);border-radius:14px;padding:12px;text-align:center">
+      <div id="isl-sirah-stat" style="font-size:18px;font-weight:700;color:#7c3aed">0</div>
+      <div style="font-size:10px;color:var(--text2,#666);margin-top:2px">সিরাহ</div>
+    </div>
+    <div style="background:rgba(255,184,0,.08);border-radius:14px;padding:12px;text-align:center">
+      <div id="isl-arabic-stat" style="font-size:18px;font-weight:700;color:#d97706">0</div>
+      <div style="font-size:10px;color:var(--text2,#666);margin-top:2px">আরবি</div>
+    </div>
+    <div style="background:rgba(255,138,0,.08);border-radius:14px;padding:12px;text-align:center">
+      <div id="isl-xp-stat" style="font-size:18px;font-weight:700;color:#FF8A00">0</div>
+      <div style="font-size:10px;color:var(--text2,#666);margin-top:2px">XP</div>
+    </div>
+  </div>
+
+  <!-- Section tabs -->
+  <div id="isl-tabs" style="display:flex;gap:8px;overflow-x:auto;padding-bottom:8px;margin-bottom:16px;scrollbar-width:none;-webkit-overflow-scrolling:touch"></div>
+
+  <!-- ===== NAMAZ SECTION ===== -->
+  <div id="isl-section-namaz">
+    <!-- Daily prayer tracker -->
+    <div style="background:linear-gradient(135deg,#1a1a2e,#2d3748);border-radius:20px;padding:20px;margin-bottom:16px;color:#fff">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+        <div style="font-size:14px;font-weight:700;color:#FF8A00">আজকের নামাজ</div>
+        <div id="isl-streak-badge" style="font-size:12px;color:#FFB800;font-weight:700"></div>
+      </div>
+      <div id="isl-prayer-tracker" style="display:grid;grid-template-columns:repeat(5,1fr);gap:8px"></div>
+    </div>
+    <!-- Namaz progress -->
+    <div style="background:var(--card,#fff);border-radius:18px;padding:18px;border:1px solid var(--border,#f0f0f0);margin-bottom:16px">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+        <div style="font-size:13px;font-weight:700;color:var(--text,#1a1a2e)">নামাজ শিখার যাত্রা</div>
+        <div id="isl-namaz-pct" style="font-size:14px;font-weight:700;color:#FF8A00">0%</div>
+      </div>
+      <div style="height:8px;background:var(--border,#f0f0f0);border-radius:10px;overflow:hidden;margin-bottom:6px">
+        <div id="isl-namaz-bar" style="height:100%;width:0%;background:linear-gradient(90deg,#FF8A00,#FFB800);border-radius:10px;transition:.4s"></div>
+      </div>
+      <div id="isl-namaz-sub" style="font-size:11px;color:var(--text2,#666)"></div>
+    </div>
+    <!-- Namaz lessons -->
+    <div id="isl-namaz-grid" style="display:flex;flex-direction:column;gap:10px;margin-bottom:16px"></div>
+    <!-- Streak Calendar -->
+    <div id="isl-streak-section" style="background:var(--card,#fff);border-radius:18px;padding:18px;border:1px solid var(--border,#f0f0f0);margin-bottom:16px">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+        <h3 style="font-size:14px;font-weight:700;color:var(--text,#1a1a2e);margin:0">Streak Calendar</h3>
+        <span id="isl-cal-label" style="font-size:12px;color:#FF8A00;font-weight:700"></span>
+      </div>
+      <div id="isl-cal-grid" style="display:grid;grid-template-columns:repeat(7,1fr);gap:4px"></div>
+      <div style="display:flex;gap:12px;margin-top:10px;font-size:10px;color:var(--text2,#999)">
+        <div style="display:flex;align-items:center;gap:4px"><div style="width:10px;height:10px;border-radius:2px;background:#FF8A00"></div> শিখেছি</div>
+        <div style="display:flex;align-items:center;gap:4px"><div style="width:10px;height:10px;border-radius:2px;background:var(--border,#e5e7eb)"></div> শিখিনি</div>
+      </div>
+    </div>
+    <!-- Badges -->
+    <div style="background:var(--card,#fff);border-radius:18px;padding:18px;border:1px solid var(--border,#f0f0f0);margin-bottom:16px">
+      <h3 style="font-size:14px;font-weight:700;color:var(--text,#1a1a2e);margin:0 0 14px">Badges &amp; Achievements</h3>
+      <div id="isl-badges" style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px"></div>
+    </div>
+  </div>
+
+  <!-- ===== SIRAH SECTION ===== -->
+  <div id="isl-section-sirah" style="display:none">
+    <div style="background:var(--card,#fff);border-radius:18px;padding:18px;border:1px solid var(--border,#f0f0f0);margin-bottom:16px">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+        <div style="font-size:13px;font-weight:700;color:var(--text,#1a1a2e)">নবীজির জীবন শেখো</div>
+        <span id="isl-sirah-prog" style="font-size:12px;font-weight:700;color:#7c3aed">0/4 অধ্যায়</span>
+      </div>
+      <div style="height:8px;background:var(--border,#f0f0f0);border-radius:10px;overflow:hidden">
+        <div id="isl-sirah-bar" style="height:100%;width:0%;background:linear-gradient(90deg,#7c3aed,#a78bfa);border-radius:10px;transition:.4s"></div>
+      </div>
+    </div>
+    <div id="isl-sirah-grid" style="display:flex;flex-direction:column;gap:10px;margin-bottom:16px"></div>
+  </div>
+
+  <!-- ===== ARABIC SECTION ===== -->
+  <div id="isl-section-arabic" style="display:none">
+    <!-- Flashcard -->
+    <div style="margin-bottom:12px;cursor:pointer" onclick="islFlipCard()">
+      <div id="isl-flashcard" style="background:linear-gradient(135deg,#1a1a2e,#2d3748);border-radius:20px;padding:28px;text-align:center;min-height:160px;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:background .3s">
+        <div id="isl-fc-front" style="width:100%;text-align:center">
+          <div id="isl-fc-arabic" class="rz-quran-font" style="font-size:36px;color:#fff;direction:rtl;line-height:1.8;margin-bottom:8px"></div>
+          <div style="font-size:12px;color:rgba(255,255,255,.4);margin-top:6px">tap করো উত্তর দেখতে</div>
+        </div>
+        <div id="isl-fc-back" style="display:none;width:100%;text-align:center">
+          <div id="isl-fc-bangla" style="font-size:24px;font-weight:700;color:#FF8A00;margin-bottom:6px"></div>
+          <div id="isl-fc-meaning" style="font-size:15px;color:#94a3b8"></div>
+        </div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-bottom:12px">
+      <span id="isl-fc-counter" style="font-size:12px;color:var(--text2,#666)"></span>
+    </div>
+    <div style="display:flex;gap:8px;margin-bottom:20px">
+      <button onclick="islPrevCard()" style="flex:1;padding:11px;background:var(--card,#fff);color:var(--text,#1a1a2e);border:1.5px solid var(--border,#e5e7eb);border-radius:12px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit">← আগেরটি</button>
+      <button onclick="islMarkLearned()" id="isl-fc-learn-btn" style="flex:1;padding:11px;background:linear-gradient(135deg,#FF8A00,#FFB800);color:#090B12;border:none;border-radius:12px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit">শিখেছি ✓</button>
+      <button onclick="islNextCard()" style="flex:1;padding:11px;background:var(--card,#fff);color:var(--text,#1a1a2e);border:1.5px solid var(--border,#e5e7eb);border-radius:12px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit">পরেরটি →</button>
+    </div>
+    <!-- Arabic word grid -->
+    <div style="background:var(--card,#fff);border-radius:18px;padding:18px;border:1px solid var(--border,#f0f0f0);margin-bottom:16px">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+        <div style="font-size:13px;font-weight:700;color:var(--text,#1a1a2e)">সব আরবি শব্দ</div>
+        <span id="isl-arabic-count" style="font-size:12px;color:#FF8A00;font-weight:700"></span>
+      </div>
+      <div id="isl-arabic-grid" style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px"></div>
+    </div>
+  </div>
+
+  <!-- ===== QUIZ SECTION ===== -->
+  <div id="isl-section-quiz" style="display:none">
+    <div id="isl-quiz-area"></div>
+  </div>
+
+  <!-- Lesson Modal -->
+  <div id="isl-modal" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.65);overflow-y:auto;padding:20px">
+    <div style="max-width:480px;margin:0 auto;background:var(--card,#fff);border-radius:20px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.3)">
+      <div style="padding:22px;background:linear-gradient(135deg,#1a1a2e,#2d3748);color:#fff">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <div>
+            <div id="isl-modal-tag" style="font-size:11px;color:#FF8A00;font-weight:700;margin-bottom:4px"></div>
+            <div id="isl-modal-title" style="font-size:18px;font-weight:700"></div>
+          </div>
+          <button onclick="islCloseModal()" style="background:rgba(255,255,255,.15);border:none;color:#fff;width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:18px;font-family:inherit;line-height:1">✕</button>
+        </div>
+      </div>
+      <div style="padding:22px">
+        <div id="isl-modal-arabic-box" style="display:none;background:linear-gradient(135deg,#1a1a2e,#2d3748);border-radius:14px;padding:22px;text-align:center;margin-bottom:18px">
+          <div id="isl-modal-arabic" class="rz-quran-font" style="font-size:28px;color:#fff;line-height:2;margin-bottom:10px;direction:rtl"></div>
+          <div id="isl-modal-bangla-pronunciation" style="font-size:14px;color:#FFB800;font-weight:600;margin-bottom:6px"></div>
+          <div id="isl-modal-translation" style="font-size:13px;color:rgba(255,255,255,.8)"></div>
+        </div>
+        <div id="isl-modal-body" style="font-size:14px;line-height:1.9;color:var(--text,#444);margin-bottom:18px"></div>
+        <div id="isl-modal-steps" style="display:none;margin-bottom:18px"></div>
+        <div style="display:flex;gap:10px">
+          <button onclick="islMarkDone()" id="isl-done-btn" style="flex:1;padding:12px;background:linear-gradient(135deg,#FF8A00,#FFB800);color:#090B12;border:none;border-radius:12px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit">শিখেছি ✓</button>
+          <button onclick="islCloseModal()" style="padding:12px 16px;background:var(--border,#f0f0f0);color:var(--text,#444);border:none;border-radius:12px;font-size:13px;cursor:pointer;font-family:inherit">← ফিরে যাও</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div><!-- end islamic-kids-wrap -->
+
+
+<!-- ═══ ADULT WRAP — "Deen Dashboard" ══════════════════════════ -->
+<div id="islamic-adult-wrap" style="display:none">
+<div class="rz-page-with-banner">
+<div class="rz-page-content" style="padding:16px 16px 100px">
+
+  <!-- ── Page Header ──────────────────────────────────────────── -->
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+    <div style="display:flex;align-items:center;gap:12px">
+      <div style="width:44px;height:44px;border-radius:14px;background:linear-gradient(135deg,#FF8A00,#FFB800);display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 4px 14px rgba(255,138,0,0.3)">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M8 21V13a4 4 0 018 0v8M4 21V11l8-8 8 8v10"/></svg>
+      </div>
+      <div>
+        <div style="font-size:19px;font-weight:800;color:var(--text,#1f2937)">Islamic Learning</div>
+        <div style="font-size:12px;color:var(--text2,#888);margin-top:1px">নামাজ, কুরআন, হাদিস ও আরবি শেখো</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Hero: Deen Dashboard ─────────────────────────────────── -->
+  <div style="background:linear-gradient(135deg,#0D1117,#1a1d2e,#0f1923);border-radius:22px;padding:22px;margin-bottom:16px;border:1px solid rgba(255,138,0,0.2);position:relative;overflow:hidden">
+    <div style="position:absolute;top:-30px;right:-30px;width:150px;height:150px;background:radial-gradient(circle,rgba(255,138,0,0.18),transparent 70%);pointer-events:none"></div>
+    <div style="position:absolute;bottom:-20px;left:20px;width:100px;height:100px;background:radial-gradient(circle,rgba(34,197,94,0.08),transparent 70%);pointer-events:none"></div>
+
+    <div style="font-size:10px;font-weight:800;color:#FF8A00;letter-spacing:1.4px;text-transform:uppercase;margin-bottom:14px">আমার দ্বীনি যাত্রা</div>
+
+    <div style="display:flex;align-items:center;gap:16px">
+      <div style="flex:1;min-width:0">
+        <div style="font-size:11px;color:rgba(255,255,255,0.4);margin-bottom:4px">Deen Score</div>
+        <div style="display:flex;align-items:baseline;gap:6px;margin-bottom:3px">
+          <span id="rzaIsl-score" style="font-size:44px;font-weight:900;color:#fff;line-height:1">0</span>
+          <span style="font-size:15px;color:rgba(255,255,255,0.25)">/1000</span>
+        </div>
+        <div id="rzaIsl-level" style="font-size:13px;color:#FF8A00;font-weight:800;margin-bottom:16px">শিক্ষানবিস</div>
+        <div style="display:flex;gap:16px">
+          <div>
+            <div id="rzaIsl-streak" style="font-size:20px;font-weight:900;color:#FF8A00;line-height:1">0</div>
+            <div style="font-size:10px;color:rgba(255,255,255,0.4);margin-top:2px">দিন Streak</div>
+          </div>
+          <div style="width:1px;background:rgba(255,255,255,0.1);align-self:stretch"></div>
+          <div>
+            <div id="rzaIsl-xp-val" style="font-size:20px;font-weight:900;color:#FFB800;line-height:1">0</div>
+            <div style="font-size:10px;color:rgba(255,255,255,0.4);margin-top:2px">মোট XP</div>
+          </div>
+          <div style="width:1px;background:rgba(255,255,255,0.1);align-self:stretch"></div>
+          <div>
+            <div id="rzaIsl-missions-done" style="font-size:20px;font-weight:900;color:#22C55E;line-height:1">0/5</div>
+            <div style="font-size:10px;color:rgba(255,255,255,0.4);margin-top:2px">মিশন আজ</div>
+          </div>
+        </div>
+      </div>
+      <!-- Mission completion ring -->
+      <div style="flex-shrink:0">
+        <svg viewBox="0 0 80 80" width="76" height="76">
+          <defs><linearGradient id="aislGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#FF8A00"/><stop offset="100%" stop-color="#FFB800"/></linearGradient></defs>
+          <circle cx="40" cy="40" r="33" fill="none" stroke="rgba(255,255,255,0.07)" stroke-width="7"/>
+          <circle id="rzaIsl-mission-ring" cx="40" cy="40" r="33" fill="none" stroke="url(#aislGrad)" stroke-width="7" stroke-linecap="round" stroke-dasharray="207.3" stroke-dashoffset="207.3" transform="rotate(-90 40 40)" style="transition:stroke-dashoffset 0.5s ease"/>
+          <text id="rzaIsl-ring-num" x="40" y="37" text-anchor="middle" style="font-size:14px;font-weight:900;fill:#fff">0</text>
+          <text x="40" y="51" text-anchor="middle" style="font-size:9px;fill:rgba(255,255,255,0.4)">/ 5 মিশন</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Daily Mission Board ──────────────────────────────────── -->
+  <div style="background:var(--card,#fff);border-radius:20px;padding:18px;border:1.5px solid var(--border,#e5e7eb);margin-bottom:14px">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+      <div style="display:flex;align-items:center;gap:9px">
+        <div style="width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,#FF8A00,#FFB800);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+          <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+        </div>
+        <span style="font-size:14px;font-weight:800;color:var(--text,#1f2937)">আজকের দ্বীনি মিশন</span>
+      </div>
+      <div id="rzaIsl-mission-xp" style="font-size:12px;font-weight:800;color:#FF8A00;background:rgba(255,138,0,0.1);padding:3px 10px;border-radius:50px">0 XP</div>
+    </div>
+    <div id="rzaIsl-mission-list" style="display:flex;flex-direction:column;gap:8px"></div>
+  </div>
+
+  <!-- ── Knowledge Compass ────────────────────────────────────── -->
+  <div style="background:var(--card,#fff);border-radius:20px;padding:18px;border:1.5px solid var(--border,#e5e7eb);margin-bottom:14px">
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:3px">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#FF8A00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
+      <span style="font-size:14px;font-weight:800;color:var(--text,#1f2937)">জ্ঞান-কম্পাস</span>
+    </div>
+    <div style="font-size:11px;color:var(--text2,#888);margin-bottom:16px">ইসলামিক জ্ঞানের ৬টি দিক — ট্যাপ করো বিস্তারিত দেখতে</div>
+    <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+      <div style="flex-shrink:0;margin:0 auto">
+        <svg id="rzaIsl-radar" viewBox="0 0 240 240" width="188" height="188" style="display:block"></svg>
+      </div>
+      <div id="rzaIsl-domain-list" style="flex:1;min-width:140px;display:flex;flex-direction:column;gap:9px"></div>
+    </div>
+  </div>
+
+  <!-- ── Domain Deep Dive Panel ───────────────────────────────── -->
+  <div id="rzaIsl-domain-panel" style="display:none;margin-bottom:14px"></div>
+
+  <!-- ── Prayer Tracker (compact adult) ───────────────────────── -->
+  <div style="background:var(--card,#fff);border-radius:20px;padding:18px;border:1.5px solid var(--border,#e5e7eb);margin-bottom:14px">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+      <span style="font-size:14px;font-weight:800;color:var(--text,#1f2937)">আজকের নামাজ</span>
+      <span id="rzaIsl-prayer-count" style="font-size:12px;font-weight:700;color:#FF8A00">০/৫</span>
+    </div>
+    <div id="rzaIsl-prayer-row" style="display:grid;grid-template-columns:repeat(5,1fr);gap:8px"></div>
+  </div>
+
+  <!-- ── Islamic Notes / Learning Journal ─────────────────────── -->
+  <div style="background:var(--card,#fff);border-radius:20px;padding:18px;border:1.5px solid var(--border,#e5e7eb);margin-bottom:14px">
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#FF8A00" stroke-width="2" stroke-linecap="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+      <span style="font-size:14px;font-weight:800;color:var(--text,#1f2937)">ইসলামিক লার্নিং নোটস</span>
+    </div>
+    <textarea id="rzaIsl-note-input" placeholder="আজকে কী শিখলে? একটি আয়াত, হাদিস বা শিক্ষা লিখো..." style="width:100%;box-sizing:border-box;border:1.5px solid var(--border,#e5e7eb);border-radius:12px;padding:10px 12px;font-size:13px;font-family:inherit;outline:none;background:var(--bg,#f9fafb);color:var(--text,#1f2937);resize:none;height:76px;line-height:1.6;margin-bottom:10px"></textarea>
+    <button onclick="rzIslSaveNote()" style="width:100%;padding:11px;border-radius:12px;border:none;background:linear-gradient(135deg,#FF8A00,#FFB800);color:#fff;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;box-shadow:0 3px 12px rgba(255,138,0,0.25)">নোট সংরক্ষণ করো</button>
+    <div id="rzaIsl-notes-list" style="margin-top:14px;display:flex;flex-direction:column;gap:8px"></div>
+  </div>
+
+  <!-- Mobile donation card -->
+  <div class="rz-donation-mobile-card" style="margin-bottom:14px">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
+      <div style="width:42px;height:42px;border-radius:13px;background:linear-gradient(135deg,rgba(255,138,0,0.15),rgba(255,184,0,0.1));border:1px solid rgba(255,138,0,0.3);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#FF8A00" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" fill="rgba(255,138,0,0.12)"/></svg>
+      </div>
+      <div>
+        <div style="font-size:13px;font-weight:800;color:var(--text,#1f2937)">Rizers কে Support করুন</div>
+        <div style="font-size:11px;color:var(--text2,#888);margin-top:2px">মাত্র ৳৯৯/মাসে • সম্পূর্ণ স্বেচ্ছায়</div>
+      </div>
+    </div>
+    <a href="#" onclick="rzGoToPayment();return false;" style="display:block;width:100%;background:linear-gradient(135deg,#FF8A00,#FFB800);color:#090B12;font-size:13px;font-weight:800;text-align:center;padding:13px;border-radius:12px;text-decoration:none;box-shadow:0 4px 14px rgba(255,138,0,0.35);box-sizing:border-box">🤲 ৳৯৯/মাসে Support করুন</a>
+  </div>
+
+</div><!-- end rz-page-content -->
+
+<!-- Desktop Donation Sidebar -->
+<div class="rz-donation-sidebar">
+  <div class="rz-dsb-inner">
+    <div style="text-align:center;margin-bottom:20px">
+      <div style="width:58px;height:58px;border-radius:18px;background:linear-gradient(135deg,rgba(255,138,0,0.15),rgba(255,184,0,0.1));border:1px solid rgba(255,138,0,0.3);display:flex;align-items:center;justify-content:center;margin:0 auto 12px">
+        <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="#FF8A00" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" fill="rgba(255,138,0,0.12)"/></svg>
+      </div>
+      <div style="font-size:12px;font-weight:800;color:#FF8A00;letter-spacing:1px;text-transform:uppercase">Rizers কে Support করুন</div>
+    </div>
+    <div style="background:rgba(255,138,0,0.06);border:1px solid rgba(255,138,0,0.15);border-radius:14px;padding:16px;margin-bottom:16px">
+      <div style="font-size:15px;font-weight:700;color:var(--text,#1f2937);line-height:1.6;margin-bottom:10px">"তোমার ছোট সাহায্য হাজারজনের ইসলামিক শিক্ষার পথ সহজ করে দিতে পারে।"</div>
+      <div style="font-size:12.5px;color:var(--text2,#888);line-height:1.7">Rizers ব্যবহার করে প্রতিদিন হাজারো মানুষ নামাজ, কুরআন ও আরবি শিখছে। তুমি চাইলে এই যাত্রার অংশ হতে পারো।</div>
+    </div>
+    <div style="margin-bottom:16px">
+      <div style="font-size:12px;font-weight:700;color:var(--text2,#888);margin-bottom:10px;text-transform:uppercase;letter-spacing:.8px">মাত্র ৳৯৯/মাসে</div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <div style="display:flex;align-items:center;gap:10px"><div style="width:7px;height:7px;border-radius:50%;background:#FF8A00;flex-shrink:0"></div><span style="font-size:13.5px;color:var(--text,#1f2937)">১ কাপ চায়ের দাম</span></div>
+        <div style="display:flex;align-items:center;gap:10px"><div style="width:7px;height:7px;border-radius:50%;background:#22C55E;flex-shrink:0"></div><span style="font-size:13.5px;color:var(--text,#1f2937)">হাজারজনের AI partner চালু থাকে</span></div>
+        <div style="display:flex;align-items:center;gap:10px"><div style="width:7px;height:7px;border-radius:50%;background:#3B82F6;flex-shrink:0"></div><span style="font-size:13.5px;color:var(--text,#1f2937)">সব feature সম্পূর্ণ free থাকে</span></div>
+      </div>
+    </div>
+    <div style="height:1px;background:var(--border,#e5e7eb);margin-bottom:16px"></div>
+    <div style="margin-bottom:20px;flex:1">
+      <div style="font-size:13px;color:var(--text2,#888);line-height:1.8;font-style:italic">"যে ব্যক্তি কোনো ভালো কাজে সহায়তা করে, সে যেন সেই কাজ নিজেই করলো।"</div>
+      <div style="font-size:11.5px;color:#FF8A00;font-weight:700;margin-top:6px">— বুখারী ও মুসলিম</div>
+    </div>
+    <a href="#" onclick="rzGoToPayment();return false;" style="display:block;width:100%;background:linear-gradient(135deg,#FF8A00,#FFB800);color:#090B12;font-size:14px;font-weight:800;text-align:center;padding:15px;border-radius:13px;text-decoration:none;box-shadow:0 4px 16px rgba(255,138,0,0.4);box-sizing:border-box">🤲 ৳৯৯/মাসে Support করুন</a>
+    <div style="text-align:center;margin-top:12px;font-size:11px;color:var(--text2,#888)">সম্পূর্ণ স্বেচ্ছায় • যেকোনো সময় বাতিল করুন</div>
+  </div>
+</div>
+
+</div><!-- end rz-page-with-banner -->
+</div><!-- end islamic-adult-wrap -->
+
+</div><!-- end islamic-page -->

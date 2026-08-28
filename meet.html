@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RizMeet — Book a Meeting</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --bg:#0F0F0F;--card:#1A1A1A;--border:#2A2A2A;--text:#FFFFFF;--text2:#888;
+    --primary:#FF8A00;--primary2:#FFB800;
+  }
+  @media(prefers-color-scheme:light){
+    :root{--bg:#F5F5F5;--card:#FFFFFF;--border:#E5E5E5;--text:#111;--text2:#666;}
+  }
+  body{background:var(--bg);color:var(--text);font-family:'Hind Siliguri','Segoe UI',sans-serif;min-height:100vh;padding-bottom:60px}
+  .container{max-width:500px;margin:0 auto;padding:0 16px}
+
+  /* Header */
+  .header{padding:20px 0 0;text-align:center}
+  .brand{font-size:13px;font-weight:700;color:var(--primary);letter-spacing:1px;margin-bottom:16px}
+  .avatar{width:80px;height:80px;border-radius:50%;object-fit:cover;border:3px solid var(--primary);margin:0 auto 12px;display:block}
+  .avatar-placeholder{width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,#FF8A00,#FFB800);margin:0 auto 12px;display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:900;color:#fff}
+  .host-name{font-size:22px;font-weight:900;color:var(--text);margin-bottom:4px}
+  .host-bio{font-size:13px;color:var(--text2);margin-bottom:8px;line-height:1.5}
+  .host-meta{display:flex;align-items:center;justify-content:center;gap:12px;font-size:12px;color:var(--text2);margin-bottom:20px}
+  .divider{height:1px;background:var(--border);margin:20px 0}
+
+  /* Steps */
+  .step{display:none}
+  .step.active{display:block}
+  .step-title{font-size:16px;font-weight:800;color:var(--text);margin-bottom:16px}
+
+  /* Event type cards */
+  .event-card{background:var(--card);border-radius:16px;padding:16px;border:1.5px solid var(--border);margin-bottom:12px;cursor:pointer;transition:.2s;display:flex;align-items:center;gap:14px}
+  .event-card:hover{border-color:var(--primary);transform:translateY(-1px)}
+  .event-dot{width:12px;height:44px;border-radius:6px;flex-shrink:0}
+  .event-name{font-size:15px;font-weight:800;color:var(--text);margin-bottom:4px}
+  .event-meta{font-size:12px;color:var(--text2);display:flex;gap:10px}
+  .event-price{font-size:12px;font-weight:700;padding:3px 10px;border-radius:20px;background:rgba(34,197,94,0.1);color:#22C55E;margin-left:auto;flex-shrink:0}
+  .event-price.paid{background:rgba(255,138,0,0.1);color:#FF8A00}
+
+  /* Calendar */
+  .cal-nav{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+  .cal-nav button{width:36px;height:36px;border-radius:10px;border:1.5px solid var(--border);background:transparent;color:var(--text);font-size:18px;cursor:pointer}
+  .cal-month{font-size:15px;font-weight:800;color:var(--text)}
+  .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+  .cal-day-label{text-align:center;font-size:10px;font-weight:700;color:var(--text2);padding:4px 0}
+  .cal-day{width:100%;aspect-ratio:1;border-radius:10px;border:1.5px solid transparent;background:transparent;color:var(--text2);font-size:13px;cursor:default;display:flex;align-items:center;justify-content:center;font-family:inherit;transition:.15s}
+  .cal-day.available{color:var(--text);cursor:pointer;border-color:var(--border);background:var(--card)}
+  .cal-day.available:hover{border-color:var(--primary);color:var(--primary)}
+  .cal-day.selected{background:linear-gradient(135deg,#FF8A00,#FFB800);color:#fff;border-color:transparent;font-weight:700}
+  .cal-day.today{border-color:var(--primary);color:var(--primary)}
+  .cal-day.past{opacity:.3}
+
+  /* Time slots */
+  .slots-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .slot{padding:12px;border-radius:12px;border:1.5px solid var(--border);background:var(--card);font-size:14px;font-weight:700;color:var(--text);cursor:pointer;text-align:center;transition:.15s;font-family:inherit}
+  .slot:hover{border-color:var(--primary);color:var(--primary)}
+  .slot.selected{background:linear-gradient(135deg,#FF8A00,#FFB800);color:#fff;border-color:transparent}
+
+  /* Form */
+  .form-group{margin-bottom:16px}
+  .form-label{font-size:12px;font-weight:700;color:var(--text2);margin-bottom:6px;display:block;text-transform:uppercase;letter-spacing:.6px}
+  .form-input{width:100%;padding:12px 14px;border-radius:12px;border:1.5px solid var(--border);background:var(--card);color:var(--text);font-size:14px;font-family:inherit;outline:none;transition:.2s}
+  .form-input:focus{border-color:var(--primary)}
+  textarea.form-input{resize:vertical;min-height:80px}
+  .form-input::placeholder{color:var(--text2)}
+
+  /* Booking summary */
+  .summary-card{background:var(--card);border-radius:16px;padding:16px;border:1.5px solid var(--border);margin-bottom:20px}
+  .summary-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border)}
+  .summary-row:last-child{border-bottom:none}
+  .summary-icon{font-size:16px;width:24px;text-align:center}
+  .summary-text{font-size:13px;color:var(--text);font-weight:600}
+  .summary-sub{font-size:11px;color:var(--text2)}
+
+  /* Buttons */
+  .btn-primary{width:100%;padding:16px;border-radius:14px;border:none;background:linear-gradient(135deg,#FF8A00,#FFB800);color:#fff;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;transition:.2s}
+  .btn-primary:hover{opacity:.9;transform:translateY(-1px)}
+  .btn-primary:disabled{opacity:.5;cursor:not-allowed;transform:none}
+  .btn-back{background:transparent;border:1.5px solid var(--border);color:var(--text2);width:100%;padding:14px;border-radius:14px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;margin-top:10px}
+
+  /* Progress bar */
+  .progress{display:flex;gap:6px;justify-content:center;margin-bottom:24px}
+  .progress-dot{width:8px;height:8px;border-radius:50%;background:var(--border);transition:.3s}
+  .progress-dot.active{background:var(--primary);width:24px;border-radius:4px}
+  .progress-dot.done{background:var(--primary)}
+
+  /* Success */
+  .success-icon{width:80px;height:80px;border-radius:50%;background:rgba(34,197,94,0.1);border:2px solid #22C55E;margin:0 auto 20px;display:flex;align-items:center;justify-content:center;font-size:36px}
+  .success-title{font-size:22px;font-weight:900;color:var(--text);text-align:center;margin-bottom:8px}
+  .success-sub{font-size:13px;color:var(--text2);text-align:center;line-height:1.6;margin-bottom:24px}
+
+  /* Loading */
+  .loader{text-align:center;padding:60px 20px;color:var(--text2)}
+  .spinner{width:36px;height:36px;border:3px solid var(--border);border-top-color:var(--primary);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 16px}
+  @keyframes spin{to{transform:rotate(360deg)}}
+
+  /* Error */
+  .error-state{text-align:center;padding:60px 20px}
+  .error-icon{font-size:48px;margin-bottom:16px}
+  .error-title{font-size:18px;font-weight:800;color:var(--text);margin-bottom:8px}
+  .error-sub{font-size:13px;color:var(--text2)}
+
+  .selected-info{background:rgba(255,138,0,0.08);border:1.5px solid rgba(255,138,0,0.3);border-radius:12px;padding:12px 14px;margin-bottom:16px;font-size:13px;color:var(--primary);font-weight:600}
+
+  .tz-note{font-size:11px;color:var(--text2);text-align:center;margin-top:8px}
+
+  .powered{text-align:center;margin-top:32px;font-size:11px;color:var(--text2)}
+  .powered a{color:var(--primary);text-decoration:none;font-weight:700}
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="header">
+    <div class="brand">⚡ RizMeet</div>
+  </div>
+
+  <!-- Loading -->
+  <div id="page-loader" class="loader">
+    <div class="spinner"></div>
+    <div>লোড হচ্ছে...</div>
+  </div>
+
+  <!-- Error -->
+  <div id="page-error" style="display:none" class="error-state">
+    <div class="error-icon">😕</div>
+    <div class="error-title">পেজ পাওয়া যায়নি</div>
+    <div class="error-sub">এই ব্যবহারকারীর RizMeet পেজ নেই অথবা বন্ধ আছে।</div>
+  </div>
+
+  <!-- Main content -->
+  <div id="page-main" style="display:none">
+
+    <!-- Host info -->
+    <div id="host-header" style="text-align:center;padding-bottom:20px"></div>
+
+    <!-- Progress -->
+    <div class="progress">
+      <div class="progress-dot active" id="pd-1"></div>
+      <div class="progress-dot" id="pd-2"></div>
+      <div class="progress-dot" id="pd-3"></div>
+      <div class="progress-dot" id="pd-4"></div>
+    </div>
+
+    <!-- Step 1: Select Event Type -->
+    <div class="step active" id="step-1">
+      <div class="step-title">মিটিং ধরন বেছে নিন</div>
+      <div id="event-types-list"></div>
+    </div>
+
+    <!-- Step 2: Select Date -->
+    <div class="step" id="step-2">
+      <div id="selected-event-info" class="selected-info"></div>
+      <div class="step-title">তারিখ বেছে নিন</div>
+      <div class="cal-nav">
+        <button onclick="calPrev()">&#8249;</button>
+        <div class="cal-month" id="cal-month-label"></div>
+        <button onclick="calNext()">&#8250;</button>
+      </div>
+      <div class="cal-grid" id="cal-day-labels"></div>
+      <div class="cal-grid" id="cal-grid" style="margin-top:4px"></div>
+      <div class="tz-note" id="tz-note"></div>
+      <button class="btn-back" onclick="goStep(1)">&#8592; পিছনে যান</button>
+    </div>
+
+    <!-- Step 3: Select Time -->
+    <div class="step" id="step-3">
+      <div id="selected-date-info" class="selected-info"></div>
+      <div class="step-title">সময় বেছে নিন</div>
+      <div class="slots-grid" id="slots-grid"></div>
+      <div id="no-slots" style="display:none;text-align:center;padding:32px;color:var(--text2);font-size:13px">এই দিনে কোনো সময় নেই।<br>অন্য দিন বেছে নিন।</div>
+      <button class="btn-back" onclick="goStep(2)" style="margin-top:16px">&#8592; পিছনে যান</button>
+    </div>
+
+    <!-- Step 4: Fill Form -->
+    <div class="step" id="step-4">
+      <div id="booking-summary" class="summary-card"></div>
+      <div class="form-group">
+        <label class="form-label">আপনার নাম *</label>
+        <input id="f-name" type="text" class="form-input" placeholder="আপনার পুরো নাম লিখুন">
+      </div>
+      <div class="form-group">
+        <label class="form-label">ইমেইল *</label>
+        <input id="f-email" type="email" class="form-input" placeholder="yourname@email.com">
+      </div>
+      <div class="form-group">
+        <label class="form-label">ফোন নম্বর (ঐচ্ছিক)</label>
+        <input id="f-phone" type="tel" class="form-input" placeholder="+880 1X XX XXX XXX">
+      </div>
+      <div class="form-group">
+        <label class="form-label">মিটিং এর উদ্দেশ্য (ঐচ্ছিক)</label>
+        <textarea id="f-note" class="form-input" placeholder="কী নিয়ে কথা বলতে চান?"></textarea>
+      </div>
+      <button class="btn-primary" id="confirm-btn" onclick="confirmBooking()">বুকিং নিশ্চিত করুন</button>
+      <button class="btn-back" onclick="goStep(3)">&#8592; পিছনে যান</button>
+    </div>
+
+    <!-- Step 5: Success -->
+    <div class="step" id="step-5">
+      <div style="padding-top:20px">
+        <div class="success-icon">&#10003;</div>
+        <div class="success-title">বুকিং সম্পন্ন!</div>
+        <div class="success-sub">আপনার মিটিং বুক হয়েছে।<br>নিশ্চিতকরণ ইমেইল পাঠানো হবে।</div>
+        <div id="success-details" class="summary-card" style="text-align:left"></div>
+      </div>
+    </div>
+
+  </div><!-- /page-main -->
+
+  <div class="powered">Powered by <a href="/">Rizers</a> ⚡</div>
+
+</div><!-- /container -->
+
+<script>
+  const SB_URL = 'https://xwdmhwaxzwowlezqruaj.supabase.co';
+  const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh3ZG1od2F4endvd2xlenFydWFqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI3MzgxMzQsImV4cCI6MjA5ODMxNDEzNH0.WuMl9SdT4w2OLLpb6GdTfJAC5XnQVMa4AiZOXKgVzc8';
+  const sb = supabase.createClient(SB_URL, SB_KEY);
+
+  var _host = null;       // rizmeet_settings row
+  var _hostProfile = null; // profiles row
+  var _eventTypes = [];
+  var _availability = [];
+  var _bookings = [];
+
+  var _selEvent = null;
+  var _selDate = null;   // YYYY-MM-DD
+  var _selTime = null;   // HH:MM
+  var _curStep = 1;
+
+  var _calYear = new Date().getFullYear();
+  var _calMonth = new Date().getMonth();
+
+  var BN_MONTHS = ['জানুয়ারি','ফেব্রুয়ারি','মার্চ','এপ্রিল','মে','জুন','জুলাই','আগস্ট','সেপ্টেম্বর','অক্টোবর','নভেম্বর','ডিসেম্বর'];
+  var BN_DAYS_SHORT = ['রবি','সোম','মঙ্গ','বুধ','বৃহ','শুক্র','শনি'];
+
+  // ── Init ──────────────────────────────────────────────────────
+  async function init() {
+    var params = new URLSearchParams(window.location.search);
+    var slug = params.get('slug') || params.get('u');
+    var uid = params.get('uid');
+    if(!slug && !uid) { showError(); return; }
+
+    // Load host settings by uid or slug
+    var settingsRes;
+    if(uid) {
+      settingsRes = await sb.from('rizmeet_settings').select('*').eq('user_id', uid).maybeSingle();
+    } else {
+      settingsRes = await sb.from('rizmeet_settings').select('*').eq('slug', slug).maybeSingle();
+    }
+    if(!settingsRes||!settingsRes.data || !settingsRes.data.is_active) { showError(); return; }
+    _host = settingsRes.data;
+
+    // Load profile
+    var profileRes = await sb.from('profiles').select('name,username,avatar_url,bio').eq('id', _host.user_id).single();
+    _hostProfile = profileRes.data;
+
+    // Load event types, availability, existing bookings
+    var [etRes, avRes, bkRes] = await Promise.all([
+      sb.from('rizmeet_event_types').select('*').eq('user_id', _host.user_id).eq('is_active', true).order('sort_order'),
+      sb.from('rizmeet_availability').select('*').eq('user_id', _host.user_id),
+      sb.from('rizmeet_bookings').select('meeting_date,start_time,duration_mins').eq('host_user_id', _host.user_id).eq('status', 'confirmed')
+    ]);
+    _eventTypes = etRes.data || [];
+    _availability = avRes.data || [];
+    _bookings = bkRes.data || [];
+
+    if(!_eventTypes.length) {
+      document.getElementById('page-loader').style.display = 'none';
+      document.getElementById('page-main').style.display = 'block';
+      renderHostHeader();
+      document.querySelector('.progress').style.display = 'none';
+      document.getElementById('step-1').innerHTML = '<div style="text-align:center;padding:40px 20px"><div style="font-size:48px;margin-bottom:16px">📅</div><div style="font-size:16px;font-weight:800;color:var(--text);margin-bottom:8px">এখনো কোনো মিটিং টাইপ নেই</div><div style="font-size:13px;color:var(--text2)">এই ব্যবহারকারী এখনো তাদের RizMeet সেটআপ করেননি।</div></div>';
+      return;
+    }
+
+    renderHostHeader();
+    renderEventTypes();
+    document.getElementById('page-loader').style.display = 'none';
+    document.getElementById('page-main').style.display = 'block';
+
+    // Timezone note
+    var tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    var tzEl = document.getElementById('tz-note');
+    if(tzEl) tzEl.textContent = 'সময় আপনার timezone অনুযায়ী (' + tz + ')';
+  }
+
+  function showError() {
+    document.getElementById('page-loader').style.display = 'none';
+    document.getElementById('page-error').style.display = 'block';
+  }
+
+  // ── Render Host Header ─────────────────────────────────────────
+  function renderHostHeader() {
+    var el = document.getElementById('host-header');
+    var name = (_hostProfile && _hostProfile.name) || (_host && _host.slug) || 'Host';
+    var bio = (_hostProfile && _hostProfile.bio) || '';
+    var avatar = _hostProfile && _hostProfile.avatar_url;
+    var initial = name.charAt(0).toUpperCase();
+
+    el.innerHTML =
+      (avatar
+        ? '<img src="' + avatar + '" class="avatar" onerror="this.style.display=\'none\'">'
+        : '<div class="avatar-placeholder">' + initial + '</div>') +
+      '<div class="host-name">' + name + '</div>' +
+      (bio ? '<div class="host-bio">' + bio + '</div>' : '') +
+      '<div class="host-meta"><span>&#128197; মিটিং বুক করুন</span></div>' +
+      (_host.welcome_message ? '<div style="font-size:13px;color:var(--text2);font-style:italic;padding:12px 16px;background:var(--card);border-radius:12px;border:1.5px solid var(--border)">"' + _host.welcome_message + '"</div>' : '');
+
+    document.title = 'RizMeet — ' + name + ' এর সাথে মিটিং';
+  }
+
+  // ── Step 1: Event Types ───────────────────────────────────────
+  function renderEventTypes() {
+    var el = document.getElementById('event-types-list');
+    el.innerHTML = _eventTypes.map(function(et) {
+      var price = et.price > 0 ? '<span class="event-price paid">&#2547;' + et.price + '</span>' : '<span class="event-price">Free Booking</span>';
+      var locIcon = et.location_type === 'video' ? '&#127909;' : et.location_type === 'phone' ? '&#128222;' : '&#128205;';
+      return '<div class="event-card" onclick="selectEvent(\'' + et.id + '\')">' +
+        '<div class="event-dot" style="background:' + et.color + '"></div>' +
+        '<div style="flex:1">' +
+          '<div class="event-name">' + et.name + '</div>' +
+          '<div class="event-meta"><span>&#128336; ' + et.duration_mins + ' মিনিট</span><span>' + locIcon + ' ' + (et.location_type==='video'?'Video Call':et.location_type==='phone'?'ফোন':'সরাসরি') + '</span></div>' +
+          (et.description ? '<div style="font-size:11px;color:var(--text2);margin-top:4px">' + et.description + '</div>' : '') +
+        '</div>' +
+        price +
+      '</div>';
+    }).join('');
+  }
+
+  function selectEvent(id) {
+    _selEvent = _eventTypes.find(function(e){ return e.id === id; });
+    goStep(2);
+    renderCalendar();
+  }
+
+  // ── Step 2: Calendar ──────────────────────────────────────────
+  function renderCalendar() {
+    var el = document.getElementById('cal-grid');
+    var labelEl = document.getElementById('cal-day-labels');
+    var monthEl = document.getElementById('cal-month-label');
+    var info = document.getElementById('selected-event-info');
+
+    if(info && _selEvent) info.textContent = _selEvent.name + ' · ' + _selEvent.duration_mins + ' মিনিট';
+
+    monthEl.textContent = BN_MONTHS[_calMonth] + ' ' + _calYear;
+
+    labelEl.innerHTML = BN_DAYS_SHORT.map(function(d){
+      return '<div class="cal-day-label">' + d + '</div>';
+    }).join('');
+
+    var today = new Date(); today.setHours(0,0,0,0);
+    var firstDay = new Date(_calYear, _calMonth, 1).getDay();
+    var daysInMonth = new Date(_calYear, _calMonth + 1, 0).getDate();
+    var noticeDays = Math.ceil((_host.booking_notice_mins || 60) / 1440);
+    var futureDays = _host.future_limit_days || 30;
+    var minDate = new Date(today.getTime() + noticeDays * 86400000);
+    var maxDate = new Date(today.getTime() + futureDays * 86400000);
+
+    // Weekly available days
+    var weekly = _availability.filter(function(a){ return a.type === 'weekly'; });
+    var availDows = weekly.map(function(a){ return a.day_of_week; });
+
+    // Blocked dates
+    var blocked = _availability.filter(function(a){ return a.type === 'blocked'; }).map(function(a){ return a.blocked_date; });
+
+    var cells = '';
+    for(var i = 0; i < firstDay; i++) cells += '<div></div>';
+
+    for(var d = 1; d <= daysInMonth; d++) {
+      var date = new Date(_calYear, _calMonth, d);
+      date.setHours(0,0,0,0);
+      var dateStr = _calYear + '-' + String(_calMonth+1).padStart(2,'0') + '-' + String(d).padStart(2,'0');
+      var isPast = date < minDate;
+      var isFuture = date > maxDate;
+      var isBlocked = blocked.indexOf(dateStr) !== -1;
+      var hasDow = availDows.indexOf(date.getDay()) !== -1;
+      var isToday = date.getTime() === today.getTime();
+
+      var cls = 'cal-day';
+      if(isPast || isFuture || isBlocked || !hasDow) cls += ' past';
+      else cls += ' available';
+      if(isToday && !isPast) cls += ' today';
+      if(dateStr === _selDate) cls += ' selected';
+
+      var onclick = (!isPast && !isFuture && !isBlocked && hasDow) ? 'onclick="selectDate(\'' + dateStr + '\')"' : '';
+      cells += '<button class="' + cls + '" ' + onclick + '>' + d + '</button>';
+    }
+    el.innerHTML = cells;
+  }
+
+  function calPrev() {
+    _calMonth--;
+    if(_calMonth < 0){ _calMonth = 11; _calYear--; }
+    renderCalendar();
+  }
+  function calNext() {
+    _calMonth++;
+    if(_calMonth > 11){ _calMonth = 0; _calYear++; }
+    renderCalendar();
+  }
+
+  function selectDate(dateStr) {
+    _selDate = dateStr;
+    renderCalendar();
+    goStep(3);
+    renderSlots();
+  }
+
+  // ── Step 3: Time Slots ────────────────────────────────────────
+  function renderSlots() {
+    var info = document.getElementById('selected-date-info');
+    var parts = _selDate.split('-');
+    var d = new Date(parseInt(parts[0]), parseInt(parts[1])-1, parseInt(parts[2]));
+    var BN_DAYS = ['রবিবার','সোমবার','মঙ্গলবার','বুধবার','বৃহস্পতিবার','শুক্রবার','শনিবার'];
+    if(info) info.textContent = BN_DAYS[d.getDay()] + ', ' + parts[2] + ' ' + BN_MONTHS[parseInt(parts[1])-1] + ' ' + parts[0];
+
+    var dow = d.getDay();
+    var slot = _availability.find(function(a){ return a.type==='weekly' && a.day_of_week===dow; });
+    var el = document.getElementById('slots-grid');
+    var noSlotsEl = document.getElementById('no-slots');
+
+    if(!slot){ el.innerHTML=''; noSlotsEl.style.display='block'; return; }
+    noSlotsEl.style.display='none';
+
+    var dur = _selEvent ? _selEvent.duration_mins : 30;
+    var buffer = _host.buffer_mins || 0;
+    var step = dur + buffer;
+
+    var startParts = slot.start_time.split(':').map(Number);
+    var endParts = slot.end_time.split(':').map(Number);
+    var startMin = startParts[0]*60 + startParts[1];
+    var endMin = endParts[0]*60 + endParts[1];
+
+    // Get already-booked slots for this date
+    var bookedOnDate = _bookings.filter(function(b){ return b.meeting_date === _selDate; });
+
+    var slots = [];
+    for(var m = startMin; m + dur <= endMin; m += step) {
+      var hh = Math.floor(m/60); var mm = m%60;
+      var timeStr = String(hh).padStart(2,'0') + ':' + String(mm).padStart(2,'0');
+      var endM = m + dur;
+      var ehh = Math.floor(endM/60); var emm = endM%60;
+      var endStr = String(ehh).padStart(2,'0') + ':' + String(emm).padStart(2,'0');
+
+      // Check if overlaps with existing booking
+      var isBooked = bookedOnDate.some(function(b) {
+        var bs = timeToMin(b.start_time);
+        var be = bs + b.duration_mins;
+        return m < be && endM > bs;
+      });
+
+      if(!isBooked) slots.push({ time: timeStr, end: endStr });
+    }
+
+    if(!slots.length){ el.innerHTML=''; noSlotsEl.style.display='block'; return; }
+
+    el.innerHTML = slots.map(function(s) {
+      var cls = 'slot' + (s.time === _selTime ? ' selected' : '');
+      var ampm = parseInt(s.time.split(':')[0]) < 12 ? 'AM' : 'PM';
+      var h12 = parseInt(s.time.split(':')[0]) % 12 || 12;
+      var display = h12 + ':' + s.time.split(':')[1] + ' ' + ampm;
+      return '<button class="' + cls + '" onclick="selectTime(\'' + s.time + '\',\'' + s.end + '\')">' + display + '</button>';
+    }).join('');
+  }
+
+  function timeToMin(t) {
+    var p = (t||'00:00').split(':').map(Number);
+    return p[0]*60 + (p[1]||0);
+  }
+
+  function selectTime(time, endTime) {
+    _selTime = time;
+    _selEndTime = endTime;
+    document.querySelectorAll('.slot').forEach(function(b){
+      b.className = 'slot' + (b.textContent && b.onclick && b.onclick.toString().indexOf(time) !== -1 ? ' selected' : '');
+    });
+    // Re-render to highlight correctly
+    renderSlots();
+    goStep(4);
+    renderBookingSummary();
+  }
+  var _selEndTime = null;
+
+  // ── Step 4: Form + Summary ────────────────────────────────────
+  function renderBookingSummary() {
+    var el = document.getElementById('booking-summary');
+    if(!el || !_selEvent) return;
+    var parts = _selDate.split('-');
+    var d = new Date(parseInt(parts[0]), parseInt(parts[1])-1, parseInt(parts[2]));
+    var BN_DAYS = ['রবিবার','সোমবার','মঙ্গলবার','বুধবার','বৃহস্পতিবার','শুক্রবার','শনিবার'];
+    var dateLabel = BN_DAYS[d.getDay()] + ', ' + parts[2] + ' ' + BN_MONTHS[parseInt(parts[1])-1] + ' ' + parts[0];
+    var h12 = parseInt(_selTime.split(':')[0]) % 12 || 12;
+    var ampm = parseInt(_selTime.split(':')[0]) < 12 ? 'AM' : 'PM';
+    var timeLabel = h12 + ':' + _selTime.split(':')[1] + ' ' + ampm;
+    var locIcon = _selEvent.location_type === 'video' ? '&#127909;' : _selEvent.location_type === 'phone' ? '&#128222;' : '&#128205;';
+    var locLabel = _selEvent.location_type === 'video' ? 'Video Call' : _selEvent.location_type === 'phone' ? 'ফোন' : 'সরাসরি';
+    var price = _selEvent.price > 0 ? '&#2547;' + _selEvent.price : 'Free Booking';
+    el.innerHTML =
+      '<div class="summary-row"><span class="summary-icon">&#128197;</span><div><div class="summary-text">' + _selEvent.name + '</div><div class="summary-sub">' + _selEvent.duration_mins + ' মিনিট</div></div></div>' +
+      '<div class="summary-row"><span class="summary-icon">&#128197;</span><div><div class="summary-text">' + dateLabel + '</div><div class="summary-sub">' + timeLabel + ' — ' + _selEndTime + '</div></div></div>' +
+      '<div class="summary-row"><span class="summary-icon">' + locIcon + '</span><div class="summary-text">' + locLabel + '</div></div>' +
+      '<div class="summary-row"><span class="summary-icon">&#128176;</span><div class="summary-text">' + price + '</div></div>';
+  }
+
+  // ── Confirm Booking ───────────────────────────────────────────
+  async function confirmBooking() {
+    var name = (document.getElementById('f-name')||{}).value || '';
+    var email = (document.getElementById('f-email')||{}).value || '';
+    var phone = (document.getElementById('f-phone')||{}).value || '';
+    var note = (document.getElementById('f-note')||{}).value || '';
+
+    if(!name.trim()) { alert('নাম দিন'); return; }
+    if(!email.trim() || !email.includes('@')) { alert('সঠিক ইমেইল দিন'); return; }
+
+    var btn = document.getElementById('confirm-btn');
+    btn.disabled = true; btn.textContent = 'বুক হচ্ছে...';
+
+    var res = await sb.from('rizmeet_bookings').insert({
+      host_user_id: _host.user_id,
+      event_type_id: _selEvent.id,
+      booker_name: name.trim(),
+      booker_email: email.trim(),
+      booker_phone: phone.trim(),
+      booker_note: note.trim(),
+      meeting_date: _selDate,
+      start_time: _selTime,
+      end_time: _selEndTime,
+      booker_timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+      duration_mins: _selEvent.duration_mins,
+      location_type: _selEvent.location_type,
+      location_value: _selEvent.location_value || '',
+      price: _selEvent.price || 0,
+      status: 'confirmed'
+    });
+
+    if(res.error) {
+      btn.disabled = false; btn.textContent = 'বুকিং নিশ্চিত করুন';
+      alert('সমস্যা হয়েছে। আবার চেষ্টা করুন।');
+      return;
+    }
+
+    // Notify host via Supabase notification
+    try {
+      await sb.from('notifications').insert({
+        user_id: _host.user_id,
+        type: 'rizmeet_booking',
+        title: 'নতুন মিটিং বুক হয়েছে!',
+        body: name.trim() + ' আপনার সাথে "' + _selEvent.name + '" বুক করেছে — ' + _selDate + ' ' + _selTime,
+        is_read: false
+      });
+    } catch(e) {}
+
+    showSuccess(name.trim());
+  }
+
+  function showSuccess(name) {
+    goStep(5);
+    var el = document.getElementById('success-details');
+    var parts = _selDate.split('-');
+    var d = new Date(parseInt(parts[0]), parseInt(parts[1])-1, parseInt(parts[2]));
+    var BN_DAYS = ['রবিবার','সোমবার','মঙ্গলবার','বুধবার','বৃহস্পতিবার','শুক্রবার','শনিবার'];
+    var dateLabel = BN_DAYS[d.getDay()] + ', ' + parts[2] + ' ' + BN_MONTHS[parseInt(parts[1])-1];
+    var h12 = parseInt(_selTime.split(':')[0]) % 12 || 12;
+    var ampm = parseInt(_selTime.split(':')[0]) < 12 ? 'AM' : 'PM';
+    el.innerHTML =
+      '<div class="summary-row"><span class="summary-icon">&#128100;</span><div class="summary-text">' + name + '</div></div>' +
+      '<div class="summary-row"><span class="summary-icon">&#128197;</span><div><div class="summary-text">' + _selEvent.name + '</div><div class="summary-sub">' + dateLabel + ' · ' + h12 + ':' + _selTime.split(':')[1] + ' ' + ampm + '</div></div></div>' +
+      '<div class="summary-row"><span class="summary-icon">&#9203;</span><div class="summary-text">' + _selEvent.duration_mins + ' মিনিট</div></div>';
+    var hostName = (_hostProfile && _hostProfile.name) || 'Host';
+    document.querySelector('.success-sub').innerHTML = hostName + ' এর সাথে মিটিং নিশ্চিত হয়েছে।<br>আপনার ইমেইলে বিস্তারিত পাঠানো হবে।';
+  }
+
+  // ── Step navigation ───────────────────────────────────────────
+  function goStep(n) {
+    _curStep = n;
+    for(var i=1;i<=5;i++){
+      var s = document.getElementById('step-'+i);
+      if(s) s.className = 'step' + (i===n?' active':'');
+    }
+    for(var j=1;j<=4;j++){
+      var pd = document.getElementById('pd-'+j);
+      if(pd) pd.className = 'progress-dot' + (j===n?' active':j<n?' done':'');
+    }
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+
+  init();
+</script>
+</body>
+</html>

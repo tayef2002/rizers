@@ -1,0 +1,307 @@
+<div id="hadith-page" class="app-page" style="display:none">
+
+<!-- ── Kids wrap ── -->
+<div id="hadith-kids-wrap">
+<div style="padding:16px 16px 20px 16px">
+
+  <!-- Header + XP -->
+  <div style="margin-bottom:18px">
+    <div style="display:flex;align-items:center;justify-content:space-between">
+      <div>
+        <h1 style="font-size:20px;font-weight:700;color:var(--text,#1a1a2e)">&#128220; Daily Hadith</h1>
+        <p style="color:var(--text2,#666);font-size:13px;margin-top:2px">&#x09AA;&#x09CD;&#x09B0;&#x09A4;&#x09BF;&#x09A6;&#x09BF;&#x09A8; &#x098F;&#x0995;&#x099F;&#x09BF; &#x09B9;&#x09BE;&#x09A6;&#x09BF;&#x09B8; &#x09B6;&#x09BF;&#x0996;&#x09BF; &#x0993; &#x09AE;&#x09A8;&#x09C7; &#x09B0;&#x09BE;&#x0996;&#x09BF;</p>
+      </div>
+      <div id="hd-level-badge" style="text-align:center;min-width:44px"></div>
+    </div>
+    <div style="margin-top:10px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+        <span id="hd-level-name" style="font-size:11px;font-weight:700"></span>
+        <span id="hd-xp-text" style="font-size:11px;color:var(--text2,#666)"></span>
+      </div>
+      <div style="height:6px;background:var(--border,#e5e7eb);border-radius:10px;overflow:hidden">
+        <div id="hd-xp-bar" style="height:100%;width:0%;background:linear-gradient(90deg,#FF8A00,#FFB800);border-radius:10px;transition:.4s"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Category tabs -->
+  <div id="hd-cats" style="display:flex;gap:8px;overflow-x:auto;padding-bottom:8px;margin-bottom:16px;scrollbar-width:none;-webkit-overflow-scrolling:touch"></div>
+
+  <!-- Featured hadith card -->
+  <div style="background:linear-gradient(135deg,#1a1a2e,#2d3748);border-radius:20px;padding:24px;margin-bottom:16px;color:#fff">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px">
+      <div style="width:38px;height:38px;background:#FF8A00;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">&#128220;</div>
+      <div>
+        <div style="font-size:12px;color:#FF8A00;font-weight:700;letter-spacing:.5px">&#x0986;&#x099C;&#x0995;&#x09C7;&#x09B0; &#x09B9;&#x09BE;&#x09A6;&#x09BF;&#x09B8;</div>
+        <div id="hd-date" style="font-size:11px;color:#888;margin-top:1px"></div>
+      </div>
+      <div id="hd-day-badge" style="margin-left:auto;background:rgba(255,138,0,.2);border-radius:50px;padding:4px 12px;font-size:11px;color:#FF8A00;font-weight:700"></div>
+    </div>
+
+    <!-- Arabic text -->
+    <div id="hd-arabic" class="rz-quran-font" style="font-size:26px;direction:rtl;text-align:right;line-height:2.1;margin-bottom:14px;padding:16px;background:rgba(255,255,255,.06);border-radius:12px;color:#f0f9f4"></div>
+
+    <!-- Transliteration (hidden by default) -->
+    <div id="hd-tr-wrap" style="display:none;margin-bottom:10px">
+      <div id="hd-tr" style="font-size:13px;color:#FFB800;font-style:italic;line-height:1.7;padding:10px 14px;background:rgba(255,184,0,.08);border-radius:10px;border-left:3px solid #FFB800"></div>
+    </div>
+
+    <!-- Translation (hidden in memo mode) -->
+    <div id="hd-memo-wrap">
+      <div id="hd-bangla" style="font-size:14px;line-height:1.8;opacity:.9;margin-bottom:10px;color:#e2e8f0"></div>
+    </div>
+    <button id="hd-reveal-btn" onclick="hdReveal()" style="display:none;width:100%;padding:10px;background:rgba(124,58,237,.15);color:#a78bfa;border:1.5px solid rgba(124,58,237,.3);border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;margin-bottom:10px">&#128065; &#x0985;&#x09A8;&#x09C1;&#x09AC;&#x09BE;&#x09A6; &#x09A6;&#x09C7;&#x0996;&#x09C1;&#x09A8;</button>
+
+    <!-- Source + category -->
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+      <div id="hd-source" style="font-size:12px;color:#FF8A00;font-weight:600"></div>
+      <div id="hd-cat-badge" style="font-size:10px;padding:3px 10px;border-radius:50px;font-weight:700;background:rgba(255,138,0,.12);color:#FF8A00"></div>
+    </div>
+
+    <!-- Primary action buttons -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">
+      <button onclick="hdMarkLearned()" id="hd-learn-btn" style="padding:12px;background:linear-gradient(135deg,#FF8A00,#FFB800);color:#090B12;border:none;border-radius:12px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit">&#x09AE;&#x09C1;&#x0996;&#x09B8;&#x09CD;&#x09A5; &#x0995;&#x09B0;&#x09C7;&#x099B;&#x09BF;</button>
+      <button onclick="hdCommit()" id="hd-commit-btn" style="padding:12px;background:rgba(124,58,237,.15);color:#a78bfa;border:1.5px solid rgba(124,58,237,.3);border-radius:12px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit">&#x09AE;&#x09C7;&#x09A8;&#x09C7; &#x099A;&#x09B2;&#x09AC;&#x09CB;</button>
+    </div>
+
+    <!-- Secondary action buttons -->
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px">
+      <button onclick="hdToggleTr()" style="padding:10px;background:rgba(255,255,255,.08);color:#ccc;border:none;border-radius:10px;font-size:11px;font-weight:600;cursor:pointer;font-family:inherit">&#x0989;&#x099A;&#x09CD;&#x099A;&#x09BE;&#x09B0;&#x09A3;</button>
+      <button onclick="hdShare()" style="padding:10px;background:rgba(255,255,255,.08);color:#ccc;border:none;border-radius:10px;font-size:11px;font-weight:600;cursor:pointer;font-family:inherit">&#128228; Share</button>
+      <button onclick="hdNextHadith()" style="padding:10px;background:rgba(255,255,255,.08);color:#ccc;border:none;border-radius:10px;font-size:11px;font-weight:600;cursor:pointer;font-family:inherit">&#8594; &#x09AA;&#x09B0;&#x09C7;&#x09B0;</button>
+    </div>
+  </div>
+
+  <!-- Memorization Mode toggle -->
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 18px;background:rgba(124,58,237,.07);border:1px solid rgba(124,58,237,.18);border-radius:14px;margin-bottom:16px">
+    <div>
+      <div style="font-size:13px;font-weight:700;color:#7c3aed">&#129514; Memorization Mode</div>
+      <div style="font-size:11px;color:var(--text2,#666);margin-top:2px">&#x0985;&#x09A8;&#x09C1;&#x09AC;&#x09BE;&#x09A6; &#x09B2;&#x09C1;&#x0995;&#x09BF;&#x09AF;&#x09BC;&#x09C7; &#x09AE;&#x09C1;&#x0996;&#x09B8;&#x09CD;&#x09A5; &#x0995;&#x09B0;&#x09C1;&#x09A8;</div>
+    </div>
+    <span id="hd-memo-slider" onclick="hdToggleMemo()" style="display:inline-block;position:relative;width:44px;height:24px;background:#ccc;border-radius:24px;cursor:pointer;transition:.3s;flex-shrink:0">
+      <span style="position:absolute;width:18px;height:18px;background:#fff;border-radius:50%;top:3px;left:3px;transition:.3s;pointer-events:none"></span>
+    </span>
+  </div>
+
+  <!-- Progress stats -->
+  <div style="background:var(--card,#fff);border-radius:18px;padding:20px;border:1px solid var(--border,#f0f0f0);margin-bottom:14px">
+    <h3 style="font-size:14px;font-weight:700;color:var(--text,#1a1a2e);margin-bottom:14px">&#128202; &#x09B9;&#x09BE;&#x09A6;&#x09BF;&#x09B8; &#x09B6;&#x09C7;&#x0996;&#x09BE;&#x09B0; &#x0985;&#x0997;&#x09CD;&#x09B0;&#x0997;&#x09A4;&#x09BF;</h3>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px">
+      <div style="background:rgba(255,138,0,.08);border-radius:12px;padding:12px;text-align:center">
+        <div id="hd-learned-count" style="font-size:22px;font-weight:700;color:#FF8A00">0</div>
+        <div style="font-size:11px;color:var(--text2,#666);margin-top:2px">&#x09AE;&#x09C1;&#x0996;&#x09B8;&#x09CD;&#x09A5;</div>
+      </div>
+      <div style="background:rgba(255,184,0,.08);border-radius:12px;padding:12px;text-align:center">
+        <div id="hd-streak-count" style="font-size:22px;font-weight:700;color:#d97706">0</div>
+        <div style="font-size:11px;color:var(--text2,#666);margin-top:2px">&#x09A6;&#x09BF;&#x09A8; streak</div>
+      </div>
+      <div style="background:rgba(124,58,237,.1);border-radius:12px;padding:12px;text-align:center">
+        <div id="hd-total-count" style="font-size:22px;font-weight:700;color:#7c3aed">0</div>
+        <div style="font-size:11px;color:var(--text2,#666);margin-top:2px">&#x09AE;&#x09CB;&#x099F; &#x09B9;&#x09BE;&#x09A6;&#x09BF;&#x09B8;</div>
+      </div>
+    </div>
+    <div style="height:8px;background:var(--border,#f0f0f0);border-radius:10px;overflow:hidden">
+      <div id="hd-progress-bar" style="height:100%;width:0%;background:linear-gradient(90deg,#FF8A00,#FFB800);border-radius:10px;transition:.4s"></div>
+    </div>
+  </div>
+
+  <!-- 28-day Streak Calendar -->
+  <div style="background:var(--card,#fff);border-radius:18px;padding:20px;border:1px solid var(--border,#f0f0f0);margin-bottom:14px">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+      <h3 style="font-size:14px;font-weight:700;color:var(--text,#1a1a2e)">&#128293; Streak Calendar</h3>
+      <span id="hd-streak-label" style="font-size:12px;color:#FF8A00;font-weight:700"></span>
+    </div>
+    <div id="hd-streak-grid" style="display:grid;grid-template-columns:repeat(7,1fr);gap:4px"></div>
+    <div style="display:flex;gap:12px;margin-top:10px;font-size:10px;color:var(--text2,#999)">
+      <div style="display:flex;align-items:center;gap:4px"><div style="width:10px;height:10px;border-radius:2px;background:#FF8A00"></div> &#x09AA;&#x09DC;&#x09C7;&#x099B;&#x09BF;</div>
+      <div style="display:flex;align-items:center;gap:4px"><div style="width:10px;height:10px;border-radius:2px;background:var(--border,#e5e7eb)"></div> &#x09AA;&#x09DC;&#x09BF;&#x09A8;&#x09BF;</div>
+    </div>
+  </div>
+
+  <!-- Quiz button -->
+  <button onclick="hdStartQuiz()" style="width:100%;padding:15px;background:linear-gradient(135deg,#7c3aed,#6d28d9);color:#fff;border:none;border-radius:14px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;margin-bottom:14px;box-shadow:0 4px 14px rgba(124,58,237,.3)">&#127919; &#x09B9;&#x09BE;&#x09A6;&#x09BF;&#x09B8; Quiz &#x09B6;&#x09C1;&#x09B0;&#x09C1; &#x0995;&#x09B0;&#x09C1;&#x09A8;</button>
+
+  <!-- All hadiths list -->
+  <div style="background:var(--card,#fff);border-radius:18px;padding:20px;border:1px solid var(--border,#f0f0f0);margin-bottom:20px">
+    <h3 style="font-size:14px;font-weight:700;color:var(--text,#1a1a2e);margin-bottom:14px">&#128218; &#x09B8;&#x09AC; &#x09B9;&#x09BE;&#x09A6;&#x09BF;&#x09B8;</h3>
+    <div id="hd-all-list" style="display:flex;flex-direction:column;gap:8px"></div>
+  </div>
+
+  <!-- Quiz Modal -->
+  <div id="hd-quiz-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:9999;align-items:center;justify-content:center;padding:16px">
+    <div style="background:#1a1a2e;border-radius:24px;padding:28px;width:100%;max-width:400px;max-height:90vh;overflow-y:auto">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px">
+        <div style="font-size:16px;font-weight:700;color:#FF8A00">&#127919; &#x09B9;&#x09BE;&#x09A6;&#x09BF;&#x09B8; Quiz</div>
+        <button onclick="hdCloseQuiz()" style="background:rgba(255,255,255,.1);border:none;color:#fff;width:30px;height:30px;border-radius:50%;cursor:pointer;font-size:18px;font-family:inherit;line-height:1">&#215;</button>
+      </div>
+      <div id="hd-quiz-content"></div>
+    </div>
+  </div>
+
+</div>
+</div><!-- /hadith-kids-wrap -->
+
+<!-- ── Adult wrap ── -->
+<div id="hadith-adult-wrap" style="display:none">
+  <div class="rz-page-with-banner">
+    <div class="rz-page-content" style="padding:16px 16px 100px">
+
+      <!-- Stats Row -->
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:18px">
+        <div style="background:linear-gradient(135deg,rgba(255,138,0,.12),rgba(255,184,0,.08));border:1.5px solid rgba(255,138,0,.2);border-radius:14px;padding:12px 8px;text-align:center">
+          <div id="ahd-xp-val" style="font-size:20px;font-weight:800;color:#FF8A00">0</div>
+          <div style="font-size:9px;color:var(--text2,#888);font-weight:600;margin-top:2px">XP</div>
+        </div>
+        <div style="background:linear-gradient(135deg,rgba(239,68,68,.1),rgba(239,68,68,.05));border:1.5px solid rgba(239,68,68,.2);border-radius:14px;padding:12px 8px;text-align:center">
+          <div id="ahd-streak-val" style="font-size:20px;font-weight:800;color:#EF4444">0</div>
+          <div style="font-size:9px;color:var(--text2,#888);font-weight:600;margin-top:2px">Streak</div>
+        </div>
+        <div style="background:linear-gradient(135deg,rgba(124,58,237,.1),rgba(124,58,237,.05));border:1.5px solid rgba(124,58,237,.2);border-radius:14px;padding:12px 8px;text-align:center">
+          <div id="ahd-mem-val" style="font-size:20px;font-weight:800;color:#7c3aed">0</div>
+          <div style="font-size:9px;color:var(--text2,#888);font-weight:600;margin-top:2px">মুখস্থ</div>
+        </div>
+        <div style="background:linear-gradient(135deg,rgba(34,197,94,.1),rgba(34,197,94,.05));border:1.5px solid rgba(34,197,94,.2);border-radius:14px;padding:12px 8px;text-align:center">
+          <div id="ahd-apply-val" style="font-size:20px;font-weight:800;color:#22C55E">0</div>
+          <div style="font-size:9px;color:var(--text2,#888);font-weight:600;margin-top:2px">Applied</div>
+        </div>
+      </div>
+
+      <!-- Today's Hadith Hero -->
+      <div id="ahd-hero" style="background:linear-gradient(160deg,#0f0f23,#1a1035,#0d1a2e);border-radius:24px;padding:24px;margin-bottom:18px;position:relative;overflow:hidden">
+        <div style="position:absolute;top:-30px;right:-30px;width:140px;height:140px;border-radius:50%;background:radial-gradient(circle,rgba(255,138,0,.12),transparent 70%)"></div>
+        <div style="position:absolute;bottom:-20px;left:-20px;width:100px;height:100px;border-radius:50%;background:radial-gradient(circle,rgba(124,58,237,.12),transparent 70%)"></div>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;position:relative;z-index:1">
+          <div>
+            <div style="font-size:10px;color:#FF8A00;font-weight:800;letter-spacing:1px;text-transform:uppercase">আজকের হাদিস</div>
+            <div id="ahd-date" style="font-size:11px;color:rgba(255,255,255,.4);margin-top:2px"></div>
+          </div>
+          <div style="display:flex;gap:6px;align-items:center">
+            <div id="ahd-src-badge" style="font-size:9px;font-weight:800;background:rgba(255,138,0,.2);color:#FF8A00;padding:4px 10px;border-radius:50px;letter-spacing:.5px;border:1px solid rgba(255,138,0,.3)"></div>
+            <div id="ahd-cat-badge" style="font-size:9px;font-weight:700;background:rgba(124,58,237,.25);color:#a78bfa;padding:4px 10px;border-radius:50px;border:1px solid rgba(124,58,237,.3)"></div>
+          </div>
+        </div>
+        <div id="ahd-arabic" class="rz-quran-font" style="font-size:28px;direction:rtl;text-align:right;line-height:2.2;color:#f8f9ff;padding:18px 16px;background:rgba(255,255,255,.04);border-radius:16px;margin-bottom:16px;border:1px solid rgba(255,255,255,.07);position:relative;z-index:1"></div>
+        <div style="margin-bottom:12px;position:relative;z-index:1">
+          <div id="ahd-tr" style="font-size:12px;color:#FFB800;font-style:italic;line-height:1.8;padding:10px 14px;background:rgba(255,184,0,.07);border-radius:10px;border-left:3px solid rgba(255,184,0,.4)"></div>
+        </div>
+        <div id="ahd-bn" style="font-size:14px;line-height:1.9;color:rgba(255,255,255,.85);margin-bottom:18px;position:relative;z-index:1"></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px;position:relative;z-index:1">
+          <button id="ahd-learn-btn" onclick="rzAhdMarkLearned()" style="padding:13px;background:linear-gradient(135deg,#FF8A00,#FFB800);color:#0a0a14;border:none;border-radius:14px;font-size:12px;font-weight:800;cursor:pointer;font-family:inherit">মুখস্থ করেছি</button>
+          <button id="ahd-apply-btn" onclick="rzAhdApplyToday()" style="padding:13px;background:rgba(34,197,94,.15);color:#22C55E;border:1.5px solid rgba(34,197,94,.3);border-radius:14px;font-size:12px;font-weight:800;cursor:pointer;font-family:inherit">আজ মেনে চলব</button>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;position:relative;z-index:1">
+          <button onclick="rzAhdPrev()" style="padding:9px;background:rgba(255,255,255,.07);color:rgba(255,255,255,.6);border:none;border-radius:10px;font-size:11px;font-weight:600;cursor:pointer;font-family:inherit">← আগের</button>
+          <button onclick="rzAhdShare()" style="padding:9px;background:rgba(255,255,255,.07);color:rgba(255,255,255,.6);border:none;border-radius:10px;font-size:11px;font-weight:600;cursor:pointer;font-family:inherit">Share</button>
+          <button onclick="rzAhdNext()" style="padding:9px;background:rgba(255,255,255,.07);color:rgba(255,255,255,.6);border:none;border-radius:10px;font-size:11px;font-weight:600;cursor:pointer;font-family:inherit">পরের →</button>
+        </div>
+      </div>
+
+      <!-- Learning Depth -->
+      <div style="background:var(--card,#fff);border-radius:20px;padding:18px;margin-bottom:16px;border:1.5px solid var(--border,#f0f0f0)">
+        <div style="font-size:13px;font-weight:800;color:var(--text,#1f2937);margin-bottom:4px">Learning Depth</div>
+        <div style="font-size:11px;color:var(--text2,#888);margin-bottom:14px">এই হাদিস কতটা আয়ত্ত করেছ?</div>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px">
+          <button onclick="rzAhdSetDepth(0)" id="ahd-d0" style="padding:10px 4px;border-radius:12px;border:1.5px solid var(--border,#e5e7eb);background:transparent;font-size:10px;font-weight:700;cursor:pointer;font-family:inherit;color:var(--text2,#888);transition:.2s"><div style="font-size:18px;margin-bottom:4px">👁️</div>দেখেছি</button>
+          <button onclick="rzAhdSetDepth(1)" id="ahd-d1" style="padding:10px 4px;border-radius:12px;border:1.5px solid var(--border,#e5e7eb);background:transparent;font-size:10px;font-weight:700;cursor:pointer;font-family:inherit;color:var(--text2,#888);transition:.2s"><div style="font-size:18px;margin-bottom:4px">🤔</div>ভেবেছি</button>
+          <button onclick="rzAhdSetDepth(2)" id="ahd-d2" style="padding:10px 4px;border-radius:12px;border:1.5px solid var(--border,#e5e7eb);background:transparent;font-size:10px;font-weight:700;cursor:pointer;font-family:inherit;color:var(--text2,#888);transition:.2s"><div style="font-size:18px;margin-bottom:4px">🧠</div>মুখস্থ</button>
+          <button onclick="rzAhdSetDepth(3)" id="ahd-d3" style="padding:10px 4px;border-radius:12px;border:1.5px solid var(--border,#e5e7eb);background:transparent;font-size:10px;font-weight:700;cursor:pointer;font-family:inherit;color:var(--text2,#888);transition:.2s"><div style="font-size:18px;margin-bottom:4px">⚡</div>Applied</button>
+        </div>
+      </div>
+
+      <!-- Wisdom Paths -->
+      <div style="margin-bottom:16px">
+        <div style="font-size:13px;font-weight:800;color:var(--text,#1f2937);margin-bottom:12px">✨ Wisdom Paths</div>
+        <div id="ahd-paths-row" style="display:flex;gap:10px;overflow-x:auto;scrollbar-width:none;padding-bottom:4px"></div>
+      </div>
+
+      <!-- Daily Reflection -->
+      <div style="background:var(--card,#fff);border-radius:20px;padding:18px;margin-bottom:16px;border:1.5px solid var(--border,#f0f0f0)">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
+          <div style="font-size:18px">✍️</div>
+          <div>
+            <div style="font-size:13px;font-weight:800;color:var(--text,#1f2937)">আজকের Reflection</div>
+            <div style="font-size:11px;color:var(--text2,#888)">এই হাদিস থেকে আজ কী শিখলে?</div>
+          </div>
+        </div>
+        <textarea id="ahd-reflection" oninput="rzAhdSaveReflection()" placeholder="আজকের হাদিস থেকে নিজের জন্য কী নিলে লিখে রাখো…" style="width:100%;box-sizing:border-box;min-height:80px;border:1.5px solid var(--border,#e5e7eb);border-radius:12px;padding:12px;font-size:13px;font-family:inherit;color:var(--text,#1f2937);background:var(--bg,#f9fafb);outline:none;resize:none;line-height:1.6"></textarea>
+        <div style="display:flex;justify-content:flex-end;margin-top:6px">
+          <span id="ahd-reflection-saved" style="font-size:10px;color:#22C55E;display:none">✓ Saved</span>
+        </div>
+      </div>
+
+      <!-- Streak Calendar -->
+      <div style="background:var(--card,#fff);border-radius:20px;padding:18px;margin-bottom:16px;border:1.5px solid var(--border,#f0f0f0)">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+          <div style="font-size:13px;font-weight:800;color:var(--text,#1f2937)">🔥 Streak Calendar</div>
+          <span id="ahd-streak-lbl" style="font-size:12px;font-weight:700;color:#FF8A00"></span>
+        </div>
+        <div id="ahd-streak-cal" style="display:grid;grid-template-columns:repeat(10,1fr);gap:4px"></div>
+      </div>
+
+      <!-- Browse All -->
+      <div style="background:var(--card,#fff);border-radius:20px;padding:18px;margin-bottom:16px;border:1.5px solid var(--border,#f0f0f0)">
+        <div style="font-size:13px;font-weight:800;color:var(--text,#1f2937);margin-bottom:12px">📚 Browse All Hadiths</div>
+        <div style="position:relative;margin-bottom:10px">
+          <input id="ahd-search" oninput="rzAhdSearch()" type="text" placeholder="হাদিস খুঁজুন…" style="width:100%;box-sizing:border-box;border:1.5px solid var(--border,#e5e7eb);border-radius:12px;padding:10px 40px 10px 14px;font-size:13px;font-family:inherit;outline:none;background:var(--bg,#f9fafb);color:var(--text,#1f2937)"/>
+          <span style="position:absolute;right:13px;top:50%;transform:translateY(-50%);color:var(--text2,#aaa)"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span>
+        </div>
+        <div style="display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px;margin-bottom:12px">
+          <button id="ahd-f-all" onclick="rzAhdFilter('all',this)" style="padding:5px 14px;border-radius:50px;border:none;background:#FF8A00;color:#fff;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;white-space:nowrap;flex-shrink:0">সব</button>
+          <button id="ahd-f-niyat" onclick="rzAhdFilter('niyat',this)" style="padding:5px 14px;border-radius:50px;border:1.5px solid var(--border,#e5e7eb);background:transparent;color:var(--text2,#888);font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;white-space:nowrap;flex-shrink:0">নিয়ত</button>
+          <button id="ahd-f-ilm" onclick="rzAhdFilter('ilm',this)" style="padding:5px 14px;border-radius:50px;border:1.5px solid var(--border,#e5e7eb);background:transparent;color:var(--text2,#888);font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;white-space:nowrap;flex-shrink:0">ইলম</button>
+          <button id="ahd-f-ibadah" onclick="rzAhdFilter('ibadah',this)" style="padding:5px 14px;border-radius:50px;border:1.5px solid var(--border,#e5e7eb);background:transparent;color:var(--text2,#888);font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;white-space:nowrap;flex-shrink:0">ইবাদত</button>
+          <button id="ahd-f-akhlaq" onclick="rzAhdFilter('akhlaq',this)" style="padding:5px 14px;border-radius:50px;border:1.5px solid var(--border,#e5e7eb);background:transparent;color:var(--text2,#888);font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;white-space:nowrap;flex-shrink:0">আখলাক</button>
+          <button id="ahd-f-social" onclick="rzAhdFilter('social',this)" style="padding:5px 14px;border-radius:50px;border:1.5px solid var(--border,#e5e7eb);background:transparent;color:var(--text2,#888);font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;white-space:nowrap;flex-shrink:0">সামাজিক</button>
+          <button id="ahd-f-dunya" onclick="rzAhdFilter('dunya',this)" style="padding:5px 14px;border-radius:50px;border:1.5px solid var(--border,#e5e7eb);background:transparent;color:var(--text2,#888);font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;white-space:nowrap;flex-shrink:0">দুনিয়া</button>
+        </div>
+        <div id="ahd-list" style="display:flex;flex-direction:column;gap:8px"></div>
+      </div>
+
+      <!-- Mobile donation card (inside content, no gap) -->
+      <div class="rz-donation-mobile-card" style="margin-bottom:14px">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
+          <div style="width:42px;height:42px;border-radius:13px;background:linear-gradient(135deg,rgba(255,138,0,0.15),rgba(255,184,0,0.1));border:1px solid rgba(255,138,0,0.3);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#FF8A00" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" fill="rgba(255,138,0,0.12)"/></svg>
+          </div>
+          <div>
+            <div style="font-size:13px;font-weight:800;color:var(--text,#1f2937)">Rizers কে Support করুন</div>
+            <div style="font-size:11px;color:var(--text2,#888);margin-top:2px">মাত্র ৳৯৯/মাসে • সম্পূর্ণ স্বেচ্ছায়</div>
+          </div>
+        </div>
+        <a href="#" onclick="rzGoToPayment();return false;" style="display:block;width:100%;background:linear-gradient(135deg,#FF8A00,#FFB800);color:#090B12;font-size:13px;font-weight:800;text-align:center;padding:13px;border-radius:12px;text-decoration:none;box-shadow:0 4px 14px rgba(255,138,0,0.35);box-sizing:border-box">🤲 ৳৯৯/মাসে Support করুন</a>
+      </div>
+
+    </div><!-- end rz-page-content -->
+    <div class="rz-donation-sidebar">
+      <div class="rz-dsb-inner">
+        <div style="text-align:center;margin-bottom:20px">
+          <div style="width:58px;height:58px;border-radius:18px;background:linear-gradient(135deg,rgba(255,138,0,0.15),rgba(255,184,0,0.1));border:1px solid rgba(255,138,0,0.3);display:flex;align-items:center;justify-content:center;margin:0 auto 12px">
+            <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="#FF8A00" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" fill="rgba(255,138,0,0.12)"/></svg>
+          </div>
+          <div style="font-size:12px;font-weight:800;color:#FF8A00;letter-spacing:1px;text-transform:uppercase">Rizers কে Support করুন</div>
+        </div>
+        <div style="background:rgba(255,138,0,0.06);border:1px solid rgba(255,138,0,0.15);border-radius:14px;padding:16px;margin-bottom:16px">
+          <div style="font-size:15px;font-weight:700;color:var(--text,#1f2937);line-height:1.6;margin-bottom:10px">"তোমার ছোট সাহায্য হাজারজনের ইবাদত সহজ করে দিতে পারে।"</div>
+          <div style="font-size:12.5px;color:var(--text2,#888);line-height:1.7">Rizers ব্যবহার করে প্রতিদিন হাজারো মানুষ নামাজ, ঘুম আর কোরআন ঠিক করছে। তুমি চাইলে এই যাত্রার অংশ হতে পারো।</div>
+        </div>
+        <div style="margin-bottom:16px">
+          <div style="font-size:12px;font-weight:700;color:var(--text2,#888);margin-bottom:10px;text-transform:uppercase;letter-spacing:.8px">মাত্র ৳৯৯/মাসে</div>
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <div style="display:flex;align-items:center;gap:10px"><div style="width:7px;height:7px;border-radius:50%;background:#FF8A00;flex-shrink:0"></div><span style="font-size:13.5px;color:var(--text,#1f2937)">১ কাপ চায়ের দাম</span></div>
+            <div style="display:flex;align-items:center;gap:10px"><div style="width:7px;height:7px;border-radius:50%;background:#22C55E;flex-shrink:0"></div><span style="font-size:13.5px;color:var(--text,#1f2937)">হাজারজনের AI partner চালু থাকে</span></div>
+            <div style="display:flex;align-items:center;gap:10px"><div style="width:7px;height:7px;border-radius:50%;background:#3B82F6;flex-shrink:0"></div><span style="font-size:13.5px;color:var(--text,#1f2937)">সব feature সম্পূর্ণ free থাকে</span></div>
+          </div>
+        </div>
+        <div style="height:1px;background:var(--border,#e5e7eb);margin-bottom:16px"></div>
+        <div style="margin-bottom:20px;flex:1">
+          <div style="font-size:13px;color:var(--text2,#888);line-height:1.8;font-style:italic">"যে ব্যক্তি কোনো ভালো কাজে সহায়তা করে, সে যেন সেই কাজ নিজেই করলো।"</div>
+          <div style="font-size:11.5px;color:#FF8A00;font-weight:700;margin-top:6px">— বুখারী ও মুসলিম</div>
+        </div>
+        <a href="#" onclick="rzGoToPayment();return false;" style="display:block;width:100%;background:linear-gradient(135deg,#FF8A00,#FFB800);color:#090B12;font-size:14px;font-weight:800;text-align:center;padding:15px;border-radius:13px;text-decoration:none;box-shadow:0 4px 16px rgba(255,138,0,0.4);box-sizing:border-box">🤲 ৳৯৯/মাসে Support করুন</a>
+        <div style="text-align:center;margin-top:12px;font-size:11px;color:var(--text2,#888)">সম্পূর্ণ স্বেচ্ছায় • যেকোনো সময় বাতিল করুন</div>
+      </div>
+    </div>
+  </div>
+</div><!-- /hadith-adult-wrap -->
+
+</div><!-- /hadith-page -->

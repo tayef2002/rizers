@@ -1,0 +1,245 @@
+﻿<div id="rizplay-page" class="app-page" style="display:none">
+
+<style>
+/* Mobile default: single-column scroll feed (unchanged) */
+#rizplay-feed{display:block;padding:0}
+.rz-watch-sugg-thumb{width:168px}
+/* Desktop: deliberate-browsing grid, no scroll-triggered motion — psychologically this is the
+   whole point (see _rzSetupAutoplayObserver's early-return above innerWidth>=768) */
+@media(min-width:768px){
+  /* YouTube-style grid card: no boxed border/background — just a rounded thumbnail floating
+     over the page background, with the avatar+title+meta block sitting directly beneath it. */
+  #rizplay-feed{display:grid;grid-template-columns:repeat(4,1fr);gap:24px 16px;padding:20px}
+  .rz-feed-card{border-radius:0!important;border:none!important;background:transparent!important}
+  .rz-feed-thumb-wrap{border-radius:12px!important;overflow:hidden}
+  .rz-feed-meta{padding:10px 0 0!important}
+  .rz-feed-title{font-size:14.5px!important}
+  .rz-feed-card img{transition:transform .3s ease}
+  .rz-feed-card:hover img{transform:scale(1.04)}
+  #rizplay-loadmore-wrap{margin:0 auto}
+
+  /* Desktop: video+details form the left column, suggestions the right — using named grid
+     areas (not nesting) so the video/left-details/suggestions can be flat siblings, which is
+     what mobile needs for the sticky video to stay pinned across the ENTIRE scroll (see below). */
+  /* No max-width/centering here on purpose — a capped+centered grid left equal blank gutters on
+     both sides on very wide monitors instead of using the space. The right column instead grows
+     with the viewport (480px up to 640px) so it absorbs extra width directly; the video column
+     (minmax(0,1fr)) takes whatever's left, so it always reaches the true left edge. */
+  #rizplay-watch-cols{display:grid;grid-template-columns:minmax(0,1fr) clamp(480px,34vw,640px);grid-template-rows:auto 1fr;grid-template-areas:"sticky right" "left right";align-items:start;gap:0 28px;padding:20px}
+  /* Desktop: video and suggestions scroll together as one page (matches real YouTube desktop
+     behavior) instead of the player staying pinned — mobile keeps the sticky player unchanged.
+     grid-template-rows:auto 1fr + align-items:start stop the tall suggestions column (which
+     spans both rows) from inflating the video's own row and leaving a gap beneath it.
+     max-height:68vh is a direct vertical-fit guard: on shorter/less-tall browser windows the
+     width-driven 16:9 height could still push the channel-row/action-buttons below the fold —
+     capping height here (the iframe player letterboxes instead of distorting) guarantees room
+     for that row without needing an immediate scroll. */
+  #rizplay-watch-sticky{grid-area:sticky;position:relative!important;margin-bottom:0;max-height:68vh}
+  #rizplay-watch-left{grid-area:left;min-width:0}
+  #rizplay-watch-right{grid-area:right;min-width:0}
+}
+/* Suggestion thumbnails grow to match the rail's clamp(480px,34vw,640px) width above — real
+   YouTube's own compact-thumbnail size also scales up a step on very wide monitors rather than
+   leaving the extra rail width as pure whitespace around a fixed-size thumbnail. */
+@media(min-width:1200px){
+  .rz-watch-sugg-thumb{width:200px}
+}
+@media(min-width:1600px){
+  .rz-watch-sugg-thumb{width:240px}
+}
+@media(max-width:767px){
+  #rizplay-watch-cols{display:block}
+  /* Mobile: sticky's positioning is scoped to its PARENT's height — #rizplay-watch-sticky,
+     #rizplay-watch-left, and #rizplay-watch-right are flat siblings under #rizplay-watch-cols
+     specifically so that parent spans the full scroll (video info AND suggestions), letting the
+     video stay pinned while scrolling all the way through the suggestions list, not just while
+     scrolling its own title/creator-strip/reflection box. */
+  #rizplay-watch-sticky{border-radius:0!important}
+}
+
+/* Sidebar: browse by category/channel, plus personal History/Liked/Saved. Content is 100%
+   admin-curated (no user uploads, no real per-creator subscribe relationship yet) so this is a
+   deliberately Rizers-shaped version of YouTube's left rail — topic + channel browsing instead
+   of a subscriptions feed, and only the two personal lists (History, Saved) that already have
+   real data behind them. */
+#rizplay-header{display:flex;align-items:center;gap:12px;padding:12px 16px;position:sticky;top:0;z-index:5;background:var(--bg)}
+#rizplay-sidebar-toggle{width:36px;height:36px;flex-shrink:0;border-radius:50%;border:1px solid var(--border);background:var(--card);display:flex;align-items:center;justify-content:center;cursor:pointer}
+#rizplay-header-title{font-size:16px;font-weight:800;color:var(--text);font-family:'Hind Siliguri',sans-serif;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#rizplay-header-reset{font-size:12.5px;font-weight:700;color:#FF8A00;font-family:'Hind Siliguri',sans-serif;cursor:pointer;flex-shrink:0;display:none}
+
+#rizplay-sidebar-backdrop{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:20}
+#rizplay-sidebar{position:fixed;top:0;bottom:0;left:0;width:260px;background:var(--bg);border-right:1px solid var(--border);z-index:21;overflow-y:auto;padding:14px 10px 24px;transform:translateX(-100%);transition:transform .22s ease}
+#rizplay-sidebar.rz-sb-open{transform:translateX(0)}
+.rz-sb-section-title{font-size:11px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.5px;padding:14px 12px 6px;font-family:'Hind Siliguri',sans-serif}
+.rz-sb-item{display:flex;align-items:center;gap:12px;padding:9px 12px;border-radius:10px;cursor:pointer;font-size:13.5px;font-weight:700;color:var(--text);font-family:'Hind Siliguri',sans-serif}
+.rz-sb-item:hover{background:var(--card)}
+.rz-sb-item.active{background:rgba(255,138,0,.14);color:#FF8A00}
+.rz-sb-item img{width:24px;height:24px;border-radius:50%;flex-shrink:0;object-fit:cover}
+.rz-sb-item-ic{width:20px;height:20px;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.rz-sb-item-label{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rz-sb-empty{padding:8px 12px;font-size:12px;color:var(--text2);font-family:'Hind Siliguri',sans-serif}
+
+#rizplay-category-bar{display:flex;gap:8px;overflow-x:auto;padding:12px 16px;scrollbar-width:none}
+#rizplay-category-bar::-webkit-scrollbar{display:none}
+.rz-cat-chip{flex-shrink:0;padding:7px 14px;border-radius:8px;background:#0f0f0f;border:none;color:#fff;font-size:13.5px;font-weight:400;font-family:'Hind Siliguri',sans-serif;cursor:pointer;white-space:nowrap;transition:background .15s ease}
+.rz-cat-chip:hover:not(.active){background:#272727}
+.rz-cat-chip.active{background:#eee;color:#0f0f0f;font-weight:600;box-shadow:inset 0 0 0 1.5px rgba(0,0,0,.15)}
+body.dark-mode .rz-cat-chip:not(.active){background:#3a3d4a}
+body.dark-mode .rz-cat-chip:hover:not(.active){background:#474b5c}
+
+@media(min-width:768px){
+  /* !important: _rzCloseWatchView sets headerEl.style.display='flex' inline (pre-existing code,
+     written before this header bar existed) — that inline style would otherwise outrank this
+     media-query rule and make the mobile-only bar reappear on desktop after closing a video. */
+  #rizplay-header{display:none!important} /* desktop uses the persistent rail, not the mobile drawer trigger */
+  #rizplay-body-row{display:flex;align-items:flex-start}
+  #rizplay-sidebar{position:sticky;transform:none;width:220px;flex-shrink:0;border-right:1px solid var(--border);height:100vh;padding-top:16px}
+  #rizplay-sidebar-backdrop{display:none!important}
+  #rizplay-main-col{flex:1;min-width:0}
+  #rizplay-feed{grid-template-columns:repeat(3,1fr)} /* 4→3 columns to make room for the rail */
+}
+</style>
+
+  <div style="padding:0;width:100%;box-sizing:border-box;background:var(--bg);min-height:100%">
+
+    <!-- Mobile drawer trigger + current-view title (hidden on desktop — the rail is always visible there) -->
+    <div id="rizplay-header">
+      <div id="rizplay-sidebar-toggle" onclick="_rzToggleSidebar()">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </div>
+      <div id="rizplay-header-title">RizPlay</div>
+      <div id="rizplay-header-reset" onclick="_rzSidebarNav('home')">হোমে ফিরুন</div>
+    </div>
+
+    <div id="rizplay-sidebar-backdrop" onclick="_rzToggleSidebar(false)"></div>
+
+    <div id="rizplay-body-row">
+    <div id="rizplay-sidebar">
+      <div class="rz-sb-item active" data-mode="home" onclick="_rzSidebarNav('home')">
+        <span class="rz-sb-item-ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7"/><path d="M5 10v9a1 1 0 001 1h4v-6h4v6h4a1 1 0 001-1v-9"/></svg></span>
+        <span class="rz-sb-item-label">হোম</span>
+      </div>
+
+      <div class="rz-sb-section-title">চ্যানেল</div>
+      <div id="rz-sb-channels"><div class="rz-sb-empty">লোড হচ্ছে…</div></div>
+
+      <div class="rz-sb-section-title">তোমার</div>
+      <div class="rz-sb-item" data-mode="history" onclick="_rzSidebarNav('history')">
+        <span class="rz-sb-item-ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg></span>
+        <span class="rz-sb-item-label">দেখার ইতিহাস</span>
+      </div>
+      <div class="rz-sb-item" data-mode="liked" onclick="_rzSidebarNav('liked')">
+        <span class="rz-sb-item-ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20.5s-7.5-4.6-9.7-9C.7 8 2.3 4.5 5.7 4c2-.3 4 .7 5.3 2.4C12.3 4.7 14.3 3.7 16.3 4c3.4.5 5 4 3.4 7.5-2.2 4.4-9.7 9-9.7 9z"/></svg></span>
+        <span class="rz-sb-item-label">পছন্দের ভিডিও</span>
+      </div>
+      <div class="rz-sb-item" data-mode="saved" onclick="_rzSidebarNav('saved')">
+        <span class="rz-sb-item-ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12a1 1 0 011 1v17l-7-4-7 4V4a1 1 0 011-1z"/></svg></span>
+        <span class="rz-sb-item-label">সেভ করা</span>
+      </div>
+    </div>
+
+    <div id="rizplay-main-col">
+
+    <!-- Category chip bar — YouTube-style, sits above the feed itself (not the sidebar list —
+         real YouTube keeps categories here too, not in its left rail). Same _rzSidebarNav
+         mechanism as the sidebar's Channels/History/Liked/Saved items, just a different visual
+         shape. Populated by _rzLoadSidebarLists(). -->
+    <div id="rizplay-category-bar">
+      <div class="rz-cat-chip active" data-mode="home" onclick="_rzSidebarNavFromEl(this)">সব</div>
+    </div>
+
+    <!-- Empty state / Coming soon (shown only if no synced content yet) -->
+    <div id="rizplay-empty" style="display:none;flex-direction:column;align-items:center;justify-content:center;padding:60px 24px;text-align:center">
+      <div style="width:80px;height:80px;border-radius:50%;background:rgba(255,138,0,.15);display:flex;align-items:center;justify-content:center;margin-bottom:20px">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#FF8A00" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M10.5 9.5l4.5 2.5-4.5 2.5V9.5z" stroke-linejoin="round"/></svg>
+      </div>
+      <div style="font-size:24px;font-weight:800;color:var(--text);margin-bottom:10px;font-family:'Hind Siliguri',sans-serif;letter-spacing:.5px" id="rizplay-empty-title">Coming Soon!</div>
+      <div style="font-size:14px;color:var(--text2);line-height:1.6;max-width:280px;font-family:'Hind Siliguri',sans-serif" id="rizplay-empty-msg">Watch Islamic & educational short videos. Share, inspire, and Rise together.</div>
+    </div>
+
+    <!-- Synced video feed -->
+    <div id="rizplay-feed" style="display:none"></div>
+    <div id="rizplay-loadmore-wrap" style="display:none;padding:16px;text-align:center">
+      <button id="rizplay-loadmore-btn" onclick="_rzLoadMoreFeed()" style="background:var(--card);border:1.5px solid var(--border);color:var(--text);font-family:'Hind Siliguri',sans-serif;font-weight:700;font-size:14px;padding:10px 22px;border-radius:20px;cursor:pointer">আরো দেখাও</button>
+    </div>
+
+    </div>
+    </div>
+
+    <!-- Full watch view — opens when a video is tapped. No auto-play-next: the user always
+         chooses the next video themselves from the suggestions list. Left/right columns only
+         apply visually on desktop (CSS above); mobile keeps the original stacked order since
+         #rizplay-watch-cols falls back to display:block under 768px. -->
+    <div id="rizplay-watch" style="display:none;opacity:0;transform:translateY(16px);transition:opacity .25s ease,transform .25s ease">
+      <div id="rizplay-watch-cols">
+        <div id="rizplay-watch-sticky" style="position:sticky;top:0;z-index:10;width:100%;aspect-ratio:16/9;background:#000;border-radius:12px;overflow:hidden">
+          <div id="rizplay-watch-player" style="position:absolute;inset:0"></div>
+        </div>
+        <div id="rizplay-watch-left">
+          <!-- Title + meta — sized/spaced like YouTube's watch-page title block. -->
+          <div style="padding:16px 16px 6px">
+            <div id="rizplay-watch-title" style="font-size:19px;font-weight:800;color:var(--text);font-family:'Hind Siliguri',sans-serif;line-height:1.35"></div>
+            <div id="rizplay-watch-meta" style="font-size:12.5px;color:var(--text2);margin-top:5px"></div>
+          </div>
+
+          <!-- Channel row — YouTube's avatar+name+Subscribe row, but with Rizers' own growth
+               mechanic (Connect/Vote pattern, same as creatorprofile.html) instead of a real
+               Subscribe button, scoped to this video's channel via _rzWatchChannelId (not the
+               shared _rzCurrentProfileChannel the profile page uses, so the two never clobber
+               each other). -->
+          <div id="rzw-creator-strip" style="display:flex;align-items:center;flex-wrap:wrap;gap:12px;padding:10px 16px">
+            <div onclick="_rzWatchOpenChannel()" style="display:flex;align-items:center;gap:10px;cursor:pointer;min-width:0">
+              <div id="rzw-avatar" style="width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#FF8A00,#FFB800);background-size:cover;background-position:center;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:17px;color:#090B12;font-family:'Hind Siliguri',sans-serif;flex-shrink:0"></div>
+              <div style="min-width:0">
+                <div style="display:flex;align-items:center;gap:6px">
+                  <span id="rzw-channel-name" style="font-size:14.5px;font-weight:700;color:var(--text);font-family:'Hind Siliguri',sans-serif;white-space:nowrap;overflow:hidden;text-overflow:ellipsis"></span>
+                  <span style="display:inline-flex;align-items:center;gap:3px;background:rgba(255,138,0,.15);color:#FF8A00;font-size:10px;font-weight:700;padding:2px 7px;border-radius:20px;font-family:'Hind Siliguri',sans-serif;flex-shrink:0">Unverified</span>
+                </div>
+                <div style="font-size:12px;color:var(--text2);margin-top:1px"><span id="rzw-vote-count">0</span> জন Rizer চায়</div>
+              </div>
+            </div>
+            <!-- Connect/Inspire/Vote are flat siblings (not one grouped div) with
+                 margin-left:auto only on Connect — on desktop all three fit on the channel row
+                 together (matches YouTube's Subscribe+like/share cluster on the right). On
+                 narrow/mobile widths the name block (which can shrink, unlike the buttons)
+                 gives way first so Connect still lands right beside the name on line 1, and
+                 only Inspire+Vote (individually, not as a locked pair) wrap to line 2. -->
+            <button id="rzw-connect-btn" onclick="_rzWatchConnect()" style="flex-shrink:0;margin-left:auto;display:flex;align-items:center;gap:7px;padding:9px 20px;background:linear-gradient(90deg,#FF8A00,#FFB800);color:#fff;border:none;border-radius:20px;font-size:13.5px;font-weight:700;cursor:pointer;font-family:'Hind Siliguri',sans-serif;white-space:nowrap">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>
+              <span id="rzw-connect-txt">Connect Rizer</span>
+            </button>
+            <button id="rzw-inspire-btn" onclick="_rzWatchInspire()" style="flex-shrink:0;display:flex;align-items:center;gap:8px;padding:9px 18px;background:var(--bg2);border:none;border-radius:20px;font-size:13.5px;font-weight:700;color:var(--text);cursor:pointer;font-family:'Hind Siliguri',sans-serif;white-space:nowrap">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>
+              <span>Inspire</span><span id="rzw-inspire-count" style="color:var(--text2);font-weight:600"></span>
+            </button>
+            <button id="rzw-vote-btn" onclick="_rzWatchVote()" style="flex-shrink:0;display:flex;align-items:center;gap:8px;padding:9px 18px;background:var(--bg2);border:none;border-radius:20px;font-size:13.5px;font-weight:700;color:var(--text);cursor:pointer;font-family:'Hind Siliguri',sans-serif;white-space:nowrap">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8.5 13.5L12 9l3.5 4.5"/><line x1="12" y1="9" x2="12" y2="16"/></svg>
+              <span>Vote</span>
+            </button>
+            <button id="rzw-save-btn" onclick="_rzWatchToggleSave()" style="flex-shrink:0;display:flex;align-items:center;gap:8px;padding:9px 18px;background:var(--bg2);border:none;border-radius:20px;font-size:13.5px;font-weight:700;color:var(--text);cursor:pointer;font-family:'Hind Siliguri',sans-serif;white-space:nowrap">
+              <svg id="rzw-save-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+              <span id="rzw-save-txt">Save</span>
+            </button>
+          </div>
+
+          <!-- Reflection prompt — turns passive watching into a tiny active-recall habit, the
+               core productivity differentiator discussed for this watch view. Fully optional. -->
+          <div id="rzw-reflection-wrap" style="margin:0 16px 16px;padding:14px 16px;background:var(--card);border:1px solid var(--border);border-radius:14px">
+            <div style="font-size:13.5px;font-weight:700;color:var(--text);font-family:'Hind Siliguri',sans-serif;margin-bottom:8px">এই ভিডিও থেকে কী শিখলে?</div>
+            <textarea id="rzw-reflection-input" placeholder="এক লাইনে লিখো... (optional)" style="width:100%;min-height:56px;padding:10px 12px;background:var(--bg);border:1px solid var(--border);border-radius:8px;font-size:13.5px;color:var(--text);font-family:'Hind Siliguri',sans-serif;box-sizing:border-box;resize:vertical"></textarea>
+            <div style="display:flex;gap:8px;margin-top:8px;align-items:center">
+              <button id="rzw-reflection-save-btn" onclick="_rzWatchSaveReflection()" style="padding:8px 16px;background:linear-gradient(90deg,#FF8A00,#FFB800);color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Hind Siliguri',sans-serif">Save</button>
+              <span onclick="_rzWatchSkipReflection()" style="font-size:12.5px;color:var(--text2);cursor:pointer;font-family:'Hind Siliguri',sans-serif">Skip</span>
+              <span id="rzw-reflection-status" style="font-size:12.5px;color:#22c55e;font-weight:600;font-family:'Hind Siliguri',sans-serif"></span>
+            </div>
+          </div>
+        </div>
+        <div id="rizplay-watch-right">
+          <div style="padding:4px 12px;font-size:14px;font-weight:800;color:var(--text);font-family:'Hind Siliguri',sans-serif;border-top:1px solid var(--border);padding-top:12px">আরো ভিডিও</div>
+          <div id="rizplay-watch-suggestions"></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

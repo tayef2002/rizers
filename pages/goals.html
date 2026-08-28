@@ -1,0 +1,363 @@
+<div id="goals-page" class="app-page" style="display:none;overflow-x:hidden">
+
+<!-- ── KIDS WRAP ── -->
+<div id="goals-kids-wrap">
+<div style="padding:16px 16px 80px 16px">
+
+  <!-- Header -->
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:18px">
+    <div>
+      <h1 style="font-size:20px;font-weight:700;color:var(--text,#1a1a2e);display:flex;align-items:center;gap:8px;margin:0">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FF8A00" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+        Goal Setting
+      </h1>
+      <p style="color:var(--text2,#666);font-size:13px;margin-top:4px;margin-bottom:0">সাপ্তাহিক ও মাসিক লক্ষ্য নির্ধারণ করুন</p>
+    </div>
+    <div id="gl-counter-box" style="background:rgba(255,138,0,.1);border:1.5px solid rgba(255,138,0,.25);border-radius:14px;padding:10px 16px;text-align:center;min-width:72px;transition:.3s">
+      <div id="gl-done-count" style="font-size:20px;font-weight:700;color:#FF8A00">0/0</div>
+      <div style="font-size:10px;color:var(--text2,#666);font-weight:600">লক্ষ্য সম্পন্ন</div>
+    </div>
+  </div>
+
+  <!-- Kid tabs -->
+  <div id="gl-kid-tabs" style="display:none;overflow-x:auto;padding-bottom:8px;margin-bottom:14px;scrollbar-width:none;-webkit-overflow-scrolling:touch;white-space:nowrap"></div>
+
+  <!-- Overview cards -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px">
+    <div style="background:linear-gradient(135deg,#FF8A00,#FFB800);border-radius:18px;padding:18px">
+      <div style="display:flex;align-items:center;gap:5px;font-size:11px;font-weight:700;margin-bottom:8px;color:rgba(255,255,255,.8)">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        সাপ্তাহিক
+      </div>
+      <div id="gl-week-progress" style="font-size:26px;font-weight:700;color:#fff">0/0</div>
+      <div style="height:5px;background:rgba(9,11,18,.2);border-radius:10px;margin-top:10px;overflow:hidden">
+        <div id="gl-week-bar" style="height:100%;width:0%;background:rgba(9,11,18,.5);border-radius:10px;transition:.4s ease"></div>
+      </div>
+    </div>
+    <div style="background:var(--card,#fff);border:1.5px solid rgba(255,138,0,.3);border-radius:18px;padding:18px">
+      <div style="display:flex;align-items:center;gap:5px;font-size:11px;font-weight:700;margin-bottom:8px;color:var(--text2,#888)">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        মাসিক
+      </div>
+      <div id="gl-month-progress" style="font-size:26px;font-weight:700;color:var(--text,#1a1a2e)">0/0</div>
+      <div style="height:5px;background:rgba(255,138,0,.15);border-radius:10px;margin-top:10px;overflow:hidden">
+        <div id="gl-month-bar" style="height:100%;width:0%;background:#FF8A00;border-radius:10px;transition:.4s ease"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add goal -->
+  <div style="background:var(--card,#fff);border-radius:18px;padding:18px;border:1px solid var(--border,#f0f0f0);margin-bottom:14px">
+    <h3 style="font-size:14px;font-weight:700;color:var(--text,#1a1a2e);margin:0 0 14px;display:flex;align-items:center;gap:7px">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#FF8A00" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      নতুন লক্ষ্য
+    </h3>
+    <div style="margin-bottom:10px">
+      <label style="font-size:12px;font-weight:600;color:var(--text2,#666);display:block;margin-bottom:5px">লক্ষ্য লিখুন</label>
+      <input id="gl-input" type="text" placeholder="যেমন: প্রতিদিন কুরআন পড়া" style="width:100%;border:1.5px solid var(--border,#e5e7eb);border-radius:10px;padding:9px 12px;font-size:13px;font-family:inherit;outline:none;background:var(--card,#fff);color:var(--text,#1a1a2e);box-sizing:border-box"/>
+    </div>
+    <div style="display:flex;gap:10px;margin-bottom:12px;flex-wrap:wrap">
+      <div style="flex:1;min-width:130px">
+        <label style="font-size:12px;font-weight:600;color:var(--text2,#666);display:block;margin-bottom:5px">ধরন</label>
+        <select id="gl-type" style="width:100%;border:1.5px solid var(--border,#e5e7eb);border-radius:10px;padding:9px 12px;font-size:13px;font-family:inherit;outline:none;background:var(--card,#fff);color:var(--text,#1a1a2e);box-sizing:border-box">
+          <option value="weekly">সাপ্তাহিক</option>
+          <option value="monthly">মাসিক</option>
+        </select>
+      </div>
+      <div style="flex:1;min-width:130px">
+        <label style="font-size:12px;font-weight:600;color:var(--text2,#666);display:block;margin-bottom:5px">Category</label>
+        <select id="gl-cat" style="width:100%;border:1.5px solid var(--border,#e5e7eb);border-radius:10px;padding:9px 12px;font-size:13px;font-family:inherit;outline:none;background:var(--card,#fff);color:var(--text,#1a1a2e);box-sizing:border-box">
+          <option value="islamic">Islamic</option>
+          <option value="study">পড়াশোনা</option>
+          <option value="health">স্বাস্থ্য</option>
+          <option value="habit">Habit</option>
+        </select>
+      </div>
+    </div>
+    <button onclick="glAddGoal()" style="width:100%;padding:12px;background:linear-gradient(135deg,#FF8A00,#FFB800);color:#090B12;border:none;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit">+ লক্ষ্য যোগ করুন</button>
+  </div>
+
+  <!-- Filter + list -->
+  <div style="background:var(--card,#fff);border-radius:18px;padding:18px;border:1px solid var(--border,#f0f0f0);margin-bottom:20px">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
+      <h3 style="font-size:14px;font-weight:700;color:var(--text,#1a1a2e);margin:0;display:flex;align-items:center;gap:7px">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#FF8A00" stroke-width="2" stroke-linecap="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+        আমার লক্ষ্যসমূহ
+      </h3>
+    </div>
+    <div id="gl-filter-row" style="display:flex;gap:7px;margin-bottom:14px;flex-wrap:wrap"></div>
+    <div id="gl-list"></div>
+  </div>
+
+</div>
+</div><!-- /goals-kids-wrap -->
+
+<!-- ── ADULT WRAP ── -->
+<div id="goals-adult-wrap" style="display:none">
+<div class="rz-page-with-banner">
+
+<!-- Donation Sidebar (first in DOM for sticky) -->
+<div class="rz-donation-sidebar">
+  <div class="rz-dsb-inner">
+    <div style="text-align:center;margin-bottom:14px">
+      <div style="width:44px;height:44px;background:linear-gradient(135deg,#FF8A00,#FFB800);border-radius:14px;display:inline-flex;align-items:center;justify-content:center;margin-bottom:10px">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#090B12" stroke-width="2" stroke-linecap="round"><path d="M12 21.593c-5.63-5.539-11-10.297-11-14.402 0-3.791 3.068-5.191 5.281-5.191 1.312 0 4.151.501 5.719 4.457 1.59-3.968 4.464-4.447 5.726-4.447 2.54 0 5.274 1.621 5.274 5.181 0 4.069-5.136 8.625-11 14.402z"/></svg>
+      </div>
+      <div style="font-size:15px;font-weight:800;color:var(--text,#1a1a2e);line-height:1.3">Rizers কে<br>Support করুন</div>
+    </div>
+    <div style="background:linear-gradient(135deg,rgba(255,138,0,.08),rgba(139,92,246,.08));border-radius:12px;padding:12px;margin-bottom:14px;border:1px solid rgba(255,138,0,.15)">
+      <div style="font-size:11px;font-style:italic;color:var(--text2,#666);line-height:1.6;text-align:center">"তোমার লক্ষ্য নির্ধারণ কর, তারপর সেই লক্ষ্যের দিকে এগিয়ে যাও — বাকিটা আল্লাহর উপর ছেড়ে দাও।"</div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:14px">
+      <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text2,#666)">
+        <div style="width:20px;height:20px;background:rgba(16,185,129,.12);border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+        সম্পূর্ণ বিজ্ঞাপনমুক্ত
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text2,#666)">
+        <div style="width:20px;height:20px;background:rgba(59,130,246,.12);border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#3B82F6" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+        নতুন features সবার আগে
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text2,#666)">
+        <div style="width:20px;height:20px;background:rgba(139,92,246,.12);border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#8B5CF6" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+        Goal tracker unlimited
+      </div>
+    </div>
+    <div style="background:rgba(255,138,0,.06);border-radius:10px;padding:10px;margin-bottom:14px;border:1px solid rgba(255,138,0,.12)">
+      <div style="font-size:10px;font-weight:600;color:#FF8A00;margin-bottom:3px;letter-spacing:.5px">হাদিস</div>
+      <div style="font-size:11px;color:var(--text2,#666);line-height:1.6">"যে ব্যক্তি ভালো নিয়তে কাজ শুরু করে, আল্লাহ তার কাজ সম্পন্ন করেন।" — বুখারী</div>
+    </div>
+    <a href="https://rizers.app/support" target="_blank" style="display:block;width:100%;padding:12px;background:linear-gradient(135deg,#FF8A00,#FFB800);color:#090B12;border:none;border-radius:12px;font-size:13px;font-weight:800;cursor:pointer;font-family:inherit;text-align:center;text-decoration:none;box-sizing:border-box">❤️ Support করুন</a>
+  </div>
+</div>
+
+<!-- Page Content -->
+<div class="rz-page-content">
+<div style="padding:16px 16px 100px">
+
+  <!-- Hero -->
+  <div style="background:linear-gradient(135deg,#0f0c29 0%,#302b63 50%,#24243e 100%);border-radius:24px;padding:24px;margin-bottom:18px;position:relative;overflow:hidden">
+    <div style="position:absolute;top:-40px;right:-40px;width:180px;height:180px;background:rgba(255,138,0,.06);border-radius:50%;pointer-events:none"></div>
+    <div style="position:absolute;bottom:-50px;left:-30px;width:130px;height:130px;background:rgba(124,58,237,.08);border-radius:50%;pointer-events:none"></div>
+    <div style="display:flex;align-items:center;gap:20px;position:relative;flex-wrap:wrap">
+      <!-- Progress Ring -->
+      <div style="flex-shrink:0">
+        <svg id="ag-ring-svg" width="96" height="96" viewBox="0 0 96 96">
+          <circle cx="48" cy="48" r="40" fill="none" stroke="rgba(255,255,255,.08)" stroke-width="9"/>
+          <circle id="ag-ring-arc" cx="48" cy="48" r="40" fill="none" stroke="url(#agGrad)" stroke-width="9" stroke-linecap="round" stroke-dasharray="251.3" stroke-dashoffset="251.3" transform="rotate(-90 48 48)" style="transition:stroke-dashoffset .9s cubic-bezier(.4,0,.2,1)"/>
+          <defs>
+            <linearGradient id="agGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#FF8A00"/>
+              <stop offset="100%" stop-color="#FFB800"/>
+            </linearGradient>
+          </defs>
+          <text x="48" y="52" text-anchor="middle" fill="#FF8A00" font-size="16" font-weight="700" font-family="inherit" id="ag-ring-pct">0%</text>
+        </svg>
+      </div>
+      <div style="flex:1;min-width:180px">
+        <div style="font-size:10px;font-weight:700;color:rgba(255,255,255,.4);letter-spacing:2px;margin-bottom:6px">LIFE GOAL SCORE</div>
+        <div style="font-size:22px;font-weight:800;color:#fff;margin-bottom:10px;line-height:1.2">তোমার জীবনের<br>লক্ষ্যমালা</div>
+        <div style="display:flex;gap:18px;flex-wrap:wrap">
+          <div>
+            <div id="ag-stat-total" style="font-size:22px;font-weight:800;color:#FF8A00;line-height:1">0</div>
+            <div style="font-size:10px;color:rgba(255,255,255,.4);margin-top:2px">মোট লক্ষ্য</div>
+          </div>
+          <div style="width:1px;background:rgba(255,255,255,.08)"></div>
+          <div>
+            <div id="ag-stat-done" style="font-size:22px;font-weight:800;color:#10B981;line-height:1">0</div>
+            <div style="font-size:10px;color:rgba(255,255,255,.4);margin-top:2px">সম্পন্ন</div>
+          </div>
+          <div style="width:1px;background:rgba(255,255,255,.08)"></div>
+          <div>
+            <div id="ag-stat-active" style="font-size:22px;font-weight:800;color:#60A5FA;line-height:1">0</div>
+            <div style="font-size:10px;color:rgba(255,255,255,.4);margin-top:2px">চলমান</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Life Balance Radar -->
+  <div style="background:var(--card,#fff);border-radius:20px;padding:18px;border:1px solid var(--border,#f0f0f0);margin-bottom:16px">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
+      <div>
+        <div style="font-size:14px;font-weight:700;color:var(--text,#1a1a2e)">জীবনের ভারসাম্য</div>
+        <div style="font-size:11px;color:var(--text2,#888);margin-top:2px">ক্ষেত্র অনুযায়ী অগ্রগতি</div>
+      </div>
+      <div style="font-size:10px;font-weight:600;color:var(--text2,#aaa);background:var(--bg,#f9fafb);padding:4px 10px;border-radius:20px">রাডার ভিউ</div>
+    </div>
+    <div style="display:flex;align-items:flex-start;gap:16px;flex-wrap:wrap">
+      <svg id="ag-radar" width="190" height="190" viewBox="0 0 190 190" style="flex-shrink:0"></svg>
+      <div style="flex:1;min-width:160px">
+        <div id="ag-area-chips" style="display:flex;flex-wrap:wrap;gap:6px"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3-Column Board -->
+  <div id="ag-board" style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px">
+
+    <!-- Life Goals Column -->
+    <div style="background:var(--card,#fff);border-radius:18px;border:1px solid var(--border,#f0f0f0);overflow:hidden;display:flex;flex-direction:column">
+      <div style="background:linear-gradient(135deg,#5B21B6,#8B5CF6);padding:14px 16px;flex-shrink:0">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <div>
+            <div style="font-size:13px;font-weight:800;color:#fff">জীবনের লক্ষ্য</div>
+            <div style="font-size:10px;color:rgba(255,255,255,.55);margin-top:2px">১ – ৫ বছর</div>
+          </div>
+          <span id="ag-life-count" style="background:rgba(255,255,255,.18);color:#fff;font-size:11px;font-weight:700;padding:3px 11px;border-radius:20px;min-width:24px;text-align:center">0</span>
+        </div>
+      </div>
+      <div id="ag-life-list" style="padding:10px;flex:1;min-height:80px"></div>
+      <div style="padding:0 10px 12px;flex-shrink:0">
+        <button onclick="agQuickAdd('life')" style="width:100%;padding:10px;background:rgba(139,92,246,.06);color:#8B5CF6;border:1.5px dashed rgba(139,92,246,.3);border-radius:10px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;transition:.2s">+ যোগ করুন</button>
+      </div>
+    </div>
+
+    <!-- Quarterly Column -->
+    <div style="background:var(--card,#fff);border-radius:18px;border:1px solid var(--border,#f0f0f0);overflow:hidden;display:flex;flex-direction:column">
+      <div style="background:linear-gradient(135deg,#0369A1,#38BDF8);padding:14px 16px;flex-shrink:0">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <div>
+            <div style="font-size:13px;font-weight:800;color:#fff">কোয়ার্টারলি</div>
+            <div style="font-size:10px;color:rgba(255,255,255,.55);margin-top:2px">৩ মাসের পরিকল্পনা</div>
+          </div>
+          <span id="ag-quarterly-count" style="background:rgba(255,255,255,.18);color:#fff;font-size:11px;font-weight:700;padding:3px 11px;border-radius:20px;min-width:24px;text-align:center">0</span>
+        </div>
+      </div>
+      <div id="ag-quarterly-list" style="padding:10px;flex:1;min-height:80px"></div>
+      <div style="padding:0 10px 12px;flex-shrink:0">
+        <button onclick="agQuickAdd('quarterly')" style="width:100%;padding:10px;background:rgba(56,189,248,.06);color:#0369A1;border:1.5px dashed rgba(56,189,248,.4);border-radius:10px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;transition:.2s">+ যোগ করুন</button>
+      </div>
+    </div>
+
+    <!-- Weekly Sprint Column -->
+    <div style="background:var(--card,#fff);border-radius:18px;border:1px solid var(--border,#f0f0f0);overflow:hidden;display:flex;flex-direction:column">
+      <div style="background:linear-gradient(135deg,#FF8A00,#FFB800);padding:14px 16px;flex-shrink:0">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <div>
+            <div style="font-size:13px;font-weight:800;color:rgba(0,0,0,.65)">সাপ্তাহিক স্প্রিন্ট</div>
+            <div style="font-size:10px;color:rgba(0,0,0,.4);margin-top:2px">এই সপ্তাহের টার্গেট</div>
+          </div>
+          <span id="ag-weekly-count" style="background:rgba(0,0,0,.12);color:rgba(0,0,0,.6);font-size:11px;font-weight:700;padding:3px 11px;border-radius:20px;min-width:24px;text-align:center">0</span>
+        </div>
+      </div>
+      <div id="ag-weekly-list" style="padding:10px;flex:1;min-height:80px"></div>
+      <div style="padding:0 10px 12px;flex-shrink:0">
+        <button onclick="agQuickAdd('weekly')" style="width:100%;padding:10px;background:rgba(255,138,0,.06);color:#FF8A00;border:1.5px dashed rgba(255,138,0,.35);border-radius:10px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;transition:.2s">+ যোগ করুন</button>
+      </div>
+    </div>
+
+  </div><!-- /ag-board -->
+
+  <!-- Mobile Donation Card -->
+  <div class="rz-donation-mobile-card" style="margin-top:16px;margin-bottom:14px">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
+      <div style="width:42px;height:42px;border-radius:13px;background:linear-gradient(135deg,rgba(255,138,0,0.15),rgba(255,184,0,0.1));border:1px solid rgba(255,138,0,0.3);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#FF8A00" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" fill="rgba(255,138,0,0.12)"/></svg>
+      </div>
+      <div>
+        <div style="font-size:13px;font-weight:800;color:var(--text,#1f2937)">Rizers কে Support করুন</div>
+        <div style="font-size:11px;color:var(--text2,#888);margin-top:2px">মাত্র ৳৯৯/মাসে • সম্পূর্ণ স্বেচ্ছায়</div>
+      </div>
+    </div>
+    <a href="#" onclick="rzGoToPayment();return false;" style="display:block;width:100%;background:linear-gradient(135deg,#FF8A00,#FFB800);color:#090B12;font-size:13px;font-weight:800;text-align:center;padding:13px;border-radius:12px;text-decoration:none;box-shadow:0 4px 14px rgba(255,138,0,0.35);box-sizing:border-box">🤲 ৳৯৯/মাসে Support করুন</a>
+  </div>
+
+</div><!-- /padding -->
+</div><!-- /rz-page-content -->
+</div><!-- /rz-page-with-banner -->
+</div><!-- /goals-adult-wrap -->
+
+<!-- ── ADD GOAL MODAL ── -->
+<div id="ag-sheet-overlay" onclick="agCloseSheet()" style="display:none;position:fixed;inset:0;padding-left:220px;background:rgba(0,0,0,.55);z-index:1200;backdrop-filter:blur(6px);align-items:center;justify-content:center">
+  <div id="ag-sheet" onclick="event.stopPropagation()" style="background:var(--card,#fff);border-radius:20px;width:calc(100% - 40px);max-width:500px;max-height:88vh;overflow-y:auto;opacity:0;transform:scale(0.9) translateY(8px);transition:opacity .22s ease,transform .28s cubic-bezier(.34,1.4,.64,1);box-shadow:0 24px 64px rgba(0,0,0,.25);position:relative">
+
+    <!-- Modal header with tier color bar -->
+    <div id="ag-modal-header" style="background:linear-gradient(135deg,#5B21B6,#8B5CF6);padding:20px 22px 16px;border-radius:20px 20px 0 0">
+      <div style="display:flex;align-items:center;justify-content:space-between">
+        <div>
+          <div style="font-size:10px;font-weight:700;color:rgba(255,255,255,.6);letter-spacing:1.5px;margin-bottom:4px" id="ag-modal-tier-label">জীবনের লক্ষ্য • ১-৫ বছর</div>
+          <h3 id="ag-sheet-title" style="font-size:18px;font-weight:800;color:#fff;margin:0">নতুন লক্ষ্য যোগ করুন</h3>
+        </div>
+        <button onclick="agCloseSheet()" style="width:32px;height:32px;border-radius:50%;border:none;background:rgba(255,255,255,.15);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <div style="padding:22px">
+      <div style="margin-bottom:14px">
+        <label style="font-size:12px;font-weight:700;color:var(--text2,#666);display:block;margin-bottom:7px">লক্ষ্য কী? *</label>
+        <input id="ag-inp-text" type="text" placeholder="যেমন: ২০২৭ সালের মধ্যে নিজের ব্যবসা শুরু করা" style="width:100%;border:1.5px solid var(--border,#e5e7eb);border-radius:12px;padding:12px 14px;font-size:14px;font-family:inherit;outline:none;background:var(--card,#fff);color:var(--text,#1a1a2e);box-sizing:border-box;transition:.2s" onfocus="this.style.borderColor='#FF8A00'" onblur="this.style.borderColor='var(--border,#e5e7eb)'"/>
+      </div>
+
+      <div style="margin-bottom:14px">
+        <label style="font-size:12px;font-weight:700;color:var(--text2,#666);display:block;margin-bottom:7px">কেন এই লক্ষ্য? <span style="font-weight:400;color:#bbb;font-size:11px">(তোমার "why" — ঐচ্ছিক)</span></label>
+        <textarea id="ag-inp-why" placeholder="এই লক্ষ্যটি তোমার জীবনে কেন গুরুত্বপূর্ণ? এটা তোমাকে কঠিন সময়ে এগিয়ে রাখবে।" rows="2" style="width:100%;border:1.5px solid var(--border,#e5e7eb);border-radius:12px;padding:12px 14px;font-size:13px;font-family:inherit;outline:none;background:var(--card,#fff);color:var(--text,#1a1a2e);box-sizing:border-box;resize:none;transition:.2s;line-height:1.5" onfocus="this.style.borderColor='#FF8A00'" onblur="this.style.borderColor='var(--border,#e5e7eb)'"></textarea>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px">
+        <div>
+          <label style="font-size:12px;font-weight:700;color:var(--text2,#666);display:block;margin-bottom:7px">জীবনের ক্ষেত্র</label>
+          <select id="ag-inp-area" style="width:100%;border:1.5px solid var(--border,#e5e7eb);border-radius:12px;padding:11px 12px;font-size:13px;font-family:inherit;outline:none;background:var(--card,#fff);color:var(--text,#1a1a2e);box-sizing:border-box">
+            <option value="deen">দ্বীন ও ইবাদত</option>
+            <option value="career">ক্যারিয়ার ও ব্যবসা</option>
+            <option value="health">স্বাস্থ্য ও ফিটনেস</option>
+            <option value="family">পরিবার ও সম্পর্ক</option>
+            <option value="finance">অর্থ ও সম্পদ</option>
+            <option value="learning">শিক্ষা ও দক্ষতা</option>
+            <option value="personal">ব্যক্তিগত বিকাশ</option>
+          </select>
+        </div>
+        <div>
+          <label style="font-size:12px;font-weight:700;color:var(--text2,#666);display:block;margin-bottom:7px">অগ্রাধিকার</label>
+          <select id="ag-inp-priority" style="width:100%;border:1.5px solid var(--border,#e5e7eb);border-radius:12px;padding:11px 12px;font-size:13px;font-family:inherit;outline:none;background:var(--card,#fff);color:var(--text,#1a1a2e);box-sizing:border-box">
+            <option value="high">🔴 উচ্চ অগ্রাধিকার</option>
+            <option value="medium">🟡 মাঝারি</option>
+            <option value="normal">🟢 স্বাভাবিক</option>
+          </select>
+        </div>
+      </div>
+
+      <div style="margin-bottom:20px">
+        <label style="font-size:12px;font-weight:700;color:var(--text2,#666);display:block;margin-bottom:7px">ডেডলাইন <span style="font-weight:400;color:#bbb;font-size:11px">(ঐচ্ছিক)</span></label>
+        <input id="ag-inp-deadline" type="date" style="width:100%;border:1.5px solid var(--border,#e5e7eb);border-radius:12px;padding:11px 12px;font-size:13px;font-family:inherit;outline:none;background:var(--card,#fff);color:var(--text,#1a1a2e);box-sizing:border-box;transition:.2s" onfocus="this.style.borderColor='#FF8A00'" onblur="this.style.borderColor='var(--border,#e5e7eb)'"/>
+      </div>
+
+      <input type="hidden" id="ag-inp-tier" value="life"/>
+
+      <button onclick="agSaveGoal()" style="width:100%;padding:14px;background:linear-gradient(135deg,#FF8A00,#FFB800);color:#090B12;border:none;border-radius:14px;font-size:15px;font-weight:800;cursor:pointer;font-family:inherit;box-shadow:0 4px 20px rgba(255,138,0,.3)">লক্ষ্য সেট করো →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── PROGRESS UPDATE MODAL ── -->
+<div id="ag-prog-overlay" onclick="agCloseProgSheet()" style="display:none;position:fixed;inset:0;padding-left:220px;background:rgba(0,0,0,.45);z-index:1300;backdrop-filter:blur(6px);align-items:center;justify-content:center">
+  <div id="ag-prog-sheet" onclick="event.stopPropagation()" style="background:var(--card,#fff);border-radius:20px;width:calc(100% - 40px);max-width:420px;opacity:0;transform:scale(0.9) translateY(8px);transition:opacity .22s ease,transform .28s cubic-bezier(.34,1.4,.64,1);box-shadow:0 24px 64px rgba(0,0,0,.22);overflow:hidden">
+    <div style="background:linear-gradient(135deg,#0f0c29,#302b63);padding:20px 22px 18px">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px">
+        <div style="flex:1;min-width:0">
+          <div style="font-size:10px;font-weight:700;color:rgba(255,255,255,.5);letter-spacing:1.5px;margin-bottom:5px">অগ্রগতি আপডেট</div>
+          <div style="font-size:14px;font-weight:800;color:#fff;line-height:1.4;word-break:break-word" id="ag-prog-goalname">—</div>
+          <div id="ag-prog-why" style="font-size:11px;color:rgba(255,255,255,.45);font-style:italic;margin-top:5px;line-height:1.5"></div>
+        </div>
+        <button onclick="agCloseProgSheet()" style="width:30px;height:30px;border-radius:50%;border:none;background:rgba(255,255,255,.12);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+    </div>
+    <div style="padding:22px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+        <span style="font-size:13px;font-weight:600;color:var(--text2,#666)">কতটুকু সম্পন্ন হয়েছে?</span>
+        <span id="ag-prog-pct-label" style="font-size:24px;font-weight:800;color:#FF8A00;line-height:1">0%</span>
+      </div>
+      <input id="ag-prog-slider" type="range" min="0" max="100" value="0" style="width:100%;accent-color:#FF8A00;margin-bottom:20px;height:5px;cursor:pointer" oninput="document.getElementById('ag-prog-pct-label').textContent=this.value+'%'"/>
+      <div style="display:flex;gap:10px">
+        <button onclick="agCloseProgSheet()" style="flex:1;padding:12px;background:var(--bg,#f3f4f6);color:var(--text2,#666);border:none;border-radius:12px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit">বাতিল</button>
+        <button onclick="agSaveProgress()" style="flex:2;padding:12px;background:linear-gradient(135deg,#FF8A00,#FFB800);color:#090B12;border:none;border-radius:12px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit">সংরক্ষণ করুন</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /goals-page -->

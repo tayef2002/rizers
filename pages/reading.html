@@ -1,0 +1,452 @@
+<div id="reading-page" class="app-page" style="display:none">
+
+<!-- ═══ KIDS WRAP ════════════════════════════════════════════════ -->
+<div id="reading-kids-wrap">
+<div class="content" style="padding-bottom:80px">
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px">
+    <div style="display:flex;align-items:center;gap:12px">
+      <div style="width:42px;height:42px;background:linear-gradient(135deg,#FF8A00,#FFB800);border-radius:13px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(255,138,0,.3);flex-shrink:0">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+      </div>
+      <div>
+        <div style="font-size:18px;font-weight:800;color:var(--text,#1f2937)">Reading Tracker</div>
+        <div style="font-size:12px;color:var(--text2,#888);margin-top:1px">পড়ার অভ্যাস গড়ে তোলো</div>
+      </div>
+    </div>
+    <div style="background:linear-gradient(135deg,rgba(255,138,0,.12),rgba(255,184,0,.12));border:1.5px solid rgba(255,138,0,.3);border-radius:12px;padding:8px 14px;text-align:center;flex-shrink:0">
+      <div id="rd-xp-total" style="font-size:18px;font-weight:800;color:#FF8A00">0</div>
+      <div style="font-size:10px;color:var(--text2,#888);font-weight:600">মোট XP</div>
+    </div>
+  </div>
+  <div id="rd-kid-tabs" style="display:flex;gap:8px;margin-bottom:16px;overflow-x:auto;padding-bottom:2px;-webkit-overflow-scrolling:touch;scrollbar-width:none"></div>
+  <div style="background:linear-gradient(135deg,#FF8A00,#FFB800);border-radius:18px;padding:20px;margin-bottom:14px;color:#fff;box-shadow:0 6px 20px rgba(255,138,0,.25)">
+    <div style="font-size:11px;font-weight:700;opacity:.85;margin-bottom:10px;letter-spacing:.5px">এই মাসের লক্ষ্য</div>
+    <div style="display:flex;align-items:center;gap:16px;margin-bottom:14px">
+      <div><div id="rd-progress-text" style="font-size:30px;font-weight:800;line-height:1">0/5</div><div style="font-size:11px;opacity:.8;margin-top:2px">বই পড়েছি</div></div>
+      <div style="flex:1">
+        <div style="height:10px;background:rgba(255,255,255,.25);border-radius:10px;overflow:hidden"><div id="rd-progress-bar" style="height:100%;width:0%;background:#fff;border-radius:10px;transition:.4s"></div></div>
+        <div style="display:flex;justify-content:space-between;font-size:11px;opacity:.75;margin-top:5px"><span>0 বই</span><span id="rd-goal-label">লক্ষ্য: 5 বই</span></div>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px">
+      <div style="background:rgba(255,255,255,.2);border-radius:10px;padding:10px;text-align:center"><div id="rd-pages-today" style="font-size:18px;font-weight:800">0</div><div style="font-size:10px;opacity:.8">পৃষ্ঠা আজ</div></div>
+      <div style="background:rgba(255,255,255,.2);border-radius:10px;padding:10px;text-align:center"><div id="rd-streak-val" style="font-size:18px;font-weight:800">0</div><div style="font-size:10px;opacity:.8">দিন streak</div></div>
+      <div style="background:rgba(255,255,255,.2);border-radius:10px;padding:10px;text-align:center"><div id="rd-total-pages" style="font-size:18px;font-weight:800">0</div><div style="font-size:10px;opacity:.8">মোট পৃষ্ঠা</div></div>
+    </div>
+  </div>
+  <div style="background:var(--bg,#f9fafb);border:1.5px solid var(--border,#f0f0f0);border-radius:16px;padding:16px;margin-bottom:14px">
+    <div style="display:flex;align-items:center;justify-content:space-between">
+      <div><div style="font-size:13px;font-weight:700;color:var(--text,#1f2937)">মাসিক লক্ষ্য নির্ধারণ</div><div style="font-size:11px;color:var(--text2,#888);margin-top:3px">এই মাসে কত বই পড়বে?</div></div>
+      <div style="display:flex;align-items:center;gap:10px">
+        <button onclick="rzReadChangeGoal(-1)" style="width:32px;height:32px;border-radius:50%;border:1.5px solid var(--border,#e5e7eb);background:var(--card,#fff);font-size:18px;cursor:pointer;color:var(--text,#1f2937);display:flex;align-items:center;justify-content:center;font-weight:700;font-family:inherit">−</button>
+        <span id="rd-goal-num" style="font-size:22px;font-weight:800;color:#FF8A00;min-width:28px;text-align:center">5</span>
+        <button onclick="rzReadChangeGoal(1)" style="width:32px;height:32px;border-radius:50%;border:1.5px solid var(--border,#e5e7eb);background:var(--card,#fff);font-size:18px;cursor:pointer;color:var(--text,#1f2937);display:flex;align-items:center;justify-content:center;font-weight:700;font-family:inherit">+</button>
+      </div>
+    </div>
+  </div>
+  <div id="rd-curr-card" style="background:var(--bg,#f9fafb);border:1.5px solid rgba(255,138,0,.35);border-radius:16px;padding:16px;margin-bottom:14px;display:none">
+    <div style="font-size:12px;font-weight:700;color:#FF8A00;margin-bottom:10px">এখন পড়ছি</div>
+    <div style="display:flex;align-items:center;gap:12px">
+      <div id="rd-curr-icon" style="width:44px;height:56px;background:linear-gradient(135deg,#FF8A00,#FFB800);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
+      <div style="flex:1;min-width:0">
+        <div id="rd-curr-name" style="font-size:14px;font-weight:700;color:var(--text,#1f2937);overflow:hidden;text-overflow:ellipsis;white-space:nowrap"></div>
+        <div id="rd-curr-meta" style="font-size:11px;color:var(--text2,#888);margin-top:2px"></div>
+        <div style="height:6px;background:var(--border,#e5e7eb);border-radius:6px;margin-top:8px;overflow:hidden"><div id="rd-curr-bar" style="height:100%;width:40%;background:linear-gradient(90deg,#FF8A00,#FFB800);border-radius:6px;transition:.4s"></div></div>
+      </div>
+      <button onclick="rzReadMarkComplete()" style="padding:8px 13px;background:linear-gradient(135deg,#FF8A00,#FFB800);color:#fff;border:none;border-radius:10px;font-size:12px;font-weight:700;cursor:pointer;flex-shrink:0;font-family:inherit">✓ শেষ</button>
+    </div>
+  </div>
+  <div style="background:var(--bg,#f9fafb);border:1.5px solid var(--border,#f0f0f0);border-radius:16px;padding:16px;margin-bottom:14px">
+    <div style="font-size:13px;font-weight:700;color:var(--text,#1f2937);margin-bottom:12px">আজকের পড়া log করো</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px">
+      <div><div style="font-size:11px;font-weight:600;color:var(--text2,#888);margin-bottom:5px">বইয়ের নাম</div><input id="rd-book-name" type="text" placeholder="যেমন: আল-কুরআন" oninput="rzReadUpdateXPPreview()" style="width:100%;box-sizing:border-box;border:1.5px solid var(--border,#e5e7eb);border-radius:10px;padding:9px 12px;font-size:13px;font-family:inherit;outline:none;background:var(--card,#fff);color:var(--text,#1f2937)"/></div>
+      <div><div style="font-size:11px;font-weight:600;color:var(--text2,#888);margin-bottom:5px">পৃষ্ঠা সংখ্যা</div><input id="rd-pages" type="number" placeholder="যেমন: 20" min="1" oninput="rzReadUpdateXPPreview()" style="width:100%;box-sizing:border-box;border:1.5px solid var(--border,#e5e7eb);border-radius:10px;padding:9px 12px;font-size:13px;font-family:inherit;outline:none;background:var(--card,#fff);color:var(--text,#1f2937)"/></div>
+    </div>
+    <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px" id="rd-cat-chips">
+      <button class="rd-cat" onclick="rzReadPickCat(this,'islamic')" style="padding:6px 12px;border-radius:50px;border:1.5px solid #FF8A00;background:rgba(255,138,0,.1);color:#FF8A00;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit">Islamic</button>
+      <button class="rd-cat" onclick="rzReadPickCat(this,'story')" style="padding:6px 12px;border-radius:50px;border:1.5px solid var(--border,#e5e7eb);background:var(--card,#fff);color:var(--text2,#888);font-size:12px;font-weight:500;cursor:pointer;font-family:inherit">গল্প</button>
+      <button class="rd-cat" onclick="rzReadPickCat(this,'education')" style="padding:6px 12px;border-radius:50px;border:1.5px solid var(--border,#e5e7eb);background:var(--card,#fff);color:var(--text2,#888);font-size:12px;font-weight:500;cursor:pointer;font-family:inherit">শিক্ষামূলক</button>
+      <button class="rd-cat" onclick="rzReadPickCat(this,'other')" style="padding:6px 12px;border-radius:50px;border:1.5px solid var(--border,#e5e7eb);background:var(--card,#fff);color:var(--text2,#888);font-size:12px;font-weight:500;cursor:pointer;font-family:inherit">অন্যান্য</button>
+    </div>
+    <div id="rd-xp-preview" style="font-size:11px;color:var(--text2,#888);margin-bottom:10px;font-weight:600">log করলে XP পাবে!</div>
+    <button onclick="rzReadLogBook()" style="width:100%;padding:13px;background:linear-gradient(135deg,#FF8A00,#FFB800);color:#fff;border:none;border-radius:12px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;box-shadow:0 4px 14px rgba(255,138,0,.25);transition:.2s">✓ Log করো</button>
+  </div>
+  <div style="background:var(--bg,#f9fafb);border:1.5px solid var(--border,#f0f0f0);border-radius:16px;padding:16px;margin-bottom:14px">
+    <div style="font-size:13px;font-weight:700;color:var(--text,#1f2937);margin-bottom:14px">সাপ্তাহিক পড়া</div>
+    <div id="rd-weekly-chart" style="display:flex;align-items:flex-end;gap:5px;height:80px;justify-content:space-between;padding:0 2px"></div>
+    <div id="rd-chart-labels" style="display:flex;justify-content:space-between;margin-top:6px;padding:0 2px"></div>
+  </div>
+  <div style="background:var(--bg,#f9fafb);border:1.5px solid var(--border,#f0f0f0);border-radius:16px;padding:16px;margin-bottom:14px">
+    <div style="font-size:13px;font-weight:700;color:var(--text,#1f2937);margin-bottom:12px">আমার বইয়ের তাক</div>
+    <div id="rd-bookshelf"></div>
+  </div>
+  <div style="background:var(--bg,#f9fafb);border:1.5px solid var(--border,#f0f0f0);border-radius:16px;padding:16px;margin-bottom:14px">
+    <div style="font-size:13px;font-weight:700;color:var(--text,#1f2937);margin-bottom:12px">Achievements</div>
+    <div id="rd-achievements" style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px"></div>
+  </div>
+  <div id="rd-insight" style="background:linear-gradient(135deg,rgba(255,138,0,.1),rgba(255,184,0,.08));border:1.5px solid rgba(255,138,0,.2);border-radius:16px;padding:16px;margin-bottom:14px;display:none">
+    <div style="font-size:12px;font-weight:700;color:#FF8A00;margin-bottom:6px">Insight</div>
+    <div id="rd-insight-text" style="font-size:13px;color:var(--text,#1f2937);line-height:1.6"></div>
+  </div>
+  <div style="background:var(--bg,#f9fafb);border:1.5px solid var(--border,#f0f0f0);border-radius:16px;padding:16px;margin-bottom:14px">
+    <div style="font-size:13px;font-weight:700;color:var(--text,#1f2937);margin-bottom:12px">পড়ার ইতিহাস</div>
+    <div id="rd-log-list"></div>
+  </div>
+</div>
+</div><!-- end reading-kids-wrap -->
+
+
+<!-- ═══ ADULT WRAP — "Personal Library" ══════════════════════════ -->
+<div id="reading-adult-wrap" style="display:none">
+<div class="rz-page-with-banner">
+<div class="rz-page-content" style="padding:16px 16px 100px">
+
+  <!-- ── Annual Goal Hero ─────────────────────────────────────── -->
+  <div id="ard-goal-hero" style="background:linear-gradient(135deg,#0D1117,#1a1d2e,#0f1923);border-radius:22px;padding:22px;margin-bottom:16px;border:1px solid rgba(255,138,0,0.18);position:relative;overflow:hidden">
+    <div style="position:absolute;top:-20px;right:-20px;width:120px;height:120px;background:radial-gradient(circle,rgba(255,138,0,0.15),transparent 70%);pointer-events:none"></div>
+    <div style="position:absolute;bottom:-20px;left:30px;width:80px;height:80px;background:radial-gradient(circle,rgba(99,102,241,0.1),transparent 70%);pointer-events:none"></div>
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:16px">
+      <div style="flex:1">
+        <div style="font-size:10px;font-weight:800;color:#FF8A00;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:8px">Annual Reading Goal</div>
+        <div style="display:flex;align-items:baseline;gap:6px;margin-bottom:4px">
+          <span id="ard-books-done" style="font-size:36px;font-weight:900;color:#fff;line-height:1">0</span>
+          <span id="ard-goal-denom" style="font-size:18px;font-weight:700;color:rgba(255,255,255,0.4)">/24 books</span>
+        </div>
+        <div id="ard-goal-sub" style="font-size:11px;color:rgba(255,255,255,0.45);margin-bottom:16px">Start your reading journey</div>
+        <!-- Progress bar -->
+        <div style="background:rgba(255,255,255,0.08);border-radius:6px;height:6px;overflow:hidden;margin-bottom:6px">
+          <div id="ard-goal-bar" style="height:100%;width:0%;background:linear-gradient(90deg,#FF8A00,#FFB800);border-radius:6px;transition:width .6s ease"></div>
+        </div>
+        <div style="display:flex;gap:20px">
+          <div>
+            <div id="ard-streak" style="font-size:18px;font-weight:900;color:#FF8A00;line-height:1">0</div>
+            <div style="font-size:10px;color:rgba(255,255,255,0.4);margin-top:2px">Day Streak</div>
+          </div>
+          <div style="width:1px;background:rgba(255,255,255,0.1);align-self:stretch"></div>
+          <div>
+            <div id="ard-pages-total" style="font-size:18px;font-weight:900;color:#FFB800;line-height:1">0</div>
+            <div style="font-size:10px;color:rgba(255,255,255,0.4);margin-top:2px">Total Pages</div>
+          </div>
+          <div style="width:1px;background:rgba(255,255,255,0.1);align-self:stretch"></div>
+          <div>
+            <div id="ard-velocity" style="font-size:18px;font-weight:900;color:#22C55E;line-height:1">—</div>
+            <div style="font-size:10px;color:rgba(255,255,255,0.4);margin-top:2px">Pages/Day</div>
+          </div>
+        </div>
+      </div>
+      <!-- Goal adjust -->
+      <div style="flex-shrink:0;text-align:center">
+        <button onclick="rzArdChangeGoal(1)" style="display:block;width:36px;height:36px;border-radius:50%;border:1.5px solid rgba(255,138,0,0.4);background:rgba(255,138,0,0.1);color:#FF8A00;font-size:20px;cursor:pointer;margin:0 auto 6px;font-family:inherit;line-height:1">+</button>
+        <div id="ard-goal-num" style="font-size:13px;font-weight:800;color:#FF8A00">24</div>
+        <div style="font-size:9px;color:rgba(255,255,255,0.3);margin-bottom:6px">books/yr</div>
+        <button onclick="rzArdChangeGoal(-1)" style="display:block;width:36px;height:36px;border-radius:50%;border:1.5px solid rgba(255,255,255,0.15);background:rgba(255,255,255,0.05);color:rgba(255,255,255,0.5);font-size:20px;cursor:pointer;margin:0 auto;font-family:inherit;line-height:1">−</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Currently Reading Spotlight ─────────────────────────── -->
+  <div id="ard-spotlight" style="display:none;margin-bottom:16px"></div>
+
+  <!-- ── Reading Velocity ──────────────────────────────────────── -->
+  <div id="ard-velocity-card" style="display:none;background:var(--card,#fff);border-radius:18px;padding:16px;border:1.5px solid var(--border,#e5e7eb);margin-bottom:16px"></div>
+
+  <!-- ── My Library ───────────────────────────────────────────── -->
+  <div style="background:var(--card,#fff);border-radius:20px;padding:18px;border:1.5px solid var(--border,#e5e7eb);margin-bottom:14px">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+      <div style="display:flex;align-items:center;gap:8px">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#FF8A00" stroke-width="2" stroke-linecap="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+        <span style="font-size:14px;font-weight:800;color:var(--text,#1f2937)">My Library</span>
+        <span id="ard-lib-count" style="font-size:11px;font-weight:700;color:#FF8A00;background:rgba(255,138,0,0.1);padding:2px 8px;border-radius:50px">0</span>
+      </div>
+      <button onclick="rzArdToggleAddForm()" id="ard-add-btn" style="display:flex;align-items:center;gap:5px;padding:7px 14px;border-radius:50px;border:1.5px solid #FF8A00;background:rgba(255,138,0,0.08);color:#FF8A00;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit">
+        <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        Add Book
+      </button>
+    </div>
+
+    <!-- Add Book Form (collapsible) -->
+    <div id="ard-add-form" style="display:none;background:var(--bg,#f9fafb);border-radius:14px;padding:14px;margin-bottom:14px;border:1px solid var(--border,#e5e7eb)">
+      <div style="font-size:12px;font-weight:700;color:var(--text2,#888);margin-bottom:10px;text-transform:uppercase;letter-spacing:.5px">New Book</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px">
+        <div style="grid-column:1/-1">
+          <div style="font-size:11px;color:var(--text2,#888);margin-bottom:4px;font-weight:600">Title *</div>
+          <input id="ard-new-title" type="text" placeholder="Book title" style="width:100%;box-sizing:border-box;border:1.5px solid var(--border,#e5e7eb);border-radius:10px;padding:9px 12px;font-size:13px;font-family:inherit;outline:none;background:var(--card,#fff);color:var(--text,#1f2937)"/>
+        </div>
+        <div>
+          <div style="font-size:11px;color:var(--text2,#888);margin-bottom:4px;font-weight:600">Author</div>
+          <input id="ard-new-author" type="text" placeholder="Author name" style="width:100%;box-sizing:border-box;border:1.5px solid var(--border,#e5e7eb);border-radius:10px;padding:9px 12px;font-size:13px;font-family:inherit;outline:none;background:var(--card,#fff);color:var(--text,#1f2937)"/>
+        </div>
+        <div>
+          <div style="font-size:11px;color:var(--text2,#888);margin-bottom:4px;font-weight:600">Total Pages</div>
+          <input id="ard-new-pages" type="number" placeholder="e.g. 320" min="1" style="width:100%;box-sizing:border-box;border:1.5px solid var(--border,#e5e7eb);border-radius:10px;padding:9px 12px;font-size:13px;font-family:inherit;outline:none;background:var(--card,#fff);color:var(--text,#1f2937)"/>
+        </div>
+      </div>
+      <!-- Genre chips -->
+      <div style="margin-bottom:10px">
+        <div style="font-size:11px;color:var(--text2,#888);margin-bottom:6px;font-weight:600">Genre</div>
+        <div id="ard-genre-chips" style="display:flex;gap:6px;flex-wrap:wrap"></div>
+      </div>
+      <div style="display:flex;gap:8px">
+        <button onclick="rzArdAddBook()" style="flex:1;padding:11px;border-radius:12px;border:none;background:linear-gradient(135deg,#FF8A00,#FFB800);color:#fff;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit">Add to Library</button>
+        <button onclick="rzArdToggleAddForm()" style="padding:11px 16px;border-radius:12px;border:1.5px solid var(--border,#e5e7eb);background:transparent;color:var(--text2,#888);font-size:13px;cursor:pointer;font-family:inherit">Cancel</button>
+      </div>
+    </div>
+
+    <!-- Filter tabs -->
+    <div style="display:flex;gap:6px;margin-bottom:14px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:2px">
+      <button onclick="rzArdSetFilter('all')" id="ard-filter-all" style="padding:5px 14px;border-radius:50px;border:none;background:#FF8A00;color:#fff;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;white-space:nowrap;flex-shrink:0">All</button>
+      <button onclick="rzArdSetFilter('reading')" id="ard-filter-reading" style="padding:5px 14px;border-radius:50px;border:1.5px solid var(--border,#e5e7eb);background:transparent;color:var(--text2,#888);font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;white-space:nowrap;flex-shrink:0">Reading</button>
+      <button onclick="rzArdSetFilter('completed')" id="ard-filter-completed" style="padding:5px 14px;border-radius:50px;border:1.5px solid var(--border,#e5e7eb);background:transparent;color:var(--text2,#888);font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;white-space:nowrap;flex-shrink:0">Completed</button>
+      <button onclick="rzArdSetFilter('wishlist')" id="ard-filter-wishlist" style="padding:5px 14px;border-radius:50px;border:1.5px solid var(--border,#e5e7eb);background:transparent;color:var(--text2,#888);font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;white-space:nowrap;flex-shrink:0">Wishlist</button>
+    </div>
+
+    <!-- Book Grid -->
+    <div id="ard-book-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(145px,1fr));gap:10px"></div>
+    <div id="ard-empty-library" style="display:none;text-align:center;padding:30px 0">
+      <div style="font-size:36px;margin-bottom:8px">📚</div>
+      <div style="font-size:13px;font-weight:700;color:var(--text,#1f2937);margin-bottom:4px">Your library is empty</div>
+      <div style="font-size:12px;color:var(--text2,#888)">Add your first book to start tracking</div>
+    </div>
+  </div>
+
+  <!-- ── Log Session ───────────────────────────────────────────── -->
+  <div id="ard-log-section" style="background:var(--card,#fff);border-radius:20px;padding:18px;border:1.5px solid var(--border,#e5e7eb);margin-bottom:14px">
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#FF8A00" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      <span style="font-size:14px;font-weight:800;color:var(--text,#1f2937)">Log Today's Reading</span>
+    </div>
+    <!-- Book select -->
+    <div style="margin-bottom:10px">
+      <div style="font-size:11px;font-weight:700;color:var(--text2,#888);text-transform:uppercase;letter-spacing:.4px;margin-bottom:6px">Select Book</div>
+      <div id="ard-log-book-chips" style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px"></div>
+      <div id="ard-log-no-books" style="display:none;font-size:12px;color:var(--text2,#888);font-style:italic">Add a book to your library first</div>
+    </div>
+    <!-- Pages + Note -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px">
+      <div>
+        <div style="font-size:11px;font-weight:700;color:var(--text2,#888);text-transform:uppercase;letter-spacing:.4px;margin-bottom:6px">Pages Read</div>
+        <input id="ard-log-pages" type="number" placeholder="e.g. 25" min="1" style="width:100%;box-sizing:border-box;border:1.5px solid var(--border,#e5e7eb);border-radius:10px;padding:9px 12px;font-size:14px;font-weight:700;font-family:inherit;outline:none;background:var(--bg,#f9fafb);color:var(--text,#1f2937)"/>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:700;color:#FF8A00;text-transform:uppercase;letter-spacing:.4px;margin-bottom:6px">Now on Page <span style="color:#EF4444">*</span></div>
+        <input id="ard-log-current" type="number" placeholder="e.g. 45" min="0" style="width:100%;box-sizing:border-box;border:1.5px solid #FF8A00;border-radius:10px;padding:9px 12px;font-size:14px;font-weight:700;font-family:inherit;outline:none;background:var(--bg,#f9fafb);color:var(--text,#1f2937)"/>
+      </div>
+    </div>
+    <div style="margin-bottom:12px">
+      <div style="font-size:11px;font-weight:700;color:var(--text2,#888);text-transform:uppercase;letter-spacing:.4px;margin-bottom:6px">Quote / Note <span style="font-weight:400;font-style:italic;text-transform:none">(optional)</span></div>
+      <textarea id="ard-log-note" placeholder="Save a quote or insight from today's reading..." style="width:100%;box-sizing:border-box;border:1.5px solid var(--border,#e5e7eb);border-radius:10px;padding:9px 12px;font-size:13px;font-family:inherit;outline:none;background:var(--bg,#f9fafb);color:var(--text,#1f2937);resize:none;height:56px;line-height:1.5"></textarea>
+    </div>
+    <button onclick="rzArdLogSession()" style="width:100%;padding:13px;border-radius:14px;border:none;background:linear-gradient(135deg,#FF8A00,#FFB800);color:#fff;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;box-shadow:0 4px 14px rgba(255,138,0,.3)">✓ Log Session</button>
+  </div>
+
+  <!-- ── 14-Day Heatmap ────────────────────────────────────────── -->
+  <div style="background:var(--card,#fff);border-radius:18px;padding:16px;border:1.5px solid var(--border,#e5e7eb);margin-bottom:14px">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+      <div style="display:flex;align-items:center;gap:7px">
+        <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="#FF8A00" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        <span style="font-size:13px;font-weight:800;color:var(--text,#1f2937)">14-Day Reading Map</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:4px">
+        <div style="width:8px;height:8px;border-radius:2px;background:var(--border,#e5e7eb)"></div>
+        <div style="width:8px;height:8px;border-radius:2px;background:rgba(255,138,0,0.3)"></div>
+        <div style="width:8px;height:8px;border-radius:2px;background:rgba(255,138,0,0.6)"></div>
+        <div style="width:8px;height:8px;border-radius:2px;background:#FF8A00"></div>
+        <span style="font-size:9px;color:var(--text2,#888);margin-left:2px">less → more</span>
+      </div>
+    </div>
+    <div id="ard-heatmap" style="display:grid;grid-template-columns:repeat(14,1fr);gap:4px"></div>
+    <div style="display:flex;justify-content:space-between;margin-top:6px">
+      <span style="font-size:9px;color:var(--text2,#888)">14 days ago</span>
+      <span style="font-size:9px;color:var(--text2,#888)">Today</span>
+    </div>
+  </div>
+
+  <!-- ── Genre Breakdown ───────────────────────────────────────── -->
+  <div id="ard-genre-breakdown" style="background:var(--card,#fff);border-radius:18px;padding:16px;border:1.5px solid var(--border,#e5e7eb);margin-bottom:14px;display:none"></div>
+
+  <!-- ── Insight ───────────────────────────────────────────────── -->
+  <div id="ard-insight" style="margin-bottom:14px"></div>
+
+  <!-- ── Mobile Donation Card (hidden on desktop) ─────────────── -->
+  <div class="rz-donation-mobile-card">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
+      <div style="width:42px;height:42px;border-radius:12px;background:rgba(255,138,0,0.15);border:1px solid rgba(255,138,0,0.3);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#FF8A00" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" fill="rgba(255,138,0,0.12)"/></svg>
+      </div>
+      <div>
+        <div style="font-size:13px;font-weight:800;color:#FF8A00">Rizers কে Support করুন</div>
+        <div style="font-size:11px;color:var(--text2,#888);margin-top:2px">তোমার সাহায্যে হাজারজনের পড়ার অভ্যাস তৈরি হচ্ছে</div>
+      </div>
+    </div>
+    <div style="background:rgba(255,255,255,0.05);border-radius:10px;padding:10px;margin-bottom:12px;border-left:3px solid #FF8A00">
+      <div style="font-size:11px;color:var(--text2,#888);line-height:1.6;font-style:italic">"যে ব্যক্তি কোনো ভালো কাজে সহায়তা করে, সে যেন সেই কাজ নিজেই করলো।"</div>
+      <div style="font-size:10px;color:#FF8A00;font-weight:700;margin-top:4px">— বুখারী ও মুসলিম</div>
+    </div>
+    <a href="#" onclick="rzGoToPayment();return false;" style="display:block;width:100%;background:linear-gradient(135deg,#FF8A00,#FFB800);color:#090B12;font-size:13px;font-weight:800;text-align:center;padding:12px;border-radius:12px;text-decoration:none;box-shadow:0 4px 12px rgba(255,138,0,0.3);box-sizing:border-box">🤲 ৳৯৯/মাসে Support করুন</a>
+  </div>
+
+</div><!-- end rz-page-content -->
+
+<!-- ── Desktop Donation Sidebar ──────────────────────────────── -->
+  <div class="rz-donation-sidebar">
+    <div class="rz-dsb-inner">
+      <div style="text-align:center;margin-bottom:20px">
+        <div style="width:58px;height:58px;border-radius:18px;background:linear-gradient(135deg,rgba(255,138,0,0.15),rgba(255,184,0,0.1));border:1px solid rgba(255,138,0,0.3);display:flex;align-items:center;justify-content:center;margin:0 auto 12px">
+          <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="#FF8A00" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" fill="rgba(255,138,0,0.12)"/></svg>
+        </div>
+        <div style="font-size:12px;font-weight:800;color:#FF8A00;letter-spacing:1px;text-transform:uppercase">Rizers কে Support করুন</div>
+      </div>
+      <div style="background:rgba(255,138,0,0.06);border:1px solid rgba(255,138,0,0.15);border-radius:14px;padding:16px;margin-bottom:16px">
+        <div style="font-size:15px;font-weight:700;color:var(--text,#1f2937);line-height:1.6;margin-bottom:10px">"তোমার ছোট সাহায্য হাজারজনের পড়ার অভ্যাস ও মনোযোগ ঠিক রাখতে সাহায্য করতে পারে।"</div>
+        <div style="font-size:12.5px;color:var(--text2,#888);line-height:1.7">Rizers ব্যবহার করে প্রতিদিন হাজারো মানুষ পড়ার রুটিন ঠিক করছে। তুমি চাইলে এই যাত্রার অংশ হতে পারো।</div>
+      </div>
+      <div style="margin-bottom:16px">
+        <div style="font-size:12px;font-weight:700;color:var(--text2,#888);margin-bottom:10px;text-transform:uppercase;letter-spacing:.8px">মাত্র ৳৯৯/মাসে</div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div style="display:flex;align-items:center;gap:10px"><div style="width:7px;height:7px;border-radius:50%;background:#FF8A00;flex-shrink:0"></div><span style="font-size:13.5px;color:var(--text,#1f2937)">১ কাপ চায়ের দাম</span></div>
+          <div style="display:flex;align-items:center;gap:10px"><div style="width:7px;height:7px;border-radius:50%;background:#22C55E;flex-shrink:0"></div><span style="font-size:13.5px;color:var(--text,#1f2937)">হাজারজনের AI partner চালু থাকে</span></div>
+          <div style="display:flex;align-items:center;gap:10px"><div style="width:7px;height:7px;border-radius:50%;background:#3B82F6;flex-shrink:0"></div><span style="font-size:13.5px;color:var(--text,#1f2937)">সব feature সম্পূর্ণ free থাকে</span></div>
+        </div>
+      </div>
+      <div style="height:1px;background:var(--border,#e5e7eb);margin-bottom:16px"></div>
+      <div style="margin-bottom:20px;flex:1">
+        <div style="font-size:13px;color:var(--text2,#888);line-height:1.8;font-style:italic">"যে ব্যক্তি কোনো ভালো কাজে সহায়তা করে, সে যেন সেই কাজ নিজেই করলো।"</div>
+        <div style="font-size:11.5px;color:#FF8A00;font-weight:700;margin-top:6px">— বুখারী ও মুসলিম</div>
+      </div>
+      <a href="#" onclick="rzGoToPayment();return false;" style="display:block;width:100%;background:linear-gradient(135deg,#FF8A00,#FFB800);color:#090B12;font-size:14px;font-weight:800;text-align:center;padding:15px;border-radius:13px;text-decoration:none;box-shadow:0 4px 16px rgba(255,138,0,0.4);box-sizing:border-box">🤲 ৳৯৯/মাসে Support করুন</a>
+      <div style="text-align:center;margin-top:12px;font-size:11px;color:var(--text2,#888)">সম্পূর্ণ স্বেচ্ছায় • যেকোনো সময় বাতিল করুন</div>
+    </div>
+  </div>
+
+</div><!-- end rz-page-with-banner -->
+</div><!-- end reading-adult-wrap -->
+
+<!-- ── Log Session Modal for book quick-log ─────────────────── -->
+<div id="ard-quick-log-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:9000" onclick="rzArdCloseQuickLog()"></div>
+<div id="ard-quick-log-sheet" style="display:none;position:fixed;bottom:0;left:0;right:0;background:var(--card,#fff);border-radius:24px 24px 0 0;padding:20px;z-index:9001;transform:translateY(100%);transition:transform .3s ease">
+  <div style="width:40px;height:4px;border-radius:2px;background:var(--border,#e5e7eb);margin:0 auto 16px"></div>
+  <div id="ard-ql-title" style="font-size:15px;font-weight:800;color:var(--text,#1f2937);margin-bottom:14px"></div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px">
+    <div>
+      <div style="font-size:11px;font-weight:700;color:var(--text2,#888);margin-bottom:5px">Pages Read Today</div>
+      <input id="ard-ql-pages" type="number" placeholder="e.g. 25" min="1" style="width:100%;box-sizing:border-box;border:1.5px solid var(--border,#e5e7eb);border-radius:10px;padding:10px 12px;font-size:15px;font-weight:700;font-family:inherit;outline:none;background:var(--bg,#f9fafb);color:var(--text,#1f2937)"/>
+    </div>
+    <div>
+      <div style="font-size:11px;font-weight:700;color:#FF8A00;margin-bottom:5px">Now on Page <span style="color:#EF4444">*</span></div>
+      <input id="ard-ql-current" type="number" placeholder="e.g. 45" style="width:100%;box-sizing:border-box;border:1.5px solid #FF8A00;border-radius:10px;padding:10px 12px;font-size:15px;font-weight:700;font-family:inherit;outline:none;background:var(--bg,#f9fafb);color:var(--text,#1f2937)"/>
+    </div>
+  </div>
+  <input id="ard-ql-bookid" type="hidden" value=""/>
+  <button onclick="rzArdSubmitQuickLog()" style="width:100%;padding:14px;border-radius:14px;border:none;background:linear-gradient(135deg,#FF8A00,#FFB800);color:#fff;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;box-shadow:0 4px 14px rgba(255,138,0,.3)">✓ Log Reading</button>
+</div>
+
+<!-- ── Book Detail — Mobile Bottom Sheet ────────────────────── -->
+<div id="ard-detail-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:9002" onclick="rzArdCloseDetail()"></div>
+<div id="ard-detail-sheet" style="display:none;position:fixed;bottom:0;left:0;right:0;background:var(--card,#fff);border-radius:24px 24px 0 0;padding:20px;z-index:9003;max-height:85vh;overflow-y:auto;transform:translateY(100%);transition:transform .3s ease">
+  <div style="width:40px;height:4px;border-radius:2px;background:var(--border,#e5e7eb);margin:0 auto 16px"></div>
+  <!-- Book header -->
+  <div id="ard-detail-header" style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
+    <div id="ard-detail-cover" style="width:48px;height:62px;border-radius:10px;flex-shrink:0;display:flex;align-items:center;justify-content:center">
+      <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+    </div>
+    <div style="flex:1;min-width:0">
+      <div id="ard-detail-title" style="font-size:16px;font-weight:800;color:var(--text,#1f2937)"></div>
+      <div id="ard-detail-author" style="font-size:12px;color:var(--text2,#888);margin-top:2px"></div>
+      <div id="ard-detail-status-badge" style="display:inline-block;margin-top:5px;font-size:10px;font-weight:700;padding:2px 8px;border-radius:50px"></div>
+    </div>
+    <button onclick="rzArdCloseDetail()" style="width:32px;height:32px;border-radius:50%;border:1.5px solid var(--border,#e5e7eb);background:transparent;color:var(--text2,#888);font-size:18px;cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center">×</button>
+  </div>
+  <!-- Progress bar -->
+  <div id="ard-detail-progress-wrap" style="background:var(--bg,#f9fafb);border-radius:14px;padding:14px;margin-bottom:14px">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+      <span style="font-size:12px;font-weight:700;color:var(--text,#1f2937)">Progress</span>
+      <span id="ard-detail-pct" style="font-size:13px;font-weight:800;color:#FF8A00">0%</span>
+    </div>
+    <div style="height:8px;background:var(--border,#e5e7eb);border-radius:8px;overflow:hidden;margin-bottom:6px">
+      <div id="ard-detail-bar" style="height:100%;width:0%;background:linear-gradient(90deg,#FF8A00,#FFB800);border-radius:8px;transition:.4s"></div>
+    </div>
+    <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text2,#888)">
+      <span>Last read: page <b id="ard-detail-lastpage" style="color:var(--text,#1f2937)">—</b></span>
+      <span id="ard-detail-totalpages"></span>
+    </div>
+  </div>
+  <!-- Action buttons -->
+  <div style="display:flex;gap:8px;margin-bottom:16px">
+    <button id="ard-detail-log-btn" style="flex:1;padding:11px;border-radius:12px;border:none;background:linear-gradient(135deg,#FF8A00,#FFB800);color:#fff;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit">+ Log Today</button>
+    <button id="ard-detail-status-btn" style="padding:11px 14px;border-radius:12px;border:1.5px solid var(--border,#e5e7eb);background:transparent;color:var(--text2,#888);font-size:12px;font-weight:700;cursor:pointer;font-family:inherit">Mark Done</button>
+    <button onclick="rzArdDeleteFromDetail()" style="padding:11px 14px;border-radius:12px;border:1.5px solid rgba(239,68,68,.3);background:rgba(239,68,68,.05);color:#EF4444;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit">Delete</button>
+  </div>
+  <!-- Session history -->
+  <div style="font-size:13px;font-weight:800;color:var(--text,#1f2937);margin-bottom:10px">Reading History</div>
+  <div id="ard-detail-history" style="display:flex;flex-direction:column;gap:8px"></div>
+  <div id="ard-detail-no-history" style="display:none;text-align:center;padding:20px 0;font-size:13px;color:var(--text2,#888)">No sessions logged yet</div>
+</div>
+
+<!-- ── Book Detail — Desktop Popup Modal ────────────────────── -->
+<div id="ard-modal-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:9010;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)" onclick="rzArdCloseDetail()"></div>
+<div id="ard-modal" style="display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(0.94);background:var(--card,#fff);border-radius:20px;padding:24px;z-index:9011;width:460px;max-width:90vw;max-height:80vh;overflow-y:auto;box-shadow:0 24px 60px rgba(0,0,0,0.25);opacity:0;transition:opacity .22s ease,transform .22s ease">
+  <!-- Book header -->
+  <div style="display:flex;align-items:center;gap:14px;margin-bottom:18px">
+    <div id="ard-modal-cover" style="width:52px;height:68px;border-radius:12px;flex-shrink:0;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 14px rgba(0,0,0,0.15)">
+      <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+    </div>
+    <div style="flex:1;min-width:0">
+      <div id="ard-modal-title" style="font-size:18px;font-weight:800;color:var(--text,#1f2937);line-height:1.2"></div>
+      <div id="ard-modal-author" style="font-size:13px;color:var(--text2,#888);margin-top:3px"></div>
+      <div id="ard-modal-badge" style="display:inline-block;margin-top:6px;font-size:10px;font-weight:700;padding:3px 10px;border-radius:50px"></div>
+    </div>
+    <button onclick="rzArdCloseDetail()" style="width:34px;height:34px;border-radius:50%;border:1.5px solid var(--border,#e5e7eb);background:var(--bg,#f9fafb);color:var(--text2,#888);font-size:20px;cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;line-height:1">×</button>
+  </div>
+  <!-- Progress -->
+  <div style="background:var(--bg,#f9fafb);border-radius:14px;padding:16px;margin-bottom:16px">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+      <span style="font-size:13px;font-weight:700;color:var(--text,#1f2937)">Progress</span>
+      <span id="ard-modal-pct" style="font-size:15px;font-weight:900;color:#FF8A00">0%</span>
+    </div>
+    <div style="height:10px;background:var(--border,#e5e7eb);border-radius:10px;overflow:hidden;margin-bottom:8px">
+      <div id="ard-modal-bar" style="height:100%;width:0%;background:linear-gradient(90deg,#FF8A00,#FFB800);border-radius:10px;transition:.5s ease"></div>
+    </div>
+    <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--text2,#888)">
+      <span>Last read: page <b id="ard-modal-lastpage" style="color:var(--text,#1f2937);font-size:13px">—</b></span>
+      <span id="ard-modal-totalpages" style="font-size:12px"></span>
+    </div>
+  </div>
+  <!-- Action buttons -->
+  <div style="display:flex;gap:8px;margin-bottom:20px">
+    <button id="ard-modal-log-btn" style="flex:1;padding:12px;border-radius:12px;border:none;background:linear-gradient(135deg,#FF8A00,#FFB800);color:#fff;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;box-shadow:0 4px 12px rgba(255,138,0,.3)">+ Log Today</button>
+    <button id="ard-modal-status-btn" style="padding:12px 16px;border-radius:12px;border:1.5px solid var(--border,#e5e7eb);background:transparent;color:var(--text2,#888);font-size:12px;font-weight:700;cursor:pointer;font-family:inherit">Mark Done</button>
+    <button onclick="rzArdDeleteFromDetail()" style="padding:12px 16px;border-radius:12px;border:1.5px solid rgba(239,68,68,.3);background:rgba(239,68,68,.05);color:#EF4444;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit">Delete</button>
+  </div>
+  <!-- Session history -->
+  <div style="border-top:1px solid var(--border,#e5e7eb);padding-top:16px">
+    <div style="font-size:13px;font-weight:800;color:var(--text,#1f2937);margin-bottom:12px">Reading History</div>
+    <div id="ard-modal-history" style="display:flex;flex-direction:column;gap:8px"></div>
+    <div id="ard-modal-no-history" style="display:none;text-align:center;padding:24px 0;font-size:13px;color:var(--text2,#888)">No sessions logged yet</div>
+  </div>
+</div>
+
+<!-- ── Modal Log View (slides over detail view) ──────────────── -->
+<div id="ard-modal-log-view" style="display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(0.96);background:var(--card,#fff);border-radius:20px;padding:24px;z-index:9012;width:420px;max-width:90vw;box-shadow:0 24px 60px rgba(0,0,0,0.25);opacity:0;transition:opacity .2s ease,transform .2s ease">
+  <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px">
+    <button onclick="rzArdModalBackToDetail()" style="width:34px;height:34px;border-radius:50%;border:1.5px solid var(--border,#e5e7eb);background:var(--bg,#f9fafb);color:var(--text2,#888);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0">←</button>
+    <div>
+      <div id="ard-modal-log-bookname" style="font-size:15px;font-weight:800;color:var(--text,#1f2937)"></div>
+      <div style="font-size:11px;color:var(--text2,#888);margin-top:1px">Log today's reading session</div>
+    </div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px">
+    <div>
+      <div style="font-size:11px;font-weight:700;color:var(--text2,#888);text-transform:uppercase;letter-spacing:.4px;margin-bottom:7px">Pages Read</div>
+      <input id="ard-modal-log-pages" type="number" placeholder="e.g. 25" min="1" style="width:100%;box-sizing:border-box;border:1.5px solid var(--border,#e5e7eb);border-radius:11px;padding:11px 14px;font-size:16px;font-weight:700;font-family:inherit;outline:none;background:var(--bg,#f9fafb);color:var(--text,#1f2937)"/>
+    </div>
+    <div>
+      <div style="font-size:11px;font-weight:700;color:#FF8A00;text-transform:uppercase;letter-spacing:.4px;margin-bottom:7px">Now on Page <span style="color:#EF4444">*</span></div>
+      <input id="ard-modal-log-current" type="number" placeholder="e.g. 80" min="0" style="width:100%;box-sizing:border-box;border:1.5px solid #FF8A00;border-radius:11px;padding:11px 14px;font-size:16px;font-weight:700;font-family:inherit;outline:none;background:var(--bg,#f9fafb);color:var(--text,#1f2937)"/>
+    </div>
+  </div>
+  <textarea id="ard-modal-log-note" placeholder="Save a quote or insight... (optional)" style="width:100%;box-sizing:border-box;border:1.5px solid var(--border,#e5e7eb);border-radius:11px;padding:11px 14px;font-size:13px;font-family:inherit;outline:none;background:var(--bg,#f9fafb);color:var(--text,#1f2937);resize:none;height:64px;line-height:1.5;margin-bottom:14px"></textarea>
+  <button id="ard-modal-log-submit" onclick="rzArdModalSubmitLog()" style="width:100%;padding:14px;border-radius:13px;border:none;background:linear-gradient(135deg,#FF8A00,#FFB800);color:#fff;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;box-shadow:0 4px 14px rgba(255,138,0,.3)">✓ Log Reading</button>
+  <input id="ard-modal-log-bookid" type="hidden" value=""/>
+</div>
+
+</div><!-- end reading-page -->

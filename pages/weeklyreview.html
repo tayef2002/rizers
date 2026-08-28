@@ -1,0 +1,463 @@
+<div id="weeklyreview-page" class="app-page" style="display:none;overflow-x:hidden">
+<div id="wr-adult-wrap" style="display:flex;align-items:flex-start">
+<div class="rz-page-content" style="flex:1;min-width:0">
+<style>
+/* ===== WEEKLY REVIEW — WAR ROOM ===== */
+.wr-wrap{padding:12px 14px 100px;max-width:720px;margin:0 auto}
+
+/* Hero */
+.wr-hero{background:linear-gradient(135deg,#1e1b4b 0%,#312e81 50%,#4c1d95 100%);border-radius:18px;padding:20px 20px 16px;margin-bottom:14px;position:relative;overflow:hidden}
+.wr-hero::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 20px,rgba(255,255,255,.015) 20px,rgba(255,255,255,.015) 21px);pointer-events:none}
+.wr-hero-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.wr-week-nav{display:flex;align-items:center;gap:10px}
+.wr-nav-btn{background:rgba(255,255,255,.12);border:none;cursor:pointer;width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;transition:background .15s}
+.wr-nav-btn:hover{background:rgba(255,255,255,.22)}
+.wr-week-info{text-align:center}
+.wr-week-key{font-size:10px;color:rgba(255,255,255,.5);letter-spacing:1px;text-transform:uppercase}
+.wr-week-label{font-size:13px;font-weight:700;color:#fff;margin-top:2px}
+.wr-score-section{display:flex;align-items:center;gap:16px}
+.wr-score-ring-wrap{position:relative;width:90px;height:90px;flex-shrink:0}
+.wr-score-ring-wrap svg{transform:rotate(-90deg)}
+.wr-score-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.wr-score-num{font-size:22px;font-weight:900;color:#fff;line-height:1}
+.wr-score-lbl{font-size:9px;color:rgba(255,255,255,.5);letter-spacing:.5px;text-transform:uppercase}
+.wr-grade-badge{font-size:36px;font-weight:900;line-height:1;background:linear-gradient(135deg,#a78bfa,#38bdf8);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.wr-grade-sub{font-size:13px;color:rgba(255,255,255,.7);margin-top:3px}
+.wr-hero-stats{display:flex;gap:8px;margin-top:14px}
+.wr-hero-stat{flex:1;background:rgba(255,255,255,.08);border-radius:10px;padding:8px 10px;text-align:center}
+.wr-hero-stat-val{font-size:18px;font-weight:800;color:#fff}
+.wr-hero-stat-lbl{font-size:9px;color:rgba(255,255,255,.5);margin-top:1px;text-transform:uppercase;letter-spacing:.3px}
+
+/* Section cards */
+.wr-section{background:var(--card,#fff);border:1px solid var(--border,#e5e7eb);border-radius:14px;padding:16px;margin-bottom:12px}
+.wr-section-hd{display:flex;align-items:center;gap:8px;margin-bottom:14px}
+.wr-section-ico{width:32px;height:32px;border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.wr-section-title{font-size:14px;font-weight:800;color:var(--text,#1a1a2e)}
+.wr-section-sub{font-size:11px;color:var(--text2,#888);margin-top:1px}
+
+/* Day strip */
+.wr-day-strip{display:flex;gap:5px}
+.wr-day-card{flex:1;background:var(--bg,#f8f9fa);border-radius:10px;padding:8px 4px;text-align:center;cursor:pointer;border:1.5px solid transparent;transition:all .15s;min-width:0}
+.wr-day-card:hover:not(.wr-day-future){border-color:#8b5cf6;background:rgba(139,92,246,.05)}
+.wr-day-card.wr-day-today{border-color:#8b5cf6;background:rgba(139,92,246,.06)}
+.wr-day-card.wr-day-filled{border-color:rgba(139,92,246,.3)}
+.wr-day-card.wr-day-future{opacity:.4;cursor:default}
+.wr-day-name{font-size:9px;font-weight:700;color:var(--text2,#aaa);text-transform:uppercase;letter-spacing:.3px}
+.wr-day-num{font-size:15px;font-weight:800;color:var(--text,#1a1a2e);margin:3px 0}
+.wr-day-mood{font-size:16px;min-height:20px;line-height:1}
+
+/* Goals */
+.wr-goal-add{display:flex;gap:7px;margin-bottom:10px}
+.wr-goal-add input,.wr-goal-add select{background:var(--bg,#f4f4f5);border:1px solid var(--border,#e5e7eb);border-radius:8px;padding:8px 11px;font-size:12.5px;color:var(--text,#1a1a2e);font-family:inherit;outline:none;transition:border-color .12s}
+.wr-goal-inp-wrap{flex:1;min-width:0}
+.wr-goal-inp-wrap input{width:100% !important;box-sizing:border-box}
+.wr-goal-add select{flex:0 0 auto !important;width:auto !important;max-width:105px;min-width:80px}
+.wr-goal-add input:focus,.wr-goal-add select:focus{border-color:#8b5cf6}
+.wr-goal-add-btn{background:#8b5cf6;border:none;color:#fff;padding:8px 14px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;flex-shrink:0}
+.wr-goal-item{display:flex;align-items:center;gap:7px;padding:8px 10px;border-radius:9px;background:var(--bg,#f8f9fa);margin-bottom:6px}
+.wr-goal-text{flex:1;font-size:12.5px;color:var(--text,#1a1a2e);min-width:0;word-break:break-word}
+.wr-goal-text.wr-done{text-decoration:line-through;color:var(--text2,#aaa)}
+.wr-goal-text.wr-missed{text-decoration:line-through;color:#ef4444;opacity:.6}
+.wr-status-btn{font-size:10px;font-weight:700;padding:3px 8px;border-radius:20px;border:none;cursor:pointer;white-space:nowrap;flex-shrink:0}
+.wr-del-btn{background:none;border:none;cursor:pointer;color:var(--text2,#ccc);padding:3px;border-radius:5px;display:flex;align-items:center;flex-shrink:0;transition:color .12s}
+.wr-del-btn:hover{color:#ef4444}
+
+/* Life wheel */
+.wr-life-layout{display:flex;gap:16px;align-items:flex-start}
+.wr-radar-wrap{flex-shrink:0}
+.wr-areas-list{flex:1;min-width:0}
+.wr-area-row{margin-bottom:10px}
+.wr-area-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px}
+.wr-area-name{font-size:11.5px;font-weight:700;color:var(--text,#1a1a2e)}
+.wr-area-val{font-size:12px;font-weight:800;color:#8b5cf6}
+.wr-area-track{background:var(--bg,#f0f0f0);border-radius:20px;height:6px;overflow:hidden}
+.wr-area-bar{height:100%;border-radius:20px;transition:width .3s}
+.wr-area-slider{width:100%;margin-top:4px;accent-color:#8b5cf6;height:3px;cursor:pointer}
+@media(max-width:480px){.wr-life-layout{flex-direction:column}.wr-radar-wrap{width:100%;display:flex;justify-content:center}}
+
+/* Wins & challenges */
+.wr-two-col{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:500px){.wr-two-col{grid-template-columns:1fr}}
+.wr-win-col-hd{display:flex;align-items:center;gap:5px;font-size:11px;font-weight:700;margin-bottom:7px}
+.wr-textarea{width:100%;box-sizing:border-box;background:var(--bg,#f8f9fa);border:1px solid var(--border,#e5e7eb);border-radius:9px;padding:9px 11px;font-size:12.5px;color:var(--text,#1a1a2e);font-family:inherit;outline:none;resize:none;transition:border-color .12s;line-height:1.6}
+.wr-textarea:focus{border-color:#8b5cf6}
+.wr-textarea::placeholder{color:var(--text2,#bbb)}
+
+/* Reflection */
+.wr-rf-card{background:var(--bg,#f8f9fa);border-radius:10px;padding:12px;margin-bottom:8px}
+.wr-rf-prompt{font-size:10px;font-weight:700;color:#8b5cf6;text-transform:uppercase;letter-spacing:.4px;margin-bottom:6px;display:flex;align-items:center;gap:5px}
+.wr-grat-inp{width:100%;box-sizing:border-box;background:var(--card,#fff);border:1px solid var(--border,#e5e7eb);border-radius:8px;padding:8px 11px;font-size:12.5px;color:var(--text,#1a1a2e);font-family:inherit;outline:none;transition:border-color .12s;margin-bottom:6px}
+.wr-grat-inp:last-child{margin-bottom:0}
+.wr-grat-inp:focus{border-color:#8b5cf6}
+.wr-grat-inp::placeholder{color:var(--text2,#bbb)}
+
+/* Next week */
+.wr-focus-inp{width:100%;box-sizing:border-box;background:linear-gradient(135deg,rgba(139,92,246,.06),rgba(99,102,241,.04));border:1.5px solid rgba(139,92,246,.2);border-radius:10px;padding:11px 14px;font-size:14px;font-weight:700;color:var(--text,#1a1a2e);font-family:inherit;outline:none;margin-bottom:10px}
+.wr-focus-inp:focus{border-color:#8b5cf6}
+.wr-focus-inp::placeholder{color:var(--text2,#ccc)}
+.wr-priority-item{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.wr-priority-num{width:22px;height:22px;border-radius:50%;background:linear-gradient(135deg,#8b5cf6,#6366f1);color:#fff;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.wr-priority-inp{flex:1;background:var(--bg,#f4f4f5);border:1px solid var(--border,#e5e7eb);border-radius:8px;padding:8px 11px;font-size:12.5px;color:var(--text,#1a1a2e);font-family:inherit;outline:none;transition:border-color .12s}
+.wr-priority-inp:focus{border-color:#8b5cf6}
+.wr-priority-inp::placeholder{color:var(--text2,#bbb)}
+
+/* Mood modal */
+.wr-mood-modal{display:none;position:fixed;inset:0;z-index:9000;background:rgba(0,0,0,.5);backdrop-filter:blur(6px);align-items:flex-end;justify-content:center}
+.wr-mood-modal.open{display:flex}
+@media(min-width:520px){.wr-mood-modal{align-items:center;padding:20px}.wr-mood-sheet{border-radius:18px !important;max-width:420px}}
+.wr-mood-sheet{background:var(--card,#fff);border-radius:20px 20px 0 0;padding:20px 20px 32px;width:100%}
+.wr-mood-title{font-size:15px;font-weight:800;color:var(--text,#1a1a2e);margin-bottom:4px;text-align:center}
+.wr-mood-sub{font-size:11px;color:var(--text2,#aaa);text-align:center;margin-bottom:16px}
+.wr-mood-row{display:flex;gap:8px;justify-content:center;margin-bottom:16px}
+.wr-mood-opt{width:52px;height:52px;border-radius:14px;border:2px solid var(--border,#e5e7eb);background:var(--bg,#f8f9fa);cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;transition:all .12s;font-size:22px;font-family:inherit}
+.wr-mood-opt .wr-opt-lbl{font-size:9px;color:var(--text2,#aaa);font-weight:700}
+.wr-mood-opt.active{border-color:#8b5cf6;background:rgba(139,92,246,.08)}
+.wr-energy-row{display:flex;gap:6px;justify-content:center;margin-bottom:16px}
+.wr-energy-opt{flex:1;max-width:60px;padding:8px 4px;border-radius:10px;border:2px solid var(--border,#e5e7eb);background:var(--bg,#f8f9fa);cursor:pointer;text-align:center;font-size:11px;font-weight:700;color:var(--text2,#888);transition:all .12s;font-family:inherit}
+.wr-energy-opt.active{border-color:#f59e0b;background:rgba(245,158,11,.08);color:#f59e0b}
+.wr-mood-done-btn{width:100%;background:linear-gradient(135deg,#8b5cf6,#6366f1);border:none;color:#fff;padding:12px;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit}
+</style>
+
+<div class="wr-wrap">
+
+  <!-- ── HERO HEADER ── -->
+  <div class="wr-hero">
+    <div class="wr-hero-top">
+      <div class="wr-week-nav">
+        <button class="wr-nav-btn" id="wr-prev" onclick="wrChangeWeek(-1)">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <div class="wr-week-info">
+          <div class="wr-week-key" id="wr-week-key">—</div>
+          <div class="wr-week-label" id="wr-week-label">লোড হচ্ছে...</div>
+        </div>
+        <button class="wr-nav-btn" id="wr-next" onclick="wrChangeWeek(1)">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </div>
+      <div style="font-size:10px;color:rgba(255,255,255,.35);letter-spacing:1px;font-weight:700">WAR ROOM</div>
+    </div>
+
+    <div class="wr-score-section">
+      <div class="wr-score-ring-wrap">
+        <svg width="90" height="90" viewBox="0 0 90 90">
+          <circle cx="45" cy="45" r="38" fill="none" stroke="rgba(255,255,255,.08)" stroke-width="7"/>
+          <circle id="wr-score-ring" cx="45" cy="45" r="38" fill="none" stroke="#8b5cf6" stroke-width="7" stroke-linecap="round" style="stroke-dasharray:238.76;stroke-dashoffset:238.76;transition:stroke-dashoffset .6s ease,stroke .4s"/>
+        </svg>
+        <div class="wr-score-center">
+          <div class="wr-score-num" id="wr-power-score">0</div>
+          <div class="wr-score-lbl">SCORE</div>
+        </div>
+      </div>
+      <div style="flex:1">
+        <div class="wr-grade-badge" id="wr-grade">—</div>
+        <div class="wr-grade-sub" id="wr-grade-label">রিভিউ শুরু করো</div>
+        <div style="margin-top:7px;font-size:10px;color:rgba(255,255,255,.35)">Goals · Mood · Life Areas · Reflection</div>
+      </div>
+    </div>
+
+    <div class="wr-hero-stats">
+      <div class="wr-hero-stat">
+        <div class="wr-hero-stat-val" id="wr-stat-goals">0/0</div>
+        <div class="wr-hero-stat-lbl">Goals</div>
+      </div>
+      <div class="wr-hero-stat">
+        <div class="wr-hero-stat-val" id="wr-stat-mood">—</div>
+        <div class="wr-hero-stat-lbl">Mood</div>
+      </div>
+      <div class="wr-hero-stat">
+        <div class="wr-hero-stat-val" id="wr-stat-areas">—</div>
+        <div class="wr-hero-stat-lbl">Life Avg</div>
+      </div>
+      <div class="wr-hero-stat">
+        <div class="wr-hero-stat-val" id="wr-stat-days">0/7</div>
+        <div class="wr-hero-stat-lbl">Days</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── DAY MOOD STRIP ── -->
+  <div class="wr-section">
+    <div class="wr-section-hd">
+      <div class="wr-section-ico" style="background:rgba(56,189,248,.12)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#38BDF8" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+      </div>
+      <div>
+        <div class="wr-section-title">দিনের Mood Log</div>
+        <div class="wr-section-sub">প্রতিটি দিনে ক্লিক করে mood ও energy রেকর্ড করো</div>
+      </div>
+    </div>
+    <div class="wr-day-strip">
+      <div class="wr-day-card" id="wr-day-mon" onclick="wrOpenMoodPicker('mon')"><div class="wr-day-name">সোম</div><div class="wr-day-num">—</div><div class="wr-day-mood">·</div></div>
+      <div class="wr-day-card" id="wr-day-tue" onclick="wrOpenMoodPicker('tue')"><div class="wr-day-name">মঙ্গল</div><div class="wr-day-num">—</div><div class="wr-day-mood">·</div></div>
+      <div class="wr-day-card" id="wr-day-wed" onclick="wrOpenMoodPicker('wed')"><div class="wr-day-name">বুধ</div><div class="wr-day-num">—</div><div class="wr-day-mood">·</div></div>
+      <div class="wr-day-card" id="wr-day-thu" onclick="wrOpenMoodPicker('thu')"><div class="wr-day-name">বৃহঃ</div><div class="wr-day-num">—</div><div class="wr-day-mood">·</div></div>
+      <div class="wr-day-card" id="wr-day-fri" onclick="wrOpenMoodPicker('fri')"><div class="wr-day-name">শুক্র</div><div class="wr-day-num">—</div><div class="wr-day-mood">·</div></div>
+      <div class="wr-day-card" id="wr-day-sat" onclick="wrOpenMoodPicker('sat')"><div class="wr-day-name">শনি</div><div class="wr-day-num">—</div><div class="wr-day-mood">·</div></div>
+      <div class="wr-day-card" id="wr-day-sun" onclick="wrOpenMoodPicker('sun')"><div class="wr-day-name">রবি</div><div class="wr-day-num">—</div><div class="wr-day-mood">·</div></div>
+    </div>
+  </div>
+
+  <!-- ── WEEKLY GOALS ── -->
+  <div class="wr-section">
+    <div class="wr-section-hd">
+      <div class="wr-section-ico" style="background:rgba(139,92,246,.12)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+      </div>
+      <div>
+        <div class="wr-section-title">এই সপ্তাহের Goals</div>
+        <div class="wr-section-sub">ক্লিক করে status পরিবর্তন করো · পর্যায়ক্রমে পরিবর্তন হবে</div>
+      </div>
+    </div>
+    <div class="wr-goal-add">
+      <div class="wr-goal-inp-wrap"><input id="wr-goal-input" type="text" placeholder="Goal লিখুন..." onkeydown="if(event.key==='Enter')wrAddGoal()" autocomplete="off"></div>
+      <select id="wr-goal-cat">
+        <option value="work">💼 কাজ</option>
+        <option value="health">💪 স্বাস্থ্য</option>
+        <option value="spiritual">🤲 আধ্যাত্মিক</option>
+        <option value="social">👥 সামাজিক</option>
+        <option value="learning">📚 শেখা</option>
+        <option value="finance">💰 অর্থ</option>
+        <option value="personal">⭐ ব্যক্তিগত</option>
+      </select>
+      <button class="wr-goal-add-btn" onclick="wrAddGoal()">+ যোগ</button>
+    </div>
+    <div id="wr-goals-list"></div>
+  </div>
+
+  <!-- ── LIFE WHEEL ── -->
+  <div class="wr-section">
+    <div class="wr-section-hd">
+      <div class="wr-section-ico" style="background:rgba(99,102,241,.12)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"/><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"/><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"/><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"/></svg>
+      </div>
+      <div>
+        <div class="wr-section-title">Life Wheel — জীবন চাকা</div>
+        <div class="wr-section-sub">প্রতিটি ক্ষেত্র ১–১০ এ রেট করো</div>
+      </div>
+    </div>
+    <div class="wr-life-layout">
+      <div class="wr-radar-wrap">
+        <canvas id="wr-radar" width="180" height="180"></canvas>
+      </div>
+      <div class="wr-areas-list">
+        <div class="wr-area-row">
+          <div class="wr-area-hd"><span class="wr-area-name">💼 কাজ</span><span class="wr-area-val" id="wr-area-val-work">5</span></div>
+          <div class="wr-area-track"><div class="wr-area-bar" id="wr-area-bar-work" style="width:50%;background:#8b5cf6"></div></div>
+          <input type="range" class="wr-area-slider" id="wr-area-work" min="1" max="10" value="5" oninput="wrAreaChange('work',this.value)">
+        </div>
+        <div class="wr-area-row">
+          <div class="wr-area-hd"><span class="wr-area-name">💪 স্বাস্থ্য</span><span class="wr-area-val" id="wr-area-val-health">5</span></div>
+          <div class="wr-area-track"><div class="wr-area-bar" id="wr-area-bar-health" style="width:50%;background:#10b981"></div></div>
+          <input type="range" class="wr-area-slider" id="wr-area-health" min="1" max="10" value="5" oninput="wrAreaChange('health',this.value)">
+        </div>
+        <div class="wr-area-row">
+          <div class="wr-area-hd"><span class="wr-area-name">🤲 আধ্যাত্মিক</span><span class="wr-area-val" id="wr-area-val-spiritual">5</span></div>
+          <div class="wr-area-track"><div class="wr-area-bar" id="wr-area-bar-spiritual" style="width:50%;background:#f59e0b"></div></div>
+          <input type="range" class="wr-area-slider" id="wr-area-spiritual" min="1" max="10" value="5" oninput="wrAreaChange('spiritual',this.value)">
+        </div>
+        <div class="wr-area-row">
+          <div class="wr-area-hd"><span class="wr-area-name">👥 সামাজিক</span><span class="wr-area-val" id="wr-area-val-social">5</span></div>
+          <div class="wr-area-track"><div class="wr-area-bar" id="wr-area-bar-social" style="width:50%;background:#38bdf8"></div></div>
+          <input type="range" class="wr-area-slider" id="wr-area-social" min="1" max="10" value="5" oninput="wrAreaChange('social',this.value)">
+        </div>
+        <div class="wr-area-row">
+          <div class="wr-area-hd"><span class="wr-area-name">📚 শেখা</span><span class="wr-area-val" id="wr-area-val-learning">5</span></div>
+          <div class="wr-area-track"><div class="wr-area-bar" id="wr-area-bar-learning" style="width:50%;background:#6366f1"></div></div>
+          <input type="range" class="wr-area-slider" id="wr-area-learning" min="1" max="10" value="5" oninput="wrAreaChange('learning',this.value)">
+        </div>
+        <div class="wr-area-row">
+          <div class="wr-area-hd"><span class="wr-area-name">💰 অর্থ</span><span class="wr-area-val" id="wr-area-val-finance">5</span></div>
+          <div class="wr-area-track"><div class="wr-area-bar" id="wr-area-bar-finance" style="width:50%;background:#ec4899"></div></div>
+          <input type="range" class="wr-area-slider" id="wr-area-finance" min="1" max="10" value="5" oninput="wrAreaChange('finance',this.value)">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── WINS & CHALLENGES ── -->
+  <div class="wr-section">
+    <div class="wr-section-hd">
+      <div class="wr-section-ico" style="background:rgba(16,185,129,.12)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      </div>
+      <div>
+        <div class="wr-section-title">Wins & Challenges</div>
+        <div class="wr-section-sub">এই সপ্তাহের সেরা মুহূর্ত ও কঠিন বিষয়</div>
+      </div>
+    </div>
+    <div class="wr-two-col">
+      <div>
+        <div class="wr-win-col-hd" style="color:#10b981">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          এই সপ্তাহের Wins
+        </div>
+        <textarea class="wr-textarea" id="wr-win-0" placeholder="🏆 বড় একটা জয়..." rows="2" oninput="wrSaveWin(0,this.value)"></textarea>
+        <div style="height:6px"></div>
+        <textarea class="wr-textarea" id="wr-win-1" placeholder="✨ আরেকটা ভালো মুহূর্ত..." rows="2" oninput="wrSaveWin(1,this.value)"></textarea>
+        <div style="height:6px"></div>
+        <textarea class="wr-textarea" id="wr-win-2" placeholder="💡 শেখাটাও win..." rows="2" oninput="wrSaveWin(2,this.value)"></textarea>
+      </div>
+      <div>
+        <div class="wr-win-col-hd" style="color:#ef4444">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          কঠিন বিষয়
+        </div>
+        <textarea class="wr-textarea" id="wr-challenge-0" placeholder="😓 সবচেয়ে কঠিন কি ছিলো?" rows="2" oninput="wrSaveChallenge(0,this.value)"></textarea>
+        <div style="height:6px"></div>
+        <textarea class="wr-textarea" id="wr-challenge-1" placeholder="🔥 কোথায় আরো ভালো পারতাম?" rows="2" oninput="wrSaveChallenge(1,this.value)"></textarea>
+        <div style="height:6px"></div>
+        <div style="background:rgba(239,68,68,.05);border:1px solid rgba(239,68,68,.12);border-radius:9px;padding:10px">
+          <div style="font-size:10px;color:#ef4444;font-weight:700;margin-bottom:3px">💭 মনে রাখো</div>
+          <div style="font-size:11px;color:var(--text2,#888);line-height:1.5">Challenges = Growth সুযোগ। হার নয়, শেখার অংশ।</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── DEEP REFLECTION ── -->
+  <div class="wr-section">
+    <div class="wr-section-hd">
+      <div class="wr-section-ico" style="background:rgba(99,102,241,.12)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>
+      </div>
+      <div>
+        <div class="wr-section-title">Deep Reflection</div>
+        <div class="wr-section-sub">নিজের সাথে সৎ হও — এটাই growth এর চাবিকাঠি</div>
+      </div>
+    </div>
+    <div class="wr-rf-card">
+      <div class="wr-rf-prompt"><svg width="8" height="8" viewBox="0 0 24 24" fill="#8b5cf6"><circle cx="12" cy="12" r="10"/></svg>এই সপ্তাহে কোন বিষয়টি সবচেয়ে ভালো গেছে?</div>
+      <textarea class="wr-textarea" id="wr-rf-wentwell" placeholder="ভালো কাজ, সিদ্ধান্ত বা মুহূর্ত..." rows="3" oninput="wrSaveReflection('wentWell',this.value)"></textarea>
+    </div>
+    <div class="wr-rf-card">
+      <div class="wr-rf-prompt"><svg width="8" height="8" viewBox="0 0 24 24" fill="#f59e0b"><circle cx="12" cy="12" r="10"/></svg>কোন বিষয়ে আরো উন্নতি করতে চাই?</div>
+      <textarea class="wr-textarea" id="wr-rf-improve" placeholder="একটি নির্দিষ্ট বিষয়ে focus করো..." rows="3" oninput="wrSaveReflection('improve',this.value)"></textarea>
+    </div>
+    <div class="wr-rf-card">
+      <div class="wr-rf-prompt"><svg width="8" height="8" viewBox="0 0 24 24" fill="#10b981"><circle cx="12" cy="12" r="10"/></svg>এই সপ্তাহে সবচেয়ে বড় শিক্ষা কি?</div>
+      <textarea class="wr-textarea" id="wr-rf-learned" placeholder="একটি lesson যা মনে রাখবো..." rows="3" oninput="wrSaveReflection('learned',this.value)"></textarea>
+    </div>
+    <div style="background:linear-gradient(135deg,rgba(251,191,36,.06),rgba(245,158,11,.04));border:1px solid rgba(245,158,11,.15);border-radius:10px;padding:12px">
+      <div class="wr-rf-prompt" style="color:#f59e0b">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="#f59e0b"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        আজকে ৩টি জিনিসের জন্য শুকরিয়া
+      </div>
+      <input class="wr-grat-inp" id="wr-grat-0" type="text" placeholder="১. আমি কৃতজ্ঞ..." oninput="wrSaveReflection('gratitude0',this.value)" autocomplete="off">
+      <input class="wr-grat-inp" id="wr-grat-1" type="text" placeholder="২. আমি কৃতজ্ঞ..." oninput="wrSaveReflection('gratitude1',this.value)" autocomplete="off">
+      <input class="wr-grat-inp" id="wr-grat-2" type="text" placeholder="৩. আমি কৃতজ্ঞ..." oninput="wrSaveReflection('gratitude2',this.value)" autocomplete="off">
+    </div>
+  </div>
+
+  <!-- ── ISLAMIC CORNER ── -->
+  <div style="background:linear-gradient(135deg,rgba(245,158,11,.08),rgba(251,191,36,.04));border:1px solid rgba(245,158,11,.2);border-radius:14px;padding:16px;margin-bottom:12px">
+    <div style="display:flex;align-items:center;gap:7px;margin-bottom:10px">
+      <div style="width:32px;height:32px;border-radius:9px;background:rgba(245,158,11,.15);display:flex;align-items:center;justify-content:center">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+      </div>
+      <div>
+        <div style="font-size:14px;font-weight:800;color:#92400e">ইসলামিক প্রতিফলন</div>
+        <div style="font-size:11px;color:#a16207">এই সপ্তাহের আধ্যাত্মিক উপলব্ধি</div>
+      </div>
+    </div>
+    <textarea class="wr-textarea" id="wr-islamic" placeholder="এই সপ্তাহে কোন আয়াত বা হাদীস হৃদয় স্পর্শ করেছে? কেন?" rows="3" style="background:rgba(255,255,255,.5)" oninput="wrSaveReflection('islamic',this.value)"></textarea>
+    <div style="margin-top:10px;font-size:11px;color:#a16207;line-height:1.6;font-style:italic;text-align:center">"নিশ্চয়ই কষ্টের সাথে স্বস্তি আছে।" — সূরা আশ-শারহ: ৬</div>
+  </div>
+
+  <!-- ── NEXT WEEK COMMAND ── -->
+  <div class="wr-section" style="border-color:rgba(139,92,246,.2);background:linear-gradient(135deg,rgba(139,92,246,.03),transparent)">
+    <div class="wr-section-hd">
+      <div class="wr-section-ico" style="background:rgba(139,92,246,.15)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+      </div>
+      <div>
+        <div class="wr-section-title">আগামী সপ্তাহের Command</div>
+        <div class="wr-section-sub">পরের সপ্তাহের জন্য এখনই plan করো</div>
+      </div>
+    </div>
+    <div style="font-size:10px;font-weight:700;color:var(--text2,#aaa);margin-bottom:6px;text-transform:uppercase;letter-spacing:.5px">🎯 Main Focus</div>
+    <input class="wr-focus-inp" id="wr-next-focus" type="text" placeholder="আগামী সপ্তাহে একটাই focus — কি সেটা?" oninput="wrSaveNext('focus',this.value)" autocomplete="off">
+    <div style="font-size:10px;font-weight:700;color:var(--text2,#aaa);margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px">📋 Top 3 Priorities</div>
+    <div class="wr-priority-item">
+      <div class="wr-priority-num">১</div>
+      <input class="wr-priority-inp" id="wr-next-p0" type="text" placeholder="সবচেয়ে গুরুত্বপূর্ণ কাজ..." oninput="wrSaveNext('priority0',this.value)" autocomplete="off">
+    </div>
+    <div class="wr-priority-item">
+      <div class="wr-priority-num">২</div>
+      <input class="wr-priority-inp" id="wr-next-p1" type="text" placeholder="দ্বিতীয় গুরুত্বপূর্ণ..." oninput="wrSaveNext('priority1',this.value)" autocomplete="off">
+    </div>
+    <div class="wr-priority-item" style="margin-bottom:12px">
+      <div class="wr-priority-num">৩</div>
+      <input class="wr-priority-inp" id="wr-next-p2" type="text" placeholder="তৃতীয় priority..." oninput="wrSaveNext('priority2',this.value)" autocomplete="off">
+    </div>
+    <div style="font-size:10px;font-weight:700;color:var(--text2,#aaa);margin-bottom:6px;text-transform:uppercase;letter-spacing:.5px">🌱 Build This Habit</div>
+    <input class="wr-focus-inp" id="wr-next-habit" type="text" placeholder="আগামী সপ্তাহে যে একটা Habit গড়তে চাই..." style="margin-bottom:0" oninput="wrSaveNext('habit',this.value)" autocomplete="off">
+  </div>
+
+</div><!-- /wr-wrap -->
+
+<!-- ── MOOD PICKER MODAL ── -->
+<div class="wr-mood-modal" id="wr-mood-modal" onclick="if(event.target===this)wrCloseMoodModal()">
+  <div class="wr-mood-sheet">
+    <div class="wr-mood-title" id="wr-mood-day-label">আজকের Mood</div>
+    <div class="wr-mood-sub">Mood এবং Energy level রেকর্ড করো</div>
+    <div style="font-size:10px;font-weight:700;color:var(--text2,#aaa);text-align:center;margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px">😊 Mood</div>
+    <div class="wr-mood-row">
+      <button class="wr-mood-opt" id="wr-mood-btn-1" onclick="wrSelectMood(1)">😞<span class="wr-opt-lbl">খারাপ</span></button>
+      <button class="wr-mood-opt" id="wr-mood-btn-2" onclick="wrSelectMood(2)">😕<span class="wr-opt-lbl">কম ভালো</span></button>
+      <button class="wr-mood-opt" id="wr-mood-btn-3" onclick="wrSelectMood(3)">😐<span class="wr-opt-lbl">মোটামুটি</span></button>
+      <button class="wr-mood-opt" id="wr-mood-btn-4" onclick="wrSelectMood(4)">😊<span class="wr-opt-lbl">ভালো</span></button>
+      <button class="wr-mood-opt" id="wr-mood-btn-5" onclick="wrSelectMood(5)">🔥<span class="wr-opt-lbl">দুর্দান্ত</span></button>
+    </div>
+    <div style="font-size:10px;font-weight:700;color:var(--text2,#aaa);text-align:center;margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px">⚡ Energy</div>
+    <div class="wr-energy-row">
+      <button class="wr-energy-opt" id="wr-energy-btn-1" onclick="wrSelectEnergy(1)">খুব কম</button>
+      <button class="wr-energy-opt" id="wr-energy-btn-2" onclick="wrSelectEnergy(2)">কম</button>
+      <button class="wr-energy-opt" id="wr-energy-btn-3" onclick="wrSelectEnergy(3)">মাঝারি</button>
+      <button class="wr-energy-opt" id="wr-energy-btn-4" onclick="wrSelectEnergy(4)">বেশি</button>
+      <button class="wr-energy-opt" id="wr-energy-btn-5" onclick="wrSelectEnergy(5)">⚡ Max</button>
+    </div>
+    <button class="wr-mood-done-btn" onclick="wrCloseMoodModal()">সম্পন্ন ✓</button>
+  </div>
+</div>
+
+</div><!-- /rz-page-content -->
+
+<!-- DONATION SIDEBAR -->
+<div class="rz-donation-sidebar">
+  <div class="rz-dsb-inner" style="overflow-y:auto;padding:20px 14px">
+    <div style="text-align:center;margin-bottom:14px">
+      <div style="width:56px;height:56px;border-radius:18px;background:linear-gradient(135deg,rgba(255,138,0,.15),rgba(255,184,0,.1));border:1px solid rgba(255,138,0,.3);display:flex;align-items:center;justify-content:center;margin:0 auto 12px">
+        <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="#FF8A00" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" fill="rgba(255,138,0,.12)"/></svg>
+      </div>
+      <div style="font-size:11px;font-weight:800;color:#FF8A00;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:8px">RIZERS কে SUPPORT করুন</div>
+      <div style="font-size:14px;font-weight:800;color:var(--text,#1f2937);line-height:1.5">"তোমার ছোট সাহায্য হাজারজনের ইবাদত সহজ করে দিতে পারে।"</div>
+    </div>
+    <div style="background:rgba(255,138,0,.06);border:1px solid rgba(255,138,0,.18);border-radius:14px;padding:12px;margin-bottom:14px">
+      <div style="font-size:12.5px;color:var(--text,#1f2937);line-height:1.8">Rizers সম্পূর্ণ <strong>বিনামূল্যে</strong> চলে।<br>মাত্র <strong style="color:#FF8A00">৳৯৯/মাস</strong> — এক কাপ চায়ের দাম।</div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:9px;margin-bottom:14px">
+      <div style="display:flex;align-items:center;gap:9px">
+        <div style="width:34px;height:34px;border-radius:10px;background:rgba(255,138,0,.1);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:16px">🤖</div>
+        <div><div style="font-size:12.5px;font-weight:700;color:var(--text,#1f2937)">AI সবার জন্য ফ্রি থাকবে</div><div style="font-size:10.5px;color:var(--text-muted,#888);margin-top:1px">হাজারজনের AI partner</div></div>
+      </div>
+      <div style="display:flex;align-items:center;gap:9px">
+        <div style="width:34px;height:34px;border-radius:10px;background:rgba(34,197,94,.1);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:16px">🌱</div>
+        <div><div style="font-size:12.5px;font-weight:700;color:var(--text,#1f2937)">নতুন feature আসতে থাকবে</div><div style="font-size:10.5px;color:var(--text-muted,#888);margin-top:1px">সব feature সম্পূর্ণ free</div></div>
+      </div>
+      <div style="display:flex;align-items:center;gap:9px">
+        <div style="width:34px;height:34px;border-radius:10px;background:rgba(59,130,246,.1);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:16px">🕌</div>
+        <div><div style="font-size:12.5px;font-weight:700;color:var(--text,#1f2937)">ইসলামিক lifestyle সহজ হবে</div><div style="font-size:10.5px;color:var(--text-muted,#888);margin-top:1px">নামাজ, কোরআন — সব এক জায়গায়</div></div>
+      </div>
+    </div>
+    <div style="padding:11px 12px;border-left:3px solid #FF8A00;background:rgba(255,138,0,.04);border-radius:0 10px 10px 0;margin-bottom:16px">
+      <div style="font-size:12px;color:var(--text,#1f2937);line-height:1.7;font-style:italic">"যে ব্যক্তি কোনো ভালো কাজে সহায়তা করে, সে যেন সেই কাজ নিজেই করলো।"</div>
+      <div style="font-size:11px;color:#FF8A00;font-weight:800;margin-top:4px">— বুখারী ও মুসলিম</div>
+    </div>
+    <a href="#" onclick="rzGoToPayment&&rzGoToPayment();return false;" style="display:block;width:100%;background:linear-gradient(135deg,#FF8A00,#FFB800);color:#090B12;font-size:14px;font-weight:800;text-align:center;padding:14px;border-radius:13px;text-decoration:none;box-shadow:0 4px 16px rgba(255,138,0,.35);box-sizing:border-box;margin-bottom:8px">🤲 ৳৯৯/মাসে Support করুন</a>
+    <div style="text-align:center;font-size:10.5px;color:var(--text-muted,#888);line-height:1.5">সম্পূর্ণ স্বেচ্ছায় • যেকোনো সময় বাতিল করুন<br>জাযাকাল্লাহু খায়রান 🤍</div>
+  </div>
+</div><!-- /rz-donation-sidebar -->
+
+</div><!-- /wr-adult-wrap -->
+</div>
